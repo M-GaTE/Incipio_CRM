@@ -6,7 +6,7 @@
       owner: "{{ symfony_owner }}"
     - path:  /var/www/{{ symfony_src_dir }}/app/cache
       owner: www-data
-    - path:  /var/www/{{ symfony_src_dir }}/app/logs
+    - path:  /var/www/{{ symfony_src_dir }}/app/log
       owner: www-data
 
 # Is disabled at the moment since takes too much time
