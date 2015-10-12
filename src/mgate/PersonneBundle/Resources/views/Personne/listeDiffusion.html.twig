@@ -21,7 +21,7 @@
         </td>
         <td>
             {% for personne in personnes if personne.membre and personne.emailestvalide and personne.estabonnenewsletter  %}
-                {{personne.prenomNom }} &lt;{{ personne.membre.emailEtu }}&gt;;<br />
+                {{personne.prenomNom }} &lt;{{ personne.membre.emailEMSE }}&gt;;<br />
             {% endfor %}
         </td>
     </tr>
@@ -38,7 +38,7 @@
             {% for personne in personnes if personne.membre and personne.email and personne.emailestvalide %}{{personne.prenomNom }} &lt;{{ personne.email }}&gt;;<br />{% endfor %}
         </td>
         <td>
-            {% for personne in personnes if personne.membre %}{{personne.prenomNom }} &lt;{{ personne.membre.emailEtu }}&gt;;<br />{% endfor %}
+            {% for personne in personnes if personne.membre %}{{personne.prenomNom }} &lt;{{ personne.membre.emailEMSE }}&gt;;<br />{% endfor %}
         </td>
     </tr>
 </table>
