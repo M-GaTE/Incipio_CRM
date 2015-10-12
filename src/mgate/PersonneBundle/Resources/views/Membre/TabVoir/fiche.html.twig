@@ -19,7 +19,7 @@
             <td><span class="badge badge-{{ membre.dateConventionEleve ? "success" : "error" }}">Convention élève {{ membre.dateConventionEleve ? membre.dateConventionEleve | date('d/m/Y') : "Non signée" }}</span></td>
         </tr>
         <tr>
-            <td><i class="glyphicon glyphicon-headphones"></i> {{ membre.personne.mobile }}</td>
+            <td><i class="glyphicon glyphicon-phone"></i> {{ membre.personne.mobile }}</td>
             <td colspan="3">
                 <i class="glyphicon glyphicon-envelope"></i> <a href="mailto:{{ membre.personne.email }}">{{ membre.personne.email }}</a>
                 <br />
@@ -32,10 +32,14 @@
 			<td colspan="2">Nationalité : {{ membre.nationalite }}</td>
         </tr>
         <tr>
-            <td>Chambre</td>
-            <td>{{ membre.appartement }}</td>
-            <td>Adresse</td>
-            <td>{{ membre.personne.adresse }}</td>
+            <td colspan="4">
+                Adresse : {{ membre.personne.adresse }} <br>{{ membre.personne.codepostal }} {{ membre.personne.ville }} {{ membre.personne.pays }}
+            </td>
+        </tr>
+		<tr>
+            <td>Format Paiement : {{ membre.formatPaiement }}</td>
+            <td>Société Générale : {{ membre.estSocieteGenerale }}</td>
+			<td>Filière : {{ membre.filiere }}</td>
         </tr>
         <tr>
             <td colspan="4"><h4>Postes occupés</h4></td>

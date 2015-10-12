@@ -10,7 +10,7 @@
             <th colspan="7">Informations Membre</th>
         </tr>
         <tr>
-            <td rowspan="6" style="text-align: center;"><img class="img-thumbnail" style="height: 200px" src="{{ asset(photoURI) }}"/><br><br>{{ form_widget(form.photo) }}</td>
+            <td rowspan="7" style="text-align: center;"><img class="img-thumbnail" style="height: 200px" src="{{ asset(photoURI) }}"/><br><br>{{ form_widget(form.photo) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.personne.sexe) }}</td>
@@ -47,10 +47,22 @@
         <tr>
             <td>{{ form_label(form.emailEMSE) }}</td>
             <td>{{ form_widget(form.emailEMSE) }}</td>
-            <td>{{ form_label(form.appartement) }}</td>
-            <td>{{ form_widget(form.appartement) }}</td>
-            <td>{{ form_label(form.personne.adresse) }}</td>
-            <td>{{ form_widget(form.personne.adresse) }}</td>
+            <td>
+			{{ form_label(form.personne.adresse) }}<br><br>
+			{{ form_label(form.personne.codepostal) }} {{ form_label(form.personne.ville) }} {{ form_label(form.personne.pays) }}
+			</td>
+            <td>
+				{{ form_widget(form.personne.adresse) }}<br>
+				{{ form_widget(form.personne.codepostal) }} {{ form_widget(form.personne.ville) }} {{ form_widget(form.personne.pays) }}
+			</td>
+        </tr>
+		<tr>
+            <td>{{ form_label(form.formatPaiement) }}</td>
+            <td>{{ form_widget(form.formatPaiement) }}</td>
+			<td>{{ form_label(form.estSocieteGenerale) }}</td>
+            <td>{{ form_widget(form.estSocieteGenerale) }}</td>
+			<td>{{ form_label(form.filiere) }}</td>
+            <td>{{ form_widget(form.filiere) }}</td>
         </tr>
         <tr>
             <th colspan="7">Informations Intervenant</th>

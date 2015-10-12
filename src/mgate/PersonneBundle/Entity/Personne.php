@@ -47,35 +47,56 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="sexe", type="string", length=255)
+     * @ORM\Column(name="sexe", type="string", length=15)
      */
     private $sexe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=255, nullable=true)
+     * @ORM\Column(name="mobile", type="string", length=31, nullable=true)
      */
     private $mobile;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fix", type="string", length=255, nullable=true)
+     * @ORM\Column(name="fix", type="string", length=31, nullable=true)
      */
     private $fix;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
+     * @ORM\Column(name="adresse", type="string", length=127, nullable=true)
      */
     private $adresse;
 
+	/**
+     * @var int(5) $codepostal
+     *
+     * @ORM\Column(name="codepostal", type="integer", nullable=true)
+     */
+    private $codepostal;
+	
+	/**
+     * @var string $ville
+     *
+     * @ORM\Column(name="ville", type="string", length=63, nullable=true)
+     */
+    private $ville;
+	
+	/**
+     * @var string $pays
+     *
+     * @ORM\Column(name="pays", type="string", length=63, nullable=true)
+     */
+    private $pays;	
+	
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="email", type="string", length=63, nullable=true)
      */
     private $email;
 
@@ -299,6 +320,75 @@ class Personne
     public function getAdresse()
     {
         return $this->adresse;
+    }
+	
+		/**
+     * Set codepostal
+     *
+     * @param integer $codepostal
+     * @return Prospect
+     */
+    public function setCodePostal($codepostal)
+    {
+        $this->codepostal = $codepostal;
+    
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return integer 
+     */
+    public function getCodePostal()
+    {
+        return $this->codepostal;
+    }
+	
+	/**
+     * Set ville
+     *
+     * @param string $ville
+     * @return Prospect
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+    
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return string 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+	
+	/**
+     * Set codepostal
+     *
+     * @param string $pays
+     * @return Prospect
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+    
+        return $this;
+    }
+
+    /**
+     * Get pays
+     *
+     * @return string 
+     */
+    public function getPays()
+    {
+        return $this->pays;
     }
 
     /**

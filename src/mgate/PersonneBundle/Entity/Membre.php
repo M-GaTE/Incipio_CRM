@@ -69,12 +69,6 @@ class Membre
     private $promotion;
 
     /**
-     * @var int
-     * @ORM\Column(name="appartement", type="smallint", nullable=true)
-     */
-    private $appartement;
-
-    /**
      * @var date
      * @ORM\Column(name="birthdate", type="date", nullable=true)
      */
@@ -107,6 +101,29 @@ class Membre
      * @ORM\Column(name="photoURI", type="string", nullable=true)
      */
     private $photoURI;
+	
+	/** Ajout N7 Consulting **/
+	
+    /**
+     * @var string
+     * @ORM\Column(name="formatPaiement", type="string", length=15)
+     */
+    private $formatPaiement;
+	
+	/**
+     * @var bool
+     * @ORM\Column(name="estSocieteGenerale", type="boolean", nullable=false, options={"default" = false})
+     */
+    private $estSocieteGenerale;
+	
+	/**
+     * @var string
+     * @ORM\Column(name="filiere", type="string", length=15)
+     */
+    private $filiere;
+	
+	
+	
 
     /**
      * Get id.
@@ -310,30 +327,6 @@ class Membre
     }
 
     /**
-     * Set appartement.
-     *
-     * @param int $appartement
-     *
-     * @return Membre
-     */
-    public function setAppartement($appartement)
-    {
-        $this->appartement = $appartement;
-
-        return $this;
-    }
-
-    /**
-     * Get appartement.
-     *
-     * @return int
-     */
-    public function getAppartement()
-    {
-        return $this->appartement;
-    }
-
-    /**
      * Set nationalite.
      *
      * @param string $nationalite
@@ -496,4 +489,73 @@ class Membre
     {
         return $this->photoURI;
     }
+	
+	/**
+     * Set formatPaiement.
+     * @param string $formatPaiement
+     * @return Membre
+     */
+    public function setformatPaiement($formatPaiement)
+    {
+        $this->formatPaiement = $formatPaiement;
+
+        return $this;
+    }
+
+    /**
+     * Get formatPaiement.
+     *
+     * @return string
+     */
+    public function getformatPaiement()
+    {
+        return $this->formatPaiement;
+    }    
+	
+	/**
+     * Set estSocieteGenerale.
+     *
+     * @param string $estSocieteGenerale
+     *
+     * @return Membre
+     */
+    public function setestSocieteGenerale($estSocieteGenerale)
+    {
+        $this->estSocieteGenerale = $estSocieteGenerale;
+
+        return $this;
+    }
+
+    /**
+     * Get estSocieteGenerale.
+     *
+     * @return string
+     */
+    public function getestSocieteGenerale()
+    {
+        return $this->estSocieteGenerale;
+    }
+	
+		/**
+     * Set filiere.
+     * @param string $filiere
+     * @return Membre
+     */
+    public function setFiliere($filiere)
+    {
+        $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    /**
+     * Get filiere.
+     *
+     * @return string
+     */
+    public function getFiliere()
+    {
+        return $this->filiere;
+    }   
+	
 }

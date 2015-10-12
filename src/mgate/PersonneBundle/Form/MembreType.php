@@ -26,7 +26,6 @@ class MembreType extends AbstractType
                 ->add('dateDeNaissance', 'date', array('label' => 'Date de naissance (jj/mm/aaaa)', 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false))
                 ->add('lieuDeNaissance', 'text', array('label' => 'Lieu de naissance', 'required' => false))
                 ->add('nationalite', 'genemu_jqueryselect2_country', array('label' => 'Nationalité', 'required' => true, 'preferred_choices' => array('FR')))
-                ->add('appartement', 'integer', array('label' => 'Appartement', 'required' => false))
                 ->add('mandats', 'collection', array(
                     'type' => new MandatType(),
                     'allow_add' => true,
@@ -39,7 +38,10 @@ class MembreType extends AbstractType
                     'mapped' => false,
                     'required' => false,
                     'label' => 'Modifier la photo de profil du membre',
-                ));
+                ))
+				->add('formatPaiement', 'choice', array( 'choices' => array('aucun'=>'aucun', 'cheque' => 'Chèque', 'especes' => 'Espèces') ))
+				->add('estSocieteGenerale', 'checkbox', array('label' => 'Compte Sogé ?', 'required' => false))
+				->add('filiere', 'choice', array( 'choices' => array('EN' => 'EN', 'HMF' => 'HMF', 'IMA'=>'IMA', 'TR'=>'TR', 'GEA'=>'GEA') ));
     }
 
     public function getName()

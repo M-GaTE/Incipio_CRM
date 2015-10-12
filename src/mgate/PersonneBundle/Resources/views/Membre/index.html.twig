@@ -39,7 +39,7 @@ $(document).ready(function() {
             <th>Poste</th>
             <th>Email</th>
             <th>Mobile</th>
-            <th>Appartement</th>
+            <th>Adresse</th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +56,7 @@ $(document).ready(function() {
             </td>
             <td>{{ membre.personne ? membre.personne.email }}</td>
             <td>{{ membre.personne ? membre.personne.mobile }}</td>
-            <td>{{ membre.personne ? membre.appartement }}</td>
+            <td>{{ membre.personne ? membre.personne.adresse }} {{ membre.personne ? membre.personne.codepostal }} {{ membre.personne ? membre.personne.ville }}</td>
           </tr>
                 {% endfor %}
         </tbody>
