@@ -12,7 +12,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
     
-    su_mail:      contact@incipio.fr
+    su_mail:      contact@n7consulting.fr
     su_username:  admin
     su_password:  admin
     

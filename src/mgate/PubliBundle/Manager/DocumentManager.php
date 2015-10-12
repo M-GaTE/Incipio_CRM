@@ -141,7 +141,7 @@ class DocumentManager extends BaseManager
         // Store each Junior documents in a distinct subdirectory
         $junior = $this->container->getParameter('junior');
         if (!array_key_exists('id', $junior)) {
-            throw new \Exception('Votre version de Incipio est obsolète. Contactez support@incipio.fr (incorrect parameters junior : id)');
+            throw new \Exception('Votre version de Incipio est obsolète. Contactez dsi@n7consulting.fr (incorrect parameters junior : id)');
         }
         $juniorId = $junior['id'];
         $document->setSubdirectory($juniorId);
@@ -149,7 +149,7 @@ class DocumentManager extends BaseManager
         // Authorized Storage Size Overflow
         $totalSize = $document->getSize() + $this->getRepository()->getTotalSize();
         if ($totalSize > $junior['authorizedStorageSize']) {
-            throw new \Symfony\Component\HttpFoundation\File\Exception\UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à contact@incipio.fr.');
+            throw new \Symfony\Component\HttpFoundation\File\Exception\UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à dsi@n7consulting.fr.');
         }
 
         // Delete every document with the same name
