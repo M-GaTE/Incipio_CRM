@@ -7,4 +7,5 @@
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app.php [QSA,L]
+    DirectoryIndex app.php
 </IfModule>
