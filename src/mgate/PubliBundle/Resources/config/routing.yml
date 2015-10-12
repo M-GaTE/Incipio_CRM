@@ -19,7 +19,7 @@ mgate_publi_documenttype_upload:
 # UPLOAD DE DOCUMENT #
 ######################
 mgate_publi_documenttype_index:
-    pattern: /Documents
+    pattern: /Documents/
     defaults: {_controller: mgatePubliBundle:Document:index}
 
 mgate_publi_document_uploadEtude:
