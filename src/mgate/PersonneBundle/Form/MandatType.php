@@ -24,7 +24,7 @@ class MandatType extends AbstractType
                 ->add('poste', 'entity', array('label' => 'Intitulé',
                     'class' => 'mgate\\PersonneBundle\\Entity\\Poste',
                     'property' => 'intitule',
-                    'required' => false, ));
+                    'required' => true, )); //ajout de la condition "requis" pour éviter la corruption de la liste des membres par manque d'intitulé.
     }
 
     public function getName()
