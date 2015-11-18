@@ -1,0 +1,66 @@
+{# layout d'accueil pour les Users  #}
+
+{% extends "mgatePersonneBundle::layout.html.twig" %}
+
+{% block javascript_quick %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#example').dataTable({
+                "bPaginate": true,
+                "iDisplayLength": 100,
+                "aaSorting": [[0,'desc']],
+            });
+        } );
+    </script>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+{% endblock %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block content_bundle %}
+
+    <h2>Liste des Membres n'ayant pas payés</h2>
+
+    <table class="display dataTable table table-bordered table-striped" id="example">
+        <thead>
+        <tr>
+            <th>Promotion</th>
+            <th>Identifiant</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Poste</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Adresse</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for membre in membres %}
+            <tr>
+                <td style="text-align: center;"><h4><span class="label label-default">{{ membre.promotion ? "P" ~ membre.promotion}}</span></td>
+                <td style="text-align: center;"><h4><span class="label label-info">{{ membre.identifiant }}</span></h4></td>
+                <td><a href="{{ path('mgatePersonne_membre_voir', {'id': membre.id}) }}">{{ membre.personne ? membre.personne.prenom }}</a></td>
+                <td><a href="{{ path('mgatePersonne_membre_voir', {'id': membre.id}) }}">{{ membre.personne ? membre.personne.nom }}</a></td>
+                <td>
+                    {% for mandat in membre.mandats %}
+                        <span class="label label-{{"now"|date('Ymd')  > mandat.finMandat |date('Ymd') ? 'default' : 'success' }}" data-valide="{{"now"|date('Ymd')  > mandat.finMandat |date('Ymd') ? 'ancien' : 'actuel' }}{{mandat.poste.intitule }}">{{ mandat.debutMandat | date("d/m/Y") }} <span class="glyphicon glyphicon-arrow-right"></span> {{ mandat.finMandat | date("d/m/Y") }}</span> {{ mandat.poste.intitule }}<br />
+                    {% endfor %}
+                </td>
+                <td>{{ membre.personne ? membre.personne.email }}</td>
+                <td>{{ membre.personne ? membre.personne.mobile }}</td>
+                <td>{{ membre.personne ? membre.personne.adresse }} {{ membre.personne ? membre.personne.codepostal }} {{ membre.personne ? membre.personne.ville }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

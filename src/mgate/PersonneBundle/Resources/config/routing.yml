@@ -87,6 +87,10 @@ mgatePersonne_membre_voir:
     requirements:
         id:  \d+
 
+mgatePersonne_membre_impayes:
+    pattern:  /membre/impayes
+    defaults: { _controller: mgatePersonneBundle:Membre:impayes }
+
 mgatePersonne_membre_modifier:
     pattern: /membre/modifier/{id}
     defaults: {_controller: mgatePersonneBundle:Membre:modifier}

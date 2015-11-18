@@ -350,4 +350,21 @@ class MembreController extends Controller
             return;
         }
     }
+
+    /**
+     * @Secure(roles="ROLE_SUIVEUR")
+     */
+    public function impayesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('mgatePersonneBundle:Membre')->findByformatPaiement('aucun');
+
+        return $this->render('mgatePersonneBundle:Membre:impayes.html.twig', array(
+            'membres' => $entities,
+        ));
+    }
+
+
+
 }
