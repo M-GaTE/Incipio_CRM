@@ -28,7 +28,10 @@
 
 	<h2>{{ prospect.nom }}</h2>
     <i><h4>Type de prospect : {{ prospect.EntiteToString }}</h4></i>
-    <p><h4>Adresse : {{ prospect.adresse }}</h4></p>
+    <p><h4>Adresse : {{ prospect.adresse }}
+                <br>
+            {{ prospect.codePostal }} {{ prospect.ville }}
+</h4></p>
 
 
 <div id="mailling" class="bs-callout bs-callout-info">
@@ -55,7 +58,9 @@
                 <td>{{ employe.personne.fix }}</td>
                 <td>{{ employe.personne.mobile }}</td>
                 <td><h5>{{ employe.poste }}</h5></td>
-                <td>{{ employe.personne.adresse }}</td>
+                <td>{{ employe.personne.adresse }}<br/>
+                    {{ employe.personne.codePostal }} {{ employe.personne.ville }}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
