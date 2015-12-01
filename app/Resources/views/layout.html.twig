@@ -70,13 +70,17 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
             {% endblock %}
     {% endblock %}
 
-    {% block content_main %} 
-            <div id="content" class="row">
+    {% block content_main %}
+<div class="content-wrapper">
+    <section class="content">
+        <div id="content" class="row">
                 <div class="col-xs-12">
             {% block content %}
             {% endblock %}
                 </div>
             </div>
+        </section>
+    </div>
     {% endblock %}
 
     {% block footer_main %}
