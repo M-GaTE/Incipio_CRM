@@ -33,55 +33,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css" />
         <link rel="stylesheet" href="{{ asset('css/select2.css')}}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
 
-    /* Sticky footer styles
-    -------------------------------------------------- */
-    html {
-      position: relative;
-      min-height: 100%;
-    }
-    body {
-      /* Margin bottom by footer height */
-      margin-bottom: 60px;
-    }
-    #footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      /* Set the fixed height of the footer here */
-      height: 60px;
-      background-color: #f5f5f5;
-    }
-
-    /* Custom page CSS
-    -------------------------------------------------- */
-    /* Not required for template or sticky footer method. */
-
-    body > .container {
-      padding: 60px 15px 0;
-    }
-    .container .text-muted {
-      margin: 20px 0;
-    }
-
-    #footer > .container {
-      padding-right: 15px;
-      padding-left: 15px;
-    }
-
-    code {
-      font-size: 80%;
-    }
-    
-    .contentMain {
-        width: 95%;
-        margin-left: auto;
-        margin-right: 40px;
-        margin-bottom: 100px;
-    }
-
-        </style>
 {% endblock %}
 
 {% block head %}
@@ -119,18 +71,20 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     {% endblock %}
 
     {% block content_main %} 
-            <div id="content" class="contentMain">
+            <div id="content" class="row">
+                <div class="col-xs-12">
             {% block content %}
             {% endblock %}
+                </div>
             </div>
     {% endblock %}
 
     {% block footer_main %}
-            <div id="footer" class="hidden-print">
-        <div class="container">
-            <p class="text-muted" style="text-align: center">V 0.2 <i>© Incipio 2014</i></p>
-        </div>
-    </div>
+        <footer class="footer hidden-print" id="footer">
+            <div class="container">
+                <p class="text-muted" style="text-align: center">V 0.2 <i>© Incipio 2014</i></p>
+            </div>
+        </footer>
     {% endblock %}
 
 {% endblock %} 
