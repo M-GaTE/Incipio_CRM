@@ -82,3 +82,25 @@ body {
     height: 60px;
     background-color: #f5f5f5;
 }
+
+/*-- Ajout de marges pour le contenu --*/
+@media (max-width: 767px) {
+  .content-wrapper{
+    margin: 0px 0px 0px 0px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .content-wrapper{
+    margin: 0px 10px 0px 10px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .content-wrapper{
+    margin: 0px 20px 0px 20px;
+  }
+}
+@media (min-width: 1200px) {
+  .content-wrapper{
+    margin: 0px 25px 0px 25px;
+  }
+}
