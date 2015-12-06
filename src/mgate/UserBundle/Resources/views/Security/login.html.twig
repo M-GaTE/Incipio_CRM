@@ -1,12 +1,13 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+
 
 <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin" role="form" style="text-align: center;">
     <img src="{{ junior['logo'] }}" width="300"/>
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <h2 class="form-signin-heading">Connexion</h2>
     <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required autofocus>
