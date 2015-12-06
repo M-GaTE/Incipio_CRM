@@ -22,6 +22,7 @@ parameters:
     tva:  0.200
 
 ###configuration de la Junior
+###annee1Incipio : première année d'utilisation d'incipio.
     junior:
         nom:          ~
         abbr:         ~
@@ -34,3 +35,5 @@ parameters:
         authorizedStorageSize : 104857600
         domaineEmailEtu:    ~
         domaineEmailAncien: ~
+        anneeCreation: ~
+        annee1Incipio: ~
