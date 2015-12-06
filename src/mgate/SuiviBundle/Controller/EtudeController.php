@@ -34,6 +34,7 @@ class EtudeController extends Controller
     public function indexAction($page)
     {
         $MANDAT_MAX = $this->get('mgate.etude_manager')->getMaxMandat();
+        $MANDAT_MIN = $this->get('mgate.etude_manager')->getMinMandat();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -53,7 +54,8 @@ class EtudeController extends Controller
         $etudesTermineesParMandat = array();
         $etudesAvorteesParMandat = array();
 
-        for ($i = 1; $i <= $MANDAT_MAX; ++$i) {
+        $junior = $this->container->getParameter('junior');
+        for ($i = $MANDAT_MIN; $i <= $MANDAT_MAX; ++$i) {
             array_push($etudesTermineesParMandat, array());
             array_push($etudesAvorteesParMandat, array());
         }
@@ -64,6 +66,8 @@ class EtudeController extends Controller
                     'etudesEnPause' => $etudesEnPause,
                     'etudesTermineesParMandat' => $etudesTermineesParMandat,
                     'etudesAvorteesParMandat' => $etudesAvorteesParMandat,
+                    'anneeCreation' => $junior['anneeCreation'],
+                    'mandatMax' => $MANDAT_MAX
                 ));
     }
 
