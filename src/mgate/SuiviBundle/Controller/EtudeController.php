@@ -157,10 +157,19 @@ class EtudeController extends Controller
                     return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('numero' => $etude->getNumero())));
                 }
             }
+            else{
+                //constitution du tableau d'erreurs
+                $errors = $this->get('validator')->validate( $etude );
+                $error_messages = array();
+                foreach($errors as $error) {
+                    array_push($error_messages,$error->getPropertyPath().' : '.$error->getMessage() );
+                }
+            }
         }
 
         return $this->render('mgateSuiviBundle:Etude:ajouter.html.twig', array(
                     'form' => $form->createView(),
+                    'errors' => $error_messages,
                 ));
     }
 

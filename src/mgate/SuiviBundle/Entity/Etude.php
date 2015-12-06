@@ -13,6 +13,7 @@ namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * mgate\SuiviBundle\Entity\Etude.
@@ -40,7 +41,9 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
 
     /**
      * @var int
-     *
+     * @Assert\GreaterThan(value = 1966)
+     * Mandat > 1967 => mandat n'est pas utilisé pour compter les mandats depuis le début de la JE, mais comme l'année de prise de fonction.
+     * On n'utilise pas anneeCreation de parameters.yml pour limiter les effets de bords.
      * @ORM\Column(name="mandat", type="integer")
      */
     private $mandat;

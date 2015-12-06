@@ -6,8 +6,11 @@
     <h2>Ajouter une étude</h2>
 
  <a href="{{ path('mgatePersonne_prospect_ajouter', {'format':'mini'}) }}?KeepThis=true&TB_iframe=true&height=400&width=600" title="Ajouter un client" class="thickbox">Ajouter un Prospect</a>
-
-
+    {% for error in errors  %}
+        <div class="alert alert-warning">
+            {{ error }}
+        </div>
+    {% endfor%}
 <form method="post" {{ form_enctype(form) }}>
 
     {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
