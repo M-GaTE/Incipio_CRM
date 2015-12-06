@@ -7,7 +7,7 @@
           <tr>
               <th>
                   <div>Nom de l'étude</div>
-                  <div>Référence</div>
+                  <!--<div>Référence</div>-->
               </th>
               <th>
                   <div>Date de Lancement</div>
@@ -19,7 +19,7 @@
               </th>
 
               <th>
-                   Developpeurs
+                   Intervenants
               </th>
               <th>
                    AP
@@ -62,7 +62,12 @@
 
         {% for etude in etudesEnCours if not confidentielRefus(etude, app.security)%}
 <tr>
-    <td><div>{{ etude.nom }}</div><div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }}<a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.reference }}</a></div></td>
+    <td><div>
+            <a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.nom }}</a>
+            <!-- {{ etude.reference }} -->
+        </div>
+        <div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }}</div>
+    </td>
     <td>
         {% if etude.dateLancement != NULL %}<div>{{ etude.dateLancement|date("d/m/Y") }}</div>{% endif %}
         <br/>
