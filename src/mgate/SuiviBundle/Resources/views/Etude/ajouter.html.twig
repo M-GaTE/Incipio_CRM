@@ -30,7 +30,10 @@
         </tr>
         <tr>
             <th>{{ form_label(form.newProspect.adresse) }}</th>
-            <td>{{ form_widget(form.newProspect.adresse) }}</td>
+            <td>{{ form_widget(form.newProspect.adresse) }}
+                <br>{{ form_widget(form.newProspect.codepostal) }}
+                {{ form_widget(form.newProspect.ville) }} {{ form_widget(form.newProspect.pays) }}
+            </td>
         </tr>
         <tr>
             <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">L'étude</th>
@@ -62,6 +65,14 @@
 		<tr>
             <th>{{ form_label(form.suiveur) }}</th>
             <td>{{ form_widget(form.suiveur) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.domaineCompetence) }}</th>
+            <td>{{ form_widget(form.domaineCompetence) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.sourceDeProspection) }}</th>
+            <td>{{ form_widget(form.sourceDeProspection) }}</td>
         </tr>
     </table>
     {{ form_widget(form) }}

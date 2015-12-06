@@ -25,9 +25,9 @@ class ProspectType extends AbstractType {
                 ->add('nom', 'text')
                 ->add('entite', 'choice', array('choices' => Prospect::getEntiteChoice(), 'required' => false))
                 ->add('adresse', 'textarea', array('required' => false))
-                ->add('codepostal', 'text', array('required' => false))
-                ->add('ville', 'text', array('required' => false))
-                ->add('pays', 'text', array('required' => false));
+                ->add('codepostal', 'text', array('required' => false, 'attr' => array('placeholder' => "Code Postal")))
+                ->add('ville', 'text', array('required' => false, 'attr' => array('placeholder' => "Ville")))
+                ->add('pays', 'text', array('required' => false, 'attr' => array('placeholder' => "Pays")));
     }
 	
     public function getName() 
