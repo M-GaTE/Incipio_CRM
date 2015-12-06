@@ -1384,7 +1384,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
         return array('1' => 'En négociation',
             '2' => 'En cours',
             '3' => 'En pause',
-            '4' => 'Clorurée',
+            '4' => 'Cloturée',
             '5' => 'Avortée', );
     }
 
