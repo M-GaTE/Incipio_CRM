@@ -603,6 +603,25 @@ class EtudeManager extends \Twig_Extension
     }
 
     /**
+     * Get le minimum des mandats.
+     */
+    public function getMinMandat()
+    {
+        $qb = $this->em->createQueryBuilder();
+
+        $query = $qb->select('e.mandat')
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->orderBy('e.mandat', 'ASC');
+
+        $value = $query->getQuery()->setMaxResults(1)->getOneOrNullResult();
+        if ($value) {
+            return $value['mandat'];
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * Get le maximum des mandats par rapport à la date de Signature de signature des CC.
      */
     public function getMaxMandatCc()
