@@ -66,12 +66,12 @@ class FormationController extends Controller
     public function modifierAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         if (!$formation = $em->getRepository('mgate\FormationBundle\Entity\Formation')->find($id)) {
             $formation = new Formation();
         }
 
         $form = $this->createForm(new FormationType(), $formation);
+        $messages = array();
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->bind($this->get('request'));
@@ -81,12 +81,22 @@ class FormationController extends Controller
                 $em->flush();
 
                 $form = $this->createForm(new FormationType(), $formation);
+                array_push($messages,array('label'=>'success','message'=>'Formation modifée') );
+
+            }
+            else{
+                //constitution du tableau d'erreurs
+                $errors = $this->get('validator')->validate( $formation );
+                foreach($errors as $error) {
+                    array_push($messages,array('label' =>'warning','message'=>$error->getPropertyPath().' : '.$error->getMessage()) );
+                }
             }
         }
 
         return $this->render('mgateFormationBundle:Gestion:modifier.html.twig', array(
             'form' => $form->createView(),
             'formation' => $formation,
+            'messages' => $messages,
         ));
     }
 

@@ -1,6 +1,11 @@
 {% extends "mgateFormationBundle::layout.html.twig" %}
 {% block content_bundle %}
-<h2>Formulaires</h2>
+<h2>Formations</h2>
+    {% for message in messages  %}
+        <div class="alert alert-{{ message['label'] }}">
+            {{ message['message'] }}
+        </div>
+    {% endfor%}
 <form method="post" {{ form_enctype(form) }}>
     <input class="btn" type="submit" value="Enregistrer la Formation"/>
     <br/><br/>
