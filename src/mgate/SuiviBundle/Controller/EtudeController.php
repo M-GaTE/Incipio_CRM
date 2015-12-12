@@ -140,6 +140,7 @@ class EtudeController extends Controller
         $form = $this->createForm(new EtudeType(), $etude);
         $em = $this->getDoctrine()->getManager();
 
+        $error_messages = array();
         if ($this->get('request')->getMethod() == 'POST') {
             $form->bind($this->get('request'));
 
@@ -160,7 +161,6 @@ class EtudeController extends Controller
             else{
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate( $etude );
-                $error_messages = array();
                 foreach($errors as $error) {
                     array_push($error_messages,$error->getPropertyPath().' : '.$error->getMessage() );
                 }
