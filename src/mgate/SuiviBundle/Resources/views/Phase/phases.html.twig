@@ -20,8 +20,8 @@
     {# affiche l'unique champ de la tache : description #}
     {#{ form_row(form.description) }#}
 
-<p><input type="submit" value="Ajouter une phase" name="add"/>
- - <input type="submit" value="Enregistrer les phases" /></p>
+<p><input type="submit" value="Ajouter une phase" name="add" class="btn btn-info"/>
+ - <input type="submit" value="Enregistrer les phases" class="btn btn-default"/></p>
 
         {# itere sur chaque tag existant et affiche son unique champ : name #}
             <div class="row phases" id="phases" data-prototype="{{ form_widget(form.phases.vars.prototype) | e }}">
@@ -77,8 +77,8 @@
     <br />
       {{ form_rest(form) }}
 
-<p><input type="submit" value="Ajouter une phase" name="add"/>
- - <input type="submit" value="Enregistrer les phases" /></p>
+<p><input type="submit" value="Ajouter une phase" name="add" class="btn btn-info"/>
+ - <input type="submit" value="Enregistrer les phases" class="btn btn-default" /></p>
 
 </form>
 

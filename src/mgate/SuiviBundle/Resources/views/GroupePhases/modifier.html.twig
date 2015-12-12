@@ -14,8 +14,8 @@
 
 <h2>Modifier les {{ form.groupes | length  }} groupes</h2>
 <form method="POST" {{ form_enctype(form) }}>
-<p><input type="submit" value="Ajouter un groupe" name="add"/>
- - <input type="submit" value="Enregistrer les groupes" /></p>
+<p><input type="submit" value="Ajouter un groupe" name="add" class="btn btn-default"/>
+ - <input type="submit" value="Enregistrer les groupes" class="btn btn-default" /></p>
 
         {# itere sur chaque tag existant et affiche son unique champ : name #}
             <div class="row groupes" id="groupes" data-prototype="{{ form_widget(form.groupes.vars.prototype) | e }}">
@@ -43,8 +43,8 @@
     <br />
       {{ form_rest(form) }}
 
-<p><input type="submit" value="Ajouter un groupe" name="add"/>
- - <input type="submit" value="Enregistrer les groupes" /></p>
+<p><input type="submit" value="Ajouter un groupe" name="add" class="btn btn-default"/>
+ - <input type="submit" value="Enregistrer les groupes" class="btn btn-default"/></p>
 
 </form>
 
