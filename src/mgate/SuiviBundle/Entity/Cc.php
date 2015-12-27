@@ -41,7 +41,7 @@ class Cc extends DocType
     */
     public function getReference()
     {
-        return $this->etude->getReference().'-CC-'.$this->getVersion();
+        return $this->etude->getReference().'/'.$this->getDateSignature()->format('Y').'/CC/'.$this->getVersion();
     }
 
     /**

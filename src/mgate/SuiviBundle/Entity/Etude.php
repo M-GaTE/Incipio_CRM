@@ -288,7 +288,8 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
      */
     public function getReference()
     {
-        return (string) ($this->getMandat() * 100 + $this->getNum());
+       // return (string) ($this->getMandat() * 100 + $this->getNum());
+        return $this->getNom();
     }
 
     public function getFa()

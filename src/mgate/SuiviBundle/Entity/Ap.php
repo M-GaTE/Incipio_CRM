@@ -68,7 +68,7 @@ class Ap extends DocType
 
     public function getReference()
     {
-        return $this->etude->getReference().'-AP-'.$this->getVersion();
+        return $this->etude->getReference().'/'.$this->getDateSignature()->format('Y').'/CC/'.$this->getVersion();
     }
 
     /**
