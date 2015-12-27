@@ -31,6 +31,18 @@
             <th>{{ form_label(form.newProspect.adresse) }}</th>
             <td>{{ form_widget(form.newProspect.adresse) }}</td>
         </tr>
+       <tr>
+            <th>{{ form_label(form.newProspect.codePostal) }}</th>
+            <td>{{ form_widget(form.newProspect.codePostal) }}</td>
+        </tr>
+       <tr>
+            <th>{{ form_label(form.newProspect.ville) }}</th>
+            <td>{{ form_widget(form.newProspect.ville) }}</td>
+        </tr>
+       <tr>
+            <th>{{ form_label(form.newProspect.pays) }}</th>
+            <td>{{ form_widget(form.newProspect.pays) }}</td>
+        </tr>
         <tr>
             <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">L'étude</th>
         </tr>
@@ -75,18 +87,18 @@
 
 	<br>
 	<input type="submit" value="Enregistrer l'étude" class="btn btn-default"/>
-        <input type="submit" value="Enregistrer l'étude et passer à l'AP" name="ap" id="ap" class="btn btn-default"/>
+        <input type="submit" value="Enregistrer l'étude et passer à la PM" name="ap" id="ap" class="btn btn-default"/>
 </form>
 	<br>
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}" >Retour à l'article</a>
+        <a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}" >Retour à l'étude</a>
     </p>
 
 
         <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cette étude ?" action="{{ path('mgateSuivi_etude_supprimer', { 'numero': etude.numero }) }}" method="post">
             {{ form_widget(delete_form) }}
-                <button class="btn">Supprimer l'étude</button>
+                <button class="btn btn-danger">Supprimer l'étude</button>
         </form>
 
 {% endblock %}
