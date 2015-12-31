@@ -37,3 +37,11 @@ parameters:
         domaineEmailAncien: ~
         anneeCreation: ~
         annee1Incipio: ~
+        president:
+            prenom: ~
+            nom: ~
+            male: true
+        tresorier:
+            prenom: ~
+            nom: ~
+            male: false
