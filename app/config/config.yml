@@ -29,6 +29,7 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         junior: %junior%
+        tva: %tva%
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
