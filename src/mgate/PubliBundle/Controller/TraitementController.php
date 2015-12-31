@@ -72,7 +72,7 @@ class TraitementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $errorRootObjectNotFound = $this->createNotFoundException('Le document ne peut être plubliposter car l\'objet de référence n\'existe pas !');
+        $errorRootObjectNotFound = $this->createNotFoundException('Le document ne peut être publiposté car l\'objet de référence n\'existe pas !');
         $errorEtudeConfidentielle = new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
 
         switch ($rootName) {
