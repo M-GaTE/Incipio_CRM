@@ -156,4 +156,8 @@ class ProcesVerbal extends DocType
     {
         return $this->phaseID;
     }
+
+    public function __toString(){
+        return $this->etude->getReference().'/PVR/';
+    }
 }

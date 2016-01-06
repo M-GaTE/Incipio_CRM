@@ -77,4 +77,8 @@ class Cc extends DocType
     {
         return $this->etude;
     }
+
+    public function __toString(){
+        return $this->etude->getReference().'/CC/';
+    }
 }

@@ -556,6 +556,12 @@ class Membre
     public function getFiliere()
     {
         return $this->filiere;
-    }   
+    }
+
+
+    public function __toString()
+    {
+        return $this->getPersonne()->__toString();
+    }
 	
 }

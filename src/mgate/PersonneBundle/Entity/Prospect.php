@@ -333,4 +333,10 @@ class Prospect
     {
         return $this->pays;
     }
+
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 }

@@ -68,7 +68,7 @@ class Ap extends DocType
 
     public function getReference()
     {
-        return $this->etude->getReference().'/'.$this->getDateSignature()->format('Y').'/CC/'.$this->getVersion();
+        return $this->etude->getReference().'/'.$this->getDateSignature()->format('Y').'/PM/'.$this->getVersion();
     }
 
     /**
@@ -165,5 +165,9 @@ class Ap extends DocType
     public function getDeonto()
     {
         return $this->deonto;
+    }
+
+    public function __toString(){
+        return $this->etude->getReference().'/PM/';
     }
 }

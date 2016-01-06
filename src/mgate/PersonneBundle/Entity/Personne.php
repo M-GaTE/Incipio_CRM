@@ -534,4 +534,10 @@ class Personne
     {
         return $this->estAbonneNewsletter;
     }
+
+
+    public function __toString()
+    {
+        return $this->getPrenom().' '.$this->getNom();
+    }
 }

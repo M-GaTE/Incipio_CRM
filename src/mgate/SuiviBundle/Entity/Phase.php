@@ -500,7 +500,7 @@ class Phase
      *
      * @param int $etatSurAvenant
      *
-     * @return Phase
+     * @return Pha
      */
     public function setEtatSurAvenant($etatSurAvenant)
     {
@@ -517,5 +517,9 @@ class Phase
     public function getEtatSurAvenant()
     {
         return $this->etatSurAvenant;
+    }
+
+    public function __toString(){
+        return 'Phase : '.$this->getTitre();
     }
 }
