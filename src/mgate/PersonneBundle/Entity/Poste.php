@@ -33,7 +33,7 @@ class Poste
     /**
      * @var string
      *
-     * @ORM\Column(name="intitule", type="string", length=255)
+     * @ORM\Column(name="intitule", type="string", length=127)
      */
     private $intitule;
 
@@ -42,6 +42,15 @@ class Poste
      * @ORM\JoinColumn(nullable=true)
      */
     private $mandats;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
+     */
+    private $description;
+
 
     /**
      * Get id.
@@ -77,6 +86,29 @@ class Poste
         return $this;
     }
 
+    /**
+     * Get description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set description.
+     *
+     * @param string $description
+     *
+     * @return Poste
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
     /**
      * Constructor.
      */
@@ -117,5 +149,11 @@ class Poste
     public function getMandats()
     {
         return $this->mandats;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getIntitule();
     }
 }

@@ -19,7 +19,9 @@ class PosteType extends AbstractType
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('intitule', 'text', array('required' => true));
+                ->add('intitule', 'text', array('required' => true))
+                ->add('description', 'text', array('required' => false))
+        ;
     }
 
     public function getName()
