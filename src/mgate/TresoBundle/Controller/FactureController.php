@@ -68,7 +68,7 @@ class FactureController extends Controller
 
                 if (!count($etude->getFactures()) && $etude->getAcompte()) {
                     $facture->setType(Facture::$TYPE_VENTE_ACCOMPTE);
-                    $facture->setObjet('Facture d\'Acompte sur l\'étude '.$etude->getReference().', correspondant au règlement de '.$formater->money_format(($etude->getPourcentageAcompte() * 100)).' % de l’étude.');
+                    $facture->setObjet('Facture d\'acompte sur l\'étude '.$etude->getReference().', correspondant au règlement de '.$formater->money_format(($etude->getPourcentageAcompte() * 100)).' % de l’étude.');
                     $detail = new FactureDetail();
                     $detail->setCompte($em->getRepository('mgateTresoBundle:Compte')->findOneBy(array('numero' => $compteAcompte)));
                     $detail->setFacture($facture);
@@ -80,7 +80,7 @@ class FactureController extends Controller
                     $facture->setType(Facture::$TYPE_VENTE_SOLDE);
                     if ($etude->getAcompte() && $etude->getFa()) {
                         $montantADeduire = new FactureDetail();
-                        $montantADeduire->setDescription('Facture d\'Acompte sur l\'étude '.$etude->getReference().', correspondant au règlement de '.$formater->money_format(($etude->getPourcentageAcompte() * 100)).' % de l’étude.')->setFacture($facture);
+                        $montantADeduire->setDescription('Facture d\'acompte sur l\'étude '.$etude->getReference().', correspondant au règlement de '.$formater->money_format(($etude->getPourcentageAcompte() * 100)).' % de l’étude.')->setFacture($facture);
                         $facture->setMontantADeduire($montantADeduire);
                     }
 
