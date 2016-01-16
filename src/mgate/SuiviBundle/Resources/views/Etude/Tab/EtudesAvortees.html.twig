@@ -32,7 +32,10 @@
         {% for etude in etudes if not confidentielRefus(etude, app.security)%}
 <tr>
     <td><i id="commentaire" class="glyphicon glyphicon-search" data-title="{{ etude.id }}" data-content="0"></i></td>
-    <td><div>{{ etude.nom }}</div><div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }} {{ etude.reference }}</a></div></td>
+    <td>
+        <div><a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.reference }}</a></div>
+        <div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }}</div>
+    </td>
     <td>{{ etude.prospect.nom }}
         <br /><br />
      {{etude.suiveur.prenomNom| default("Pas de suiveur!")}}</td>
