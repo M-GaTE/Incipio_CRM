@@ -51,14 +51,14 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * @var int
      *
-     * @ORM\Column(name="num", type="integer", nullable=true)
+     * @ORM\Column(name="num", type="integer", nullable=true, unique=true)
      */
     private $num;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="text", nullable=false, length=50)
+     * @ORM\Column(name="nom", type="string", length=50, nullable=false,  unique=true)
      */
     private $nom;
 
