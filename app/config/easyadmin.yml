@@ -1,0 +1,29 @@
+# app/config/admin.yml
+### Espace admin
+easy_admin:
+    entities:
+        Etude:
+            class: mgate\SuiviBundle\Entity\Etude
+            list :
+                fields:
+                  - 'id'
+                  - 'Nom'
+                  - 'Mandat'
+                  - 'dateCreation'
+                  - 'dateModification'
+                  - 'stateDescription'
+                  - 'confidentiel'
+        Prospect:
+            class: mgate\PersonneBundle\Entity\Prospect
+        Employe:
+            class: mgate\PersonneBundle\Entity\Employe
+        Personne:
+            class: mgate\PersonneBundle\Entity\Personne
+        Mandat:
+            class: mgate\PersonneBundle\Entity\Mandat
+        Membre:
+            class: mgate\PersonneBundle\Entity\Membre
+        Poste:
+          class: mgate\PersonneBundle\Entity\Poste
+        User:
+            class: mgate\UserBundle\Entity\User
