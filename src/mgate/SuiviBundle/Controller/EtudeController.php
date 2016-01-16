@@ -442,7 +442,8 @@ class EtudeController extends Controller
     {
         $etudesAssoc = array();
         foreach ($etudes as $e) {
-            $etudesAssoc[$e->getId()] = $this->get('mgate.etude_manager')->getRefEtude($e).' - '.$e->getNom();
+//            $etudesAssoc[$e->getId()] = $this->get('mgate.etude_manager')->getRefEtude($e).' - '.$e->getNom();
+            $etudesAssoc[$e->getId()] = $e->getNom();
         }
 
         return $etudesAssoc;
