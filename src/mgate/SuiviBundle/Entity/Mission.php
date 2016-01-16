@@ -471,4 +471,9 @@ class Mission extends DocType
         $this->repartitionsJEH = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pourcentageJunior = 0.4;
     }
+
+    public function __toString()
+    {
+        return 'RM - '.$this->getIntervenant();
+    }
 }

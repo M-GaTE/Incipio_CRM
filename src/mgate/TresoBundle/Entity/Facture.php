@@ -462,4 +462,9 @@ class Facture
     {
         return $this->beneficiaire;
     }
+
+    public function __toString()
+    {
+        return $this->getNumero().' '.$this->getObjet();
+    }
 }
