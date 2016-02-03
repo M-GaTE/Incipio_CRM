@@ -1,4 +1,4 @@
-        
+
 {#
 This file is part of Incipio.
 
@@ -21,87 +21,103 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{% block title %}{% endblock %} - Incipio</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <title>{% block title %}{% endblock %} - Incipio</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
-{% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/mgate.css')}}"/>
+    {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.10.0.custom.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('css/select2.css')}}"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css"/>
+        <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/skin-n7c.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/select2.css') }}"/>
 
-{% endblock %}
+    {% endblock %}
 
-{% block head %}
-{% endblock %}
-        </head>
+    {% block head %}
+    {% endblock %}
+</head>
 
-        <body>
-            
+<body class="skin-yellow sidebar-mini">
 {% block javascript_quick %}
-            <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
-            <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('js/jquery-ui-1.10.0.custom.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.tablesorter.js') }}"></script>
-            <script src="{{ asset('js/jquery.ui.datepicker-fr.js')}}"></script>
-            <script src="{{ asset('js/select2.min.js')}}"></script>
-{% endblock %}            
-            
-{% block body %} 
+    <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui-1.10.0.custom.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.tablesorter.js') }}"></script>
+    <script src="{{ asset('js/jquery.ui.datepicker-fr.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/app.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+
     {% block main_header %}
-            <div id="header" class="hidden-print">
-            {% block header %}
-            {% endblock %}
-        </div>
+        <header class="main-header hidden-print">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a href="{{ path('mgate_dashboard_homepage') }}" class="logo">
+                <span class="logo-mini"><b>N7C</b></span>
+                <span class="logo-lg">My {{ junior['abbr'] }}</span>
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    {% include "mgateDashboardBundle:Navbar:compte.html.twig" %}
+                </div>
+            </nav>
+        {% else %}
+            <a class="navbar-brand" href="#">{{ junior['abbr'] }}</a>
+        {% endif %}
+        </header>
     {% endblock %}
 
     {% block menu_main %}
-            {% block menu %}
-				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-					{# L'utilisateur est connecté ! #}
-					{% render url('mgate_dashboard_navbar') %}
-					{% else %}
-					{# L'utilisateur n'est pas connecté ! #}
-				{% endif %}
-            {% endblock %}
+        {% block menu %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {# L'utilisateur est connecté ! #}
+                {% render url('mgate_dashboard_navbar') %}
+            {% else %}
+                {# L'utilisateur n'est pas connecté ! #}
+                <aside></aside>
+            {% endif %}
+        {% endblock %}
     {% endblock %}
 
     {% block content_main %}
-<div class="content-wrapper">
-    <section class="content">
-        <div id="content" class="row">
-                <div class="col-xs-12">
-            {% block content %}
-            {% endblock %}
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="row">
+                    <div class="col-lg-12 col-xs-12">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
                 </div>
-            </div>
-        </section>
-    </div>
+            </section>
+        </div>
     {% endblock %}
 
     {% block footer_main %}
-        <footer class="footer hidden-print" id="footer">
-            <div class="container">
-                <p class="text-muted" style="text-align: center">V 0.2 <i>© Incipio 2014</i></p>
-            </div>
+        <footer class="main-footer hidden-print">
+            <p class="text-muted" style="text-align: center"><i>© Incipio 2016 &#124; N7 Consulting - AB</i></p>
         </footer>
     {% endblock %}
-
-{% endblock %} 
+</div>
+{% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('js/bootboxjs.min.js')}}"></script>
+    <script src="{{ asset('js/bootboxjs.min.js') }}"></script>
     <script>
-        $(function() {
-            $(document).on("click", ".bootbox-confirm", function(e) {
+        $(function () {
+            $(document).on("click", ".bootbox-confirm", function (e) {
                 e.preventDefault();
                 var _this = $(this);
-                return bootbox.confirm($(this).data('content'), function(result) {
-                    if(result) _this.closest('form').submit();
+                return bootbox.confirm($(this).data('content'), function (result) {
+                    if (result) _this.closest('form').submit();
                 });
             });
         });
@@ -110,18 +126,21 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     <!-- GOOGLE ANALYTICS -->
     <script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '{{ junior['ga_tracking'] }}']);
-    _gaq.push(['_trackPageview']);
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ junior['ga_tracking'] }}']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
 
     </script>
 {% endblock %}
 
-    </body>
+</body>
 </html>

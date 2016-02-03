@@ -1,17 +1,6 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{{ path('mgate_dashboard_homepage') }}">My {{ junior['abbr'] }}</a>
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse navbar-main">
+<aside class="main-sidebar">
+    <section class="sidebar">
         {% include "mgateDashboardBundle:Navbar:staff.html.twig" with {'etudesSuiveur' : etudesSuiveur }%}
-        {% include "mgateDashboardBundle:Navbar:compte.html.twig" %}
-    </div><!-- /.navbar-collapse -->
-</nav>
+
+    </section>
+</aside>
