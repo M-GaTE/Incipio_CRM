@@ -38,8 +38,8 @@ class AppKernel extends Kernel
 			*****************************************/
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\CommentBundle\FOSCommentBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
+            //new FOS\CommentBundle\FOSCommentBundle(),
+            //new FOS\RestBundle\FOSRestBundle(),
             
 
             
