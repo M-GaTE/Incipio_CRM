@@ -46,9 +46,9 @@ Affichage d'une étude - {{ parent() }}
     </div>
 </div>
 
-{% if etude.thread|default('0') %}
-    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': etude.thread.id} %}
-{% endif %}
+{#% if etude.thread|default('0') %#}
+    {#% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': etude.thread.id} %#}
+{#% endif %#}
 {% endblock %}
 
 {% block javascript_quick %}
