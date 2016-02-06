@@ -3,6 +3,12 @@
 {% set nonValide = asset('img/cross.png') %}
 {% set enCours   = asset('img/progress.png') %}
 {% block menu %}
+{% endblock %}
+{% block breadcrumb %}
+{% endblock %}
+
+
+{% block content %}
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <a class="brand" href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}"><h4>{{ etude.reference }}</h4></a>
@@ -32,12 +38,6 @@
 
     </div>
 </nav>
-            {% endblock %}
-{% block breadcrumb %}
-{% endblock %}
-
-
-{% block content %}
 <br/>
 <table class="table table-bordered table-striped" style="padding-top: 0px;">
     <tr class="{{ (etude.stateID == 1 ? "info" : (etude.stateID == 2 ? "success" : (etude.stateID == 3 ? "warning" : (etude.stateID == 4 ? "" : "error")))) }}">
