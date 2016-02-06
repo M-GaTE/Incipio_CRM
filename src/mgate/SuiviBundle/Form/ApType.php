@@ -31,7 +31,7 @@ class ApType extends AbstractType
                 ->add('ap', new SubApType(), array('label' => ' ', 'prospect' => $options['prospect']))
                 ->add('fraisDossier', 'integer', array('label' => 'Frais de dossier', 'required' => false))
                 ->add('presentationProjet', 'textarea', array('label' => 'Présentation du projet', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
-                ->add('descriptionPrestation', 'textarea', array('label' => 'Description de la prestation proposée', 'required' => false, 'attr' => array('title' => "La phrase commence par 'La prestation proposée par M-GaTE consiste à réaliser ...'. Il faut continuer la continuer en décrivant la prestation proposée. Le début de la phrase est déjà généré.", 'cols' => '100%', 'rows' => 5)))
+                ->add('descriptionPrestation', 'textarea', array('label' => 'Description de la prestation proposée', 'required' => false, 'attr' => array('title' => "La phrase commence par 'N7 Consulting réalisera, pour le compte du Client, une étude consistant en'. Il faut la continuer en décrivant la prestation proposée. Le début de la phrase est déjà généré.", 'cols' => '100%', 'rows' => 5)))
                 ->add('typePrestation', 'choice', array('choices' => Etude::getTypePrestationChoice(), 'label' => 'Type de prestation', 'required' => false))
                 ->add('competences', 'textarea', array('label' => 'Capacité des intervenants:', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)));
     }
@@ -63,7 +63,7 @@ class SubApType extends DocTypeType
             },
             'required' => true, ));
         DocTypeType::buildForm($builder, $options);
-        $builder->add('nbrDev', 'integer', array('label' => 'Nombre de developpeurs estimé', 'required' => false, 'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant')));
+        $builder->add('nbrDev', 'integer', array('label' => 'Nombre d\'intervenants estimé', 'required' => false, 'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant')));
     }
 
     public function getName()
