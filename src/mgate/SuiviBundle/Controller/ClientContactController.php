@@ -60,6 +60,7 @@ class ClientContactController extends Controller
 
         return $this->render('mgateSuiviBundle:ClientContact:ajouter.html.twig', array(
             'form' => $form->createView(),
+            'etude' => $etude,
         ));
     }
 
@@ -134,6 +135,7 @@ class ClientContactController extends Controller
         return $this->render('mgateSuiviBundle:ClientContact:modifier.html.twig', array(
             'form' => $form->createView(),
             'clientcontact' => $clientcontact,
+            'etude' => $etude,
         ));
     }
 }

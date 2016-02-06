@@ -70,6 +70,7 @@ class SuiviController extends Controller
 
         return $this->render('mgateSuiviBundle:Suivi:ajouter.html.twig', array(
             'form' => $form->createView(),
+            'etude' => $etude,
         ));
     }
 
@@ -132,6 +133,7 @@ class SuiviController extends Controller
         return $this->render('mgateSuiviBundle:Suivi:modifier.html.twig', array(
             'form' => $form->createView(),
             'clientcontact' => $suivi,
+            'etude' => $suivi->getEtude(),
         ));
     }
 }
