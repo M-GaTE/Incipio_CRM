@@ -549,6 +549,9 @@ class TraitementController extends Controller
             }
         }
 
-        return $this->render('mgatePubliBundle:DocType:upload.html.twig', array('form' => $form->createView()));
+        return $this->render('mgatePubliBundle:DocType:upload.html.twig',
+                            array('form' => $form->createView(),
+                                    'message' => $message)
+                );
     }
 }
