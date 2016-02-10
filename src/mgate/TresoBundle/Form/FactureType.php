@@ -19,7 +19,7 @@ class FactureType extends AbstractType
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
     {
         $builder->add('exercice', 'integer', array('label' => 'Exercice Comptable', 'required' => true))
-                ->add('numero', 'integer', array('label' => 'Numéro de la Facutre', 'required' => true))
+                ->add('numero', 'integer', array('label' => 'Numéro de la Facture', 'required' => true))
                 ->add('type', 'choice', array('choices' => \mgate\TresoBundle\Entity\Facture::getTypeChoices(), 'required' => true))
                 ->add('objet', 'textarea',
                     array('label' => 'Objet de la Facture',
