@@ -51,6 +51,16 @@ class ProcesVerbal extends DocType
      */
     private $type;
 
+	 /*
+    * ADDITIONAL
+    */
+    public function getReference()
+    {
+        return $this->etude->getReference().'/'.$this->etude->getCc()->getDateSignature()->format('Y').'/PVR/'.$this->getVersion();
+    }
+	
+	
+	
     /**
      * Get id.
      *
