@@ -185,4 +185,9 @@ class RelatedDocument
     {
         return $this->prospect;
     }
+
+    public function __toString()
+    {
+       return 'RelatedDocument '.$this->getId();
+    }
 }
