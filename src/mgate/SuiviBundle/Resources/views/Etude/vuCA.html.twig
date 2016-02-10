@@ -8,7 +8,7 @@
 {% endblock %}
 
 
-{% block content %}
+{% block content_bundle %}
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <a class="brand" href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}"><h4>{{ etude.reference }}</h4></a>
@@ -81,14 +81,14 @@
                 <tr>
                     <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.ap) == 1 ? "warning" : getEtatDoc(etude.ap) == 2 ? "success" : "important" }}">AP</span></td>
                     <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.cc) == 1 ? "warning" : getEtatDoc(etude.cc) == 2 ? "success" : "important" }}">CC</span></td>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.fa) == 1 ? "warning" : getEtatDoc(etude.fa) == 2 ? "success" : "important" }}">FA</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatFacture(etude.fa) == 1 ? "warning" : getEtatFacture(etude.fa) == 2 ? "success" : "important" }}">FA</span></td>
                     <td style="text-align: center;">
                         {% for mission in etude.missions %}
                         <span title="{{mission.intervenant.personne.prenomNom | default("")}}" class="label label-{{ getEtatDoc(mission) == 1 ? "warning" : getEtatDoc(mission) == 2 ? "success" : "important" }}">RM {{ loop.index }}</span>
                         {% endfor %}
                     </td>
                     <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.pvr) == 1 ? "warning" : getEtatDoc(etude.pvr) == 2 ? "success" : "important" }}">PVR</span></td>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.fs) == 1 ? "warning" : getEtatDoc(etude.fs) == 2 ? "success" : "important" }}">FS</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatFacture(etude.fs) == 1 ? "warning" : getEtatFacture(etude.fs) == 2 ? "success" : "important" }}">FS</span></td>
                 </tr>
                 <tr>
                     <td>JEH</td>

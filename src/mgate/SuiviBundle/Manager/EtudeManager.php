@@ -39,6 +39,7 @@ class EtudeManager extends \Twig_Extension
             'getWarnings' => new \Twig_Function_Method($this, 'getWarnings'),
             'getInfos' => new \Twig_Function_Method($this, 'getInfos'),
             'getEtatDoc' => new \Twig_Function_Method($this, 'getEtatDoc'),
+            'getEtatFacture' => new \Twig_Function_Method($this, 'getEtatFacture'),
             'confidentielRefus' => new \Twig_Function_Method($this, 'confidentielRefus'),
         );
     }
@@ -567,6 +568,26 @@ class EtudeManager extends \Twig_Extension
 
             $ok = ($ok ? 2 : ($doc->getRedige() ? 1 : 0));
         } else {
+            $ok = 0;
+        }
+
+        return $ok;
+    }
+
+
+    //Copie de getEtatDoc pour les factures. Les factures n'étendant pas Doctype, le relu, rédigé ... n'est pas pertinent. On ne teste donc que l'existence et loe versement.
+
+    /**
+     * @param $doc
+     * @return $ok : 0=> null, 1 => emis, 2=>recu.
+     */
+    public function getEtatFacture($doc)
+    {
+        if($doc != null){
+            $now = new \DateTime('now');
+            $dateDebutEtude = $doc->getEtude()->getCc()->getDateSignature();
+            $ok = ($doc->getDateVersement() < $now && $doc->getDateVersement() > $dateDebutEtude  ? 2: 1);
+        } else{
             $ok = 0;
         }
 
