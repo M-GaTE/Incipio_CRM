@@ -232,6 +232,18 @@ class IndicateursController extends Controller
         $repartitionCAClient->setTitre('Provenance du chiffre d\'Affaires par type de Client (tous mandats)')
             ->setMethode('getRepartitionClientSelonChiffreAffaire');
 
+        // Provenance des études (tous mandats) par source de prospection
+        // TODO : selectionner un mandat default getMaxMandat -1 = tous les mandats
+        $repartitionSourceProspectionClient = new Indicateur();
+        $repartitionSourceProspectionClient->setTitre('Provenance de nos études par source de prospection (tous mandats)')
+            ->setMethode('getSourceProspectionParNombreDEtude');
+
+        // Provenance du chiffre d'Affaires (tous mandats) par source de prospection
+        // TODO : selectionner un mandat default getMaxMandat -1 = tous les mandats
+        $repartitionSourceProspectionCAClient = new Indicateur();
+        $repartitionSourceProspectionCAClient->setTitre('Provenance du chiffre d\'Affaires par source de prospection (tous mandats)')
+            ->setMethode('getSourceProspectionSelonChiffreAffaire');
+
         // Taux de fidélisation
         $clientFidel = new Indicateur();
         $clientFidel->setTitre('Taux de fidélisation')
@@ -249,6 +261,8 @@ class IndicateursController extends Controller
             ->setIndicateurs($membres, 'Gestion')
             ->setIndicateurs($repartitionClient, 'Com')
             ->setIndicateurs($repartitionCAClient, 'Com')
+            ->setIndicateurs($repartitionSourceProspectionClient, 'Com')
+            ->setIndicateurs($repartitionSourceProspectionCAClient, 'Com')
             ->setIndicateurs($clientFidel, 'Com')
             ->setIndicateurs($tauxAvenant, 'Suivi')
             ->setIndicateurs($nombreEtudes, 'Suivi')
@@ -378,7 +392,7 @@ class IndicateursController extends Controller
         /*         * ***********************
          * TEXTS AND LABELS
          */
-        $ob->title->text('Reatard par Mandat');
+        $ob->title->text('Retard par Mandat');
         $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $style));
         $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
@@ -1730,6 +1744,142 @@ class IndicateursController extends Controller
                 'chart' => $ob,
             ));
     }
+
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
+    private function getSourceProspectionParNombreDEtude()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
+
+        $nombreClient = 0;
+        $repartitions = array();
+
+        foreach ($etudes as $etude) {
+            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+                ++$nombreClient;
+                $type = $etude->getSourceDeProspectionToString();
+                array_key_exists($type, $repartitions) ? $repartitions[$type]++ : $repartitions[$type] = 1;
+            }
+        }
+
+        $data = array();
+        $categories = array();
+        foreach ($repartitions as $type => $nombre) {
+            if ($type == null) {
+                $type = 'Autre';
+            }
+            $data[] = array($type, round($nombre / $nombreClient * 100, 2));
+        }
+
+        $series = array(array('type' => 'pie', 'name' => 'Provenance des études par source de prospection (tous mandats)', 'data' => $data, 'nombreClient' => $nombreClient));
+
+        /*         * ***********************
+         * CHART
+         */
+        $ob = new Highchart();
+        $ob->chart->renderTo(__FUNCTION__);
+        // Plot Options
+        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
+
+        /*         * ***********************
+         * DATAS
+         */
+        $ob->series($series);
+
+        /*         * ***********************
+         * STYLE
+         */
+        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
+        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
+        $ob->credits->enabled(false);
+
+        /*         * ***********************
+         * TEXTS AND LABELS
+         */
+        $ob->title->text("Provenance des études parsource de prospection ($nombreClient Etudes)");
+        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
+
+        /*
+         *
+         * *********************** */
+
+        return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
+            'chart' => $ob,
+        ));
+    }
+
+
+
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
+    private function getSourceProspectionSelonChiffreAffaire()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
+
+        $chiffreDAffairesTotal = 0;
+
+        $repartitions = array();
+
+        foreach ($etudes as $etude) {
+            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+                $type = $etude->getSourceDeProspectionToString();
+                $CA = $etude->getMontantHT();
+                $chiffreDAffairesTotal += $CA;
+                array_key_exists($type, $repartitions) ? $repartitions[$type] += $CA : $repartitions[$type] = $CA;
+            }
+        }
+
+        $data = array();
+        $categories = array();
+        foreach ($repartitions as $type => $CA) {
+            if ($type == null) {
+                $type = 'Autre';
+            }
+            $data[] = array($type, round($CA / $chiffreDAffairesTotal * 100, 2));
+        }
+
+        $series = array(array('type' => 'pie', 'name' => 'Provenance de nos études par type de Client (tous mandats)', 'data' => $data, 'CA Total' => $chiffreDAffairesTotal));
+
+        /*         * ***********************
+         * CHART
+         */
+        $ob = new Highchart();
+        $ob->chart->renderTo(__FUNCTION__);
+        // Plot Options
+        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
+
+        /*         * ***********************
+         * DATAS
+         */
+        $ob->series($series);
+
+        /*         * ***********************
+         * STYLE
+         */
+        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
+        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
+        $ob->credits->enabled(false);
+
+        /*         * ***********************
+         * TEXTS AND LABELS
+         */
+        $ob->title->text("Répartition du CA selon la source de prospection ($chiffreDAffairesTotal € CA)");
+        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
+
+        /*
+         *
+         * *********************** */
+
+        return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
+            'chart' => $ob,
+        ));
+    }
+
+
 
     private function getStatistiques()
     {
