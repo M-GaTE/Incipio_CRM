@@ -1528,7 +1528,8 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
             7 => 'Contact spontané',
             8 => 'Ancien client',
             9 => 'Dev\'Co N7C',
-            10 => 'Autre',
+            10 => 'Partenariat JE',
+            11 => 'Autre',
             );
     }
 
