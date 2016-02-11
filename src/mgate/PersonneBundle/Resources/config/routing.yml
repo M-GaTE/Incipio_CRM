@@ -44,89 +44,107 @@ mgatePersonne_prospect_supprimer:
     defaults: {_controller: mgatePersonneBundle:Prospect:delete}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_employe_homepage:
     pattern:  /employe
     defaults: { _controller: mgatePersonneBundle:Employe:index , page: 1 }
     requirements:
       page : \d*
+    methods:  [GET, HEAD, POST]
+
 
 mgatePersonne_employe_ajouter:
     pattern: /employe/add/{prospect_id}/{format}
     defaults: {_controller: mgatePersonneBundle:Employe:ajouter, format:null}
     requirements:
         prospect_id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_employe_voir:
     pattern:   /employe/{id}
     defaults:  { _controller: mgatePersonneBundle:Employe:voir}
     requirements:
         id:  \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_employe_modifier:
     pattern: /employe/modifier/{id}
     defaults: {_controller: mgatePersonneBundle:Employe:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_intervenants_homepage:
     pattern:  /intervenants
     defaults: { _controller: mgatePersonneBundle:Membre:listIntervenants }
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_membre_homepage:
     pattern:  /membre
     defaults: { _controller: mgatePersonneBundle:Membre:index }
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_membre_ajouter:
     pattern: /membre/add
     defaults: {_controller: mgatePersonneBundle:Membre:modifier, id:0}
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_membre_voir:
     pattern:   /membre/{id}
     defaults:  { _controller: mgatePersonneBundle:Membre:voir}
     requirements:
         id:  \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_membre_impayes:
     pattern:  /membre/impayes
     defaults: { _controller: mgatePersonneBundle:Membre:impayes }
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_membre_modifier:
     pattern: /membre/modifier/{id}
     defaults: {_controller: mgatePersonneBundle:Membre:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_membre_supprimer:
     pattern: /membre/supprimer/{id}
     defaults: {_controller: mgatePersonneBundle:Membre:delete}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_poste_homepage:
     pattern:  /poste
     defaults: { _controller: mgatePersonneBundle:Poste:index , page: 1 }
     requirements:
       page : \d*
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_poste_ajouter:
     pattern: /poste/add
     defaults: {_controller: mgatePersonneBundle:Poste:ajouter}
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_poste_voir:
     pattern:   /poste/{id}
     defaults:  { _controller: mgatePersonneBundle:Poste:voir}
     requirements:
         id:  \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_poste_modifier:
     pattern: /poste/modifier/{id}
     defaults: {_controller: mgatePersonneBundle:Poste:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_poste_supprimer:
     pattern: /poste/supprimer/{id}
     defaults: {_controller: mgatePersonneBundle:Poste:delete}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
