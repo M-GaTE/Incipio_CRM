@@ -54,7 +54,7 @@
         <br /><br />
      {{rm.etude.suiveur.prenomNom| default("Pas de suiveur!")}}</td>
     <td>
-            {% if getDateLancement(rm.etude) != NULL %}<div>{{ getDateLancement(rm.etude)|date("d/m/Y") }}</div>{% endif %}
+            {% if rm.etude.dateLancement != NULL %}<div>{{ rm.etude.dateLancement |date("d/m/Y") }}</div>{% endif %}
             {% if rm.etude.dateFin != NULL %}<div>{{ rm.etude.dateFin|date("d/m/Y") }}</div>{% endif %}
         </td>
             <td>
