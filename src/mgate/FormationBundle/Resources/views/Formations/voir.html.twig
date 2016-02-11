@@ -8,7 +8,7 @@
         <td>{{ formation.titre | title }}</td>
         <td>{{ formation.description }}</td>
         <td>{%for membre in formation.formateurs %} {{membre.prenomNom}};{%endfor%}</td>
-        <td>{{ (formation.dateFin | date("u") - formation.dateDebut | date("u")) / 3600}} minutes</td>
+        <td>{{ (formation.dateFin | date("U") - formation.dateDebut | date("U")) / 60}} minutes</td>
     </tr>
 </table>
 <br />
