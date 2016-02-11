@@ -861,10 +861,11 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
 
     public static function getTypePrestationChoice()
     {
-        return array('1' => 'ingénieur informatique',
-            '2' => 'ingénieur électronique',
-            '3' => 'ingénieur informatique et électronique',
-            '4' => 'ingénieur microélectronique', );
+        return array('1' => 'ingénieur Info',
+            '2' => 'ingénieur EN',
+            '3' => 'ingénieur TR',
+            '4' => 'ingénieur GEA',
+            '5'=> 'ingénieur Hydro');
     }
 
     public static function getTypePrestationChoiceAssert()
@@ -1524,7 +1525,9 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
             4 => 'Participation aux évènements',
             5 => 'Réseaux des Anciens',
             6 => 'Réseaux des élèves',
-            7 => 'Autre',
+            7 => 'Contact spontané',
+            8 => 'Ancien client',
+            8 => 'Autre',
             );
     }
 
