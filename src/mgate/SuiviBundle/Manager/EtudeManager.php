@@ -205,6 +205,7 @@ class EtudeManager extends \Twig_Extension
     {
         $qb = $this->em->createQueryBuilder();
 
+        //TODO : supprimer la référence statique au premier mandat de Mgate.
         $mandat = 2007 + $this->getMaxMandat();
 
         $mandatComptable = \DateTime::createFromFormat('d/m/Y', '31/03/'.$mandat);
