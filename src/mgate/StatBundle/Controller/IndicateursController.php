@@ -1798,7 +1798,7 @@ class IndicateursController extends Controller
         /*         * ***********************
          * TEXTS AND LABELS
          */
-        $ob->title->text("Provenance des études parsource de prospection ($nombreClient Etudes)");
+        $ob->title->text("Provenance des études par source de prospection ($nombreClient Etudes)");
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
         /*
