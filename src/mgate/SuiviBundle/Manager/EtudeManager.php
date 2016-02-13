@@ -83,6 +83,8 @@ class EtudeManager extends \Twig_Extension
 
     /**
      * Get montant total TTC.
+     * @param Etude $etude
+     * @return float
      */
     public function getTotalTTC(Etude $etude)
     {
@@ -91,6 +93,8 @@ class EtudeManager extends \Twig_Extension
 
     /**
      * Get nombre de JEH.
+     * @param Etude $etude
+     * @return float
      */
     public function getMontantVerse(Etude $etude)
     {
