@@ -21,8 +21,7 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_proxies: ~
-     session:
-        # handler_id set to null will use default session handler from php.ini
+    session:
         handler_id: session.handler.native_file
         save_path: '%kernel.root_dir%/sessions'
     fragments:       ~
