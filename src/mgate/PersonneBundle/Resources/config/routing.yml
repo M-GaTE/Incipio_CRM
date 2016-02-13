@@ -1,7 +1,7 @@
 mgatePersonne_listeDiffusion:
     pattern: /listediffusion
     defaults: { _controller: mgatePersonneBundle:Personne:listeMail }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_personne_supprimer:
     pattern: /personne/supprimer/{id}
@@ -13,19 +13,19 @@ mgatePersonne_personne_supprimer:
 mgatePersonne_annuaire:
     pattern: /annuaire
     defaults: { _controller: mgatePersonneBundle:Personne:annuaire }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_homepage:
     pattern:  /
     defaults: { _controller: mgatePersonneBundle:Default:index }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_prospect_homepage:
     pattern:  /prospect/{page}
     defaults: { _controller: mgatePersonneBundle:Prospect:index , page: 1 }
     requirements:
       page : \d*
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_prospect_ajouter:
     pattern: /prospect/add/{format}
@@ -37,7 +37,7 @@ mgatePersonne_prospect_voir:
     defaults:  { _controller: mgatePersonneBundle:Prospect:voir}
     requirements:
         id:  \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_prospect_modifier:
     pattern: /prospect/modifier/{id}
@@ -102,7 +102,7 @@ mgatePersonne_membre_voir:
     defaults:  { _controller: mgatePersonneBundle:Membre:voir}
     requirements:
         id:  \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_membre_impayes:
     pattern:  /membre/impayes
