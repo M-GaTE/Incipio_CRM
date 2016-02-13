@@ -212,12 +212,18 @@ class TraitementController extends Controller
             $refDocx = $_SESSION['refDocx'];
 
             $templateName = 'tmp/'.$idDocx;
-            header('Content-Type: application/msword');
-            header('Content-Length: '.filesize($templateName));
-            header('Content-disposition: attachment; filename='.$junior['tag'].$refDocx.'.docx');
-            header('Pragma: no-cache');
-            header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-            header('Expires: 0');
+
+            $response = new Response();
+            $response->headers->set('Content-Type', 'text/html');
+            $response->headers->set('Content-Length', filesize($templateName));
+            $response->headers->set('Content-disposition', 'attachment filename='.$junior['tag'].$refDocx.'.docx');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+            $response->headers->set('Expires', 0);
+
+            // prints the HTTP headers followed by the content
+            $response->send();
+
             readfile($templateName);
             exit();
         }

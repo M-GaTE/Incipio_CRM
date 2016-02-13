@@ -1,43 +1,50 @@
 mgatePersonne_listeDiffusion:
     pattern: /listediffusion
     defaults: { _controller: mgatePersonneBundle:Personne:listeMail }
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_personne_supprimer:
     pattern: /personne/supprimer/{id}
     defaults: {_controller: mgatePersonneBundle:Personne:delete}
     requirements:
         id: \d+
-
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_annuaire:
     pattern: /annuaire
     defaults: { _controller: mgatePersonneBundle:Personne:annuaire }
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_homepage:
     pattern:  /
     defaults: { _controller: mgatePersonneBundle:Default:index }
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_prospect_homepage:
     pattern:  /prospect/{page}
     defaults: { _controller: mgatePersonneBundle:Prospect:index , page: 1 }
     requirements:
       page : \d*
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_prospect_ajouter:
     pattern: /prospect/add/{format}
     defaults: {_controller: mgatePersonneBundle:Prospect:ajouter, format:null}
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_prospect_voir:
     pattern:   /prospect/voir/{id}
     defaults:  { _controller: mgatePersonneBundle:Prospect:voir}
     requirements:
         id:  \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_prospect_modifier:
     pattern: /prospect/modifier/{id}
     defaults: {_controller: mgatePersonneBundle:Prospect:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgatePersonne_prospect_supprimer:
     pattern: /prospect/supprimer/{id}
@@ -51,7 +58,7 @@ mgatePersonne_employe_homepage:
     defaults: { _controller: mgatePersonneBundle:Employe:index , page: 1 }
     requirements:
       page : \d*
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 
 mgatePersonne_employe_ajouter:
@@ -66,7 +73,7 @@ mgatePersonne_employe_voir:
     defaults:  { _controller: mgatePersonneBundle:Employe:voir}
     requirements:
         id:  \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_employe_modifier:
     pattern: /employe/modifier/{id}
@@ -78,12 +85,12 @@ mgatePersonne_employe_modifier:
 mgatePersonne_intervenants_homepage:
     pattern:  /intervenants
     defaults: { _controller: mgatePersonneBundle:Membre:listIntervenants }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_membre_homepage:
     pattern:  /membre
     defaults: { _controller: mgatePersonneBundle:Membre:index }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_membre_ajouter:
     pattern: /membre/add
@@ -100,7 +107,7 @@ mgatePersonne_membre_voir:
 mgatePersonne_membre_impayes:
     pattern:  /membre/impayes
     defaults: { _controller: mgatePersonneBundle:Membre:impayes }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_membre_modifier:
     pattern: /membre/modifier/{id}
@@ -121,7 +128,7 @@ mgatePersonne_poste_homepage:
     defaults: { _controller: mgatePersonneBundle:Poste:index , page: 1 }
     requirements:
       page : \d*
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_poste_ajouter:
     pattern: /poste/add
