@@ -221,11 +221,9 @@ class TraitementController extends Controller
             $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
             $response->headers->set('Expires', 0);
 
-            // prints the HTTP headers followed by the content
-            $response->send();
+            $response->setContent(file_get_contents($templateName));
+            return $response;
 
-            readfile($templateName);
-            exit();
         }
 
         return $this->redirect($this->generateUrl('mgateSuivi_etude_homepage', array('page' => 1)));
