@@ -21,6 +21,7 @@ class LoadPosteData implements FixtureInterface
         $postes = array(
             //Bureau
             "Président",
+            "Président par procuration",
             "Vice-président",
             "Trésorier",
             "Suiveur Manager Qualité",
@@ -41,6 +42,7 @@ class LoadPosteData implements FixtureInterface
         foreach($postes as $poste){
             $p = new Poste();
             $p->setIntitule($poste);
+            $p->setDescription("a completer");
 
             $manager->persist($p);
         }
