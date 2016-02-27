@@ -1,0 +1,36 @@
+<h3>Liste des employés</h3>
+
+<table aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="employes" border="0" cellpadding="0" cellspacing="0" >
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>E-mail</th>
+        <th>Fixe</th>
+        <th>Mobile</th>
+        <th>Poste</th>
+        <th>Adresse/Bureau</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for employe in prospect.employes %}
+        <tr>
+            <td><h4><a href="{{ path('mgatePersonne_employe_modifier', {'id': employe.id}) }}">{{ employe.personne.nom | title }} {{ employe.personne.prenom }}</a></h4></td>
+            <td title="{{ employe.personne.emailEstValide ? (employe.personne.estAbonneNewsletter ? "Est Abonné à la Newsletter" : "N'est pas abonné à la newsletter") : "l'Email n'est plus valide" }}" class="{{ employe.personne.emailEstValide ? (employe.personne.estAbonneNewsletter ? "success" : "warning") : "error" }}">{{ employe.personne.email }}</td>
+            <td>{{ employe.personne.fix }}</td>
+            <td>{{ employe.personne.mobile }}</td>
+            <td><h5>{{ employe.poste }}</h5></td>
+            <td>{{ employe.personne.adresse }}<br/>
+                {{ employe.personne.codePostal }} {{ employe.personne.ville }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<table class="table">
+    <tr>
+        <td style="text-align: left;"><a href="{{ path('mgatePersonne_employe_ajouter', {'prospect_id': prospect.id}) }}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-user"></span> Ajouter un employé</button></a></td>
+        <td style="text-align: center;"><a href="{{ path('mgatePersonne_prospect_modifier', {'id': prospect.id}) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Modifier le prospect</button></a></td>
+        <td style="text-align: right;"><a href="{{ path('mgatePersonne_prospect_homepage') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-th-list"></span> Retour à la liste des Prospect</button></a></td>
+    </tr>
+</table>

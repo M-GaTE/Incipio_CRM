@@ -75,6 +75,7 @@ class ProspectController extends Controller
             throw $this->createNotFoundException('Le prospect demandé n\'existe pas !');
         }
 
+        //récupération des employés
         $mailing = '';
         $employes = array();
         foreach ($entity->getEmployes() as $employe) {
@@ -89,9 +90,14 @@ class ProspectController extends Controller
             $mailing .= "$nom <$mail>; ";
         }
 
+        //récupération des études faites avec ce prospect
+        $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findByProspect($entity);
+
         return $this->render('mgatePersonneBundle:Prospect:voir.html.twig', array(
             'prospect' => $entity,
-            'mailing' => $mailing, ));
+            'mailing' => $mailing,
+            'etudes' => $etudes,
+            ));
     }
 
     /**

@@ -10,7 +10,13 @@
 
     <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
-                    $('#example').dataTable({
+                    $('#employes').dataTable({
+                        "bPaginate": false,
+						"aaSorting": [[0,'asc']],
+                    });
+            } );
+            $(document).ready(function() {
+                    $('#etudes').dataTable({
                         "bPaginate": false,
 						"aaSorting": [[0,'asc']],
                     });
@@ -18,6 +24,7 @@
     </script>
 
 {% endblock %}
+
 {% block stylesheets %}
 {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
@@ -33,51 +40,32 @@
             {{ prospect.codePostal }} {{ prospect.ville }}
 </h4></p>
 
+    <div class="tabs-container no-margin">
+        <ul class="nav nav-tabs no-margin" style="font-weight: bold;">
+            <li class="active"><a href="#tab1" data-toggle="tab">Employés</a></li>
+            <li><a href="#tab2" data-toggle="tab">Etudes</a></li>
+            <li><a href="#tab3" data-toggle="tab">Mailing</a></li>
+            <li><a href="#tab4" data-toggle="tab">Commentaires</a></li>
+        </ul>
+        <div class="tab-content">
+            <!-- Liste des employés -->
+            <div class="tab-pane active" id="tab1">
+                {% include "mgatePersonneBundle:Prospect:TabVoir/employes.html.twig" %}
+            </div>
+            <!-- Etudes faites avec ce prospect -->
+            <div class="tab-pane" id="tab2" style="min-height:200px;">
+                {% include "mgatePersonneBundle:Prospect:TabVoir/etudes.html.twig" %}
+            </div>
+            <!-- Mailing list -->
+            <div class="tab-pane" id="tab3">
+                {% include "mgatePersonneBundle:Prospect:TabVoir/mailing.html.twig" %}
+            </div>
+            <!-- commentaires (fos rest) -->
+            <div class="tab-pane" id="tab4">
+                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': prospect.thread.id} %}
+            </div>
+        </div>
+    </div>
 
-<div id="mailling" class="bs-callout bs-callout-info">
-</div>
-
-<h2>Liste des employés</h2>
-
-    <table style="width: 100%;" aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="example" border="0" cellpadding="0" cellspacing="0" width="100%">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>E-mail</th>
-            <th>Fixe</th>
-            <th>Mobile</th>
-            <th>Poste</th>
-			<th>Adresse/Bureau</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for employe in prospect.employes %}
-            <tr>
-                <td><h4><a href="{{ path('mgatePersonne_employe_modifier', {'id': employe.id}) }}">{{ employe.personne.nom | title }} {{ employe.personne.prenom }}</a></h4></td>
-                <td title="{{ employe.personne.emailEstValide ? (employe.personne.estAbonneNewsletter ? "Est Abonné à la Newsletter" : "N'est pas abonné à la newsletter") : "l'Email n'est plus valide" }}" class="{{ employe.personne.emailEstValide ? (employe.personne.estAbonneNewsletter ? "success" : "warning") : "error" }}">{{ employe.personne.email }}</td>
-                <td>{{ employe.personne.fix }}</td>
-                <td>{{ employe.personne.mobile }}</td>
-                <td><h5>{{ employe.poste }}</h5></td>
-                <td>{{ employe.personne.adresse }}<br/>
-                    {{ employe.personne.codePostal }} {{ employe.personne.ville }}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-<table class="table">
-    <tr>
-        <td style="text-align: left;"><a href="{{ path('mgatePersonne_employe_ajouter', {'prospect_id': prospect.id}) }}"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-user"></span> Ajouter un employé</button></a></td>
-        <td style="text-align: center;"><a href="{{ path('mgatePersonne_prospect_modifier', {'id': prospect.id}) }}"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Modifier le prospect</button></a></td>
-        <td style="text-align: right;"><a href="{{ path('mgatePersonne_prospect_homepage') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-th-list"></span> Retour à la liste des Prospect</button></a></td>
-    </tr>
-</table>
-<pre>
-<h4>Maling des mails valides, abonnés à la newsletter</h4>
-{{ mailing }}
-</pre>
-
-{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': prospect.thread.id} %}
 
 {% endblock %}
