@@ -10,7 +10,7 @@
 
     <script type="text/javascript" charset="utf-8">
             $(document).ready(function() {
-                    $('#example').dataTable({
+                    $('#prospects').dataTable({
                         "bPaginate": false,
 						"aaSorting": [[0,'desc']],
                     });
@@ -27,7 +27,10 @@
 {% block content_bundle %}
 <h2>Liste des Prospects</h2>
 
-    <table style="width: 100%;" aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="example" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <div>
+        <a href="{{ path('mgatePersonne_prospect_ajouter') }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus"></span> Ajouter un prospect</a>
+    </div>
+    <table style="width: 100%;" aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="prospects" border="0" cellpadding="0" cellspacing="0" width="100%">
         <thead>
           <tr>
             <th>Nom</th>
