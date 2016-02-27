@@ -12,6 +12,7 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * mgate\PersonneBundle\Entity\Membre.
@@ -121,9 +122,13 @@ class Membre
      * @ORM\Column(name="filiere", type="string", length=15)
      */
     private $filiere;
-	
-	
-	
+
+    /**
+     * @ORM\ManyToMany(targetEntity="n7consulting\RhBundle\Entity\Competence", mappedBy="membres", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $competences;
+
 
     /**
      * Get id.
@@ -215,9 +220,11 @@ class Membre
      */
     public function __construct()
     {
-        $this->mandats = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->missions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->relatedDocuments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mandats = new ArrayCollection();
+        $this->missions = new ArrayCollection();
+        $this->relatedDocuments = new ArrayCollection();
+        $this->competences = new ArrayCollection();
+
     }
 
     /**
@@ -558,7 +565,41 @@ class Membre
         return $this->filiere;
     }
 
+    /**
+     * Add missions.
+     *
+     * @param \n7consulting\RhBundle\Entity\Competence $competences
+     *
+     * @return Membre
+     */
+    public function addCompetence(\n7consulting\RhBundle\Entity\Competence $competences)
+    {
+        $this->competences[] = $competences;
 
+        return $this;
+    }
+
+    /**
+     * Remove missions.
+     *
+     * @param \n7consulting\RhBundle\Entity\Competence $competences
+     */
+    public function removeCompetence(\n7consulting\RhBundle\Entity\Competence $competences)
+    {
+        $this->competences->removeElement($competences);
+    }
+
+    /**
+     * Get competences.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompetences()
+    {
+        return $this->competences;
+    }
+	
+	
     public function __toString()
     {
         return $this->getPersonne()->__toString();
