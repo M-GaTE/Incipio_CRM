@@ -1,0 +1,17 @@
+{% extends "mgatePersonneBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+
+  <h2>Ajouter une compétence</h2>
+
+<form method="post" {{ form_enctype(form) }}>
+
+	{{ form_widget(form) }}
+
+	<input type="submit" />
+</form>
+
+
+
+
+{% endblock %}

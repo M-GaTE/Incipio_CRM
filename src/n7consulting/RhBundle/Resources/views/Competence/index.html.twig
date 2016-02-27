@@ -1,0 +1,22 @@
+{# layout d'accueil pour les Users  #}
+
+{% extends "mgatePersonneBundle::layout.html.twig" %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block content_bundle %}
+
+    <h2>Liste des Competences</h2>
+
+    <ul>
+        {% for competence in competences %}
+            <li>
+            <a href="{{ path('n7consultingRh_competence_voir', {'id': competence.id}) }}"> {{ competence.nom }} </a>
+            </li>
+        {% else %}
+            <li>Pas (encore !) de competences</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('n7consultingRh_competence_ajouter') }}" class="btn btn-info">Ajouter une compétence</a>
+
+{% endblock %}

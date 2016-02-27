@@ -1,0 +1,26 @@
+{% extends "mgatePersonneBundle::layout.html.twig" %}
+
+{% block title %}Modifier une compétence - {{ parent() }}{% endblock %}
+
+{% block content_bundle %}
+
+    <h2>Modifier une compétence</h2>
+<form method="post" {{ form_enctype(form) }}>
+
+	{{ form_widget(form) }}
+
+	<input type="submit" />
+</form>
+
+
+    <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cette compétence ?" action="{{ path('n7consultingRh_competence_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+    {{ form_widget(delete_form) }}
+        <button>Supprimer le poste</button>
+    </form>
+
+<p>
+    <a href="{{ path('n7consultingRh_competence_homepage') }}" >Retour à la liste des compétences</a>
+</p>
+{% endblock %}
+
+

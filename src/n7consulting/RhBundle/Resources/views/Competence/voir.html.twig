@@ -1,0 +1,19 @@
+{% extends "mgatePersonneBundle::layout.html.twig" %}
+
+{% block title %}
+	Affichage d'une compétence - {{ parent() }}
+{% endblock %}
+
+{% block content_bundle %}
+<p>
+	<h2>{{ competence.nom }}</h2>
+    {{ competence.description }}
+
+</p>
+
+<p>
+    <a href="{{ path('n7consultingRh_competence_modifier', {'id': competence.id}) }}">Modifier la compétence</a><br />
+    <a href="{{ path('n7consultingRh_competence_homepage') }}">Retour à la liste des compétences</a>
+</p>
+
+{% endblock %}
