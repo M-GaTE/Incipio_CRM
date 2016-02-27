@@ -27,3 +27,5 @@ easy_admin:
           class: mgate\PersonneBundle\Entity\Poste
         User:
             class: mgate\UserBundle\Entity\User
+        Competence:
+            class: n7consulting\RhBundle\Entity\Competence
