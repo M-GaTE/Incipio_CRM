@@ -178,6 +178,11 @@
             <li class="divider"></li>
             <li class="dropdown-header">Autres</li>
             <li><a href="{{ path('mgateSuivi_domaine_index') }}"><span class="glyphicon glyphicon-list"></span> Domaines de compétence</a></li>
+
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li><a href="{{ path('mgate_dashboard_homepage') }}over">Administration BDD</a></li>
+            {% endif %}
+
         </ul>
     </li>
     {% endif %}
