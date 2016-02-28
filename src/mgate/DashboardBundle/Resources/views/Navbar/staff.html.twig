@@ -26,26 +26,6 @@
     {% endif %}
 
 
-
-    <!-- RECRUTEMENT FORMATIONS PASSATION -->
-    {% if is_granted('ROLE_SUIVEUR') %}
-    <li>
-        <a href="#"><span class="nav-label">Formations </span> <i class="fa fa-angle-left pull-right"></i></a>
-        <ul class="treeview-menu">
-            <li class="dropdown-header">Formations</li>
-            <li><a href="{{ path('mgate_formations_lister') }}"><span class="glyphicon glyphicon-book"></span> Voir les formations</a></li>
-            {% if is_granted('ROLE_CA') %}
-            <li class="divider"></li>
-            <li class="dropdown-header">Administration</li>
-            <li><a href="{{ path('mgate_formations_index_admin') }}"><span class="glyphicon glyphicon-list"></span> Gérer les formations</a></li>
-            <li><a href="{{ path('mgate_formation_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter une formation</a></li>
-            <li><a href="{{ path('mgate_formation_participation') }}"><span class="glyphicon glyphicon-tasks"></span> Voir les participants</a></li>
-            {% endif %}
-        </ul>
-    </li>
-    {% endif %}
-
-
     {% if is_granted('ROLE_SUIVEUR') %}
     <!-- SUIVI D'ETUDES-->
     <li>
@@ -73,6 +53,30 @@
         </ul>
     </li>
     {% endif %}
+
+    <!-- DEVELOPPEMENT COMMERCIAL -->
+    {% if is_granted('ROLE_SUIVEUR') %}
+        <li>
+            <a href="#" ><span class="nav-label">Prospection </span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li class="dropdown-header">Prospect/Client</li>
+                <li><a href="{{ path('mgatePersonne_prospect_homepage') }}"><span class="glyphicon glyphicon-list"></span> Voir les prospects</a></li>
+                <li><a href="{{ path('mgatePersonne_prospect_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un prospect</a></li>
+                {% if is_granted('ROLE_CA') %}
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Annuaire</li>
+                    <li><a href="{{ path('mgatePersonne_annuaire') }}"><span class="glyphicon glyphicon-book"></span> Annuaire global</a></li>
+                    <li><a href="{{ path('mgatePersonne_listeDiffusion') }}"><span class="glyphicon glyphicon-envelope"></span> Liste de diffusion</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    {% endif %}
+
+    <!-- RESSOURCES HUMAINES -->
+    {% if is_granted('ROLE_SUIVEUR') %}
+        <li><a href="{{ path('n7consultingRh_competence_homepage') }}"><span class="nav-label">RH & compétences</span></a></li>
+    {% endif %}
+
 
     <!-- TRESORERIE-->
     {% if is_granted('ROLE_CA') %}
@@ -133,22 +137,25 @@
     </li>
     {% endif %}
 
-    <!-- DEVELOPPEMENT COMMERCIAL -->
+
+
+
+    <!-- RECRUTEMENT FORMATIONS PASSATION -->
     {% if is_granted('ROLE_SUIVEUR') %}
-    <li>
-        <a href="#" ><span class="nav-label">Prospection </span> <i class="fa fa-angle-left pull-right"></i></a>
-        <ul class="treeview-menu">
-            <li class="dropdown-header">Prospect/Client</li>
-            <li><a href="{{ path('mgatePersonne_prospect_homepage') }}"><span class="glyphicon glyphicon-list"></span> Voir les prospects</a></li>
-            <li><a href="{{ path('mgatePersonne_prospect_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un prospect</a></li>
-        {% if is_granted('ROLE_CA') %}
-            <li class="divider"></li>
-            <li class="dropdown-header">Annuaire</li>
-            <li><a href="{{ path('mgatePersonne_annuaire') }}"><span class="glyphicon glyphicon-book"></span> Annuaire global</a></li>
-            <li><a href="{{ path('mgatePersonne_listeDiffusion') }}"><span class="glyphicon glyphicon-envelope"></span> Liste de diffusion</a></li>
-        {% endif %}
-        </ul>
-    </li>
+        <li>
+            <a href="#"><span class="nav-label">Formations </span> <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li class="dropdown-header">Formations</li>
+                <li><a href="{{ path('mgate_formations_lister') }}"><span class="glyphicon glyphicon-book"></span> Voir les formations</a></li>
+                {% if is_granted('ROLE_CA') %}
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Administration</li>
+                    <li><a href="{{ path('mgate_formations_index_admin') }}"><span class="glyphicon glyphicon-list"></span> Gérer les formations</a></li>
+                    <li><a href="{{ path('mgate_formation_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter une formation</a></li>
+                    <li><a href="{{ path('mgate_formation_participation') }}"><span class="glyphicon glyphicon-tasks"></span> Voir les participants</a></li>
+                {% endif %}
+            </ul>
+        </li>
     {% endif %}
 
     <!-- PILOTAGE DE LA J.E. -->
