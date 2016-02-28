@@ -62,9 +62,12 @@ class CompetenceController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Cette compétence n\'existe pas !');
         }
-
+		
+		$devs = $em->getRepository('mgatePersonneBundle:Membre')->findByCompetence($entity);
+		
         return $this->render('n7consultingRhBundle:Competence:voir.html.twig', array(
             'competence' => $entity,
+			'devs'=>$devs,
         ));
     }
 

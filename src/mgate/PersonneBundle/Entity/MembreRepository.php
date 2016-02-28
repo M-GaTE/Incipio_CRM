@@ -12,6 +12,7 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use n7consulting\RhBundle\Entity\Competence;
 
 /**
  * MembreRepository.
@@ -61,5 +62,22 @@ class MembreRepository extends EntityRepository
           ->setParameter('membre', 'Membre');
 
         return $query->getQuery()->getResult();
+    }
+	
+	public function findByCompetence(Competence $competence){
+        $qb = $this->_em->createQueryBuilder();
+		
+		$query = $qb->select('m')
+					  ->from('mgatePersonneBundle:Membre', 'm')
+                      ->leftJoin('m.competences', 'c')
+                      ->addSelect('c')
+                      ->leftJoin('m.personne', 'personne')
+                      ->addSelect('personne');
+ 
+        $query = $query->add('where', $query->expr()->in('c', ':c'))
+                      ->setParameter('c', $competence)
+                      ->getQuery();
+          
+        return $query->getResult();
     }
 }

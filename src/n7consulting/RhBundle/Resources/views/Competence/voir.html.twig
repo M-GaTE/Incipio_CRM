@@ -16,4 +16,50 @@
     <a href="{{ path('n7consultingRh_competence_homepage') }}">Retour à la liste des compétences</a>
 </p>
 
+<h3>Intervenants Potentiels</h3>
+	<table class="display dataTable table table-bordered table-striped table-hover" id="devs">
+		<thead>
+		<tr>
+			<th>Prénom Nom</th>
+			<th>Email</th>
+			<th>Mobile</th>
+			<th>Filiere</th>
+			<th>Promotion</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for dev in devs %}
+			<tr>
+				<td>{{dev.personne.Prenom}} {{dev.personne.Nom}}</td>
+				<td>{{ dev.personne.email }}</td>
+				<td>{{ dev.personne.mobile }}</td>
+				<td> {{ dev.filiere }}</td>
+				<td> {{ dev.promotion }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
+
+
+{% block javascript_quick %}
+	{{ parent() }}
+	<script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function() {
+			$('#devs').dataTable({
+				"bPaginate": true,
+				"iDisplayLength": 100,
+				"aaSorting": [[5,'desc']],
+			});
+		} );
+	</script>
+
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
 {% endblock %}
