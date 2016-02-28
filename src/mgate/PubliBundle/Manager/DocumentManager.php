@@ -160,10 +160,11 @@ class DocumentManager extends BaseManager
                     $relation = $doc->getRelation();
                     $doc->setRelation();
                     $this->em->remove($relation);
-                    $this->em->flush();
                 }
                 $this->em->remove($doc);
             }
+            //persistence de tout à la fin des actions.
+            $this->em->flush();
         }
         $this->persistAndFlush($document);
 

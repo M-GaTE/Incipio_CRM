@@ -14,6 +14,7 @@ namespace mgate\PubliBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\PubliBundle\Form\DocTypeType;
+use Symfony\Component\HttpFoundation\Response;
 
 class TraitementController extends Controller
 {
