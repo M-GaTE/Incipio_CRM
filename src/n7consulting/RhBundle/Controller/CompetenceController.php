@@ -78,21 +78,21 @@ class CompetenceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (!$poste = $em->getRepository('mgate\PersonneBundle\Entity\Poste')->find($id)) {
-            throw $this->createNotFoundException('Le poste demandé n\'existe pas !');
+        if (!$competence = $em->getRepository('n7consulting\RhBundle\Entity\Competence')->find($id)) {
+            throw $this->createNotFoundException('La compétence demandée n\'existe pas !');
         }
 
         // On passe l'$article récupéré au formulaire
-        $form = $this->createForm(new PosteType(), $poste);
+        $form = $this->createForm(new CompetenceType(), $competence);
         $deleteForm = $this->createDeleteForm($id);
         if ($this->get('request')->getMethod() == 'POST') {
             $form->bind($this->get('request'));
 
             if ($form->isValid()) {
-                $em->persist($poste);
+                $em->persist($competence);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('n7consultingRh_competence_voir', array('id' => $poste->getId())));
+                return $this->redirect($this->generateUrl('n7consultingRh_competence_voir', array('id' => $competence->getId())));
             }
         }
 
