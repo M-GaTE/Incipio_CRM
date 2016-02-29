@@ -4,14 +4,6 @@
 
   <h2>Ajouter une compétence</h2>
 
-<form method="post" {{ form_enctype(form) }}>
-
-	{{ form_widget(form) }}
-
-	<input type="submit" />
-</form>
-
-
-
+	{% include "n7consultingRhBundle:Competence:formulaire.html.twig" %}
 
 {% endblock %}

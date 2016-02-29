@@ -1,0 +1,25 @@
+<form method="post" {{ form_enctype(form) }}>
+
+    <table class="table table-bordered table-striped standard">
+        <tr>
+            <th>{{ form_label(form.nom) }}</th>
+            <td>{{ form_widget(form.nom) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.description) }}</th>
+            <td>{{ form_widget(form.description) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.membres) }}</th>
+            <td>{{ form_widget(form.membres) }}</td>
+        </tr>
+    </table>
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Enregistrer la compétence" class="btn btn-success"/>
+
+</form>
+
+<script type="text/javascript">
+    $("#n7consulting_rhbundle_competence_membres").select2({containerCssClass : "table"});
+</script>
