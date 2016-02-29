@@ -18,6 +18,7 @@ class CompetenceType extends AbstractType
             ->add('description')
             ->add('nom')
             ->add('membres')
+            ->add('etudes')
         ;
     }
     

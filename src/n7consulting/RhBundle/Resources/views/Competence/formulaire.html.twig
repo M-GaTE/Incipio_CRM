@@ -13,6 +13,10 @@
             <th>{{ form_label(form.membres) }}</th>
             <td>{{ form_widget(form.membres) }}</td>
         </tr>
+        <tr>
+            <th>{{ form_label(form.etudes) }}</th>
+            <td>{{ form_widget(form.etudes) }}</td>
+        </tr>
     </table>
     {{ form_widget(form) }}
 
@@ -22,4 +26,5 @@
 
 <script type="text/javascript">
     $("#n7consulting_rhbundle_competence_membres").select2({containerCssClass : "table"});
+    $("#n7consulting_rhbundle_competence_etudes").select2({containerCssClass : "table"});
 </script>

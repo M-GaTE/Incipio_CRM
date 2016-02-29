@@ -5,6 +5,7 @@ namespace n7consulting\RhBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use mgate\PersonneBundle\Entity\Membre;
+use mgate\SuiviBundle\Entity\Etude;
 
 /**
  * Competence : objet pouvant être attaché à un intervenant ou a une étude pour caractériser ce dont il a besoin.
@@ -33,6 +34,11 @@ class Competence
      */
     private $membres;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="mgate\SuiviBundle\Entity\Etude", inversedBy="competences")
+     */
+    private $etudes;
+
 
     /**
      * @var integer
@@ -48,6 +54,7 @@ class Competence
     public function __construct()
     {
         $this->membres = new ArrayCollection();
+        $this->etudes = new ArrayCollection();
     }
 
 
@@ -124,6 +131,41 @@ class Competence
     {
         return $this->membres;
     }
+
+    /**
+     * Add etudes.
+     *
+     * @param Etude $etudes
+     *
+     * @return Competence
+     */
+    public function addEtude(Etude $etudes)
+    {
+        $this->etudes[] = $etudes;
+
+        return $this;
+    }
+
+    /**
+     * Remove etudes.
+     *
+     * @param Etude $etudes
+     */
+    public function removeEtude(Etude $etudes)
+    {
+        $this->etudes->removeElement($etudes);
+    }
+
+    /**
+     * Get etudes.
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getEtudes()
+    {
+        return $this->etudes;
+    }
+
 
     public function __toString(){
         return $this->getNom();

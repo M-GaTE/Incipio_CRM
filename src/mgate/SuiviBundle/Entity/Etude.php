@@ -11,9 +11,12 @@
 
 namespace mgate\SuiviBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use \Symfony\Component\DependencyInjection\ContainerAware;
+use n7consulting\RhBundle\Entity\Competence;
 
 /**
  * mgate\SuiviBundle\Entity\Etude.
@@ -22,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="mgate\SuiviBundle\Entity\EtudeRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
+class Etude extends ContainerAware
 {
     /************************
      *    ORM DEFINITIONS
@@ -107,9 +110,8 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     private $confidentiel;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="competences", type="text", nullable=true)
+     * @ORM\ManyToMany(targetEntity="n7consulting\RhBundle\Entity\Competence", mappedBy="etudes", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $competences;
 
@@ -418,16 +420,17 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
      */
     public function __construct()
     {
-        $this->relatedDocuments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->clientContacts = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->suivis = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->phases = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->missions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->factures = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->procesVerbaux = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->avs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->avMissions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->relatedDocuments = new ArrayCollection();
+        $this->clientContacts = new ArrayCollection();
+        $this->suivis = new ArrayCollection();
+        $this->phases = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
+        $this->missions = new ArrayCollection();
+        $this->factures = new ArrayCollection();
+        $this->procesVerbaux = new ArrayCollection();
+        $this->avs = new ArrayCollection();
+        $this->avMissions = new ArrayCollection();
+        $this->competences = new ArrayCollection();
 
         $this->fraisDossier = 90;
         $this->pourcentageAcompte = 0.40;
@@ -625,29 +628,6 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
         return $this->description;
     }
 
-    /**
-     * Set competences.
-     *
-     * @param string $competences
-     *
-     * @return Etude
-     */
-    public function setCompetences($competences)
-    {
-        $this->competences = $competences;
-
-        return $this;
-    }
-
-    /**
-     * Get competences.
-     *
-     * @return string
-     */
-    public function getCompetences()
-    {
-        return $this->competences;
-    }
 
     /**
      * Set auditDate.
@@ -959,7 +939,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get clientContacts.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getClientContacts()
     {
@@ -993,7 +973,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get suivis.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSuivis()
     {
@@ -1055,7 +1035,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get phases.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getPhases()
     {
@@ -1117,7 +1097,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get missions.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getMissions()
     {
@@ -1151,7 +1131,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get factures.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getFactures()
     {
@@ -1171,7 +1151,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get factures.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getProcesVerbaux()
     {
@@ -1259,7 +1239,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get avs.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getAvs()
     {
@@ -1293,7 +1273,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get avMissions.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getAvMissions()
     {
@@ -1480,7 +1460,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get groupes.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getGroupes()
     {
@@ -1600,7 +1580,7 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     /**
      * Get relatedDocuments.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getRelatedDocuments()
     {
@@ -1649,5 +1629,45 @@ class Etude extends \Symfony\Component\DependencyInjection\ContainerAware
     public function getDomaineCompetence()
     {
         return $this->domaineCompetence;
+    }
+
+
+    /**
+     * Add competences.
+     *
+     * @param Competence $competences
+     *
+     * @return Competence
+     */
+    public function addCompetence(Competence $competences)
+    {
+        $this->competences[] = $competences;
+
+        return $this;
+    }
+
+    /**
+     * Remove competences.
+     *
+     * @param Competence $competences
+     */
+    public function removeCompetence(Competence $competences)
+    {
+        $this->competences->removeElement($competences);
+    }
+
+    /**
+     * Get competences.
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getCompetences()
+    {
+        return $this->competences;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
     }
 }
