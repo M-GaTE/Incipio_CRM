@@ -12,6 +12,7 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use n7consulting\RhBundle\Entity\Competence;
 
 /**
  * EtudeRepository.
@@ -48,5 +49,21 @@ class EtudeRepository extends EntityRepository
 
 
         return $query->getQuery()->getResult();
+    }
+
+
+    public function findByCompetence(Competence $competence){
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb->select('e')
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->leftJoin('e.competences', 'c')
+            ->addSelect('c');
+
+        $query = $query->add('where', $query->expr()->in('c', ':c'))
+            ->setParameter('c', $competence)
+            ->getQuery();
+
+        return $query->getResult();
     }
 }

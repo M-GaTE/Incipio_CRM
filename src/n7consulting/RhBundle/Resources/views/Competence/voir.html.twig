@@ -40,6 +40,46 @@
 		</tbody>
 	</table>
 
+
+
+
+
+	<h3>Etudes liées</h3>
+	<table aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="etudes" >
+		<thead>
+		<tr>
+			<th>Date d'ajout</th>
+			<th>Nom</th>
+			<th>Statut</th>
+			<th>Sujet</th>
+			<th>Montant HT (€)</th>
+			<th>JEHs</th>
+			<th>Competences</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for etude in etudes %}
+			<tr>
+				<td>
+					{{ etude.dateCreation|date("d/m/Y") }}
+				</td>
+				<td><a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.nom }}</a></td>
+				<td>
+					{{ (etude.stateID == 4 ? "Terminée" : (etude.stateID == 5 ? "Avortée" : (etude.stateID == 3 ? "En Pause" : (etude.stateID == 2 ? "En Cours" : "En négociation")))) }}
+				</td>
+				<td>{{etude.description }}</td>
+				<td>{{ etude.montantHT | default('0') }}</td>
+				<td>{{etude.NbrJEH | default('0') }}</td>
+				<td>
+					{%  for competence in etude.competences %}
+						<a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}"><label class="label label-default">{{ competence.nom }}</label></a>
+					{% endfor %}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
 {% endblock %}
 
 
