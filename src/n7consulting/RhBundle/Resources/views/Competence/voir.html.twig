@@ -16,34 +16,46 @@
     <a href="{{ path('n7consultingRh_competence_homepage') }}">Retour à la liste des compétences</a>
 </p>
 
-<h3>Intervenants Potentiels</h3>
-	<table class="display dataTable table table-bordered table-striped table-hover" id="devs">
-		<thead>
-		<tr>
-			<th>Prénom Nom</th>
-			<th>Email</th>
-			<th>Mobile</th>
-			<th>Filiere</th>
-			<th>Promotion</th>
-		</tr>
-		</thead>
-		<tbody>
-		{% for dev in devs %}
+<div class="row">
+	<div class="col-xs-12">
+		<h3>Intervenants Potentiels</h3>
+		<table class="display dataTable table table-bordered table-striped table-hover" id="devs">
+			<thead>
 			<tr>
-				<td>{{dev.personne.Prenom}} {{dev.personne.Nom}}</td>
-				<td>{{ dev.personne.email }}</td>
-				<td>{{ dev.personne.mobile }}</td>
-				<td> {{ dev.filiere }}</td>
-				<td> {{ dev.promotion }}</td>
+				<th>Prénom Nom</th>
+				<th>Email</th>
+				<th>Mobile</th>
+				<th>Filiere</th>
+				<th>Promotion</th>
+				<th>Compétences</th>
 			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+			{% for dev in devs %}
+				<tr>
+					<td>{{dev.personne.Prenom}} {{dev.personne.Nom}}</td>
+					<td>{{ dev.personne.email }}</td>
+					<td>{{ dev.personne.mobile }}</td>
+					<td> {{ dev.filiere }}</td>
+					<td> {{ dev.promotion }}</td>
+					<td>
+						{%  for competence in dev.competences %}
+							<label class="label label-default">
+								<a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a>
+							</label>
+						{% endfor %}
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
 
 
 
-
-
+<div class="row">
+	<div class="col-xs-12">
 	<h3>Etudes liées</h3>
 	<table aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="etudes" >
 		<thead>
@@ -72,13 +84,17 @@
 				<td>{{etude.NbrJEH | default('0') }}</td>
 				<td>
 					{%  for competence in etude.competences %}
-						<a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}"><label class="label label-default">{{ competence.nom }}</label></a>
+						<label class="label label-default">
+							<a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a>
+						</label>
 					{% endfor %}
 				</td>
 			</tr>
 		{% endfor %}
 		</tbody>
 	</table>
+	</div>
+</div>
 
 {% endblock %}
 
@@ -92,7 +108,14 @@
 			$('#devs').dataTable({
 				"bPaginate": true,
 				"iDisplayLength": 100,
-				"aaSorting": [[5,'desc']],
+				"aaSorting": [[4,'desc']],
+			});
+		});
+		$(document).ready(function() {
+			$('#etudes').dataTable({
+				"bPaginate": true,
+				"iDisplayLength": 100,
+				"aaSorting": [[4,'desc']],
 			});
 		} );
 	</script>
