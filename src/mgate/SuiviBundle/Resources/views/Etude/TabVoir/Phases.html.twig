@@ -56,6 +56,10 @@
                 </thead>
                 <tbody>
                 {% for phase in groupe.phases %}
+                    {% if loop.first %}
+                        {% set nombreJEH = 0 %}
+                        {% set prixGroupe = 0 %}
+                    {% endif %}
                     {% set groupedPhases = groupedPhases | merge({ (phase.position) :  0}) %}
                     {% set nombreJEH = nombreJEH + phase.nbrJEH %}
                     {% set prixGroupe = prixGroupe + phase.nbrJEH*phase.prixJEH %}
@@ -97,9 +101,9 @@
                                     <span class="label label-danger">Incomplet</span>&nbsp;
                                 </td>
                                 <td>
-                                    <h3 class="inline">{{ groupe.titre | upper }}</h3>
+                                   {# <h3 class="inline">{{ groupe.titre | upper }}</h3>
                                     <br/>
-                                    <small>{{ groupe.description |nl2br }}</small>
+                                    <small>{{ groupe.description |nl2br }}</small> #}
                                 </td>
                             </tr>
                         </table>
@@ -107,6 +111,8 @@
                 </tr>
             </thead>
             <tbody>
+            {% set nombreJEH = 0 %}
+            {% set prixGroupe = 0 %}
             {% for phase in etude.phases if (attribute(groupedPhases, (phase.position)) | default(1) != 0) %}
                 {% set groupedPhases = groupedPhases | merge({ (phase.position) :  0}) %}
                 {% set nombreJEH = nombreJEH + phase.nbrJEH %}
