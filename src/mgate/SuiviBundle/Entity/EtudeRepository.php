@@ -58,10 +58,10 @@ class EtudeRepository extends EntityRepository
         $query = $qb->select('e')
             ->from('mgateSuiviBundle:Etude', 'e')
             ->leftJoin('e.competences', 'c')
-            ->addSelect('c');
-
-        $query = $query->add('where', $query->expr()->in('c', ':c'))
-            ->setParameter('c', $competence)
+            ->addSelect('c')
+            ->leftJoin('e.phases', 'p')->addSelect('p') //cette requete n'est utilisée que sur la page RH du bundle N7Consulting. Comme elle affiche le nombre de JEH, ajout d'une jointure sur les phases pour éviter de faire une requete sur les phases a chaque étude.
+            ->where(':competence MEMBER OF e.competences')
+            ->setParameter('competence', $competence)
             ->getQuery();
 
         return $query->getResult();

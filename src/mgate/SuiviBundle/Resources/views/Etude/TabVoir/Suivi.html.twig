@@ -52,7 +52,12 @@
         <td>{{etude.presentationprojet|default('')|nl2br}}</td>
         <td>{{etude.descriptionPrestation|default('')|nl2br}}</td>
         <td>{{etude.typeprestationtostring|default('')}}</td>
-        <td>{% if etude.competences|default(0) %}<i>Les réalisateurs de cette étude devront donc être capables de : </i><br />{% endif %}{{etude.competences|default('')|nl2br}}</td>
+        <td>
+            {% if etude.competences|default(0) %}<i>Les réalisateurs de cette étude devront donc être capables de : </i><br />{% endif %}
+            {% for competence in etude.competences %}
+                <label class="label label-default"><a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a></label>
+            {% endfor %}
+        </td>
     </tr>
 </table>
 </div>

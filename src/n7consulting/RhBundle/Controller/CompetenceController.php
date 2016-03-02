@@ -65,7 +65,7 @@ class CompetenceController extends Controller
 		
 		$devs = $em->getRepository('mgatePersonneBundle:Membre')->findByCompetence($entity);
 
-        $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findByCompetence($entity);
+       $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findByCompetence($entity);
 		
         return $this->render('n7consultingRhBundle:Competence:voir.html.twig', array(
             'competence' => $entity,
