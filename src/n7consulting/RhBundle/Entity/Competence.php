@@ -25,7 +25,7 @@ class Competence
 
     /**
      * @var string
-     * @ORM\Column(name="nom", type="string", length=15, nullable=false)
+     * @ORM\Column(name="nom", type="string", length=20, nullable=false)
      */
     private $nom;
 
