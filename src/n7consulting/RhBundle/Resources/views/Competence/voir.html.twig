@@ -5,16 +5,14 @@
 {% endblock %}
 
 {% block content_bundle %}
-<p>
-	<h2>{{ competence.nom }}</h2>
-    {{ competence.description }}
 
-</p>
+		<h2 class="inline">{{ competence.nom }}</h2>
+		{{ competence.description }}
+		<br><br>
+		<a href="{{ path('n7consultingRh_competence_modifier', {'id': competence.id}) }}" class="btn btn-default">Modifier la compétence</a>
+		<a href="{{ path('n7consultingRh_competence_homepage') }}" class="btn btn-default">Retour à la liste des compétences</a>
 
-<p>
-    <a href="{{ path('n7consultingRh_competence_modifier', {'id': competence.id}) }}">Modifier la compétence</a><br />
-    <a href="{{ path('n7consultingRh_competence_homepage') }}">Retour à la liste des compétences</a>
-</p>
+
 
 <div class="row">
 	<div class="col-xs-12">
