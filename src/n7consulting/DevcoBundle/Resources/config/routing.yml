@@ -1,0 +1,3 @@
+n7consulting_devco_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: n7consultingDevcoBundle:Default:index }
