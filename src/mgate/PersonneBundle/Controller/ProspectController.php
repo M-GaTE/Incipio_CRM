@@ -55,7 +55,7 @@ class ProspectController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('mgatePersonneBundle:Prospect')->findAll();
+        $entities = $em->getRepository('mgatePersonneBundle:Prospect')->getAllProspect();
 
         return $this->render('mgatePersonneBundle:Prospect:index.html.twig', array(
             'prospects' => $entities,

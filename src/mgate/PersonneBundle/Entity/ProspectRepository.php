@@ -12,6 +12,7 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use mgate\PersonneBundle\Employes;
 
 /**
  * ProspectRepository.
@@ -27,6 +28,17 @@ class ProspectRepository extends EntityRepository
         $query = $qb->select('n')->from('mgatePersonneBundle:Prospect', 'n')
           ->where($qb->expr()->like('n.nom', $qb->expr()->literal('%'.$nom.'%')))
           ->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function getAllProspect(){
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->select('p')
+                    ->from('mgatePersonneBundle:Prospect','p')
+                    ->leftJoin('p.employes','employes')
+                    ->addSelect('employes')
+                    ->getQuery();
 
         return $query->getResult();
     }
