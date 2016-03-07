@@ -37,8 +37,8 @@ class Employe
     private $prospect;
 
     /**
-     * @ORM\OneToOne(targetEntity="Personne", inversedBy="employe", cascade={"persist", "merge", "remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity="Personne", inversedBy="employe", fetch="EAGER", cascade={"persist", "merge", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $personne;
 
@@ -131,5 +131,10 @@ class Employe
     public function getPoste()
     {
         return $this->poste;
+    }
+
+    public function __toString()
+    {
+        return $this->getPersonne()->getPrenom().' '.$this->getPersonne()->getNom();
     }
 }
