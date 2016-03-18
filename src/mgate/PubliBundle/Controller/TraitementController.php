@@ -142,7 +142,7 @@ class TraitementController extends Controller
 
         if ($rootName == 'etude' && $rootObject->getReference()) {
             // TODO IMPLEMENT getref
-            $refDocx = $rootObject->getReference();
+            $refDocx = $rootObject->getReference().'-'.$templateName.'-';
         } elseif ($rootName == 'etudiant') {
             $refDocx = $templateName.'-'.$rootObject->getIdentifiant();
         } else {
@@ -215,15 +215,19 @@ class TraitementController extends Controller
             $templateName = 'tmp/'.$idDocx;
 
             $response = new Response();
-            $response->headers->set('Content-Type', 'text/html');
+            $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
             $response->headers->set('Content-Length', filesize($templateName));
-            $response->headers->set('Content-disposition', 'attachment filename='.$junior['tag'].$refDocx.'.docx');
+            $response->headers->set('Content-disposition', 'attachment; filename="'.$refDocx.'.docx"');
             $response->headers->set('Pragma', 'no-cache');
             $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
             $response->headers->set('Expires', 0);
 
             $response->setContent(file_get_contents($templateName));
             return $response;
+
+	//$response->send();
+         //   readfile($templateName);
+          //  exit();
 
         }
 
@@ -236,6 +240,7 @@ class TraitementController extends Controller
 
         return $array;
     }
+
 
     //TODO
     private function getDoctypeAbsolutePathFromName($doc, $debug = false)

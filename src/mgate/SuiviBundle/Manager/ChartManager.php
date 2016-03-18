@@ -228,7 +228,7 @@ class ChartManager /*extends \Twig_Extension*/
             return false;
         }
 
-        $cmd = 'phantomjs js/highcharts-convert.js -infile "'.$chemin.'" -outfile "'.$destination.'" -width 800 -constr Chart';
+        $cmd = 'phantomjs js/highcharts-convert.js -infile '.$chemin.' -outfile '.$destination.' -width 800 -constr Chart';
         $output = shell_exec($cmd);
         if (strncmp($output, $destination, strlen($destination)) == 0) {
             if (file_exists($destination)) {
