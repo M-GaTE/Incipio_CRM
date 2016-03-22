@@ -11,6 +11,7 @@
 
 namespace mgate\TresoBundle\Controller;
 
+use JMS\Serializer\Exception\LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\BV;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -66,6 +67,9 @@ class BVController extends Controller
                 }
 
                 $baseURSSAF = $em->getRepository('mgateTresoBundle:BaseURSSAF')->findByDate($bv->getDateDemission());
+                if($baseURSSAF == null){
+                    throw new LogicException('Il n\'y a aucune base Urssaf définie pour cette période.Pour ajouter une base URSSAF : '.$this->get('router')->generate('mgateTreso_BaseURSSAF_index').'.');
+                }
                 $bv->setBaseURSSAF($baseURSSAF);
 
                 $em->persist($bv);
