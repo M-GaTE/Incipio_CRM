@@ -66,6 +66,7 @@ class Mission extends DocType
      * @var float
      *
      * @ORM\Column(name="pourcentageJunior", type="float", nullable=false)
+     * Réel compris entre 0 et 1 représentant le pourcentage de la junior sur cette mission.
      */
     private $pourcentageJunior;
 
