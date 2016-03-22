@@ -31,7 +31,7 @@ class BVType extends AbstractType
                        'class' => 'mgate\\SuiviBundle\\Entity\\Mission',
                        'property' => 'reference',
                        'required' => true, ))
-            ->add('numeroVirement', 'text', array('label' => 'Numéro de Virement', 'required' => false));
+            ->add('numeroVirement', 'text', array('label' => 'Numéro de Virement', 'required' => true));
     }
 
     public function getName()
