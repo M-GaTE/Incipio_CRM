@@ -29,13 +29,13 @@ class MissionType extends DocTypeType
                'property' => 'personne.prenomNom',
                'label' => 'Intervenant',
                //'query_builder' => function(PersonneRepository $pr) { return $pr->getMembreOnly(); },
-               'required' => false,
+               'required' => true,
                ))
            ->add('newIntervenant', new MembreType(), array('label' => 'Nouvel intervenant ', 'required' => false))
 
-            ->add('debutOm', 'genemu_jquerydate', array('label' => 'Début du Récapitulatif de Mission', 'required' => false, 'widget' => 'single_text'))
-            ->add('finOm', 'genemu_jquerydate', array('label' => 'Fin du Récapitulatif de Mission', 'required' => false, 'widget' => 'single_text'))
-            ->add('pourcentageJunior', 'percent', array('label' => 'Pourcentage junior', 'required' => false, 'precision' => 2))
+            ->add('debutOm', 'genemu_jquerydate', array('label' => 'Début du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
+            ->add('finOm', 'genemu_jquerydate', array('label' => 'Fin du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
+            ->add('pourcentageJunior', 'percent', array('label' => 'Pourcentage junior', 'required' => true, 'precision' => 2))
             ->add('referentTechnique', 'genemu_jqueryselect2_entity', array(
                'class' => 'mgate\\PersonneBundle\\Entity\\Membre',
                'property' => 'personne.prenomNom',

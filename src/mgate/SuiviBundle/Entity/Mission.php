@@ -44,28 +44,28 @@ class Mission extends DocType
 
     /**
      * @ORM\ManyToOne(targetEntity="\mgate\PersonneBundle\Entity\Membre", inversedBy="missions", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $intervenant;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="debutOm", type="datetime", nullable=true)
+     * @ORM\Column(name="debutOm", type="datetime", nullable=false)
      */
     private $debutOm;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="finOm", type="datetime", nullable=true)
+     * @ORM\Column(name="finOm", type="datetime", nullable=false)
      */
     private $finOm;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="pourcentageJunior", type="float", nullable=true)
+     * @ORM\Column(name="pourcentageJunior", type="float", nullable=false)
      */
     private $pourcentageJunior;
 
