@@ -29,3 +29,5 @@ easy_admin:
             class: mgate\UserBundle\Entity\User
         Competence:
             class: n7consulting\RhBundle\Entity\Competence
+        Appel:
+            class: n7consulting\DevcoBundle\Entity\Appel
