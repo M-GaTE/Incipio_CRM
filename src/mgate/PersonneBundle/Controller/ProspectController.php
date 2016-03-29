@@ -13,6 +13,7 @@ namespace mgate\PersonneBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PersonneBundle\Form\ProspectType;
@@ -132,32 +133,6 @@ class ProspectController extends Controller
         ));
     }
 
-    // Je ne sais pas ce que c'est ...
-    /**
-     * @Route("/ajax_prospect", name="ajax_prospect")
-     * @Secure(roles="ROLE_SUIVEUR")
-     */
-    public function ajaxProspectAction(Request $request)
-    {
-        $value = $request->get('term');
-
-        $em = $this->getDoctrine()->getManager();
-        $members = $em->getRepository('mgatePersonneBundle:Prospect')->ajaxSearch($value);
-
-        $json = array();
-        foreach ($members as $member) {
-            $json[] = array(
-                'label' => $member->getNom(),
-                'value' => $member->getId(),
-            );
-        }
-
-        $response = new Response();
-        $response->setContent(json_encode($json));
-
-        return $response;
-    }
-
     /**
      * @Secure(roles="ROLE_SUIVEUR")
      */
@@ -195,4 +170,51 @@ class ProspectController extends Controller
             ->getForm()
         ;
     }
+
+
+    /**
+     * Point d'entré ajax retournant un json des prospect dont le nom contient une partie de $_GET['term'].
+     * @Route("/ajax_prospect", name="ajax_prospect")
+     * @Secure(roles="ROLE_SUIVEUR")
+     */
+    public function ajaxProspectAction(Request $request)
+    {
+        $value = $request->get('term');
+
+        $em = $this->getDoctrine()->getManager();
+        $members = $em->getRepository('mgatePersonneBundle:Prospect')->ajaxSearch($value);
+
+        $json = array();
+        foreach ($members as $member) {
+            $json[] = array(
+                'label' => $member->getNom(),
+                'value' => $member->getId(),
+            );
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($json));
+
+        return $response;
+    }
+
+    /**
+     * Point d'entrée ajax retournant un Json avec la liste des employés d'un prospect donné.
+     * @Secure(roles="ROLE_SUIVEUR")
+     */
+    public function ajaxEmployesAction(Prospect $prospect, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $employes = $em->getRepository('mgatePersonneBundle:Employe')->findByProspect($prospect);
+        $json = array();
+        foreach($employes as $employe){
+            array_push( $json,array('label' => $employe->__toString(), 'value'=>$employe->getId()) );
+        }
+        $response = new JsonResponse();
+        $response->setData($json);
+
+        return $response;
+    }
+
+
 }
