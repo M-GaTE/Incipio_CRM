@@ -88,16 +88,13 @@
 {{ form_rest(form) }}
     <input name="save" type="submit" value="Enregistrer" class="btn btn-success" />
 </form>
+
 <br>
-<form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce membre ?" action="{{ path('mgatePersonne_membre_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+<form class="bootbox-confirm inline" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce membre ?" action="{{ path('mgatePersonne_membre_supprimer', { 'id': form.vars.value.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button class="btn btn-danger">Supprimer le membre</button>
 </form>
-
-	<br>
-    <p>
-        <a href="{{ path('mgatePersonne_membre_homepage') }}" >Retour à la liste des membres</a>
-    </p>
+        <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-default">Retour à la liste des membres</a>
 {% endblock %}
 
 {% block javascript %}
