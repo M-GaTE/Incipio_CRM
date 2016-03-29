@@ -26,8 +26,8 @@ class MembreRepository extends EntityRepository
     {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('m')->from('mgatePersonneBundle:Membre', 'm')
-          ->innerJoin('m.missions', 'mi')
-          ->orderBy('m.promotion', 'ASC');
+            ->innerJoin('m.missions', 'mi')
+            ->orderBy('m.promotion', 'ASC');
 
         return $query->getQuery()->getResult();
     }
@@ -55,26 +55,66 @@ class MembreRepository extends EntityRepository
     {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('m')->from('mgatePersonneBundle:Membre', 'm')
-          ->innerJoin('m.mandats', 'ma')
-          ->innerJoin('ma.poste', 'p')
-          ->where('p.intitule LIKE :membre')
-          ->andWhere('ma.finMandat > CURRENT_DATE()')
-          ->setParameter('membre', 'Membre');
+            ->innerJoin('m.mandats', 'ma')
+            ->innerJoin('ma.poste', 'p')
+            ->where('p.intitule LIKE :membre')
+            ->andWhere('ma.finMandat > CURRENT_DATE()')
+            ->setParameter('membre', 'Membre');
 
         return $query->getQuery()->getResult();
     }
-	
-	public function findByCompetence(Competence $competence){
+
+    /**
+     * Retourne tous les membres connaissant $competence.
+     * @param Competence $competence
+     * @return array
+     */
+    public function findByCompetence(Competence $competence)
+    {
         $qb = $this->_em->createQueryBuilder();
-		
-		$query = $qb->select('m')
-					  ->from('mgatePersonneBundle:Membre', 'm')
-                      ->leftJoin('m.competences', 'c')
-                      ->addSelect('c')
-                      ->where(':competence MEMBER OF m.competences')
-                      ->setParameter('competence', $competence)
-                      ->getQuery();
+
+        $query = $qb->select('m')
+            ->from('mgatePersonneBundle:Membre', 'm')
+            ->leftJoin('m.competences', 'c')
+            ->addSelect('c')
+            ->where(':competence MEMBER OF m.competences')
+            ->setParameter('competence', $competence)
+            ->getQuery();
 
         return $query->getResult();
+    }
+
+    /**
+     * Retourne un query builder de tous les membres ayant au moins un poste.
+     * Utile dans le cas où l'on souhaite faire un formulaire d'uniquement les membres de la junior.
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getByMandatNonNulQueryBuilder()
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb
+            ->select('m')
+            ->from('mgatePersonneBundle:Membre', 'm')
+            ->leftJoin('m.mandats', 'mm')
+            ->where('mm.id IS NOT NULL');
+
+        return $query;
+    }
+
+    /** Fonction retournant une jointure entre un membre et ses competences */
+    public function getMembreCompetences($id)
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb->select('m')
+            ->from('mgatePersonneBundle:Membre', 'm')
+            ->where(' m.id = :id ')
+            ->setParameter('id', $id)
+            ->leftJoin('m.competences', 'c')
+            ->addSelect('c')
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
     }
 }

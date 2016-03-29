@@ -90,7 +90,7 @@ class MembreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('mgatePersonneBundle:Membre')->find($id);
+        $entity = $em->getRepository('mgatePersonneBundle:Membre')->getMembreCompetences($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Le membre demandé n\'existe pas !');
