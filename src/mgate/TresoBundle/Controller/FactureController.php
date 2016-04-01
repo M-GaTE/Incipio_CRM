@@ -21,7 +21,7 @@ use mgate\TresoBundle\Form\FactureType as FactureType;
 class FactureController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function indexAction()
     {
@@ -32,7 +32,7 @@ class FactureController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function voirAction($id)
     {
@@ -45,7 +45,7 @@ class FactureController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function modifierAction($id, $etude_id)
     {

@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DeclaratifController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class DeclaratifController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function TVAAction(Request $request)
     {
@@ -193,7 +193,7 @@ class DeclaratifController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function BRCAction(Request $request)
     {

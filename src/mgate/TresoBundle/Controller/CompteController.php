@@ -27,7 +27,7 @@ class CompteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function modifierAction($id)
     {

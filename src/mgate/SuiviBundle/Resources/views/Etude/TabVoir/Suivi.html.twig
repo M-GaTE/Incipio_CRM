@@ -201,17 +201,22 @@
         </tr>
         {% for facture in etude.factures %}
         <tr>
-            <td>{% if is_granted('ROLE_CA') %}
-                <a title="Modifier" href="{{ path('mgateTreso_Facture_modifier', {'id': facture.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                &nbsp;&nbsp;&nbsp;
-                <a title="Télécharger" href="{{ path('mgate_publi_publiposter',
-                                        { 'templateName' : facture.typeAbbrToString ,
-                                         'rootName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_FACTURE'),
-                                         'rootObject_id' : facture.id}) }}#">
-                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                </a>
-                &nbsp;&nbsp;&nbsp;
-                <a title="Supprimer" href="{{ path('mgateTreso_Facture_supprimer', { 'id': facture.id }) }}"><span class="glyphicon glyphicon-remove"></span></a>
+            <td>
+                {% if is_granted('ROLE_TRESO') %}
+                    <a title="Modifier" href="{{ path('mgateTreso_Facture_modifier', {'id': facture.id}) }}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a title="Télécharger" href="{{ path('mgate_publi_publiposter',
+                                            { 'templateName' : facture.typeAbbrToString ,
+                                             'rootName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_FACTURE'),
+                                             'rootObject_id' : facture.id}) }}#">
+                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a title="Supprimer" href="{{ path('mgateTreso_Facture_supprimer', { 'id': facture.id }) }}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
                 {% endif %}
             </td>
             <td><a href="{{ path('mgateTreso_Facture_modifier', {'id': facture.id}) }}">Facture {{ facture.reference}}</a></td>

@@ -6,9 +6,10 @@ security:
     role_hierarchy:
         ROLE_ELEVE:       ROLE_USER
         ROLE_SUIVEUR:     [ ROLE_USER, ROLE_ELEVE]
+        ROLE_TRESO:       [ ROLE_USER, ROLE_ELEVE]
         ROLE_CA:          [ ROLE_USER, ROLE_ELEVE, ROLE_SUIVEUR]
         ROLE_ADMIN:       [ ROLE_USER, ROLE_ELEVE, ROLE_SUIVEUR, ROLE_CA]
-        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ELEVE, ROLE_SUIVEUR, ROLE_CA, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ELEVE, ROLE_SUIVEUR, ROLE_CA, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_TRESO ]
 
     providers:
         fos_userbundle:
@@ -22,10 +23,6 @@ security:
                 csrf_provider: security.csrf.token_manager
             logout:    true
             anonymous: true
-        # ConsoleBundle
-        sf2gen:
-            pattern:   /_sf2gencdt/.*
-            security:  false
 
     access_control:
         - { path: ^/(_(profiler|wdt|error)|css|images|js), roles: IS_AUTHENTICATED_ANONYMOUSLY }
