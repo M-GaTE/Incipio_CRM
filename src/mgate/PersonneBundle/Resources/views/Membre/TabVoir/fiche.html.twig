@@ -160,4 +160,29 @@
         </div>
     {% endif %}
 
+    {% if membre.personne.user is not null %}
+        {%  set i = i+1 %}
+        <div class="col-md-5 col-xs-12 {% if i is even %}col-md-offset-1{% endif %}">
+            <div class="box box-default box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Permissions</h3>
+
+                </div>
+                <div class="box-body">
+                    <table class="table table-hover table-striped">
+                        <tr>
+                            <td>
+                                {% for role in membre.personne.user.RolesNames %}
+                                    <span class="badge badge-default">
+                                        {{ role }}
+                                    </span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
 </div>
