@@ -219,7 +219,7 @@
                     </a>
                 {% endif %}
             </td>
-            <td><a href="{{ path('mgateTreso_Facture_modifier', {'id': facture.id}) }}">Facture {{ facture.reference}}</a></td>
+            <td><a href="{{ path('mgateTreso_Facture_voir', {'id': facture.id}) }}">Facture {{ facture.reference}}</a></td>
             <td></td>
             <td>{{ facture.montantHT | default(0) }} €</td>
         </tr>
