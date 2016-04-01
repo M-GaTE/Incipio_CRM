@@ -19,7 +19,7 @@ use mgate\TresoBundle\Form\BaseURSSAFType;
 class BaseURSSAFController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class BaseURSSAFController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function modifierAction($id)
     {

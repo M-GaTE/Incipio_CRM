@@ -20,7 +20,7 @@ use mgate\TresoBundle\Form\BVType;
 class BVController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function indexAction()
     {
@@ -31,7 +31,7 @@ class BVController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO")
      */
     public function voirAction($id)
     {
@@ -42,7 +42,7 @@ class BVController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Secure(roles="ROLE_TRESO, ROLE_SUIVEUR")
      */
     public function modifierAction($id)
     {
