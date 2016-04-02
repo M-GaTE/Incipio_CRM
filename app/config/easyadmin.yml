@@ -31,3 +31,20 @@ easy_admin:
             class: n7consulting\RhBundle\Entity\Competence
         Appel:
             class: n7consulting\DevcoBundle\Entity\Appel
+        Avenant:
+            class: mgate\SuiviBundle\Entity\Av
+            list :
+                fields:
+                  - 'id'
+                  - 'etude'
+                  - 'objet'
+        Mission:
+            class: mgate\SuiviBundle\Entity\Mission
+            list :
+              fields:
+                - 'id'
+                - 'etude'
+                - 'intervenant'
+                - 'debutOm'
+                - 'finOm'
+                - 'pourcentageJunior'
