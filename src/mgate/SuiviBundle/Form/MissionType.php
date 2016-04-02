@@ -31,7 +31,7 @@ class MissionType extends DocTypeType
                //'query_builder' => function(PersonneRepository $pr) { return $pr->getMembreOnly(); },
                'required' => true,
                ))
-           ->add('newIntervenant', new MembreType(), array('label' => 'Nouvel intervenant ', 'required' => false))
+           ->add('newIntervenant', new MembreType(), array('label' => 'Nouvel intervenant ', 'required' => true))
 
             ->add('debutOm', 'genemu_jquerydate', array('label' => 'Début du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
             ->add('finOm', 'genemu_jquerydate', array('label' => 'Fin du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
