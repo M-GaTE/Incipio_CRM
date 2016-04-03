@@ -14,6 +14,12 @@ mgate_publi_documenttype_upload:
     pattern: /DocumentsType/Upload
     defaults: {_controller: mgatePubliBundle:Traitement:uploadNewDoctype}
 
+#Export du Gantt seul.
+mgate_publi_getgantt:
+    pattern: /Documents/GetGantt/{id}
+    defaults: {_controller: mgatePubliBundle:Gantt:getGantt}
+    requirements:
+        id:  \d+
 
 ######################
 # UPLOAD DE DOCUMENT #
