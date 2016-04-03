@@ -230,6 +230,10 @@ class ChartManager /*extends \Twig_Extension*/
 
         $cmd = 'phantomjs js/highcharts-convert.js -infile '.$chemin.' -outfile '.$destination.' -width '.$width.' -constr Chart';
         $output = shell_exec($cmd);
+        //l'execution de la commande affiche des messages de fonctionnement. On ne retient que la 3eme ligne (celle de la destination quand tout fonctionne bien).
+        //Highcharts.options.parsed Highcharts.customCode.parsed tmp/gantt411ENS.png
+        $temp = preg_split('#\n#',$output);
+        $output = $temp[2];
         if (strncmp($output, $destination, strlen($destination)) == 0) {
             if (file_exists($destination)) {
                 return true;
