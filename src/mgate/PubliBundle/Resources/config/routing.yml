@@ -16,10 +16,11 @@ mgate_publi_documenttype_upload:
 
 #Export du Gantt seul.
 mgate_publi_getgantt:
-    pattern: /Documents/GetGantt/{id}
-    defaults: {_controller: mgatePubliBundle:Gantt:getGantt}
+    pattern: /Documents/GetGantt/{id}/{width}
+    defaults: {_controller: mgatePubliBundle:Gantt:getGantt, width: 960}
     requirements:
         id:  \d+
+        width: \d+
 
 ######################
 # UPLOAD DE DOCUMENT #

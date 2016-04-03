@@ -18,7 +18,7 @@ class GanttController extends Controller
      * @Secure(roles="ROLE_SUIVEUR")
      * Génère le Gantt Chart de l'étude passée en paramètre.
      */
-    public function getGanttAction(Etude $etude, $id, $debug = false)
+    public function getGanttAction(Etude $etude, $id,$width=960, $debug = false)
     {
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
             $errorEtudeConfidentielle = new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
@@ -28,7 +28,7 @@ class GanttController extends Controller
         //Gantt
         $chartManager = $this->get('mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'gantt');
-        if ($chartManager->exportGantt($ob, 'gantt' . $etude->getReference())) {
+        if ($chartManager->exportGantt($ob, 'gantt' . $etude->getReference(),$width)) {
             $repertoire = 'tmp';
             $image = array();
             $image['fileLocation'] = $repertoire.'/'.$etude->getReference().'.png';
