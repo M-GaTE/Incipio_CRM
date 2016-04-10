@@ -57,7 +57,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
     {% block main_header %}
         <header class="main-header hidden-print">
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% if app.user is not empty and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <a href="{{ path('mgate_dashboard_homepage') }}" class="logo">
                 <span class="logo-mini"><b>N7C</b></span>
                 <span class="logo-lg">My {{ junior['abbr'] }}</span>
@@ -78,7 +78,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 
     {% block menu_main %}
         {% block menu %}
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if app.user is not empty and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {# L'utilisateur est connecté ! #}
                 {% render url('mgate_dashboard_navbar') %}
             {% else %}
