@@ -21,9 +21,9 @@ class PhaseType extends AbstractType
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
     {
         $builder->add('position', 'hidden', array('attr' => array('class' => 'position')))
-                ->add('titre', 'text')
-                ->add('objectif', 'textarea', array('label' => 'Objectif', 'required' => false))
-                ->add('methodo', 'textarea', array('label' => 'Méthodologie', 'required' => false))
+                ->add('titre', 'text',array('attr'=> array('placeholder' =>'Titre phase')))
+                ->add('objectif', 'textarea', array('label' => 'Objectif', 'required' => false, 'attr'=> array('placeholder' =>'Objectif')))
+                ->add('methodo', 'textarea', array('label' => 'Méthodologie', 'required' => false, 'attr'=> array('placeholder' =>'Méthodologie')))
                 // Obsolète, la validation porte maintenant sur les groupes de phases
                 // Une validation orale est impossible à prouver
                 //->add('validation', 'choice', array('choices' => Phase::getValidationChoice(), 'required' => true))
