@@ -32,15 +32,15 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th class="phase-plus">Groupe</th>
+                    <th class="phase-plus-titre">Groupe</th>
+                    <th class="details-titre" style="display: none">Objectif</th>
                     <th>Détails</th>
-                    <th class="details" style="display: none">Objectif</th>
-                    <th class="details" style="display: none">Methodologie</th>
                     <th>Titre</th>
                     <th>nombre JEH</th>
                     <th>Prix JEH</th>
-                    <th class="phase-plus">Date début</th>
-                    <th class="phase-plus">Délai (Jours)</th>
+                    <th class="details-titre" style="display: none" colspan="2">Methodologie</th>
+                    <th class="phase-plus-titre">Date début</th>
+                    <th class="phase-plus-titre">Délai (Jours)</th>
                 </tr>
                 </thead>
                 <tbody id="phases">
@@ -51,12 +51,12 @@
                             <span class="titrePhase"></span> {{ form_widget(phase.position) }}
                         </td>
                         <td class="phase-plus">{{ form_widget(phase.groupe) }}</td>
-                        <td><button class="details-btn btn btn-sm btn-info" onclick="showDetails({{ loop.index }})" type="button">+</button></td>
                         <td class="details" style="display: none">{{ form_widget(phase.objectif, {'attr': {'cols': '15', 'rows': '10'}}) }}</td>
-                        <td class="details" style="display: none">{{ form_widget(phase.methodo) }}</td>
+                        <td><button class="details-btn btn btn-sm btn-info" onclick="showDetails({{ loop.index }})" type="button">+</button></td>
                         <td>{{ form_widget(phase.titre, {'attr': {'class': 'form-width-150'}}) }}</td>
                         <td>{{ form_widget(phase.nbrJEH, {'attr': {'class': 'form-width-30 nbrJEH'}}) }}</td>
                         <td>{{ form_widget(phase.prixJEH, {'attr': {'class': 'form-width-40 prixJEH'}}) }}</td>
+                        <td class="details" style="display: none" colspan="2">{{ form_widget(phase.methodo, {'attr': {'cols': '15', 'rows': '10'}}) }}</td>
                         <td class="phase-plus">{{ form_widget(phase.dateDebut) }}</td>
                         <td class="phase-plus">{{ form_widget(phase.delai, {'attr': {'class': 'form-width-40'}}) }}</td>
                         <!--
@@ -105,8 +105,9 @@
             if(details[num] == undefined){
                 details[num] = false;
             }
+            //on cache les colonnes .phase-plus
             $("#phase-"+num).find(".phase-plus").each(function(){
-                if(!details) {
+                if(!details[num]) {
                     $(this).hide();
                     $("#phase-"+num).find(".details-btn").text("-");
                 }else{
@@ -114,14 +115,23 @@
                     $("#phase-"+num).find(".details-btn").text("+");
                 }
             });
+            //on affiche les colonnes .details
             $("#phase-"+num).find(".details").each(function(){
-                if(!details) {
+                if(!details[num]) {
                     $(this).show();
                 }else{
                     $(this).hide();
                 }
             });
-            details = !details;
+            //on modifie les titres
+            if(!details[num]) {
+                $(".phase-plus-titre").hide();
+                $(".details-titre").show();
+            }else{
+                $(".phase-plus-titre").show();
+                $(".details-titre").hide();
+            }
+            details[num] = !details[num];
             return false;
         }
 
