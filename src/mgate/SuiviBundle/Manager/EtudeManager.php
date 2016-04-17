@@ -421,6 +421,21 @@ class EtudeManager extends \Twig_Extension
             }
         }
 
+        /**
+         * Verification que les dates de debut de phases correspondent bien avec la date de signature de la CC
+         * On créé juste un compteur d'erreur pour ne pas spammer l'utilisateur sous un grand nombre d'erreurs liées juste aux phases.
+         */
+        $phasesErreurDate =0; //compteur des phases avec date incorrectes
+        foreach($etude->getPhases() as $phase){
+            if($phase->getDateDebut() < $etude->getCc()->getDateSignature()){
+                $phasesErreurDate++;
+            }
+        }
+        if($phasesErreurDate > 0){
+            $error = array('titre' => 'Date des phases', 'message' => "Il y a ".$phasesErreurDate." erreur(s) dans les dates de début de phases.");
+            array_push($errors, $error);
+        }
+
         return $errors;
     }
 
