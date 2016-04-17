@@ -81,7 +81,7 @@
 {% set i = 0 %}
 <div class="row">
     {% if membre.competences|length > 0 %}
-        {%  set i = i+1 %}
+        {% set i = i+1 %}
         <div class="col-md-5 col-xs-12">
             <div class="box box-default box-solid">
                 <div class="box-header with-border">
@@ -91,7 +91,8 @@
                 <div class="box-body">
                     <table class="table table-hover table-striped">
                         {% for c in membre.competences %}
-                            <a href="{{ path('n7consultingRh_competence_voir', {'id': c.id}) }}"><span class="badge badge-default">{{ c.nom }}</span></a>
+                            <a href="{{ path('n7consultingRh_competence_voir', {'id': c.id}) }}"><span
+                                        class="badge badge-default">{{ c.nom }}</span></a>
                         {% endfor %}
                     </table>
                 </div>
@@ -103,7 +104,7 @@
 
 
     {% if membre.missions|length > 0 %}
-        {%  set i = i+1 %}
+        {% set i = i+1 %}
         <div class="col-md-5 col-xs-12 {% if i is even %}col-md-offset-1{% endif %}">
             <div class="box box-default box-solid">
                 <div class="box-header with-border">
@@ -116,12 +117,15 @@
                             <tr class="mandats">
                                 <td><a href="{{ path("mgateSuivi_etude_voir", {'numero' : mission.etude.numero}) }}"
                                        title="{{ mission.etude.nom }}">{{ mission.etude.reference }}</a></td>
-                                <td>Du : {{ mission.debutOm ? mission.debutOm  | date("d/m/Y") : "?" }}</td>
-                                <td>Au : {{ mission.finOm ? mission.finOm | date("d/m/Y") : "?" }}</td>
+                                <td>Du :</td>
+                                <td>{{ mission.nbrJEH }} JEH - {{ mission.remunerationBrute }} &euro;</td>
                                 <td>
-                                    <span class="badge badge-{{ "now"|date('Ymd')  > mission.etude.dateFin |date('Ymd') ? 'default' : 'success' }}">
-                    {{ "now"|date('Ymd')  > mission.etude.dateFin |date('Ymd') ? 'Passée' : 'En cours' }}
-                </span>
+                                    <span class="badge badge-{{ "now"|date('Ymd')  > mission.etude.dateFin |date('Ymd') ? 'default' : 'success' }}"
+                                          data-toggle="tooltip"
+                                          title=" {{ "now"|date('Ymd')  > mission.etude.dateFin |date('Ymd') ? 'Passée' : 'En cours' }}">
+                                        {{ mission.debutOm ? mission.debutOm  | date("d/m/Y") : "?" }}
+                                        a {{ mission.finOm ? mission.finOm | date("d/m/Y") : "?" }}
+                                    </span>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -133,7 +137,7 @@
 
 
     {% if membre.mandats|length > 0 %}
-        {%  set i = i+1 %}
+        {% set i = i+1 %}
         <div class="col-md-5 col-xs-12 {% if i is even %}col-md-offset-1{% endif %}">
             <div class="box box-default box-solid">
                 <div class="box-header with-border">
@@ -161,7 +165,7 @@
     {% endif %}
 
     {% if membre.personne.user is not null %}
-        {%  set i = i+1 %}
+        {% set i = i+1 %}
         <div class="col-md-5 col-xs-12 {% if i is even %}col-md-offset-1{% endif %}">
             <div class="box box-default box-solid">
                 <div class="box-header with-border">
