@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\PersonneBundle\Entity\Employe;
 use mgate\PersonneBundle\Form\EmployeType;
+use Symfony\Component\HttpFoundation\Request;
 
 class EmployeController extends Controller
 {
@@ -36,11 +37,11 @@ class EmployeController extends Controller
         $form = $this->createForm(new EmployeType(), $employe);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
+                $em->persist($employe->getPersonne());
                 $em->persist($employe);
-                $em->flush();
                 $employe->getPersonne()->setEmploye($employe);
                 $em->flush();
 
