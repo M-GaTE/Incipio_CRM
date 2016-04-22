@@ -1,11 +1,11 @@
 # Domaines de compétence ######################################################
 
 mgateSuivi_domaine_index:
-    pattern: /DomainesDeCompetence
+    path: /DomainesDeCompetence
     defaults: {_controller: mgateSuiviBundle:DomaineCompetence:index }
 
 mgateSuivi_domaine_delete:
-    pattern: /DomainesDeCompetence/Supprimer/{id}
+    path: /DomainesDeCompetence/Supprimer/{id}
     defaults: {_controller: mgateSuiviBundle:DomaineCompetence:delete }
     requirements:
       id : \d+
@@ -13,93 +13,93 @@ mgateSuivi_domaine_delete:
 ###############################################################################
 
 mgateSuivi_vu_ca:
-    pattern:  /ca/{id}
+    path:  /ca/{id}
     defaults: {_controller: mgateSuiviBundle:Etude:vuCA, id:-1 }
 
 mgateSuivi_etude_homepage:
-    pattern:  /{page}
+    path:  /{page}
     defaults: {_controller: mgateSuiviBundle:Etude:index , page: 1}
     requirements:
       page : \d*
 
 mgateSuivi_etude_ajax:
-    pattern:  /get
+    path:  /get
     defaults: {_controller: mgateSuiviBundle:Etude:getEtudesAsync}
 
 mgateSuivi_etude_suivi:
-    pattern: /etudes/suivi
+    path: /etudes/suivi
     defaults: {_controller: mgateSuiviBundle:Etude:suivi}
 
 mgateSuivi_etude_suiviQualite:
-    pattern: /etudes/suiviQualite
+    path: /etudes/suiviQualite
     defaults: {_controller: mgateSuiviBundle:Etude:suiviQualite}
 
 mgateSuivi_etude_ajouter:
-    pattern: /etude/ajouter
+    path: /etude/ajouter
     defaults: {_controller: mgateSuiviBundle:Etude:add}
 
 mgateSuivi_etude_voir:
-    pattern:   /etude/{numero}
+    path:   /etude/{numero}
     defaults: {_controller: mgateSuiviBundle:Etude:voir}
     requirements:
         numero:  \d+
 
 mgateSuivi_etude_modifier:
-    pattern: /etude/modifier/{numero}
+    path: /etude/modifier/{numero}
     defaults: {_controller: mgateSuiviBundle:Etude:modifier}
     requirements:
         numero:  \d+
 
 mgateSuivi_etude_supprimer:
-    pattern: /etude/supprimer/{numero}
+    path: /etude/supprimer/{numero}
     defaults: {_controller: mgateSuiviBundle:Etude:delete}
     requirements:
         numero: \d+
 
 mgateSuivi_ap_voir:
-    pattern: /ap/voir/{id}
+    path: /ap/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Ap:voir}
     requirements:
         id: \d+
 
 mgateSuivi_ap_rediger:
-    pattern: /ap/rediger/{id}
+    path: /ap/rediger/{id}
     defaults: {_controller: mgateSuiviBundle:Ap:rediger}
     requirements:
         id: \d+
 
 mgateSuivi_ap_suivi:
-    pattern: /ap/suivi/{id}
+    path: /ap/suivi/{id}
     defaults: {_controller: mgateSuiviBundle:Ap:suivi}
     requirements:
         id: \d+
 
 mgateSuivi_cc_rediger:
-    pattern: /cc/rediger/{id}
+    path: /cc/rediger/{id}
     defaults: {_controller: mgateSuiviBundle:Cc:rediger}
     requirements:
         id: \d+
 
 mgateSuivi_cc_voir:
-    pattern: /cc/voir/{id}
+    path: /cc/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Cc:voir}
     requirements:
         id: \d+
 
 #mgateSuivi_cc_suivi:
-#    pattern: /cc/suivi/{id}
+#    path: /cc/suivi/{id}
 #    defaults: {_controller: mgateSuiviBundle:Cc:suivi}
 #    requirements:
 #        id: \d+
 
 mgateSuivi_mission_rediger:
-    pattern: /mission/rediger/{id}
+    path: /mission/rediger/{id}
     defaults: {_controller: mgateSuiviBundle:Mission:rediger}
     requirements:
         id: \d+
 
 mgateSuivi_missions_modifier:
-    pattern: /missions/modifier/{id}
+    path: /missions/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Missions:modifier}
     requirements:
         id: \d+
@@ -107,148 +107,148 @@ mgateSuivi_missions_modifier:
 #AJOUT AJAX
 
 mgateSuivi_mission_avancement:
-    pattern: /missions/modifier/avancement/
+    path: /missions/modifier/avancement/
     defaults: {_controller: mgateSuiviBundle:Mission:avancement}
 
 mgateSuivi_state:
-    pattern: /suivi/state/
+    path: /suivi/state/
     defaults: {_controller: mgateSuiviBundle:Etude:state}
 
 #mgateSuivi_missions_repartition:
-#    pattern: /missions/repartition/{id}
+#    path: /missions/repartition/{id}
 #    defaults: {_controller: mgateSuiviBundle:MissionsRepartition:index}
 #    requirements:
 #        id: \d+
 
 
 mgateSuivi_clientcontact_ajouter:
-    pattern: /clientcontact/ajouter/{id}
+    path: /clientcontact/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:ClientContact:add}
     requirements:
         id: \d+
 
 mgateSuivi_clientcontact_modifier:
-    pattern: /clientcontact/modifier/{id}
+    path: /clientcontact/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:ClientContact:modifier}
     requirements:
         id: \d+
 
 mgateSuivi_clientcontact_voir:
-    pattern: /clientcontact/voir/{id}
+    path: /clientcontact/voir/{id}
     defaults: {_controller: mgateSuiviBundle:ClientContact:voir}
     requirements:
         id: \d+
 
 mgateSuivi_clientcontact_index:
-    pattern: /clientcontact/
+    path: /clientcontact/
     defaults: {_controller: mgateSuiviBundle:ClientContact:index}
 
 
 mgateSuivi_suivi_ajouter:
-    pattern: /suivi/ajouter/{id}
+    path: /suivi/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:Suivi:add}
     requirements:
         id: \d+
 
 mgateSuivi_suivi_modifier:
-    pattern: /suivi/modifier/{id}
+    path: /suivi/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Suivi:modifier}
     requirements:
         id: \d+
 
 mgateSuivi_suivi_voir:
-    pattern: /suivi/voir/{id}
+    path: /suivi/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Suivi:voir}
     requirements:
         id: \d+
 
 mgateSuivi_suivi_index:
-    pattern: /suivi
+    path: /suivi
     defaults: {_controller: mgateSuiviBundle:Suivi:index}
 
 
 mgateSuivi_av_ajouter:
-    pattern: /av/ajouter/{id}
+    path: /av/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:Av:add}
     requirements:
         id: \d+
 
 mgateSuivi_av_modifier:
-    pattern: /av/modifier/{id}
+    path: /av/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Av:modifier}
     requirements:
         id: \d+
 
 mgateSuivi_av_voir:
-    pattern: /av/voir/{id}
+    path: /av/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Av:voir}
     requirements:
         id: \d+
 
 mgateSuivi_avmission_ajouter:
-    pattern: /avmission/ajouter/{id}
+    path: /avmission/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:AvMission:add}
     requirements:
         id: \d+
 
 
 mgateSuivi_avmission_voir:
-    pattern: /avmission/voir/{id}
+    path: /avmission/voir/{id}
     defaults: {_controller: mgateSuiviBundle:AvMission:voir}
     requirements:
         id: \d+
 
 
 mgateSuivi_avmission_modifier:
-    pattern: /avmission/modifier/{id}
+    path: /avmission/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:AvMission:modifier}
     requirements:
         id: \d+
 
 mgateSuivi_phases_modifier:
-    pattern: /phases/modifier/{id}
+    path: /phases/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Phases:modifier}
     requirements:
         id: \d+
 
 mgateSuivi_procesverbal_ajouter:
-    pattern: /procesverbal/ajouter/{id}
+    path: /procesverbal/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:add}
     requirements:
         id: \d+
 
 mgateSuivi_procesverbal_modifier:
-    pattern: /procesverbal/modifier/{id_pv}
+    path: /procesverbal/modifier/{id_pv}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:modifier}
     requirements:
         id: \d+
 
 mgateSuivi_procesverbal_rediger:
-    pattern: /procesverbal/rediger/{id_etude}/{type}
+    path: /procesverbal/rediger/{id_etude}/{type}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:rediger}
     requirements:
         id: \d+
 
 mgateSuivi_procesverbal_voir:
-    pattern: /procesverbal/voir/{id}
+    path: /procesverbal/voir/{id}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:voir}
     requirements:
         id: \d+
 
 mgateSuivi_procesverbal_supprimer:
-    pattern: /procesverbal/supprimer/{id_pv}
+    path: /procesverbal/supprimer/{id_pv}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:delete}
     requirements:
         id: \d+
 
 mgateSuivi_etude_suivi_update:
-    pattern:  /suivi/update/{id}
+    path:  /suivi/update/{id}
     defaults: { _controller: mgateSuiviBundle:Etude:suiviUpdate }
-    requirements:
-        _method:  POST
+    methods:  [POST]
+
 
 mgateSuivi_groupes_modifier:
-    pattern: /groupes/modifier/{id}
+    path: /groupes/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:GroupePhases:modifier}
     requirements:
         id: \d+

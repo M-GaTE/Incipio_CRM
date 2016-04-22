@@ -1,9 +1,9 @@
 mgate_dashboard_homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: mgateDashboardBundle:Default:index }
     methods:  [GET, HEAD]
 
 mgate_dashboard_navbar:
-    pattern:  /navbar/
+    path:  /navbar/
     defaults: { _controller: mgateDashboardBundle:Default:navbar }
     methods:  [GET, HEAD]
