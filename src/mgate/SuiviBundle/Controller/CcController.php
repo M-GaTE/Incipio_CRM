@@ -88,7 +88,7 @@ class CcController extends Controller
                 $this->get('mgate.doctype_manager')->checkSaveNewEmploye($etude->getCc());
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('numero' => $etude->getNumero())));
+                return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('nom' => $etude->getNom())));
             }
         }
 

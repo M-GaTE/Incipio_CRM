@@ -17,7 +17,7 @@
             <td>
                 {{ etude.dateCreation|date("d/m/Y") }}
             </td>
-            <td><a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.nom }}</a></td>
+            <td><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.nom }}</a></td>
             <td>
                 {{ (etude.stateID == 4 ? "Terminée" : (etude.stateID == 5 ? "Avortée" : (etude.stateID == 3 ? "En Pause" : (etude.stateID == 2 ? "En Cours" : "En négociation")))) }}
             </td>

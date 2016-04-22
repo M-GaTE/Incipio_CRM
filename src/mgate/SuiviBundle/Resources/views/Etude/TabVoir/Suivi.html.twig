@@ -342,3 +342,39 @@
     {% endfor %}
     </table>
 </div>
+
+
+<nav class="navbar" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-avs">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand titre" data-toggle="collapse" data-target="#avMissions"><span class="glyphicon glyphicon-chevron-down"></span> Avenants de Mission</span>
+    </div>
+    <div class="collapse navbar-collapse navbar-avs">
+        <ul class="nav navbar-nav">
+            <li><a href="{{ path('mgateSuivi_avmission_ajouter', {'id': etude.id}) }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un Avenant de mission</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="aMissions" class="collapse">
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Avenant</th>
+            <th>Date de Signature</th>
+            <th>Nouveau nombre JEH</th>
+            <th>Jours en plus</th>
+        </tr>
+        {% for av in etude.avMissions %}
+            <tr>
+                <td><a href="{{ path('mgateSuivi_avmission_modifier', {'id': av.id}) }}">Avenant n°{{av.id}}</a></td>
+                <td>{{ av.dateSignature ? av.dateSignature | date('d/m/Y') }}</td>
+                <td>{{ remuneration.jehRemuneration }}</td>
+                <td>{{ av.differentielDelai }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

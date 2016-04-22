@@ -97,6 +97,20 @@
                                         <td>{{ form_widget(mission.receptionne) }}</td>
                                     </tr>
                         {% endfor %}
+                        <!--Avenants Clients-->
+                                    <tr>
+                                        <th colspan="8">Avenants clients</th>
+                                    </tr>
+                        {% for av in formSuivi.avs %}
+                                    <tr class="docTabRow">
+                                        <th>PVI n° {{ loop.index }}</th>
+                                        <td class="state">Incomplet</td>
+                                        <td>{{ form_widget(av.redige) }}</td>
+                                        <td>{{ form_widget(av.relu) }}</td>
+                                        <td>{{ form_widget(av.envoye) }}</td>
+                                        <td>{{ form_widget(av.receptionne) }}</td>
+                                    </tr>
+                        {% endfor %}
                         <!--PROCES VERBAUX-->
                                     <tr>
                                         <th colspan="8">Procès-verbaux</th>

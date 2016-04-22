@@ -39,19 +39,19 @@ mgateSuivi_etude_ajouter:
     defaults: {_controller: mgateSuiviBundle:Etude:add}
 
 mgateSuivi_etude_voir:
-    path:   /etude/{numero}
+    path:   /etude/{nom}
     defaults: {_controller: mgateSuiviBundle:Etude:voir}
     requirements:
         numero:  \d+
 
 mgateSuivi_etude_modifier:
-    path: /etude/modifier/{numero}
+    path: /etude/modifier/{nom}
     defaults: {_controller: mgateSuiviBundle:Etude:modifier}
     requirements:
         numero:  \d+
 
 mgateSuivi_etude_supprimer:
-    path: /etude/supprimer/{numero}
+    path: /etude/supprimer/{nom}
     defaults: {_controller: mgateSuiviBundle:Etude:delete}
     requirements:
         numero: \d+

@@ -36,6 +36,22 @@ class EtudeRepository extends EntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * @param $nom
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure.
+     */
+    public function getByNom($nom){
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->select('e')
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->where('e.nom = :nom')
+           ->setParameter('nom',$nom);
+
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
     public function getEtudesCa()
     {
         $qb = $this->_em->createQueryBuilder();

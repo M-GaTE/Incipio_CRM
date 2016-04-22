@@ -34,10 +34,11 @@ Accueil - {{ parent() }}
         </div>
         {% endif %}
         <div class="tab-pane" id="tab5" style="min-height: 400px;">
--           {% include "mgateSuiviBundle:Etude:Tab/EtudesParMandat.html.twig" with  {'etudesParMandat':  etudesTermineesParMandat, 'key' : '1'} %}
+           &nbsp;{% include "mgateSuiviBundle:Etude:Tab/EtudesParMandat.html.twig" with  {'etudesParMandat':  etudesTermineesParMandat, 'key' : '1'} %}
         </div>
         <div class="tab-pane" id="tab6" style="min-height: 400px;">
--           {% include "mgateSuiviBundle:Etude:Tab/EtudesParMandat.html.twig" with  {'etudesParMandat':  etudesAvorteesParMandat, 'key' : '2'} %}
+            <div class="badge" title="Propales n'ayant pas abouti à la signature d'une CC" data-toggle="tooltip">?</div>
+           {% include "mgateSuiviBundle:Etude:Tab/EtudesParMandat.html.twig" with  {'etudesParMandat':  etudesAvorteesParMandat, 'key' : '2'} %}
         </div>
     </div>
 

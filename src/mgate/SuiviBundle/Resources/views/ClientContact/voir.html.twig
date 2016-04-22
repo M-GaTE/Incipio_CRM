@@ -8,7 +8,7 @@
 <ul class="breadcrumb no-margin">
     <li><a href="{{ path('mgateSuivi_etude_homepage') }}">Suivi d'Étude</a></li>
     {% if etude is defined %}
-    <li><a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.reference }}</a></li>
+    <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.reference }}</a></li>
     <li class="active">-</li>
     {% endif %}
 </ul>
@@ -83,7 +83,7 @@
 
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_voir', {'numero' : etude.numero }) }}">Retour à l'étude</a><br>
+        <a href="{{ path('mgateSuivi_etude_voir', {'nom' : etude.nom }) }}">Retour à l'étude</a><br>
         <a href="{{ path('mgateSuivi_clientcontact_modifier', {'id': selectedContactClient.id}) }}">Modifier le contact client</a>
 
     </p>

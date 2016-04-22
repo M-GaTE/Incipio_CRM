@@ -64,7 +64,7 @@
         <tr>
             <td>
                 <div>
-                    <a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">{{ etude.nom }}</a>
+                    <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.nom }}</a>
                     <!-- {{ etude.reference }} -->
                 </div>
                 <div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }}</div>

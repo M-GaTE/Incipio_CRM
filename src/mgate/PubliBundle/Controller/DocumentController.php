@@ -44,7 +44,7 @@ class DocumentController extends Controller
     public function uploadEtudeAction($etude_id)
     {
         $em = $this->getDoctrine()->getManager();
-        $etude = $em->getRepository('mgateSuiviBundle:Etude')->findByNumero($etude_id);
+        $etude = $em->getRepository('mgateSuiviBundle:Etude')->getByNom($etude_id);
 
         if (!$etude) {
             throw $this->createNotFoundException('Le document ne peut être lié à une étude qui n\'existe pas!');
@@ -58,7 +58,7 @@ class DocumentController extends Controller
 
         if (!$response = $this->upload(false, $options)) {
             // Si tout est ok
-            return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('numero' => $etude->getNumero())));
+            return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('nom' => $etude->getNom())));
         } else {
             return $response;
         }

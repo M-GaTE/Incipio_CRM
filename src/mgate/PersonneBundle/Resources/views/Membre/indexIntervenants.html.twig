@@ -59,7 +59,7 @@ $(document).ready(function() {
             <td>
                     {% for mission in membre.missions %}
                     <span class="label label-{{ membre.dateConventionEleve ? ( membre.dateConventionEleve <= mission.debutOm |date_modify("-7 day") ? "success" : "warning" ) : "danger" }}">{{ mission.debutOm ? mission.debutOm  | date("d/m/Y") : "?" }} -> {{ mission.finOm ? mission.finOm | date("d/m/Y") : "?" }}</span>
-                    | <a href="{{path("mgateSuivi_etude_voir", {'numero' : mission.etude.numero})}}">{{ mission.etude.reference}}-{{ mission.etude.nom }}</a><br/>
+                    | <a href="{{path("mgateSuivi_etude_voir", {'nom' : mission.etude.nom})}}">{{ mission.etude.reference}}-{{ mission.etude.nom }}</a><br/>
                     {% endfor %}
             </td>
           </tr>

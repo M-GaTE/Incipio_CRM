@@ -92,11 +92,11 @@
 	<br>
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}" >Retour à l'étude</a>
+        <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}" >Retour à l'étude</a>
     </p>
 
 
-        <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cette étude ?" action="{{ path('mgateSuivi_etude_supprimer', { 'numero': etude.numero }) }}" method="post">
+        <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cette étude ?" action="{{ path('mgateSuivi_etude_supprimer', { 'nom': etude.nom }) }}" method="post">
             {{ form_widget(delete_form) }}
                 <button class="btn btn-danger">Supprimer l'étude</button>
         </form>

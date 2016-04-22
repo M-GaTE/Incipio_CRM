@@ -155,7 +155,7 @@ class EtudeController extends Controller
                 if ($this->get('request')->get('ap')) {
                     return $this->redirect($this->generateUrl('mgateSuivi_ap_rediger', array('id' => $etude->getId())));
                 } else {
-                    return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('numero' => $etude->getNumero())));
+                    return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('nom' => $etude->getNom())));
                 }
             }
             else{
@@ -176,10 +176,10 @@ class EtudeController extends Controller
     /**
      * @Secure(roles="ROLE_SUIVEUR")
      */
-    public function voirAction($numero)
+    public function voirAction($nom)
     {
         $em = $this->getDoctrine()->getManager();
-        $etude = $em->getRepository('mgateSuiviBundle:Etude')->findByNumero($numero);
+        $etude = $em->getRepository('mgateSuiviBundle:Etude')->getByNom($nom);
 
         if (!$etude) {
             throw $this->createNotFoundException('L\'étude n\'existe pas !');
@@ -205,11 +205,11 @@ class EtudeController extends Controller
     /**
      * @Secure(roles="ROLE_SUIVEUR")
      */
-    public function modifierAction($numero)
+    public function modifierAction($nom)
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (!$etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->findByNumero($numero)) {
+        if (!$etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->getByNom($nom)) {
             throw $this->createNotFoundException('L\'étude n\'existe pas !');
         }
 
@@ -219,7 +219,7 @@ class EtudeController extends Controller
 
         $form = $this->createForm(new EtudeType(), $etude);
 
-        $deleteForm = $this->createDeleteForm($numero);
+        $deleteForm = $this->createDeleteForm($nom);
         if ($this->get('request')->getMethod() == 'POST') {
             $form->bind($this->get('request'));
 
@@ -227,7 +227,7 @@ class EtudeController extends Controller
                 $em->persist($etude);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('numero' => $etude->getNumero())));
+                return $this->redirect($this->generateUrl('mgateSuivi_etude_voir', array('nom' => $etude->getNom())));
             }
         }
 
@@ -241,9 +241,9 @@ class EtudeController extends Controller
     /**
      * @Secure(roles="ROLE_ADMIN")
      */
-    public function deleteAction($numero)
+    public function deleteAction($nom)
     {
-        $form = $this->createDeleteForm($numero);
+        $form = $this->createDeleteForm($nom);
         $request = $this->getRequest();
 
         $form->bind($request);
@@ -251,7 +251,7 @@ class EtudeController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if (!$entity = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->findByNumero($numero)) {
+            if (!$entity = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->getByNom($nom)) {
                 throw $this->createNotFoundException('L\'étude n\'existe pas !');
             }
 
@@ -273,10 +273,10 @@ class EtudeController extends Controller
         return $this->redirect($this->generateUrl('mgateSuivi_etude_homepage'));
     }
 
-    private function createDeleteForm($numero)
+    private function createDeleteForm($nom)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$entity = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->findByNumero($numero)) {
+        if (!$entity = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->getByNom($nom)) {
             throw $this->createNotFoundException('L\'étude n\'existe pas !');
         } else {
             $id = $entity->getId();

@@ -115,7 +115,7 @@
                     <table class="table table-hover table-striped">
                         {% for mission in membre.missions %}
                             <tr class="mandats">
-                                <td><a href="{{ path("mgateSuivi_etude_voir", {'numero' : mission.etude.numero}) }}"
+                                <td><a href="{{ path("mgateSuivi_etude_voir", {'nom' : mission.etude.nom}) }}"
                                        title="{{ mission.etude.nom }}">{{ mission.etude.reference }}</a></td>
                                 <td>Du :</td>
                                 <td>{{ mission.nbrJEH }} JEH - {{ mission.remunerationBrute }} &euro;</td>
