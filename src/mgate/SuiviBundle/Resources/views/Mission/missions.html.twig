@@ -2,78 +2,86 @@
 
 {% block content_bundle %}
 
-<h2>Modifier les {{ form.missions | length  }} intervenants</h2>
-<form name="missionsForm" method="POST" {{ form_enctype(form) }}>
-    {# affiche l'unique champ de la tache : description #}
-    {#{ form_row(form.description) }#}
+    <h2>Modifier les {{ form.missions | length }} intervenants</h2>
+    <form name="missionsForm" method="POST" {{ form_enctype(form) }}>
+        {# affiche l'unique champ de la tache : description #}
+        {#{ form_row(form.description) }#}
 
-<p><br /><input type="submit" value="Ajouter une mission" name="add" class="btn"/> - <input type="submit" value="Enregistrer les missions" class="btn"/></p>
-<input type="hidden" value="" name="idMission" id="idMission"/>
-    <u1 class="missions" id="missions" data-prototype="{{ form_widget(form.missions.vars.prototype) | e }}">
-        {% for mission in form.missions %}
-            <li>
-        <table>
-        <tr>
-            <td colspan="4">
-
-                <button class="btn" type="submit" value="Ajouter des JEH" name="addRepartition" onclick="document.forms['missionsForm'].elements['idMission'].value = {{loop.index0}};"><i class="glyphicon glyphicon-plus"></i></button> <h4 style="display: inline;">Répartition des JEH</h4></td>
-        </tr>
-        {% for repartitionJEH in mission.repartitionsJEH %}
-        <tr class="repartitions">
-            <td>{{ form_label(repartitionJEH.nbrJEH) }}</td>
-            <td>{{ form_widget(repartitionJEH.nbrJEH) }}</td>
-            <td>{{ form_label(repartitionJEH.prixJEH) }}</td>
-            <td>{{ form_widget(repartitionJEH.prixJEH) }}</td>
-        </tr>
-        {% endfor %}
-
-        </table>
-
-                <h4 class="titreMission"></h4>{{ form_widget(mission) }}
-            </li><br />
-        {% endfor %}
-    </u1>
-    <br />
-    {{ form_rest(form) }}
-
-</form>
-
-<a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">Retour à l'étude</a>
+        <p><br/><input type="submit" value="Ajouter une mission" name="add" class="btn"/> -
+            <input type="submit"  value="Enregistrer les missions" class="btn"/></p>
+        <input type="hidden" value="" name="idMission" id="idMission"/>
 
 
-<div id="dialog" title="Résumé et vérification">
-    <p>Nombre de JEH:<span class="nbrJEH">//</span></p>
-    <p>Prix sans les frais:<span class="prix">//</span>€ HT</p>
-    <p><button id="myButtonUpdate">Rafraîchir</button></p>
-</div>
+        <div class="row missions" id="missions" data-prototype="{{ form_widget(form.missions.vars.prototype) | e }}">
+            {% for mission in form.missions %}
+                <div class="col-md-4">
+                    <h4 class="titreMission"></h4>
+                    <table class="table table-striped">
+                        <tr>
+                            <td colspan="4">
+                                <button class="btn btn-sm" type="submit" value="Ajouter des JEH" name="addRepartition"
+                                        onclick="document.forms['missionsForm'].elements['idMission'].value = {{ loop.index0 }};"
+                                        title="Ajouter des JEH" data-toggle="tooltip">
+                                    <i class="glyphicon glyphicon-plus"></i></button>
+                                <h4 style="display: inline;">Répartition des JEH</h4>
+                            </td>
+                        </tr>
+                        {% for repartitionJEH in mission.repartitionsJEH %}
+                            <tr class="repartitions">
+                                <td>{{ form_label(repartitionJEH.nbrJEH) }}</td>
+                                <td>{{ form_widget(repartitionJEH.nbrJEH) }}</td>
+                                <td>{{ form_label(repartitionJEH.prixJEH) }}</td>
+                                <td>{{ form_widget(repartitionJEH.prixJEH) }}</td>
+                            </tr>
+                        {% endfor %}
+                        {{ form_widget(mission) }}
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+        <br/>
+        {{ form_rest(form) }}
+
+    </form>
+
+    <a href="{{ path('mgateSuivi_etude_voir', {'numero': etude.numero}) }}">Retour à l'étude</a>
+
+
+    <div id="dialog" title="Résumé et vérification">
+        <p>Nombre de JEH:<span class="nbrJEH">//</span></p>
+        <p>Prix sans les frais:<span class="prix">//</span>€ HT</p>
+        <p>
+            <button id="myButtonUpdate">Rafraîchir</button>
+        </p>
+    </div>
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
     {{ form_javascript(form) }}
 
- <script type="text/javascript">
+    <script type="text/javascript">
         var isDirty = false;
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
 
             //Verification avant de quitter
-            $(':input').change(function(){
-                if(!isDirty){
-                   isDirty = true;
+            $(':input').change(function () {
+                if (!isDirty) {
+                    isDirty = true;
                 }
             });
-            $(window).bind('beforeunload', function(){
-                if(isDirty)
+            $(window).bind('beforeunload', function () {
+                if (isDirty)
                     return "Voulez-vous quitter sans enregistrer ?";
             });
-            $('form').submit(function() {
+            $('form').submit(function () {
                 isDirty = false;
                 return true;
             });
 
             //Rajout des boutons (X, up, down) pour les phases
-            $('.repartitions').each(function() {
+            $('.repartitions').each(function () {
                 addPhaseBouton($(this));
             });
 
@@ -83,199 +91,199 @@
             var $delete = $('<button class="btn" id="myButtonDelete" class="btn">X</button>');
             $tagFormLi.children().first().append($delete);
 
-            $delete.on('click', function(e) {
+            $delete.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
                 //CONFIRM confirmation suppression
                 var message = "Êtes vous sûr de vouloir supprimer ces JEH ?";
-                bootbox.confirm(message, function(result) {
+                bootbox.confirm(message, function (result) {
                     if (result) {
                         $tagFormLi.remove();
                     }
                 });
-               });
+            });
         }
 
-        </script>
+    </script>
 
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    // Fenetre resumant
-    $.ui.dialog.prototype._oldinit = $.ui.dialog.prototype._init;
-    $.ui.dialog.prototype._init = function() {
-        $(this.element).parent().css('position', 'fixed');
-        $(this.element).dialog("option",{
-            resizeStop: function(event,ui) {
-                var position = [(Math.floor(ui.position.left) - $(window).scrollLeft()),
-                                (Math.floor(ui.position.top) - $(window).scrollTop())];
-                $(event.target).parent().css('position', 'fixed');
-                $(event.target).parent().dialog('option','position',position);
-                return true;
-            }
-        });
-        this._oldinit();
-    };
-    $(function() {
-        $( "#dialog" ).dialog({
-            position: {
-                  my: 'right center',
-                  at: 'right center'
-            },
-            height:  $(window).height() * 0.7,
-            width:  $(window).width() * 0.25
-        });
-    });
-
-    // Recupere le div qui contient la collection de tags
-    var collectionHolder = $('.missions');
-
-    function updateOrder() {
-        $('input.position').each(function(i) {
-            $(this).val( i );
-        });
-        $('.titreMission').each(function(i) {
-            $(this).text( 'Mission n°'+(i+1) );
-        });
-    }
-
-    function updatePrix() {
-        var prix = 0;
-        var mission = 0;
-
-        $('input.nbrJEH').each(function(i1) {
-            mission=parseInt($(this).val());
-
-            $('input.prixJEH').each(function(i2) {
-                if(i1==i2)
-                mission*=parseInt($(this).val());
+        // Fenetre resumant
+        $.ui.dialog.prototype._oldinit = $.ui.dialog.prototype._init;
+        $.ui.dialog.prototype._init = function () {
+            $(this.element).parent().css('position', 'fixed');
+            $(this.element).dialog("option", {
+                resizeStop: function (event, ui) {
+                    var position = [(Math.floor(ui.position.left) - $(window).scrollLeft()),
+                        (Math.floor(ui.position.top) - $(window).scrollTop())];
+                    $(event.target).parent().css('position', 'fixed');
+                    $(event.target).parent().dialog('option', 'position', position);
+                    return true;
+                }
             });
-            if(!isNaN(mission))
-                prix+=mission;
-        });
-
-       $('.prix').text( prix );
-    }
-
-    function updateNbrJEH() {
-        var nbrJEH = 0;
-
-        $('input.nbrJEH').each(function(i) {
-            if(!isNaN(parseInt($(this).val())))
-                nbrJEH+=parseInt($(this).val());
-        });
-
-       $('.nbrJEH').text( nbrJEH );
-    }
-
-    var isDirty = false;
-
-    jQuery(document).ready(function() {
-
-        updatePrix();
-        updateNbrJEH();
-
-        //Verification avant de quitter
-        $(':input').change(function(){
-            if(!isDirty){
-               isDirty = true;
-            }
-        });
-        $(window).bind('beforeunload', function(){
-            if(isDirty)
-                return "Voulez-vous quitter sans enregistrer ?";
-        });
-        $('form').submit(function() {
-            isDirty = false;
-            return true;
-        });
-
-        //Rajout des boutons (X, up, down) pour les missions
-        collectionHolder.find('li').each(function() {
-            addMissionBouton($(this));
-        });
-
-        $('input.nbrJEH').each(function() {
-            $(this).change(function() {
-                updatePrix();
-                updateNbrJEH();
+            this._oldinit();
+        };
+        $(function () {
+            $("#dialog").dialog({
+                position: {
+                    my: 'right center',
+                    at: 'right center'
+                },
+                height: $(window).height() * 0.7,
+                width: $(window).width() * 0.25
             });
         });
 
-        $('input.prixJEH').each(function() {
-            $(this).change(function() {
-                updatePrix();
-            });
-        });
+        // Recupere le div qui contient la collection de tags
+        var collectionHolder = $('.missions');
 
-       $('#myButtonUpdate').on('click', function(e) {
-            // prevent the link from creating a "#" on the URL
-            e.preventDefault();
+        function updateOrder() {
+            $('input.position').each(function (i) {
+                $(this).val(i);
+            });
+            $('.titreMission').each(function (i) {
+                $(this).text('Mission n°' + (i + 1));
+            });
+        }
+
+        function updatePrix() {
+            var prix = 0;
+            var mission = 0;
+
+            $('input.nbrJEH').each(function (i1) {
+                mission = parseInt($(this).val());
+
+                $('input.prixJEH').each(function (i2) {
+                    if (i1 == i2)
+                        mission *= parseInt($(this).val());
+                });
+                if (!isNaN(mission))
+                    prix += mission;
+            });
+
+            $('.prix').text(prix);
+        }
+
+        function updateNbrJEH() {
+            var nbrJEH = 0;
+
+            $('input.nbrJEH').each(function (i) {
+                if (!isNaN(parseInt($(this).val())))
+                    nbrJEH += parseInt($(this).val());
+            });
+
+            $('.nbrJEH').text(nbrJEH);
+        }
+
+        var isDirty = false;
+
+        jQuery(document).ready(function () {
 
             updatePrix();
             updateNbrJEH();
-        });
 
-    });
-
-    function addMissionBouton($tagFormLi) {
-        var $delete = $('<button id="myButtonDelete">X</button>');
-        $tagFormLi.append($delete);
-
-        $delete.on('click', function(e) {
-            // prevent the link from creating a "#" on the URL
-            e.preventDefault();
-
-            //CONFIRM confirmation suppression
-            var message = "Êtes vous sûr de vouloir supprimer cet intervenant ?";
-            bootbox.confirm(message, function(result) {
-                if (result) {
-                    // remove the li for the tag form
-                    $tagFormLi.remove();
-                    updatePrix();
-                    updateNbrJEH();
+            //Verification avant de quitter
+            $(':input').change(function () {
+                if (!isDirty) {
+                    isDirty = true;
                 }
             });
+            $(window).bind('beforeunload', function () {
+                if (isDirty)
+                    return "Voulez-vous quitter sans enregistrer ?";
+            });
+            $('form').submit(function () {
+                isDirty = false;
+                return true;
+            });
+
+            //Rajout des boutons (X, up, down) pour les missions
+            collectionHolder.find('li').each(function () {
+                addMissionBouton($(this));
+            });
+
+            $('input.nbrJEH').each(function () {
+                $(this).change(function () {
+                    updatePrix();
+                    updateNbrJEH();
+                });
+            });
+
+            $('input.prixJEH').each(function () {
+                $(this).change(function () {
+                    updatePrix();
+                });
+            });
+
+            $('#myButtonUpdate').on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                updatePrix();
+                updateNbrJEH();
+            });
+
         });
 
-    }
+        function addMissionBouton($tagFormLi) {
+            var $delete = $('<button id="myButtonDelete">X</button>');
+            $tagFormLi.append($delete);
 
-</script>
-<script>
-     /* ...known personne... */
- var toggle = new Array();
- var known = new Array();
- var knowned = new Array();
- var newed = new Array();
+            $delete.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
 
- {% for mission in form.missions %}
+                //CONFIRM confirmation suppression
+                var message = "Êtes vous sûr de vouloir supprimer cet intervenant ?";
+                bootbox.confirm(message, function (result) {
+                    if (result) {
+                        // remove the li for the tag form
+                        $tagFormLi.remove();
+                        updatePrix();
+                        updateNbrJEH();
+                    }
+                });
+            });
 
-
-    toggle[{{ loop.index0 }}] = true;
-    known[{{ loop.index0 }}] = $('input#{{ mission.knownIntervenant.vars.id }}');
-    knowned[{{ loop.index0 }}] = $('#{{mission.intervenant.vars.id}}').parent('div');
-    newed[{{ loop.index0 }}] = $('#{{mission.newIntervenant.vars.id}}').parent('div');
-
-    known[{{ loop.index0 }}].prop('checked', true);
-
-    known[{{ loop.index0 }}].change(function() {
-        if ($(this).is(':checked')) {
-            knowned[{{ loop.index0 }}].find('input').attr('disabled', false);
-            if (toggle) knowned[{{ loop.index0 }}].show();
-
-            newed[{{ loop.index0 }}].find('input').attr('disabled', true);
-            if (toggle) newed[{{ loop.index0 }}].hide();
-        } else {
-            newed[{{ loop.index0 }}].find('input').attr('disabled', false);
-            if (toggle) newed[{{ loop.index0 }}].show();
-
-            knowned[{{ loop.index0 }}].find('input').attr('disabled', true);
-            if (toggle) knowned[{{ loop.index0 }}].hide();
         }
 
-    }).change();
-{% endfor %}
-</script>
+    </script>
+    <script>
+        /* ...known personne... */
+        var toggle = new Array();
+        var known = new Array();
+        var knowned = new Array();
+        var newed = new Array();
+
+        {% for mission in form.missions %}
+
+
+        toggle[{{ loop.index0 }}] = true;
+        known[{{ loop.index0 }}] = $('input#{{ mission.knownIntervenant.vars.id }}');
+        knowned[{{ loop.index0 }}] = $('#{{ mission.intervenant.vars.id }}').parent('div');
+        newed[{{ loop.index0 }}] = $('#{{ mission.newIntervenant.vars.id }}').parent('div');
+
+        known[{{ loop.index0 }}].prop('checked', true);
+
+        known[{{ loop.index0 }}].change(function () {
+            if ($(this).is(':checked')) {
+                knowned[{{ loop.index0 }}].find('input').attr('disabled', false);
+                if (toggle) knowned[{{ loop.index0 }}].show();
+
+                newed[{{ loop.index0 }}].find('input').attr('disabled', true);
+                if (toggle) newed[{{ loop.index0 }}].hide();
+            } else {
+                newed[{{ loop.index0 }}].find('input').attr('disabled', false);
+                if (toggle) newed[{{ loop.index0 }}].show();
+
+                knowned[{{ loop.index0 }}].find('input').attr('disabled', true);
+                if (toggle) knowned[{{ loop.index0 }}].hide();
+            }
+
+        }).change();
+        {% endfor %}
+    </script>
 {% endblock %}
