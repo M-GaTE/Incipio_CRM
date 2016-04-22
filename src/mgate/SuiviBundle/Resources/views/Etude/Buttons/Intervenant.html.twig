@@ -11,7 +11,7 @@
     <ul class="dropdown-menu">
         <li><a href="mailto:{{ intervenant.personne.email | default("#")}}"><i class="glyphicon glyphicon-envelope"></i> Contacter</a></li>
         <li><a href="{{ path('mgate_publi_publiposter', { 'templateName' : 'CE', 'rootName' : 'mission', 'rootObject_id' : keyMission }) }}"><i class="glyphicon glyphicon-envelope"></i> Générer</a></li>
-        <li><a href="#" id="avancement" data-title="{{ idEtude }}" data-content="{{ keyMission }}"><i class="glyphicon glyphicon-envelope"></i> Modifier l'avancement</a></li>
+        <li><a href="#" id="avancement" data-etude="{{ idEtude }}" data-mission="{{ keyMission }}" data-intervenant="{{ intervenant.id }}"><i class="glyphicon glyphicon-envelope"></i> Modifier l'avancement</a></li>
         <li class="divider"></li>
         <li><a href="#"><i class="i"></i> autre</a></li>
     </ul>

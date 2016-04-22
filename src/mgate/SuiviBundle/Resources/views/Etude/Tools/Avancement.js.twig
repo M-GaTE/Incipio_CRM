@@ -6,7 +6,7 @@ $('body').click(function(e){
             var requete = $.ajax({
                 url: "{{ path('mgateSuivi_mission_avancement') }}",
                 type: "POST",
-                data: "avancement=" + result +"&id=" + $(Elem).data("title") + "&intervenant=" + $(Elem).data("content"),
+                data: "avancement=" + result +"&id=" + $(Elem).data("etude") + "&intervenant=" + $(Elem).data("mission"),
                 success: function(){},
             });
             $("#avancementBar"+$(Elem).data("title")+$(Elem).data("content")).css("width",  result + "%");
