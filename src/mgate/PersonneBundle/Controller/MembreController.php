@@ -41,22 +41,10 @@ class MembreController extends Controller
     public function listIntervenantsAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
-
-        $intervenants = array();
-
-        foreach ($entities as $etude) {
-            foreach ($etude->getMissions() as $mission) {
-                $intervenant = $mission->getIntervenant();
-                if ($intervenant != null) {
-                    $intervenants[$intervenant->getPersonne()->getPrenomNom()] = $intervenant;
-                }
-            }
-        }
+        $intervenants = $em->getRepository('mgatePersonneBundle:Membre')->getByMissionsNonNul();
 
         return $this->render('mgatePersonneBundle:Membre:indexIntervenants.html.twig', array(
-                    'membres' => $intervenants,
+                    'intervenants' => $intervenants,
                 ));
     }
 

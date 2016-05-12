@@ -117,4 +117,48 @@ class MembreRepository extends EntityRepository
 
         return $query->getOneOrNullResult();
     }
+
+    public function getByCompetencesNonNul()
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb
+            ->select('m')
+            ->from('mgatePersonneBundle:Membre', 'm')
+            ->leftJoin('m.competences', 'competences')
+            ->where('competences.id IS NOT NULL')
+            ->orderBy('m.id', 'asc')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /** Fonction retournant l'ensemble des personnes ayant déjà fait une mission + les études associées aux missions
+     * Utilisée notamment dans la liste des intervenants.
+     * Permet de passer de 64 à 3 requetes sur la page de liste des intervenants.
+     */
+    public function getByMissionsNonNul()
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb
+            ->select('m')
+            ->from('mgatePersonneBundle:Membre', 'm')
+            ->leftJoin('m.missions', 'missions')
+            ->addSelect('missions')
+            ->leftJoin('m.personne', 'personne')
+            ->addSelect('personne')
+            ->leftJoin('missions.repartitionsJEH', 'repartitionsJEH')
+            ->addSelect('repartitionsJEH')
+            ->leftJoin('missions.etude', 'etude')
+            ->addSelect('etude')
+            ->leftJoin('etude.cc', 'cc')
+            ->addSelect('cc')
+            ->leftJoin('etude.ap', 'ap')
+            ->addSelect('ap')
+            ->where('missions.id IS NOT NULL')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
