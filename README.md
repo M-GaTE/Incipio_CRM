@@ -6,6 +6,13 @@ Ce dépôt GitHub est la version d'N7 Consulting, la Junior-Entreprise de l'ENSE
 
 Cette version corrige de nombreux bugs présent dans la version officielle d'Incipio. Elle apporte également de nouvelles fonctionnalités comme le mappage des compétences des intervenants dans le Bundle RH. Un soin particulier est porté à l'expérience utilisateur et l'ergonomie pour rendre Incipio le plus convivial possible.
 
+#RoadMap
+
+- D'ici Juillet 2016 : release d'une version contenant les fonctionnalités actuelles + le verrouillage des phases (issue #20) + le module de suivi des appels de développement commercial
+- Ensuite : Développement de tests de comportement via Behat, objectif code coverage 75%.
+- Enfin : Amélioration de la qualité de code, objectif médaille d'argent sur SensioLabs Insights
+
+
 # Licence
 
 [![License](https://img.shields.io/badge/Licence-GNU%20AGPL-red.svg?style=flat-square)](LICENSE)
