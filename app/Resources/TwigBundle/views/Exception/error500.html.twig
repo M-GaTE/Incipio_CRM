@@ -1,17 +1,26 @@
 {% extends "::layout.html.twig" %}
 
-{% block title %}Hum... les béta...{% endblock %}
+{% block title %}Page Introuvable{% endblock %}
 
 {% block content %}
-<div class="panel panel-danger">
-    <div class="panel-heading">
-      <h3 class="panel-title">Oups! Une erreur est survenue</h3>
-    </div>
-    <div class="panel-body">
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline text-red"> 500</h2>
+
+            <div class="error-content">
+                <h3><i class="fa fa-warning text-red"></i> T'as tout cassé !</h3>
+
+                <p>
+                    Si le problème persiste, tu nous envoyer un petit rapport d'erreur à <a href="mailto:dsi@n7consulting.fr">dsi@n7consulting.fr</a> <br>
+                    Explique bien le contexte et mets des petites images et tout et tout ;)
+                </p>
+            </div>
+        </div>
+    </section>
+    <div>
+        Si tu n'as pas peur du code : <br>
         <code>{{ status_code }} {{ status_text }}</code>
         <p>{{ exception.message[:200] }}</p>
-        Si le problème persiste, tu peux m'envoyer un petit rapport d'erreur à <a href="mailto:dsi@n7consulting.fr">dsi@n7consulting.fr</a> <br>
-        Explique bien le contexte et mets des petites images et tout et tout ;)
     </div>
-</div>
 {% endblock %}
+
