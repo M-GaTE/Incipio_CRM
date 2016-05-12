@@ -1,15 +1,45 @@
 {% extends "::layout.html.twig" %}
 
-{% block title %}Hum... les béta...{% endblock %}
+{% block title %}Page Introuvable{% endblock %}
 
 {% block content %}
-<div class="panel panel-warning">
-    <div class="panel-heading">
-      <h3 class="panel-title">Oups! Une erreur est survenue</h3>
-    </div>
-    <div class="panel-body">
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline text-yellow"> 404</h2>
+
+            <div class="error-content">
+                <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+
+                <p>
+                    La page demandée n'existe pas ou plus.
+                    A la place, vous pouvez :
+                    <ol>
+                        <li>
+                            <a href="{{ path('mgate_dashboard_homepage') }}">Retourner à l'accueil</a>
+                        </li>
+                        <li>
+                            Aller taper discute avec le pole DSI (dsi@n7consulting.fr).
+                        </li>
+                        <li>
+                            <a href="http://symfony.com/">Apprendre Symfony</a>
+                        </li>
+                        <li>
+                            <a href="https://nodejs.org/">Apprendre Node.Js</a>
+                        </li>
+                        <li>
+                            <a href="https://www.docker.com/">Devenir vraiment cool</a>
+                        </li>
+                        <li>
+                            <a href="http://perdu.com/">Conquérir le monde</a>
+                        </li>
+                </ol>
+                </p>
+            </div>
+        </div>
+    </section>
+    <div>
+        Si tu n'as pas peur du code : <br>
         <code>{{ status_code }} {{ status_text }}</code>
         <p>{{ exception.message }}</p>
     </div>
-</div>
 {% endblock %}
