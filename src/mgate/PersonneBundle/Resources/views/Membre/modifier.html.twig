@@ -1,100 +1,116 @@
+{# Page de liste des intervenants : les personnes ayant déjà réalisé une mission.#}
 {% extends "mgatePersonneBundle::layout.html.twig" %}
+
 {% block title %}Ajouter/Modifier un membre - {{ parent() }}{% endblock %}
 
+{% block content_title %}
+    Ajouter/Modifier un membre
+{% endblock %}
+
 {% block content_bundle %}
-<h2>Ajouter/Modifier un membre</h2>
-<form id="form" method="POST" {{ form_enctype(form) }}>
+    <form id="form" method="POST" {{ form_enctype(form) }}>
 
-    <table class="table table-bordered table-striped" data-prototype="{{ form_widget(form.mandats.vars.prototype) | e }}">
-        <tr>
-            <th colspan="7">Informations Membre</th>
-        </tr>
-        <tr>
-            <td rowspan="7" style="text-align: center;"><img class="img-thumbnail" style="height: 200px" src="{{ asset(photoURI) }}"/><br><br>{{ form_widget(form.photo) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.personne.sexe) }}</td>
-            <td>{{ form_widget(form.personne.sexe) }}</td>
-            <td>{{ form_label(form.personne.prenom) }}</td>
-            <td>{{ form_widget(form.personne.prenom) }}</td>
-            <td>{{ form_label(form.personne.nom) }}</td>
-            <td>{{ form_widget(form.personne.nom) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.personne.mobile) }}</td>
-            <td>{{ form_widget(form.personne.mobile) }}</td>
-            <td>{{ form_label(form.promotion) }}</td>
-            <td>{{ form_widget(form.promotion) }}</td>
-            <td>{{ form_label(form.identifiant) }}</td>
-            <td>{{ form_widget(form.identifiant) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.personne.email) }}</td>
-            <td>{{ form_widget(form.personne.email) }}</td>
-            <td>{{ form_label(form.personne.estAbonneNewsletter)}}</td>
-            <td>{{ form_widget(form.personne.estAbonneNewsletter)}}</td>
-            <td>{{ form_label(form.personne.emailEstValide)}}</td>
-            <td>{{ form_widget(form.personne.emailEstValide)}}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.dateDeNaissance) }}</td>
-            <td>{{ form_widget(form.dateDeNaissance) }}</td>
-            <td>{{ form_label(form.lieuDeNaissance) }}</td>
-            <td>{{ form_widget(form.lieuDeNaissance) }}</td>
-			<td>{{ form_label(form.nationalite) }}</td>
-            <td>{{ form_widget(form.nationalite) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.emailEMSE) }}</td>
-            <td>{{ form_widget(form.emailEMSE) }}</td>
-            <td>
-			{{ form_label(form.personne.adresse) }}<br><br>
-			{{ form_label(form.personne.codepostal) }} {{ form_label(form.personne.ville) }} {{ form_label(form.personne.pays) }}
-			</td>
-            <td>
-				{{ form_widget(form.personne.adresse) }}<br>
-				{{ form_widget(form.personne.codepostal) }} {{ form_widget(form.personne.ville) }} {{ form_widget(form.personne.pays) }}
-			</td>
-        </tr>
-		<tr>
-            <td>{{ form_label(form.formatPaiement) }}</td>
-            <td>{{ form_widget(form.formatPaiement) }}</td>
-			<td>{{ form_label(form.estSocieteGenerale) }}</td>
-            <td>{{ form_widget(form.estSocieteGenerale) }}</td>
-			<td>{{ form_label(form.filiere) }}</td>
-            <td>{{ form_widget(form.filiere) }}</td>
-        </tr>
-        <tr>
-            <th colspan="7">Informations Intervenant</th>
-        </tr>
-        <tr>
-            <td colspan="4">{{ form_label(form.dateConventionEleve) }}</td>
-            <td colspan="3">{{ form_widget(form.dateConventionEleve) }}</td>
-        </tr>
-        <tr>
-            <td colspan="6"><button class="btn" type="submit" value="Ajouter mandat" name="add"><i class="glyphicon glyphicon-plus"></i></button> <h4 style="display: inline;">Postes occupés</h4></td>
-        </tr>
-    {% for mandat in form.mandats %}
-        <tr class="mandats">
-            <td>{{ form_label(mandat.poste) }}</td>
-            <td colspan="2">{{ form_widget(mandat.poste) }}</td>
-            <td>{{ form_label(mandat.debutMandat) }}</td>
-            <td>{{ form_widget(mandat.debutMandat) }}</td>
-            <td>{{ form_label(mandat.finMandat) }}</td>
-            <td>{{ form_widget(mandat.finMandat) }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-{{ form_rest(form) }}
-    <input name="save" type="submit" value="Enregistrer" class="btn btn-success" />
-</form>
+        <table class="table table-bordered table-striped"
+               data-prototype="{{ form_widget(form.mandats.vars.prototype) | e }}">
+            <thead>
+            <tr>
+                <th colspan="7">Informations Membre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td rowspan="7" style="text-align: center;"><img class="img-thumbnail" style="height: 200px"
+                                                                 src="{{ asset(photoURI) }}"/><br><br>{{ form_widget(form.photo) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.personne.sexe) }}</td>
+                <td>{{ form_widget(form.personne.sexe) }}</td>
+                <td>{{ form_label(form.personne.prenom) }}</td>
+                <td>{{ form_widget(form.personne.prenom) }}</td>
+                <td>{{ form_label(form.personne.nom) }}</td>
+                <td>{{ form_widget(form.personne.nom) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.personne.mobile) }}</td>
+                <td>{{ form_widget(form.personne.mobile) }}</td>
+                <td>{{ form_label(form.promotion) }}</td>
+                <td>{{ form_widget(form.promotion) }}</td>
+                <td>{{ form_label(form.identifiant) }}</td>
+                <td>{{ form_widget(form.identifiant) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.personne.email) }}</td>
+                <td>{{ form_widget(form.personne.email) }}</td>
+                <td>{{ form_label(form.personne.estAbonneNewsletter) }}</td>
+                <td>{{ form_widget(form.personne.estAbonneNewsletter) }}</td>
+                <td>{{ form_label(form.personne.emailEstValide) }}</td>
+                <td>{{ form_widget(form.personne.emailEstValide) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.dateDeNaissance) }}</td>
+                <td>{{ form_widget(form.dateDeNaissance) }}</td>
+                <td>{{ form_label(form.lieuDeNaissance) }}</td>
+                <td>{{ form_widget(form.lieuDeNaissance) }}</td>
+                <td>{{ form_label(form.nationalite) }}</td>
+                <td>{{ form_widget(form.nationalite) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.emailEMSE) }}</td>
+                <td>{{ form_widget(form.emailEMSE) }}</td>
+                <td>
+                    {{ form_label(form.personne.adresse) }}<br><br>
+                    {{ form_label(form.personne.codepostal) }} {{ form_label(form.personne.ville) }} {{ form_label(form.personne.pays) }}
+                </td>
+                <td colspan="3">
+                    {{ form_widget(form.personne.adresse) }}<br>
+                    {{ form_widget(form.personne.codepostal) }} {{ form_widget(form.personne.ville) }} {{ form_widget(form.personne.pays) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.formatPaiement) }}</td>
+                <td>{{ form_widget(form.formatPaiement) }}</td>
+                <td>{{ form_label(form.estSocieteGenerale) }}</td>
+                <td>{{ form_widget(form.estSocieteGenerale) }}</td>
+                <td>{{ form_label(form.filiere) }}</td>
+                <td>{{ form_widget(form.filiere) }}</td>
+            </tr>
+            <tr>
+                <th colspan="7">Informations Intervenant</th>
+            </tr>
+            <tr>
+                <td colspan="4">{{ form_label(form.dateConventionEleve) }}</td>
+                <td colspan="3">{{ form_widget(form.dateConventionEleve) }}</td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    <button class="btn" type="submit" value="Ajouter mandat" name="add"><i
+                                class="glyphicon glyphicon-plus"></i></button>
+                    <h4 style="display: inline;">Postes occupés</h4></td>
+            </tr>
+            {% for mandat in form.mandats %}
+                <tr class="mandats">
+                    <td>{{ form_label(mandat.poste) }}</td>
+                    <td colspan="2">{{ form_widget(mandat.poste) }}</td>
+                    <td>{{ form_label(mandat.debutMandat) }}</td>
+                    <td>{{ form_widget(mandat.debutMandat) }}</td>
+                    <td>{{ form_label(mandat.finMandat) }}</td>
+                    <td>{{ form_widget(mandat.finMandat) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form_rest(form) }}
+        <input name="save" type="submit" value="Enregistrer" class="btn btn-success"/>
+    </form>
 
-<br>
-<form class="bootbox-confirm inline" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce membre ?" action="{{ path('mgatePersonne_membre_supprimer', { 'id': form.vars.value.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger">Supprimer le membre</button>
-</form>
-        <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-default">Retour à la liste des membres</a>
+    <br>
+    <form class="bootbox-confirm inline" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce membre ?"
+          action="{{ path('mgatePersonne_membre_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger">Supprimer le membre</button>
+    </form>
+    <a href="{{ path('mgatePersonne_membre_homepage') }}" class="btn btn-default">Retour à la liste des membres</a>
 {% endblock %}
 
 {% block javascript %}
@@ -104,25 +120,25 @@
     <script type="text/javascript">
         var isDirty = false;
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
 
             //Verification avant de quitter
-            $(':input').change(function(){
-                if(!isDirty){
-                   isDirty = true;
+            $(':input').change(function () {
+                if (!isDirty) {
+                    isDirty = true;
                 }
             });
-            $(window).bind('beforeunload', function(){
-                if(isDirty)
+            $(window).bind('beforeunload', function () {
+                if (isDirty)
                     return "Do you really want to leave now?";
             });
-            $('form').submit(function() {
+            $('form').submit(function () {
                 isDirty = false;
                 return true;
             });
 
             //Rajout des boutons (X, up, down) pour les phases
-            $('.mandats').each(function() {
+            $('.mandats').each(function () {
                 addPhaseBouton($(this));
             });
 
@@ -132,21 +148,21 @@
             var $delete = $('<button class="btn" id="myButtonDelete" class="btn">X</button>');
             $tagFormLi.children().first().append($delete);
 
-            $delete.on('click', function(e) {
+            $delete.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
                 //CONFIRM confirmation suppression
                 var message = "Êtes vous sûr de vouloir supprimer ce mandat ?";
-                bootbox.confirm(message, function(result) {
+                bootbox.confirm(message, function (result) {
                     if (result) {
                         $tagFormLi.remove();
                     }
                 });
-               });
+            });
         }
 
-        </script>
+    </script>
 {% endblock %}
 
 
