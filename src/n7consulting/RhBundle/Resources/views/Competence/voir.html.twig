@@ -1,126 +1,138 @@
 {% extends "n7consultingRhBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
 {% block title %}
-	Affichage d'une compétence - {{ parent() }}
+    Affichage d'une compétence - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+    Affichage d'une compétence - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-		<h2 class="inline">{{ competence.nom }}</h2>
-		{{ competence.description }}
-		<br><br>
-		<a href="{{ path('n7consultingRh_competence_modifier', {'id': competence.id}) }}" class="btn btn-default">Modifier la compétence</a>
-		<a href="{{ path('n7consultingRh_competence_homepage') }}" class="btn btn-default">Retour à la liste des compétences</a>
+    <h2 class="inline">{{ competence.nom }}</h2>
+    {{ competence.description }}
+    <br><br>
+    <a href="{{ path('n7consultingRh_competence_modifier', {'id': competence.id}) }}" class="btn btn-default">Modifier
+        la compétence</a>
+    <a href="{{ path('n7consultingRh_competence_homepage') }}" class="btn btn-default">Retour à la liste des
+        compétences</a>
 
 
 
-<div class="row">
-	<div class="col-xs-12">
-		<h3>Intervenants Potentiels</h3>
-		<table class="display dataTable table table-bordered table-striped table-hover" id="devs">
-			<thead>
-			<tr>
-				<th>Prénom Nom</th>
-				<th>Email</th>
-				<th>Mobile</th>
-				<th>Filiere</th>
-				<th>Promotion</th>
-				<th>Compétences</th>
-			</tr>
-			</thead>
-			<tbody>
-			{% for dev in devs %}
-				<tr>
-					<td>{{dev.personne.Prenom}} {{dev.personne.Nom}}</td>
-					<td>{{ dev.personne.email }}</td>
-					<td>{{ dev.personne.mobile }}</td>
-					<td> {{ dev.filiere }}</td>
-					<td> {{ dev.promotion }}</td>
-					<td>
-						{%  for competence in dev.competences %}
-							<label class="label label-default">
-								<a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a>
-							</label>
-						{% endfor %}
-					</td>
-				</tr>
-			{% endfor %}
-			</tbody>
-		</table>
-	</div>
-</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Intervenants Potentiels</h3>
+            <table class="display dataTable table table-bordered table-striped table-hover dt-responsive" id="devs">
+                <thead>
+                <tr>
+                    <th>Prénom Nom</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Filiere</th>
+                    <th>Promotion</th>
+                    <th>Compétences</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dev in devs %}
+                    <tr>
+                        <td>{{ dev.personne.Prenom }} {{ dev.personne.Nom }}</td>
+                        <td>{{ dev.personne.email }}</td>
+                        <td>{{ dev.personne.mobile }}</td>
+                        <td> {{ dev.filiere }}</td>
+                        <td> {{ dev.promotion }}</td>
+                        <td>
+                            {% for competence in dev.competences %}
+                                <label class="label label-default">
+                                    <a href="{{ path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a>
+                                </label>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 
-<div class="row">
-	<div class="col-xs-12">
-	<h3>Etudes liées</h3>
-	<table aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="etudes" >
-		<thead>
-		<tr>
-			<th>Date d'ajout</th>
-			<th>Nom</th>
-			<th>Statut</th>
-			<th>Sujet</th>
-			<th>Montant HT (€)</th>
-			<th>JEHs</th>
-			<th>Competences</th>
-		</tr>
-		</thead>
-		<tbody>
-		{% for etude in etudes %}
-			<tr>
-				<td>
-					{{ etude.dateCreation|date("d/m/Y") }}
-				</td>
-				<td><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.nom }}</a></td>
-				<td>
-					{{ (etude.stateID == 4 ? "Terminée" : (etude.stateID == 5 ? "Avortée" : (etude.stateID == 3 ? "En Pause" : (etude.stateID == 2 ? "En Cours" : "En négociation")))) }}
-				</td>
-				<td>{{etude.description }}</td>
-				<td>{{ etude.montantHT | default('0') }}</td>
-				<td>{{etude.NbrJEH | default('0') }}</td>
-				<td>
-					{%  for competence in etude.competences %}
-						<label class="label label-default">
-							<a href="{{  path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a>
-						</label>
-					{% endfor %}
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	</div>
-</div>
-
-{% endblock %}
-
-
-{% block javascript_quick %}
-	{{ parent() }}
-	<script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-
-	<script type="text/javascript" charset="utf-8">
-		$(document).ready(function() {
-			$('#devs').dataTable({
-				"bPaginate": true,
-				"iDisplayLength": 100,
-				"aaSorting": [[4,'desc']],
-			});
-		});
-		$(document).ready(function() {
-			$('#etudes').dataTable({
-				"bPaginate": true,
-				"iDisplayLength": 100,
-				"aaSorting": [[4,'desc']],
-			});
-		} );
-	</script>
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Etudes liées</h3>
+            <table aria-describedby="example_info"
+                   class="display dataTable table table-bordered table-striped dt-responsive" id="etudes">
+                <thead>
+                <tr>
+                    <th>Date d'ajout</th>
+                    <th>Nom</th>
+                    <th>Statut</th>
+                    <th>Sujet</th>
+                    <th>Montant HT (€)</th>
+                    <th>JEHs</th>
+                    <th>Competences</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for etude in etudes %}
+                    <tr>
+                        <td>
+                            {{ etude.dateCreation|date("d/m/Y") }}
+                        </td>
+                        <td><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.nom }}</a></td>
+                        <td>
+                            {{ (etude.stateID == 4 ? "Terminée" : (etude.stateID == 5 ? "Avortée" : (etude.stateID == 3 ? "En Pause" : (etude.stateID == 2 ? "En Cours" : "En négociation")))) }}
+                        </td>
+                        <td>{{ etude.description }}</td>
+                        <td>{{ etude.montantHT | default('0') }}</td>
+                        <td>{{ etude.NbrJEH | default('0') }}</td>
+                        <td>
+                            {% for competence in etude.competences %}
+                                <label class="label label-default">
+                                    <a href="{{ path('n7consultingRh_competence_voir', {'id' : competence.id}) }}">{{ competence.nom }}</a>
+                                </label>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}
-{% block stylesheets %}
-	{{ parent() }}
-	<link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-	<link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#devs').dataTable({
+                "bPaginate": true,
+                "iDisplayLength": 25,
+                "aaSorting": [[4, 'desc']],
+            });
+        });
+        $(document).ready(function () {
+            $('#etudes').dataTable({
+                "bPaginate": true,
+                "iDisplayLength": 25,
+                "aaSorting": [[4, 'desc']],
+            });
+        });
+    </script>
+
 {% endblock %}

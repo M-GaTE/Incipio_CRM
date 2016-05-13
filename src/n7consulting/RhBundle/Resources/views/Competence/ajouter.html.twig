@@ -1,8 +1,14 @@
 {% extends "n7consultingRhBundle::layout.html.twig" %}
 
-{% block content_bundle %}
+{% block title %}
+    Ajouter une compétence - {{ parent() }}
+{% endblock %}
 
-  <h2>Ajouter une compétence</h2>
+{% block content_title %}
+    Ajouter une compétence
+{% endblock %}
+
+{% block content_bundle %}
 
 	{% include "n7consultingRhBundle:Competence:formulaire.html.twig" %}
 

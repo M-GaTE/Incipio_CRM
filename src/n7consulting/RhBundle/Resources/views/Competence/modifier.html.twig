@@ -2,19 +2,22 @@
 
 {% block title %}Modifier une compétence - {{ parent() }}{% endblock %}
 
+{% block content_title %}
+    Modifier une compétence
+{% endblock %}
+
 {% block content_bundle %}
-
-    <h2>Modifier une compétence</h2>
     {% include "n7consultingRhBundle:Competence:formulaire.html.twig" %}
-
-
-<hr>
     <div class="row">
         <div class="col-xs-6 col-sm-3">
-            <a href="{{ path('n7consultingRh_competence_homepage') }}" class="btn btn-default">Retour à la liste des compétences</a>
+            <a href="{{ path('n7consultingRh_competence_homepage') }}" class="btn btn-default">Retour à la liste des
+                compétences</a>
         </div>
         <div class="col-xs-6 col-sm-3">
-            <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cette compétence ?" action="{{ path('n7consultingRh_competence_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+            <form class="bootbox-confirm"
+                  data-content="Êtes-vous sûr de vouloir supprimer définitivement cette compétence ?"
+                  action="{{ path('n7consultingRh_competence_supprimer', { 'id': form.vars.value.id }) }}"
+                  method="post">
                 {{ form_widget(delete_form) }}
                 <button class="btn btn-danger">Supprimer la compétence</button>
             </form>
@@ -28,7 +31,7 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        $("#n7consulting_rhbundle_competence_membres").select2({containerCssClass : "table"});
+        $("#n7consulting_rhbundle_competence_membres").select2({containerCssClass: "table"});
     </script>
 
 {% endblock %}

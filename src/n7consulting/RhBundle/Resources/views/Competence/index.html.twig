@@ -1,20 +1,54 @@
 {% extends "n7consultingRhBundle::layout.html.twig" %}
 
-{% block title %}Accueil - {{ parent() }}{% endblock %}
+{% block title %}Liste des compétences - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #graphHolder {
+            min-width: 100%;
+            height: auto;
+            min-height: 700px;
+            position: relative;
+        }
+    </style>
+{% endblock %}
+
+{% block content_title %}
+    Liste des Compétences
+{% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Liste des Competences</h2>
+    <div class="row">
+        <div class="col-md-3 col-xs-12">
+            <a href="{{ path('n7consultingRh_competence_ajouter') }}" class="btn btn-info">Ajouter une
+                compétence</a>
+            <ul>
+                {% for competence in competences %}
+                    <li>
+                        <a href="{{ path('n7consultingRh_competence_voir', {'id': competence.id}) }}"> {{ competence.nom }} </a>
+                    </li>
+                {% else %}
+                    <li>Pas (encore !) de competences</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <div id="graphHolder">
 
-    <ul>
-        {% for competence in competences %}
-            <li>
-            <a href="{{ path('n7consultingRh_competence_voir', {'id': competence.id}) }}"> {{ competence.nom }} </a>
-            </li>
-        {% else %}
-            <li>Pas (encore !) de competences</li>
-        {% endfor %}
-    </ul>
-    <a href="{{ path('n7consultingRh_competence_ajouter') }}" class="btn btn-info">Ajouter une compétence</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
+{% block javascript %}
+    <script src="{{ asset('js/d3/d3.js') }}"></script>
+    <script src="{{ asset('js/d3/competencesNet.js') }}"></script>
+    <script src="{{ path('n7consultingRh_competence_visualiser') }}"></script>
+    <script type="text/javascript">
+        $(function () { //initialisation graph d3.js
+            restart();
+        });
+    </script>
 {% endblock %}

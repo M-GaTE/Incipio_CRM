@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use n7consulting\RhBundle\Entity\Competence;
 use n7consulting\RhBundle\Form\CompetenceType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CompetenceController extends Controller
 {
@@ -106,6 +107,21 @@ class CompetenceController extends Controller
     }
 
     /**
+     *
+     * Par souci de simplicité, on fait 2 requetes (une sur les competences, une sur les intervenants), alors que seule la requete sur les competences suffirait.
+     */
+    public function visualiserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $competences = $em->getRepository('n7consulting\RhBundle\Entity\Competence')->getCompetencesTree();
+        $membres = $em->getRepository('mgatePersonneBundle:Membre')->getByCompetencesNonNul();
+        return $this->render('n7consultingRhBundle:Competence:visualiser.html.twig', array(
+            'competences' => $competences,
+            'membres' => $membres,
+        ));
+    }
+
+    /**
      * @Secure(roles="ROLE_CA")
      */
     public function deleteAction($id)
@@ -142,4 +158,7 @@ class CompetenceController extends Controller
             ->getForm()
             ;
     }
+
+
+
 }

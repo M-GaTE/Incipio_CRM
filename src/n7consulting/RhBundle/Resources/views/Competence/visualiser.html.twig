@@ -1,0 +1,32 @@
+{# offset : une variable de decalage pour pouvoir utiliser#}
+
+{% set offset = 10000 %}
+{% set nombreCompetences = competences|length %}
+var nodesArray = [
+{% for c in competences %}
+    { label : "{{ c.nom }}", id : {{ c.id }}, color : "#faddd2", textcolor : "#ba9d92", size : {{ c.membres |length*5 +1}}, desc : "{{ c.id }}" },
+{% endfor %}
+{% for m in membres %}
+    { label : "{{ m.personne.prenom }} {{ m.personne.nom }}", id : {{ m.id + offset }}, color : "#2bb3e0", textcolor : "#ba9d92", size : {{ m.competences |length*3 }}, desc : "" },
+{% endfor %}
+];
+
+
+{#var nodesHash = [];#}
+{#{% for c in competences %}#}
+    {#nodesHash["{{ c.id }}"] = {{ c.id }};#}
+{#{% endfor %}#}
+
+{#{% for m in membres %}#}
+    {#nodesHash["{{ m.personne.nom }}"] = {{ m.id+offset }};#}
+{#{% endfor %}#}
+
+
+var linksArray = [
+{% for m in membres %}
+    {% for c in m.competences %}
+        { desc : "", source : {{ m.id+ offset }}, target : {{ c.id }}, weight : 1, color : "#cfcfff" },
+    {% endfor %}
+{% endfor %}
+];
+

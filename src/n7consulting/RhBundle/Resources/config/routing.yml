@@ -1,32 +1,37 @@
 n7consultingRh_competence_homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: n7consultingRhBundle:Competence:index , page: 1 }
     requirements:
       page : \d*
     methods:  [GET, HEAD]
 
 n7consultingRh_competence_ajouter:
-    pattern: /competence/add
+    path: /competence/add
     defaults: {_controller: n7consultingRhBundle:Competence:ajouter}
     methods:  [GET, HEAD, POST]
 
 n7consultingRh_competence_voir:
-    pattern:   /competence/{id}
+    path:   /competence/{id}
     defaults:  { _controller: n7consultingRhBundle:Competence:voir}
     requirements:
         id:  \d+
     methods:  [GET, HEAD, POST]
 
 n7consultingRh_competence_modifier:
-    pattern: /competence/modifier/{id}
+    path: /competence/modifier/{id}
     defaults: {_controller: n7consultingRhBundle:Competence:modifier}
     requirements:
         id: \d+
     methods:  [GET, HEAD, POST]
 
 n7consultingRh_competence_supprimer:
-    pattern: /competence/supprimer/{id}
+    path: /competence/supprimer/{id}
     defaults: {_controller: n7consultingRhBundle:Competence:delete}
     requirements:
         id: \d+
     methods:  [GET, HEAD, POST]
+
+n7consultingRh_competence_visualiser:
+    path: /visualiser/competences
+    defaults: {_controller: n7consultingRhBundle:Competence:visualiser}
+    methods:  [GET, HEAD]
