@@ -78,6 +78,8 @@ class EtudeRepository extends EntityRepository
             ->leftJoin('e.competences', 'c')
             ->addSelect('c')
             ->leftJoin('e.phases', 'p')->addSelect('p')//cette requete n'est utilisée que sur la page RH du bundle N7Consulting. Comme elle affiche le nombre de JEH, ajout d'une jointure sur les phases pour éviter de faire une requete sur les phases a chaque étude.
+            ->leftJoin('e.cc', 'cc')->addSelect('cc')
+            ->leftJoin('e.ap', 'ap')->addSelect('ap')
             ->where(':competence MEMBER OF e.competences')
             ->setParameter('competence', $competence)
             ->getQuery();
