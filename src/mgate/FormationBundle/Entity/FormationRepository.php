@@ -26,7 +26,15 @@ class FormationRepository extends EntityRepository
      */
     public function findAllByMandat()
     {
-        $entities = $this->findBy(array(), array('mandat' => 'desc', 'dateDebut' => 'asc'));
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->select('f')->from('mgateFormationBundle:Formation', 'f')
+            ->orderBy('f.mandat', 'desc')
+            ->orderBy('f.dateDebut', 'asc')
+            ->leftJoin('f.formateurs', 'formateurs')
+            ->addSelect('formateurs');
+
+        $entities = $query->getQuery()->getResult();
+
         $formationsParMandat = array();
         foreach ($entities as $formation) {
             $mandat = $formation->getMandat();
@@ -43,7 +51,8 @@ class FormationRepository extends EntityRepository
     /**
      * Requete pour select l'ensemble des formations avec en jointure les différents OneToOne possibles
      */
-    public function getAllFormations(){
+    public function getAllFormations()
+    {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('f')->from('mgateFormationBundle:Formation', 'f')
             ->leftJoin('f.formateurs', 'formateurs')

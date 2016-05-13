@@ -1,6 +1,10 @@
 {% extends "mgateFormationBundle::layout.html.twig" %}
+
+{% block content_title %}
+    Modifier une formation
+{% endblock %}
+
 {% block content_bundle %}
-<h2>Formations</h2>
     {% for message in messages  %}
         <div class="alert alert-{{ message['label'] }}">
             {{ message['message'] }}

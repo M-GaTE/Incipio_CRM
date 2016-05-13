@@ -1,32 +1,40 @@
 {% extends "mgateFormationBundle::layout.html.twig" %}
-{% block content_bundle %}
-<h2>Formations {{ junior['abbr'] }}</h2>
 
-<table class="table table-bordered table-striped">
-    <tr>
-        <th>Documents</th>
-        <th>Categories</th>
-        <th>Date</th>
-        <th>Titre</th>
-        <th>Desription</th>
-        <th>Formateurs</th>
-        <th>Durée</th>
-    </tr>
-    {% for mandat, formations in formationsParMandat %}
-    <tr>
-        <th colspan="7">Mandat {{mandat}}</th>
-    </tr>
-    {% for formation in formations | reverse %}
-    <tr>
-        <td>{% if formation.docPath  %}<a href="{{formation.docPath }}"><i class="fa fa-arrow-circle-down"></i></a>{% endif%}</td>
-        <td style="min-width: 300px;">{% for cat in formation.categorie %}{{ formation.categoriesChoiceToString[cat] }}<br /> {% endfor %}</td>
-        <td>{{ formation.dateDebut | date("d/m/Y") }}</td>
-        <td><a href="{{ path('mgate_formation_voir', {'id': formation.id})}}">{{ formation.titre | title }}</a></td>
-        <td>{{ formation.description | nl2br }}</td>
-        <td>{%for personne in formation.formateurs %} {{personne.prenomNom}};{%endfor%}</td>
-        <td>{{ (formation.dateFin | date("U") - formation.dateDebut | date("U")) / 60}} minutes</td>
-    </tr>
-    {% endfor %}
-    {% endfor %}
-</table>
+
+{% block content_title %}
+    Formations N7C
+{% endblock %}
+
+{% block content_bundle %}
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Documents</th>
+            <th>Categories</th>
+            <th>Date</th>
+            <th>Titre</th>
+            <th>Desription</th>
+            <th>Formateurs</th>
+            <th>Durée</th>
+        </tr>
+        {% for mandat, formations in formationsParMandat %}
+            <tr>
+                <th colspan="7">Mandat {{ mandat }}</th>
+            </tr>
+            {% for formation in formations | reverse %}
+                <tr>
+                    <td>{% if formation.docPath %}<a href="{{ formation.docPath }}"><i
+                                    class="fa fa-arrow-circle-down"></i></a>{% endif %}</td>
+                    <td style="min-width: 300px;">{% for cat in formation.categorie %}{{ formation.categoriesChoiceToString[cat] }}
+                            <br/> {% endfor %}</td>
+                    <td>{{ formation.dateDebut | date("d/m/Y") }}</td>
+                    <td>
+                        <a href="{{ path('mgate_formation_voir', {'id': formation.id}) }}">{{ formation.titre | title }}</a>
+                    </td>
+                    <td>{{ formation.description | nl2br }}</td>
+                    <td>{% for personne in formation.formateurs %} {{ personne.prenomNom }};{% endfor %}</td>
+                    <td>{{ (formation.dateFin | date("U") - formation.dateDebut | date("U")) / 60 }} minutes</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
 {% endblock %}

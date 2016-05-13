@@ -1,25 +1,40 @@
 {% extends "mgateFormationBundle::layout.html.twig" %}
-{% block content_bundle %}
-<h2>Formations {{ junior['abbr'] }}</h2>
 
+{% block content_title %}
+    {{ formation.titre }}
+{% endblock %}
+
+{% block content_bundle %}
 <table class="table table-bordered table-striped">
     <tr>
         <td>{{ formation.dateDebut | date("d/m/Y") }}</td>
-        <td>{{ formation.titre | title }}</td>
-        <td>{{ formation.description }}</td>
-        <td>{%for membre in formation.formateurs %} {{membre.prenomNom}};{%endfor%}</td>
+            <td>{{ formation.titre | title }}</td>
+            <td>{{ formation.description }}</td>
+            <td>{%for membre in formation.formateurs %} {{membre.prenomNom}};{%endfor%}</td>
         <td>{{ (formation.dateFin | date("U") - formation.dateDebut | date("U")) / 60}} minutes</td>
     </tr>
 </table>
-<br />
+<br/>
 <table class="table">
     <tr>
         {% if is_granted('ROLE_CA') %}
-        <td style="text-align: left;"><button type="button" class="btn btn-primary" onclick="location.href='{{ path('mgate_formation_modifier', {'id': formation.id})}}';">Modifier la Formation</button></td>
+            <td style="text-align: left;">
+                <button type="button" class="btn btn-primary"
+                        onclick="location.href='{{ path('mgate_formation_modifier', {'id': formation.id}) }}';">Modifier
+                    la Formation
+                </button>
+            </td>
         {% endif %}
-        <td style="text-align: center;"><button class="btn btn-success">Télécharger les documents</button></td>
+        <td style="text-align: center;">
+            <button class="btn btn-success">Télécharger les documents</button>
+        </td>
         {% if is_granted('ROLE_ADMIN') %}
-        <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('mgate_formation_supprimer', {'id': formation.id})}}';">Supprimer la Formation</button></td>
+            <td style="text-align: right;">
+                <button type="button" class="btn btn-danger"
+                        onclick="location.href='{{ path('mgate_formation_supprimer', {'id': formation.id}) }}';">
+                    Supprimer la Formation
+                </button>
+            </td>
         {% endif %}
     </tr>
 </table>
