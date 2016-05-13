@@ -4,18 +4,31 @@
 
 {% block content %}
 
-    {% block breadcrumb %}
-    <ul class="breadcrumb no-margin">
-            <li><a href="{{ path('mgateSuivi_etude_homepage') }}">Suivi d'Étude</a></li>
-            {% if etude is defined %}
-                <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.reference }}</a></li>
-                <li class="active">-</li>
-            {% endif %}
-        </ul>
-    {% endblock %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {% block content_title %}
+                    Suivi d'Étude
+                {% endblock %}
+            </h3>
 
-    {# On définit un nouveau block, que les vues du bundle pourront remplir #}
-    {% block content_bundle %}
-    {% endblock %}
+            {% block breadcrumb %}
+                <ul class="breadcrumb no-margin pull-right">
+                    <li><a href="{{ path('mgateSuivi_etude_homepage') }}">Suivi d'Étude</a></li>
+                    {% if etude is defined %}
+                        <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.reference }}</a></li>
+                        <li class="active">-</li>
+                    {% endif %}
+                </ul>
+            {% endblock %}
+        </div>
+        <div class="box-body">
+            {# On définit un nouveau block, que les vues du bundle pourront remplir #}
+            {% block content_bundle %}
+            {% endblock %}
+
+        </div>
+        <div class="box-footer"></div>
+    </div>
 
 {% endblock %}
