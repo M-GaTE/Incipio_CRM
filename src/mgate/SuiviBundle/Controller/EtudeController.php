@@ -38,16 +38,14 @@ class EtudeController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = $this->container->get('security.context')->getToken()->getUser()->getPersonne();
-
         //Etudes En Négociation : stateID = 1
-        $etudesEnNegociation = $em->getRepository('mgateSuiviBundle:Etude')->findBy(array('stateID' => STATE_ID_EN_NEGOCIATION), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnNegociation = $em->getRepository('mgateSuiviBundle:Etude')->getPipeline(array('stateID' => STATE_ID_EN_NEGOCIATION), array('mandat' => 'DESC', 'num' => 'DESC'));
 
         //Etudes En Cours : stateID = 2
-        $etudesEnCours = $em->getRepository('mgateSuiviBundle:Etude')->findBy(array('stateID' => STATE_ID_EN_COURS), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnCours = $em->getRepository('mgateSuiviBundle:Etude')->getPipeline(array('stateID' => STATE_ID_EN_COURS), array('mandat' => 'DESC', 'num' => 'DESC'));
 
         //Etudes en pause : stateID = 3
-        $etudesEnPause = $em->getRepository('mgateSuiviBundle:Etude')->findBy(array('stateID' => STATE_ID_EN_PAUSE), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnPause = $em->getRepository('mgateSuiviBundle:Etude')->getPipeline(array('stateID' => STATE_ID_EN_PAUSE), array('mandat' => 'DESC', 'num' => 'DESC'));
 
         //Etudes Terminees et Avortees Chargée en Ajax dans getEtudesAsyncAction
         //On push des arrays vides pour avoir les menus déroulants

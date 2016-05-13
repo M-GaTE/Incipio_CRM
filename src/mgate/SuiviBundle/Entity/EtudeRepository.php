@@ -24,14 +24,14 @@ class EtudeRepository extends EntityRepository
 {
     public function findByNumero($numero)
     {
-        $mandat = (int) ($numero / 100);
+        $mandat = (int)($numero / 100);
         $num = $numero % 100;
 
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('e')
-                    ->from('mgateSuiviBundle:Etude', 'e')
-                    ->where("e.mandat = $mandat")
-                    ->andWhere("e.num = $num");
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->where("e.mandat = $mandat")
+            ->andWhere("e.num = $num");
 
         return $query->getQuery()->getOneOrNullResult();
     }
@@ -42,12 +42,13 @@ class EtudeRepository extends EntityRepository
      * @throws \Doctrine\ORM\NonUniqueResultException
      * Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure.
      */
-    public function getByNom($nom){
+    public function getByNom($nom)
+    {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('e')
             ->from('mgateSuiviBundle:Etude', 'e')
             ->where('e.nom = :nom')
-           ->setParameter('nom',$nom);
+            ->setParameter('nom', $nom);
 
         return $query->getQuery()->getOneOrNullResult();
     }
@@ -57,29 +58,82 @@ class EtudeRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder();
 
         $query = $qb->select('e')
-                        ->from('mgateSuiviBundle:Cc', 'cc')
-                        ->leftJoin('cc.etude', 'e');
-                        //->addSelect('e')
-                        //->where('e.cc IS NOT NULL')
-                        //->addOrderBy('cc.dateSignature');
+            ->from('mgateSuiviBundle:Cc', 'cc')
+            ->leftJoin('cc.etude', 'e');
+        //->addSelect('e')
+        //->where('e.cc IS NOT NULL')
+        //->addOrderBy('cc.dateSignature');
 
 
         return $query->getQuery()->getResult();
     }
 
 
-    public function findByCompetence(Competence $competence){
+    public function findByCompetence(Competence $competence)
+    {
         $qb = $this->_em->createQueryBuilder();
 
         $query = $qb->select('e')
             ->from('mgateSuiviBundle:Etude', 'e')
             ->leftJoin('e.competences', 'c')
             ->addSelect('c')
-            ->leftJoin('e.phases', 'p')->addSelect('p') //cette requete n'est utilisée que sur la page RH du bundle N7Consulting. Comme elle affiche le nombre de JEH, ajout d'une jointure sur les phases pour éviter de faire une requete sur les phases a chaque étude.
+            ->leftJoin('e.phases', 'p')->addSelect('p')//cette requete n'est utilisée que sur la page RH du bundle N7Consulting. Comme elle affiche le nombre de JEH, ajout d'une jointure sur les phases pour éviter de faire une requete sur les phases a chaque étude.
             ->where(':competence MEMBER OF e.competences')
             ->setParameter('competence', $competence)
             ->getQuery();
 
         return $query->getResult();
+    }
+
+    /**
+     * @param $etat variable pour récuperer les études selon leurs etats d'avancement.
+     * @param $order tableau des champs sur lesquels ordonnés les études.
+     * Requete spéciale pour afficher le pipeline des études.
+     * A permis de réduire le nombre de requetes de 109 à 34. Il est possible de réduire encore plus le nombre de requetes, mais la page se met alors à diverger en temps, car les reuqtes sont de plus en plus longues.
+     */
+    public function getPipeline(array $etat, array $orders = null)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('e')
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->where('e.stateID = :stateId')
+            ->setParameter('stateId', $etat[key($etat)]);
+
+        if ($orders != null) {
+            foreach ($orders as $column => $value) {
+                $qb->orderBy('e.'.$column, $value);
+            }
+        }
+        //les jointures
+        $qb
+            ->leftJoin('e.avs', 'avs')
+            ->addSelect('avs')
+            ->leftJoin('e.ap', 'ap')
+            ->addSelect('ap')
+            ->leftJoin('e.cc', 'cc')
+            ->addSelect('cc')
+            ->leftJoin('e.clientContacts', 'clientContacts')
+            ->addSelect('clientContacts')//on laisse le champ faitPar d'un contact client en asynchrone, car ça ne devrait pas trop diverger, et que ça rajoute beaucoup d'informations dans la requete pour pas grand chose en termes de fonctionnalités.
+            ->leftJoin('e.prospect', 'prospect')
+            ->addSelect('prospect')
+            ->leftJoin('e.phases', 'phases')
+            ->addSelect('phases')
+//            ->leftJoin('e.procesVerbaux', 'procesVerbaux')
+//            ->addSelect('procesVerbaux')
+//            ->leftJoin('e.factures', 'factures')
+//            ->addSelect('factures')
+            ->leftJoin('e.suiveur', 'suiveur')
+            ->addSelect('suiveur')
+            ->leftJoin('e.missions', 'missions')
+            ->addSelect('missions')
+                ->leftJoin('missions.repartitionsJEH', 'repartitionsJEH')
+                ->addSelect('repartitionsJEH')
+
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+
     }
 }
