@@ -1,78 +1,90 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
-{% block title %}
-	Affichage des contact client - {{ parent() }}
-{% endblock %}
-
-{% block breadcrumb %}
-<ul class="breadcrumb no-margin">
-    <li><a href="{{ path('mgateSuivi_etude_homepage') }}">Suivi d'Étude</a></li>
-</ul>
-{% endblock %}
-
-{% block javascript_quick %}
-{{ parent() }}
-    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-
-    <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                    $('#example').dataTable({
-                        "bPaginate": false,
-						"aaSorting": [[0,'desc']],
-                    });
-            } );
-    </script>
-
-{% endblock %}
-
-
 {% block stylesheets %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block title %}
+    Affichage des contacts client - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+    Affichage des contacts client
 {% endblock %}
 
 {% block content_bundle %}
-    {% set mounth = {'01' : 'janvier', '02' : 'février', '03' : 'mars', '04' : 'avril', '05' : 'mai', '06' : 'juin', '07' : 'juillet', '08' : 'août', '09' : 'septembre', '10' : 'octobre','11' : 'novembre', '12' : 'décembre'} %}
-    <h2>Contact client</h2>
-
-    <table style="width: 100%;" aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="example">
+    <table class="table table-bordered table-striped dataTable dt-responsive" id="contactsClients" role="grid">
         <thead>
-          <tr><th>Contacts</th><th>Date</th><th>Fait Par</th><th>Etude</th><th>Objet</th><th>Contenu</th></tr>
+        <tr>
+            <th>Contacts</th>
+            <th>Date</th>
+            <th>Fait Par</th>
+            <th>Etude</th>
+            <th>Objet</th>
+            <th>Contenu</th>
+        </tr>
         </thead>
         <tbody>
-    {% for contact in contactsClient | reverse %}
-    <tr>
-        <td>
-            {{contactsClient | length - loop.index0}}
-        </td>
-        <td>
-            {{contact.date | date("d/m/Y") }}
-        </td>
-        <td>
-            {{ contact.faitPar.PrenomNom }}
-        </td>
-        <td>
-            <b>{{ contact.etude.nom }}</b>
-        </td>
-        <td>
-        <a href="{{ path('mgateSuivi_clientcontact_voir', {'id': contact.id}) }}">
-        {% if contact.moyenContact == 'telephone'%}
-            <i title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}" class="glyphicon glyphicon-headphones"></i>
-        {% elseif contact.moyenContact == 'mail'%}
-            <i title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}" class="glyphicon glyphicon-envelope"></i>
-        {% else %}
-            <i title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}" class="glyphicon glyphicon-eye-open"></i>
-        {% endif %}
-            {{ contact.objet }}
-        </a>
-        </td>
-        <td>
-            {{ contact.contenu | nl2br }}
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        {% for contact in contactsClient | reverse %}
+            <tr>
+                <td>
+                    {{ contactsClient | length - loop.index0 }}
+                </td>
+                <td>
+                    {{ contact.date | date("d/m/Y") }}
+                </td>
+                <td>
+                    {{ contact.faitPar.PrenomNom }}
+                </td>
+                <td>
+                    <b>{{ contact.etude.nom }}</b>
+                </td>
+                <td>
+                    <a href="{{ path('mgateSuivi_clientcontact_voir', {'id': contact.id}) }}">
+                        {% if contact.moyenContact == 'telephone' %}
+                            <i title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom }}"
+                               class="fa fa-headphones"></i>
+                        {% elseif contact.moyenContact == 'mail' %}
+                            <i title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom }}"
+                               class="fa fa-envelope"></i>
+                        {% else %}
+                            <i title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom }}"
+                               class="fa fa-eye"></i>
+                        {% endif %}
+                        {{ contact.objet }}
+                    </a>
+                </td>
+                <td>
+                    {{ contact.contenu | nl2br }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#contactsClients').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "iDisplayLength": 50,
+                "aaSorting": [[0, 'desc']]
+            });
+        });
+    </script>
 {% endblock %}

@@ -1,16 +1,18 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
-{% block javascript %}
-    {{ form_javascript(form) }}
+
+{% block title %}
+    Ajouter un nouveau contact du client
+{% endblock %}
+
+{% block content_title %}
+    Ajouter un nouveau contact du client
 {% endblock %}
 
 {% block content_bundle %}
-
-
-    <h2>Ajouter un nouveau contact du client</h2>
-
     {% include "mgateSuiviBundle:ClientContact:formulaire.html.twig" %}
+{% endblock %}
 
-    <p>---  </p>
-
+{% block javascript %}
+    {{ form_javascript(form) }}
 {% endblock %}
