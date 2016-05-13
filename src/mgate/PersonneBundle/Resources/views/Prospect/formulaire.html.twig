@@ -1,8 +1,8 @@
-{# Formulaire d'ajout d'un de Prospect #}
+{# Formulaire d'ajout d'un prospect #}
 
 <form method="post" {{ form_enctype(form) }}>
-	
-	<table class="table table-bordered table-striped standard">
+
+    <table class="table table-bordered table-striped standard">
         <tr>
             <th>{{ form_label(form.nom) }}</th>
             <td>{{ form_widget(form.nom) }}</td>
@@ -14,32 +14,34 @@
         <tr>
             <th>{{ form_label(form.adresse) }}</th>
             <td>
-					<table>
-						<tr>
-							<th>Adresse</th>
-							<td> {{ form_widget(form.adresse,{ 'attr': {'cols': '50', 'rows':'3'} }) }}</td>
-						</tr>
-						<tr>
-							<th>Code Postal</th>
-							<td>{{ form_widget(form.codepostal) }}</td>
-						</tr>
-						<tr>
-							<th>Ville</th>
-							<td>{{ form_widget(form.ville) }}</td>
-						</tr>
-						<tr>
-							<th>Pays</th>
-							<td>{{ form_widget(form.pays) }}</td>
-						</tr>
-						
-					</table>
-			
-				{# { form_widget(form.adresse) } #}
-			</td>
+                <table>
+                    <tr>
+                        <th>Adresse</th>
+                        <td> {{ form_widget(form.adresse,{ 'attr': {'cols': '50', 'rows':'3'} }) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Code Postal</th>
+                        <td>{{ form_widget(form.codepostal) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ form_widget(form.ville) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pays</th>
+                        <td>{{ form_widget(form.pays) }}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" class="btn" value="Valider"/>
+            </td>
         </tr>
     </table>
-	
-	{{ form_widget(form) }}
-	
-	<input type="submit" class="btn"/>
+
+    {{ form_rest(form) }}
+
+
 </form>

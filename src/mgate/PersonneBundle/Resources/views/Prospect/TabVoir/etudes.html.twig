@@ -1,6 +1,6 @@
 <h3>Etudes</h3>
 
-<table aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="etudes" >
+<table class="table table-bordered table-striped dt-responsive" id="etudes">
     <thead>
     <tr>
         <th>Date d'ajout</th>
@@ -21,9 +21,9 @@
             <td>
                 {{ (etude.stateID == 4 ? "Terminée" : (etude.stateID == 5 ? "Avortée" : (etude.stateID == 3 ? "En Pause" : (etude.stateID == 2 ? "En Cours" : "En négociation")))) }}
             </td>
-            <td>{{etude.description }}</td>
+            <td>{{ etude.description }}</td>
             <td>{{ etude.montantHT | default('0') }}</td>
-            <td>{{etude.NbrJEH | default('0') }}</td>
+            <td>{{ etude.NbrJEH | default('0') }}</td>
         </tr>
     {% endfor %}
     </tbody>

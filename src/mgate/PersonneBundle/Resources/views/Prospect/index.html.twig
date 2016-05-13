@@ -2,52 +2,69 @@
 
 {% extends "mgatePersonneBundle::layout.html.twig" %}
 
-{% block title %}Accueil - {{ parent() }}{% endblock %}
-
-{% block javascript_quick %}
-{{ parent() }}
-    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-
-    <script type="text/javascript" charset="utf-8">
-            $(document).ready(function() {
-                    $('#prospects').dataTable({
-                        "bPaginate": false,
-						"aaSorting": [[0,'desc']],
-                    });
-            } );
-    </script>
-
+{% block title %}
+    Liste des Prospects - {{ parent() }}
 {% endblock %}
+
 {% block stylesheets %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block content_title %}
+    Liste des Prospects
 {% endblock %}
 
 {% block content_bundle %}
-<h2>Liste des Prospects</h2>
 
     <div>
-        <a href="{{ path('mgatePersonne_prospect_ajouter') }}" class="btn btn-info btn-sm"><span class="fa fa-plus"></span> Ajouter un prospect</a>
+        <a href="{{ path('mgatePersonne_prospect_ajouter') }}" class="btn btn-info btn-sm">
+            <i class="fa fa-plus"></i> Ajouter un prospect
+        </a>
     </div>
-    <table style="width: 100%;" aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="prospects" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table class="table table-bordered table-striped dataTable dt-responsive" id="listeProspects" role="grid">
         <thead>
-          <tr>
+        <tr>
             <th>Nom</th>
             <th>Type</th>
-			<th>Adresse</th>
+            <th>Adresse</th>
             <th>Nombre d'employes</th>
-          </tr>
+        </tr>
         </thead>
         <tbody>
-            {% for prospect in prospects %}
+        {% for prospect in prospects %}
             <tr>
-                <td><a href="{{ path('mgatePersonne_prospect_voir', {'id': prospect.id}) }}"> {{ prospect.nom }} </a></td>
+                <td><a href="{{ path('mgatePersonne_prospect_voir', {'id': prospect.id}) }}"> {{ prospect.nom }} </a>
+                </td>
                 <td>{{ prospect.entiteToString }}</td>
                 <td>{{ prospect.adresse }}</td>
                 <td>{{ prospect.employes | length }}</td>
             </tr>
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#listeProspects').DataTable({
+                "paging": false,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "aaSorting": [[0, 'desc']]
+            });
+        });
+    </script>
+{% endblock %}
+
