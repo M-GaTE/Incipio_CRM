@@ -1,7 +1,11 @@
 {% extends "mgatePubliBundle::layout.html.twig" %}
 
 {% block title %}
-	{{ parent() }} - Uploader un Document Type
+    Uploader un Document Type - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+    Uploader un Document Type
 {% endblock %}
 
 {% block content_bundle %}
@@ -12,41 +16,39 @@
         </div>
     {% endif %}
 
-<h4>Uploader un Document Type</h4>
-<form action="" method="post" {{ form_enctype(form) }}>
-    <h4></h4>
-    <table class="table table-bordered table-striped">
-        <tr>
-            <td>{{ form_label(form.template) }}</td>
-            <td>{{ form_widget(form.template,{'attr' : {'onChange':'selectHelper()'} }) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.name) }}</td>
-            <td>
-                {{ form_widget(form.name) }}
-                <span id="selectHelperMessage"></span>
-            </td>
-        </tr>
-        <tr>
-            <th colspan="2">Vérification : </th>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.etude) }}</td>
-            <td>{{ form_widget(form.etude) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.etudiant) }}</td>
-            <td>{{ form_widget(form.etudiant) }}</td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.verification) }}</td>
-            <td>{{ form_widget(form.verification) }}</td>
-        </tr>
-    </table>
-    {{ form_widget(form) }}
+    <form action="" method="post" {{ form_enctype(form) }}>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>{{ form_label(form.template) }}</td>
+                <td>{{ form_widget(form.template,{'attr' : {'onChange':'selectHelper()'} }) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.name) }}</td>
+                <td>
+                    {{ form_widget(form.name) }}
+                    <span id="selectHelperMessage"></span>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">Vérification :</th>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.etude) }}</td>
+                <td>{{ form_widget(form.etude) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.etudiant) }}</td>
+                <td>{{ form_widget(form.etudiant) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.verification) }}</td>
+                <td>{{ form_widget(form.verification) }}</td>
+            </tr>
+        </table>
+        {{ form_widget(form) }}
 
-    <input type="submit" class="btn btn-success" value="Uploader" />
-</form>
+        <input type="submit" class="btn btn-success" value="Uploader"/>
+    </form>
 {% endblock %}
 
 {% block javascript %}
@@ -54,7 +56,7 @@
     {{ form_javascript(form) }}
 
     <script type="text/javascript">
-        var selectHelper =  function(){
+        var selectHelper = function () {
 
             var success = false;
             var fullPath = $("#mgate_suivibundle_doctypetype_template").val();
@@ -81,7 +83,7 @@
                     }
                 });
 
-                if(!success) {
+                if (!success) {
                     $("#selectHelperMessage").hide().removeClass("label-info").addClass("label label-warning").text('Le nom du document type n\'a pas permis de trouver le type du doctype.').slideDown(500);
                 }
 

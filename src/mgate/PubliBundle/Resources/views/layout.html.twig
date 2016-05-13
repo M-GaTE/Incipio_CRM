@@ -1,27 +1,27 @@
-{# layout père de suivi bundle #}
+{# layout père du publi bundle #}
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    {{ junior['abbr'] }} - {{ parent() }}
+    Documents - {{ parent() }}
 {% endblock %}
 
 {% block content %}
 
-    {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-    {% block sous_titre %}
-    <h1>Gestion des Documents</h1>
-    {#
-    <h4>Sous-Menu</h4>
-    <ul>
-        <li><a href="{{ path('mgate_publi_documenttype_index') }}">Lister</a></li>
-        <li><a href="{{ path('mgate_publi_document_uploadDoctype') }}">Ajouter</a></li>
-    </ul>#}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {% block content_title %}
+                    Edition de documents
+                {% endblock %}
+            </h3>
+        </div>
+        <div class="box-body">
+            {# On définit un nouveau block, que les vues du bundle pourront remplir #}
+            {% block content_bundle %}
+            {% endblock %}
 
-    <hr>
-    {% endblock %}
-
-    {# On définit un nouveau block, que les vues du bundle pourront remplir #}
-    {% block content_bundle %}
-    {% endblock %}
+        </div>
+        <div class="box-footer"></div>
+    </div>
 
 {% endblock %}
