@@ -39,4 +39,19 @@ class FormationRepository extends EntityRepository
 
         return $formationsParMandat;
     }
+
+    /**
+     * Requete pour select l'ensemble des formations avec en jointure les différents OneToOne possibles
+     */
+    public function getAllFormations(){
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->select('f')->from('mgateFormationBundle:Formation', 'f')
+            ->leftJoin('f.formateurs', 'formateurs')
+            ->addSelect('formateurs')
+            ->leftJoin('f.membresPresents', 'membresPresents')
+            ->addSelect('membresPresents');
+
+
+        return $query->getQuery()->getResult();
+    }
 }
