@@ -42,7 +42,7 @@
         </thead>
         {% for cotisation in cotisations %}
         <tr style="text-align: right;" class="{{ cotisation.dateFin < date() ? 'danger' : 'success' }}">
-            <td><a href="{{ path('mgateTreso_CotisationURSSAF_modifier', {'id' : cotisation.id })}}" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{{ path('mgateTreso_CotisationURSSAF_modifier', {'id' : cotisation.id })}}" title="Modifier"><span class="fa fa-pencil"></span></a></td>
             <td>{{ cotisation.dateDebut | date('d/m/Y')}}</td>
             <td>{{ cotisation.dateFin | date('d/m/Y') }}</td>
             <td>{{ cotisation.libelle }}</td>

@@ -19,17 +19,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-            <span class="navbar-brand titre" data-toggle="collapse" data-target="#ap"><span class="glyphicon glyphicon-chevron-down"></span> Avant-Projet - v{{etude.ap.version | default('')}}</span>
+            <span class="navbar-brand titre" data-toggle="collapse" data-target="#ap"><span class="fa fa-chevron-down"></span> Avant-Projet - v{{etude.ap.version | default('')}}</span>
      </div>
      <div class="collapse navbar-collapse navbar-ap">
         <ul class="nav navbar-nav">
-            <li><a href="{{ path('mgateSuivi_ap_rediger', {'id': etude.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Rediger</a></li>
+            <li><a href="{{ path('mgateSuivi_ap_rediger', {'id': etude.id}) }}"><span class="fa fa-pencil"></span> Rediger</a></li>
           {% if etude.ap.dateSignature |default('0') %}
             <li><a href="{{ path('mgate_publi_publiposter',
                     { 'templateName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::DOCTYPE_AVANT_PROJET'),
                     'rootName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_ETUDE'),
                     'rootObject_id' : etude.id}) }}">
-                    <span class="glyphicon glyphicon-circle-arrow-down"></span> Generer
+                    <span class="fa fa-circle-arrow-down"></span> Generer
                 </a></li>
           {% endif %}
         </ul>
@@ -71,17 +71,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <span class="navbar-brand titre" data-toggle="collapse" data-target="#cc"><span class="glyphicon glyphicon-chevron-down"></span> Convention Client - v{{etude.cc.version | default('')}}</span>
+        <span class="navbar-brand titre" data-toggle="collapse" data-target="#cc"><span class="fa fa-chevron-down"></span> Convention Client - v{{etude.cc.version | default('')}}</span>
      </div>
      <div class="collapse navbar-collapse navbar-cc">
         <ul class="nav navbar-nav">
-            <li><a href="{{ path('mgateSuivi_cc_rediger', {'id': etude.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Rediger</a></li>
+            <li><a href="{{ path('mgateSuivi_cc_rediger', {'id': etude.id}) }}"><span class="fa fa-pencil"></span> Rediger</a></li>
                     {% if etude.cc.dateSignature |default('0') %}
             <li><a href="{{ path('mgate_publi_publiposter',
                     { 'templateName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::DOCTYPE_CONVENTION_CLIENT'),
                     'rootName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_ETUDE'),
                     'rootObject_id' : etude.id}) }}">
-                    <span class="glyphicon glyphicon-circle-arrow-down"></span> Generer
+                    <span class="fa fa-circle-arrow-down"></span> Generer
                 </a></li>
                     {% endif %}
         </ul>
@@ -113,11 +113,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <span class="navbar-brand titre"  data-toggle="collapse" data-target="#rm"><span class="glyphicon glyphicon-chevron-down"></span> Récapitulatif de Mission</span>
+        <span class="navbar-brand titre"  data-toggle="collapse" data-target="#rm"><span class="fa fa-chevron-down"></span> Récapitulatif de Mission</span>
      </div>
      <div class="collapse navbar-collapse navbar-rm">
         <ul class="nav navbar-nav">
-            <li><a href="{{ path('mgateSuivi_missions_modifier', {'id': etude.id}) }}"><span class="glyphicon glyphicon-pencil"></span>  Intervenants</a></li>
+            <li><a href="{{ path('mgateSuivi_missions_modifier', {'id': etude.id}) }}"><span class="fa fa-pencil"></span>  Intervenants</a></li>
         </ul>
     </div>
 </nav>
@@ -136,13 +136,13 @@
                             { 'templateName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::DOCTYPE_RECAPITULATIF_MISSION'),
                             'rootName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_MISSION'),
                             'rootObject_id' : mission.id}) }}">
-                            <span class="glyphicon glyphicon-circle-arrow-down"></span> RM
+                            <span class="fa fa-circle-arrow-down"></span> RM
                         </a></td>
                     <td><a href="{{ path('mgate_publi_publiposter',
                             { 'templateName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::DOCTYPE_DESCRIPTIF_MISSION'),
                             'rootName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_MISSION'),
                             'rootObject_id' : mission.id}) }}">
-                            <span class="glyphicon glyphicon-circle-arrow-down"></span> DM
+                            <span class="fa fa-circle-arrow-down"></span> DM
                         </a></td>
                 </tr>
                 <tr>
@@ -182,11 +182,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <span class="navbar-brand titre" data-toggle="collapse" data-target="#fa"><span class="glyphicon glyphicon-chevron-down"></span> Factures</span>
+        <span class="navbar-brand titre" data-toggle="collapse" data-target="#fa"><span class="fa fa-chevron-down"></span> Factures</span>
      </div>
      <div class="collapse navbar-collapse navbar-fs">
         <ul class="nav navbar-nav">
-            <li><a href="{{ path('mgateTreso_Facture_ajouter', {'etude_id': etude.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Ajouter une facture</a></li>
+            <li><a href="{{ path('mgateTreso_Facture_ajouter', {'etude_id': etude.id }) }}"><span class="fa fa-pencil"></span> Ajouter une facture</a></li>
          </ul>
     </div>
 </nav>
@@ -204,18 +204,18 @@
             <td>
                 {% if is_granted('ROLE_TRESO') %}
                     <a title="Modifier" href="{{ path('mgateTreso_Facture_modifier', {'id': facture.id}) }}">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="fa fa-pencil"></span>
                     </a>
                     &nbsp;&nbsp;&nbsp;
                     <a title="Télécharger" href="{{ path('mgate_publi_publiposter',
                                             { 'templateName' : facture.typeAbbrToString ,
                                              'rootName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_FACTURE'),
                                              'rootObject_id' : facture.id}) }}#">
-                        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                        <span class="fa fa-circle-arrow-down"></span>
                     </a>
                     &nbsp;&nbsp;&nbsp;
                     <a title="Supprimer" href="{{ path('mgateTreso_Facture_supprimer', { 'id': facture.id }) }}">
-                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="fa fa-times"></span>
                     </a>
                 {% endif %}
             </td>
@@ -246,12 +246,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <span class="navbar-brand titre" data-toggle="collapse" data-target="#pvs"><span class="glyphicon glyphicon-chevron-down"></span> Procès-Verbaux</span>
+        <span class="navbar-brand titre" data-toggle="collapse" data-target="#pvs"><span class="fa fa-chevron-down"></span> Procès-Verbaux</span>
      </div>
      <div class="collapse navbar-collapse navbar-pvs">
         <ul class="nav navbar-nav">
-            <li><a href="{{ path('mgateSuivi_procesverbal_rediger', {'id_etude': etude.id, 'type': 'pvr'}) }}"><span class="glyphicon glyphicon-pencil"></span> Rediger le PVR</a></li>
-            <li><a href="{{ path('mgateSuivi_procesverbal_ajouter', {'id': etude.id}) }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un PVI</a></li>
+            <li><a href="{{ path('mgateSuivi_procesverbal_rediger', {'id_etude': etude.id, 'type': 'pvr'}) }}"><span class="fa fa-pencil"></span> Rediger le PVR</a></li>
+            <li><a href="{{ path('mgateSuivi_procesverbal_ajouter', {'id': etude.id}) }}"><span class="fa fa-plus"></span> Ajouter un PVI</a></li>
         </ul>
     </div>
 </nav>
@@ -266,16 +266,16 @@
     {% for pvi in etude.pvis %}
         <tr>
             <td style="width: 100px;">
-                <a title="Modifier" href="{{ path('mgateSuivi_procesverbal_modifier', {'id_pv': pvi.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a title="Modifier" href="{{ path('mgateSuivi_procesverbal_modifier', {'id_pv': pvi.id}) }}"><span class="fa fa-pencil"></span></a>
                 &nbsp;&nbsp;&nbsp;
                 <a title="Télécharger" href="{{ path('mgate_publi_publiposter',
                                         { 'templateName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::DOCTYPE_PROCES_VERBAL_INTERMEDIAIRE'),
                                         'rootName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_ETUDE'),
                                         'rootObject_id' : etude.id }) }}">
-                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                    <span class="fa fa-circle-arrow-down"></span>
                 </a>
                 &nbsp;&nbsp;&nbsp;
-                <a title="Supprimer" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                <a title="Supprimer" href="#"><span class="fa fa-times"></span></a>
             </td>
             <td style="width: 200px;"><a href="{{ path('mgateSuivi_procesverbal_modifier', {'id_pv': pvi.id}) }}">PVI n°{{loop.index}}</a></td>
             <td>
@@ -291,13 +291,13 @@
     {% endfor %}
     {% if etude.pvr %}
         <tr>
-            <td><a title="Modifier" href="{{ path('mgateSuivi_procesverbal_rediger', {'id_etude': etude.id, 'type': 'pvr'}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <td><a title="Modifier" href="{{ path('mgateSuivi_procesverbal_rediger', {'id_etude': etude.id, 'type': 'pvr'}) }}"><span class="fa fa-pencil"></span></a>
                 &nbsp;&nbsp;&nbsp;
                 <a title="Télécharger" href="{{ path('mgate_publi_publiposter',
                                         { 'templateName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::DOCTYPE_PROCES_VERBAL_FINAL'),
                                           'rootName' :  constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_ETUDE'),
                                           'rootObject_id' : etude.id}) }}">
-                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                    <span class="fa fa-circle-arrow-down"></span>
                 </a>
             </td>
             <td><a href="{{ path('mgateSuivi_procesverbal_modifier', {'id_pv': etude.pvr.id}) }}">PVR</a></td>
@@ -318,11 +318,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <span class="navbar-brand titre" data-toggle="collapse" data-target="#avs"><span class="glyphicon glyphicon-chevron-down"></span> Avenants</span>
+        <span class="navbar-brand titre" data-toggle="collapse" data-target="#avs"><span class="fa fa-chevron-down"></span> Avenants</span>
      </div>
      <div class="collapse navbar-collapse navbar-avs">
         <ul class="nav navbar-nav">
-             <li><a href="{{ path('mgateSuivi_av_ajouter', {'id': etude.id}) }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un Avenant</a></li>
+             <li><a href="{{ path('mgateSuivi_av_ajouter', {'id': etude.id}) }}"><span class="fa fa-plus"></span> Ajouter un Avenant</a></li>
         </ul>
     </div>
 </nav>
@@ -352,11 +352,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <span class="navbar-brand titre" data-toggle="collapse" data-target="#avMissions"><span class="glyphicon glyphicon-chevron-down"></span> Avenants de Mission</span>
+        <span class="navbar-brand titre" data-toggle="collapse" data-target="#avMissions"><span class="fa fa-chevron-down"></span> Avenants de Mission</span>
     </div>
     <div class="collapse navbar-collapse navbar-avs">
         <ul class="nav navbar-nav">
-            <li><a href="{{ path('mgateSuivi_avmission_ajouter', {'id': etude.id}) }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un Avenant de mission</a></li>
+            <li><a href="{{ path('mgateSuivi_avmission_ajouter', {'id': etude.id}) }}"><span class="fa fa-plus"></span> Ajouter un Avenant de mission</a></li>
         </ul>
     </div>
 </nav>

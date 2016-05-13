@@ -16,11 +16,11 @@
         <a href="#" ><span class="nav-label">Gestion Associative</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
             <li class="dropdown-header">Membres</li>
-            <li><a href="{{ path('mgatePersonne_membre_homepage') }}"><span class="glyphicon glyphicon-list"></span> Lister les membres</a></li>
-            <li><a href="{{ path('mgatePersonne_intervenants_homepage') }}"><span class="glyphicon glyphicon-usd"></span> Lister les intervenants</a></li>
-            <li><a href="{{ path('mgatePersonne_membre_impayes') }}"><span class="glyphicon glyphicon-euro"></span> Lister les impayés</a></li>
+            <li><a href="{{ path('mgatePersonne_membre_homepage') }}"><span class="fa fa-list"></span> Lister les membres</a></li>
+            <li><a href="{{ path('mgatePersonne_intervenants_homepage') }}"><span class="fa fa-usd"></span> Lister les intervenants</a></li>
+            <li><a href="{{ path('mgatePersonne_membre_impayes') }}"><span class="fa fa-euro"></span> Lister les impayés</a></li>
             <li class="divider"></li>
-            <li><a href="{{ path('mgatePersonne_membre_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un membre</a></li>
+            <li><a href="{{ path('mgatePersonne_membre_ajouter') }}"><span class="fa fa-plus"></span> Ajouter un membre</a></li>
         </ul>
     </li>
     {% endif %}
@@ -31,24 +31,24 @@
     <li>
         <a href="#" ><span class="nav-label">Suivi d'Étude </span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-            <li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="glyphicon glyphicon-list"></span> Voir les études</a></li>
-            <li><a href="{{ path('mgateSuivi_etude_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Créer une étude</a></li>
+            <li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="fa fa-list"></span> Voir les études</a></li>
+            <li><a href="{{ path('mgateSuivi_etude_ajouter') }}"><span class="fa fa-plus"></span> Créer une étude</a></li>
         {% if etudesSuiveur | length %}
 			<li class="divider"></li>
             <li class="dropdown-header">Mes Etudes:</li>
             {% for etude in etudesSuiveur %}
-            <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}"><span class="glyphicon glyphicon-thumbs-up"></span> {{ etude.nom }}</a></li>
+            <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}"><span class="fa fa-thumbs-up"></span> {{ etude.nom }}</a></li>
             {% endfor%}
         {% endif %}
             <li class="divider"></li>
             <li class="dropdown-header">Qualité</li>
-            <li><a href="{{ path('mgateSuivi_etude_suiviQualite') }}"><span class="glyphicon glyphicon-warning-sign"></span> Suivi des problèmes</a></li>
+            <li><a href="{{ path('mgateSuivi_etude_suiviQualite') }}"><span class="fa fa-exclamation-triangle"></span> Suivi des problèmes</a></li>
             {% if is_granted('ROLE_CA') %}
             <li class="divider"></li>
             <li class="dropdown-header">Administration</li>
-            <li><a href="{{ path('mgateSuivi_clientcontact_index') }}"><span class="glyphicon glyphicon-envelope"></span> Contacts Client</a></li>
-            <li><a href="{{ path('mgateSuivi_vu_ca') }}"><span class="glyphicon glyphicon-eye-open"></span> Vu CA</a></li>
-            <!--li><a href="{#{ path('mgateSuivi_etude_suivi') }#}"><span class="glyphicon glyphicon-tasks"></span> Récapitulatif</a></li-->
+            <li><a href="{{ path('mgateSuivi_clientcontact_index') }}"><span class="fa fa-envelope"></span> Contacts Client</a></li>
+            <li><a href="{{ path('mgateSuivi_vu_ca') }}"><span class="fa fa-eye-open"></span> Vu CA</a></li>
+            <!--li><a href="{#{ path('mgateSuivi_etude_suivi') }#}"><span class="fa fa-tasks"></span> Récapitulatif</a></li-->
             {% endif %}
         </ul>
     </li>
@@ -60,13 +60,13 @@
             <a href="#" ><span class="nav-label">Prospection </span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
                 <li class="dropdown-header">Prospect/Client</li>
-                <li><a href="{{ path('mgatePersonne_prospect_homepage') }}"><span class="glyphicon glyphicon-list"></span> Voir les prospects</a></li>
-                <li><a href="{{ path('mgatePersonne_prospect_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un prospect</a></li>
+                <li><a href="{{ path('mgatePersonne_prospect_homepage') }}"><span class="fa fa-list"></span> Voir les prospects</a></li>
+                <li><a href="{{ path('mgatePersonne_prospect_ajouter') }}"><span class="fa fa-plus"></span> Ajouter un prospect</a></li>
                 {% if is_granted('ROLE_CA') %}
                     <li class="divider"></li>
                     <li class="dropdown-header">Annuaire</li>
-                    <li><a href="{{ path('mgatePersonne_annuaire') }}"><span class="glyphicon glyphicon-book"></span> Annuaire global</a></li>
-                    <li><a href="{{ path('mgatePersonne_listeDiffusion') }}"><span class="glyphicon glyphicon-envelope"></span> Liste de diffusion</a></li>
+                    <li><a href="{{ path('mgatePersonne_annuaire') }}"><span class="fa fa-book"></span> Annuaire global</a></li>
+                    <li><a href="{{ path('mgatePersonne_listeDiffusion') }}"><span class="fa fa-envelope"></span> Liste de diffusion</a></li>
                 {% endif %}
             </ul>
         </li>
@@ -87,49 +87,49 @@
             <li>
                 <a href="#" >Factures <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('mgateTreso_Facture_index') }}"><span class="glyphicon glyphicon-list"></span> Lister</a></li>
-                    <li><a href="{{ path('mgateTreso_Facture_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
+                    <li><a href="{{ path('mgateTreso_Facture_index') }}"><span class="fa fa-list"></span> Lister</a></li>
+                    <li><a href="{{ path('mgateTreso_Facture_ajouter') }}"><span class="fa fa-plus"></span> Ajouter</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#" >BVs <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('mgateTreso_BV_index') }}"><span class="glyphicon glyphicon-list"></span> Lister</a></li>
-                    <li><a href="{{ path('mgateTreso_BV_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
+                    <li><a href="{{ path('mgateTreso_BV_index') }}"><span class="fa fa-list"></span> Lister</a></li>
+                    <li><a href="{{ path('mgateTreso_BV_ajouter') }}"><span class="fa fa-plus"></span> Ajouter</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#" >NFs <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('mgateTreso_NoteDeFrais_index') }}"><span class="glyphicon glyphicon-list"></span> Lister</a></li>
-                    <li><a href="{{ path('mgateTreso_NoteDeFrais_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
+                    <li><a href="{{ path('mgateTreso_NoteDeFrais_index') }}"><span class="fa fa-list"></span> Lister</a></li>
+                    <li><a href="{{ path('mgateTreso_NoteDeFrais_ajouter') }}"><span class="fa fa-plus"></span> Ajouter</a></li>
                 </ul>
             </li>
             <li class="divider"></li>
             <li class="dropdown-header">Tableaux de Suivi</li>
-            <li><a href="{{ path('mgateTreso_Declaratif_TVA') }}"><span class="glyphicon glyphicon-barcode"></span> Déclaratif TVA</a></li>
-            <li><a href="{{ path('mgateTreso_Declaratif_BRC') }}"><span class="glyphicon glyphicon-qrcode"></span> Bordereau Récapitulatif des Cotisations </a></li>
+            <li><a href="{{ path('mgateTreso_Declaratif_TVA') }}"><span class="fa fa-barcode"></span> Déclaratif TVA</a></li>
+            <li><a href="{{ path('mgateTreso_Declaratif_BRC') }}"><span class="fa fa-qrcode"></span> Bordereau Récapitulatif des Cotisations </a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Administration</li>
             <li>
                 <a href="#" >Comptes <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('mgateTreso_Compte_index') }}"><span class="glyphicon glyphicon-list"></span> Lister</a></li>
-                    <li><a href="{{ path('mgateTreso_Compte_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
+                    <li><a href="{{ path('mgateTreso_Compte_index') }}"><span class="fa fa-list"></span> Lister</a></li>
+                    <li><a href="{{ path('mgateTreso_Compte_ajouter') }}"><span class="fa fa-plus"></span> Ajouter</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#" >B. URSSAF <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('mgateTreso_BaseURSSAF_index') }}"><span class="glyphicon glyphicon-list"></span> Lister</a></li>
-                    <li><a href="{{ path('mgateTreso_BaseURSSAF_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
+                    <li><a href="{{ path('mgateTreso_BaseURSSAF_index') }}"><span class="fa fa-list"></span> Lister</a></li>
+                    <li><a href="{{ path('mgateTreso_BaseURSSAF_ajouter') }}"><span class="fa fa-plus"></span> Ajouter</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#" >Charges <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ path('mgateTreso_CotisationURSSAF_index') }}"><span class="glyphicon glyphicon-list"></span> Lister</a></li>
-                    <li><a href="{{ path('mgateTreso_CotisationURSSAF_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
+                    <li><a href="{{ path('mgateTreso_CotisationURSSAF_index') }}"><span class="fa fa-list"></span> Lister</a></li>
+                    <li><a href="{{ path('mgateTreso_CotisationURSSAF_ajouter') }}"><span class="fa fa-plus"></span> Ajouter</a></li>
                 </ul>
             </li>
 
@@ -146,13 +146,13 @@
             <a href="#"><span class="nav-label">Formations </span> <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
                 <li class="dropdown-header">Formations</li>
-                <li><a href="{{ path('mgate_formations_lister') }}"><span class="glyphicon glyphicon-book"></span> Voir les formations</a></li>
+                <li><a href="{{ path('mgate_formations_lister') }}"><span class="fa fa-book"></span> Voir les formations</a></li>
                 {% if is_granted('ROLE_CA') %}
                     <li class="divider"></li>
                     <li class="dropdown-header">Administration</li>
-                    <li><a href="{{ path('mgate_formations_index_admin') }}"><span class="glyphicon glyphicon-list"></span> Gérer les formations</a></li>
-                    <li><a href="{{ path('mgate_formation_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter une formation</a></li>
-                    <li><a href="{{ path('mgate_formation_participation') }}"><span class="glyphicon glyphicon-tasks"></span> Voir les participants</a></li>
+                    <li><a href="{{ path('mgate_formations_index_admin') }}"><span class="fa fa-list"></span> Gérer les formations</a></li>
+                    <li><a href="{{ path('mgate_formation_ajouter') }}"><span class="fa fa-plus"></span> Ajouter une formation</a></li>
+                    <li><a href="{{ path('mgate_formation_participation') }}"><span class="fa fa-tasks"></span> Voir les participants</a></li>
                 {% endif %}
             </ul>
         </li>
@@ -163,7 +163,7 @@
     <li class="">
         <a href="#" ><span class="nav-label">Pilotage de la J.E.</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-            <li><a href="{{ path('mgate_indicateurs_index') }}"><span class="glyphicon glyphicon-globe"></span> Indicateur</a></li>
+            <li><a href="{{ path('mgate_indicateurs_index') }}"><span class="fa fa-globe"></span> Indicateur</a></li>
         </ul>
     </li>
     {% endif %}
@@ -173,18 +173,18 @@
     <li>
         <a href="#" ><span class="nav-label">Administration</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-            <li><a href="{{ path('mgate_publi_documenttype_index') }}"><span class="glyphicon glyphicon-file"></span> Gestion des Documents</a></li>
-            <li><a href="{{ path('mgate_publi_documenttype_upload') }}"><span class="glyphicon glyphicon-floppy-saved"></span> Ajouter un Doctype</a></li>
+            <li><a href="{{ path('mgate_publi_documenttype_index') }}"><span class="fa fa-file"></span> Gestion des Documents</a></li>
+            <li><a href="{{ path('mgate_publi_documenttype_upload') }}"><span class="fa fa-floppy-saved"></span> Ajouter un Doctype</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Postes</li>
-            <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="glyphicon glyphicon-list"></span> Lister les postes</a></li>
-            <li><a href="{{ path('mgatePersonne_poste_ajouter') }}"><span class="glyphicon glyphicon-plus"></span> Ajouter un poste</a></li>
+            <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="fa fa-list"></span> Lister les postes</a></li>
+            <li><a href="{{ path('mgatePersonne_poste_ajouter') }}"><span class="fa fa-plus"></span> Ajouter un poste</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Compte d'Utilisateur:</li>
-            <li><a href="{{ path('mgate_user_lister') }}"><span class="glyphicon glyphicon-pencil"></span> Lister / Modifier</a></li>
+            <li><a href="{{ path('mgate_user_lister') }}"><span class="fa fa-pencil"></span> Lister / Modifier</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Autres</li>
-            <li><a href="{{ path('mgateSuivi_domaine_index') }}"><span class="glyphicon glyphicon-list"></span> Domaines de compétence</a></li>
+            <li><a href="{{ path('mgateSuivi_domaine_index') }}"><span class="fa fa-list"></span> Domaines de compétence</a></li>
 
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <li><a href="{{ path('mgate_dashboard_homepage') }}over">Administration BDD</a></li>

@@ -46,9 +46,9 @@ $(document).ready(function() {
         {% for formation in formations %}
         <td>
         {% if formation.id in present %}
-               <span class="label label-success"><span class="glyphicon glyphicon-ok"> 1</span></span>
+               <span class="label label-success"><span class="fa fa-check"> 1</span></span>
         {% else %}
-            <span class="label label-danger"><span class="glyphicon glyphicon-remove">  0</span></span>
+            <span class="label label-danger"><span class="fa fa-times">  0</span></span>
         {% endif %}
         </td>
         {% endfor %}

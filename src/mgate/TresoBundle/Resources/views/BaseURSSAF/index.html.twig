@@ -38,7 +38,7 @@
         </thead>
         {% for base in bases %}
         <tr class="{{ base.dateFin < date() ? 'danger' : 'success' }}">
-            <td><a href="{{ path('mgateTreso_BaseURSSAF_modifier', {'id' : base.id })}}" title="Modifier"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{{ path('mgateTreso_BaseURSSAF_modifier', {'id' : base.id })}}" title="Modifier"><span class="fa fa-pencil"></span></a></td>
             <td>{{ base.dateDebut | date('d/m/Y') }}</td>
             <td>{{ base.dateFin | date('d/m/Y') }}</td>
             <td>{{ base.baseURSSAF }}&nbsp;€</td>

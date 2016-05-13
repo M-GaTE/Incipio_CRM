@@ -49,7 +49,7 @@
     <tbody>
     {% for domaine in domaines %}
         <tr>
-            <td><a href="{{ path('mgateSuivi_domaine_delete', { 'id' : domaine.id }) }}"><span class="glyphicon glyphicon-remove">
+            <td><a href="{{ path('mgateSuivi_domaine_delete', { 'id' : domaine.id }) }}"><span class="fa fa-times">
 
             </span></a></td>
             <td>{{ domaine.nom }}</td>

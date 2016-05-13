@@ -17,7 +17,7 @@
 {% block content_bundle %}
     <h2>Suivi</h2>
     <table class="table table-bordered">
-        <tr><td colspan="2"><h4><a href="{{ path('mgateSuivi_suivi_modifier', {'id': selectedSuivi.id}) }}"><i class="glyphicon glyphicon-pencil"></i> Modifier</a></h4></td></tr>
+        <tr><td colspan="2"><h4><a href="{{ path('mgateSuivi_suivi_modifier', {'id': selectedSuivi.id}) }}"><i class="fa fa-pencil"></i> Modifier</a></h4></td></tr>
         <tr>
             <th>Date</th>
             <td>{{ selectedSuivi.date | date("\\L\\e d/m/Y") }}</td>

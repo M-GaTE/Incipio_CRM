@@ -47,7 +47,7 @@
                     {% for mandat in membre.mandats %}
                         <span class="label label-{{ "now"|date('Ymd')  > mandat.finMandat |date('Ymd') ? 'default' : 'success' }}"
                               data-valide="{{ "now"|date('Ymd')  > mandat.finMandat |date('Ymd') ? 'ancien' : 'actuel' }}{{ mandat.poste.intitule }}">{{ mandat.debutMandat | date("d/m/Y") }}
-                            <span class="glyphicon glyphicon-arrow-right"></span> {{ mandat.finMandat | date("d/m/Y") }}</span> {{ mandat.poste.intitule }}
+                            <span class="fa fa-arrow-right"></span> {{ mandat.finMandat | date("d/m/Y") }}</span> {{ mandat.poste.intitule }}
                         <br/>
                     {% endfor %}
                 </td>

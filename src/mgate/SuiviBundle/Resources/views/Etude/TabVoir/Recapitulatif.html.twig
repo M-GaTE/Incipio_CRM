@@ -10,11 +10,11 @@
 	</div>
 	<div class="collapse navbar-collapse navbar-recap">
 		<ul class="nav  navbar-nav">
-			<li><a href="{{ path('mgateSuivi_etude_modifier', {'nom': etude.nom}) }}"><span class="glyphicon glyphicon-pencil"></span> Modifier</a></li>
-			<li><a href="{{ path('mgateSuivi_clientcontact_ajouter', {'id': etude.id}) }}"><span class="glyphicon glyphicon-list-alt"></span> Ajouter Contact Client</a></li>
+			<li><a href="{{ path('mgateSuivi_etude_modifier', {'nom': etude.nom}) }}"><span class="fa fa-pencil"></span> Modifier</a></li>
+			<li><a href="{{ path('mgateSuivi_clientcontact_ajouter', {'id': etude.id}) }}"><span class="fa fa-list-alt"></span> Ajouter Contact Client</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="glyphicon glyphicon-th-list"></span> Retour à la liste</a></li>
+			<li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="fa fa-th-list"></span> Retour à la liste</a></li>
 		</ul>
 	</div>
 </nav>
@@ -103,11 +103,11 @@
 		<td>
 		{% set dernierContact = dernierContact | date("U") < contact.date |date("U") ? contact.date : dernierContact %}
 		{% if contact.moyenContact == 'telephone'%}
-			<span title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}" class="glyphicon glyphicon-headphones"></span>
+			<span title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}" class="fa fa-headphones"></span>
 		{% elseif contact.moyenContact == 'mail'%}
-			<span title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}"  class="glyphicon glyphicon-envelope"></span>
+			<span title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}"  class="fa fa-envelope"></span>
 		{% else %}
-			<span title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}"  class="glyphicon glyphicon-eye-open"></span>
+			<span title="{{ contact.date | date("d/m/Y - ") ~ contact.faitPar.PrenomNom}}"  class="fa fa-eye-open"></span>
 		{% endif %}
 		</td>
 		<td>
