@@ -19,7 +19,7 @@ use mgate\PersonneBundle\Entity\Personne;
 class PersonneController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Secure(roles="ROLE_CA")
      */
     public function annuaireAction()
     {
@@ -28,37 +28,38 @@ class PersonneController extends Controller
         $entities = $em->getRepository('mgatePersonneBundle:Personne')->findAll();
 
         return $this->render('mgatePersonneBundle:Personne:annuaire.html.twig', array(
-                    'personnes' => $entities,
-                ));
+            'personnes' => $entities,
+        ));
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Secure(roles="ROLE_CA")
      */
     public function listeMailAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('mgatePersonneBundle:Personne')->findAll();
+        $entities = $em->getRepository('mgatePersonneBundle:Personne')->getAllPersonne();
 
-        $membres = $em->getRepository('mgatePersonneBundle:Membre')->getCotisants();
+        //$membres = $em->getRepository('mgatePersonneBundle:Membre')->getCotisants();
 
         $cotisants = array();
         $cotisantsEtu = array();
-        foreach ($membres as $cotisant) {
-            $nom = $cotisant->getPersonne()->getNom().' '.$cotisant->getPersonne()->getPrenom();
-
-            $mailEtu = $cotisant->getEmailEMSE();
-            $mail = $cotisant->getPersonne()->getEmail();
-            if ($mail != null) {
-                $cotisants[$nom] = $mail;
-            }
-            if ($mailEtu != null) {
-                $cotisantsEtu[$nom] = $mailEtu;
-            }
-        }
-        ksort($cotisants);
-        ksort($cotisantsEtu);
+        /** foreach ($membres as $cotisant) {
+         * $nom = $cotisant->getPersonne()->getNom().' '.$cotisant->getPersonne()->getPrenom();
+         *
+         * $mailEtu = $cotisant->getEmailEMSE();
+         * $mail = $cotisant->getPersonne()->getEmail();
+         * if ($mail != null) {
+         * $cotisants[$nom] = $mail;
+         * }
+         * if ($mailEtu != null) {
+         * $cotisantsEtu[$nom] = $mailEtu;
+         * }
+         * }
+         * ksort($cotisants);
+         * ksort($cotisantsEtu);
+         * **/
 
         $nbrCotisants = count($cotisants);
         $nbrCotisantsEtu = count($cotisantsEtu);
@@ -73,13 +74,13 @@ class PersonneController extends Controller
         }
 
         return $this->render('mgatePersonneBundle:Personne:listeDiffusion.html.twig', array(
-                'personnes' => $entities,
-                'cotisants' => $listCotisants,
-                'cotisantsEtu' => $listCotisantsEtu,
-                'nbrCotisants' => $nbrCotisants,
-                'nbrCotisantsEtu' => $nbrCotisantsEtu,
+            'personnes' => $entities,
+            'cotisants' => $listCotisants,
+            'cotisantsEtu' => $listCotisantsEtu,
+            'nbrCotisants' => $nbrCotisants,
+            'nbrCotisantsEtu' => $nbrCotisantsEtu,
 
-                ));
+        ));
     }
 
     /**

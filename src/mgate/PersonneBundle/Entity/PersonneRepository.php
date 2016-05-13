@@ -58,6 +58,11 @@ class PersonneRepository extends EntityRepository
         return $this->getMembresByPoste($poste)->setMaxResults(1);
     }
 
+    /**
+     * Requete récupérant uniquement les employés et retournant un query builder, utilisable dans un form.
+     * @param null $prospect
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getEmployeOnly($prospect = null)
     {
         $qb = $this->_em->createQueryBuilder();
@@ -91,5 +96,19 @@ class PersonneRepository extends EntityRepository
         }
 
         return $query;
+    }
+
+    /**
+     * Requete sur l'ensemble des personnes avec en jointure les différents OneToOne possibles
+     */
+    public function getAllPersonne(){
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->select('p')->from('mgatePersonneBundle:Personne', 'p')
+            ->leftJoin('p.employe', 'employe')
+            ->addSelect('employe')
+             ->leftJoin('p.membre', 'membre')
+            ->addSelect('membre');
+
+        return $query->getQuery()->getResult();
     }
 }
