@@ -1,11 +1,11 @@
 mgate_indicateurs_index:
-    pattern:  /admin/indicateurs
+    path:  /admin/indicateurs
     defaults: { _controller: mgateStatBundle:Indicateurs:index }
 
 mgate_indicateurs_ajax_suivi:
-    pattern:  /admin/indicateurs/etudes
+    path:  /admin/indicateurs/etudes
     defaults: { _controller: mgateStatBundle:Indicateurs:ajax }
 
 mgate_indicateurs_debug:
-    pattern:  /admin/indicateurs/{get}
+    path:  /admin/indicateurs/{get}
     defaults: { _controller: mgateStatBundle:Indicateurs:debug}
