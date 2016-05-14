@@ -1,45 +1,37 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-	Gestion des factures - {{ parent() }}
+    Gestion des factures - {{ parent() }}
 {% endblock %}
 
-{% block javascript_quick %}
-{{ parent() }}
-<script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
-        $('#FAtable').dataTable({
-            "bPaginate": true,
-            "iDisplayLength": 50,
-			"aaSorting": [[1,'desc']],
-        });
-        $('#FVtable').dataTable({
-            "bPaginate": true,
-            "iDisplayLength": 50,
-			"aaSorting": [[1,'desc']],
-        });
-    });
-</script>
-{% endblock %}
 {% block stylesheets %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block content_title %}
+    Gestion des factures
 {% endblock %}
 
 {% block content_bundle %}
     <ul id="myTab" class="nav nav-tabs">
-        <li><a href="{{ path('mgateTreso_Facture_ajouter')}}"> <span class="fa fa-plus"></span> Ajouter une Facture</a></li>
-        <li class=""><a href="#FA" data-toggle="tab">Facture d'Achat</a></li>
-        <li class="active"><a href="#FV" data-toggle="tab">Facture de Vente</a></li>
+        <li>
+            <a href="{{ path('mgateTreso_Facture_ajouter') }}"> <span class="fa fa-plus"></span> Ajouter une Facture</a>
+        </li>
+        <li class="">
+            <a href="#FA" data-toggle="tab">Facture d'Achat</a>
+        </li>
+        <li class="active">
+            <a href="#FV" data-toggle="tab">Facture de Vente</a>
+        </li>
     </ul>
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade" id="FA">
-            <table class="display dataTable table table-bordered table-striped" id="FAtable">
+            <table class="display dataTable table table-bordered table-striped dt-responsive" id="FAtable">
                 <thead>
-                  <tr>
+                <tr>
                     <th>Date d'émission</th>
                     <th>Référence</th>
                     <th>Objet</th>
@@ -50,23 +42,25 @@
                 </tr>
                 </thead>
                 {% for facture in factures if facture.type == 1 %}
-                {% set delai = (((facture.dateVersement ? facture.dateVersement |date('U') : 'now' | date('U')) - facture.dateEmission| date('U')) / 86400 ) |round %}
-                <tr class="{{facture.dateVersement ? 'success' : ( delai > 31 ? 'danger' : 'warning')}}">
-                    <td>{{ facture.dateEmission | date('d/m/Y')}}</td>
-                    <td><a href="{{ path('mgateTreso_Facture_voir', {'id': facture.id})}}">{{ facture.reference}}</a></td>
-                    <td>{{ facture.objet }}</td>
-                    <td style="text-align: right;">{{ facture.montantHT |number_format(2, ',', ' ')}} €</td>
-                    <td style="text-align: right;">{{ facture.montantTVA |number_format(2, ',', ' ')}} €</td>
-                    <td style="text-align: right;">{{ facture.montantTTC |number_format(2, ',', ' ')}} €</td>
-                    <td>{{ facture.dateVersement ? facture.dateVersement |date('d/m/Y') : 'Impayée' }}</td>
-                </tr>
+                    {% set delai = (((facture.dateVersement ? facture.dateVersement |date('U') : 'now' | date('U')) - facture.dateEmission| date('U')) / 86400 ) |round %}
+                    <tr class="{{ facture.dateVersement ? 'success' : ( delai > 31 ? 'danger' : 'warning') }}">
+                        <td>{{ facture.dateEmission | date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('mgateTreso_Facture_voir', {'id': facture.id}) }}">{{ facture.reference }}</a>
+                        </td>
+                        <td>{{ facture.objet }}</td>
+                        <td style="text-align: right;">{{ facture.montantHT |number_format(2, ',', ' ') }} €</td>
+                        <td style="text-align: right;">{{ facture.montantTVA |number_format(2, ',', ' ') }} €</td>
+                        <td style="text-align: right;">{{ facture.montantTTC |number_format(2, ',', ' ') }} €</td>
+                        <td>{{ facture.dateVersement ? facture.dateVersement |date('d/m/Y') : 'Impayée' }}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
         <div class="tab-pane fade active in" id="FV">
-            <table class="display dataTable table table-bordered table-striped" id="FVtable">
+            <table class="display dataTable table table-bordered table-striped dt-responsive" id="FVtable">
                 <thead>
-                  <tr>
+                <tr>
                     <th>Date d'émission</th>
                     <th>Référence</th>
                     <th>Objet</th>
@@ -79,28 +73,49 @@
                 </thead>
                 {% set totalDelai = 0 %}
                 {% for facture in factures if facture.type > 1 %}
-                {% set delai = (((facture.dateVersement ? facture.dateVersement |date('U') : 'now' | date('U')) - facture.dateEmission| date('U')) / 86400 ) |round %}
-                {% set totalDelai = delai + totalDelai %}
-                <tr class="{{facture.dateVersement ? 'success' : ( delai > 31 ? 'danger' : 'warning')}}">
-                    <td>{{ facture.dateEmission | date('d/m/Y')}}</td>
-                    <td><a href="{{ path('mgateTreso_Facture_voir', {'id': facture.id})}}">{{ facture.reference}}</a></td>
-                    <td>{{ facture.objet }}</td>
-                    <td style="text-align: right;">{{ facture.montantHT |number_format(2, ',', ' ')}} €</td>
-                    <td style="text-align: right;">{{ facture.montantTVA |number_format(2, ',', ' ')}} €</td>
-                    <td style="text-align: right;">{{ facture.montantTTC |number_format(2, ',', ' ')}} €</td>
-                    <td>{{ facture.dateVersement ? facture.dateVersement |date('d/m/Y') : 'Impayée' }}</td>
-                    <td>{{ delai }} jour{% if delai > 1%}s{% endif %}</td>
-                </tr>
+                    {% set delai = (((facture.dateVersement ? facture.dateVersement |date('U') : 'now' | date('U')) - facture.dateEmission| date('U')) / 86400 ) |round %}
+                    {% set totalDelai = delai + totalDelai %}
+                    <tr class="{{ facture.dateVersement ? 'success' : ( delai > 31 ? 'danger' : 'warning') }}">
+                        <td>{{ facture.dateEmission | date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('mgateTreso_Facture_voir', {'id': facture.id}) }}">{{ facture.reference }}</a>
+                        </td>
+                        <td>{{ facture.objet }}</td>
+                        <td style="text-align: right;">{{ facture.montantHT |number_format(2, ',', ' ') }} €</td>
+                        <td style="text-align: right;">{{ facture.montantTVA |number_format(2, ',', ' ') }} €</td>
+                        <td style="text-align: right;">{{ facture.montantTTC |number_format(2, ',', ' ') }} €</td>
+                        <td>{{ facture.dateVersement ? facture.dateVersement |date('d/m/Y') : 'Impayée' }}</td>
+                        <td>{{ delai }} jour{% if delai > 1 %}s{% endif %}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
-   </div>
+    </div>
 
 
 
 {% endblock %}
 
-
 {% block javascript %}
     {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#FAtable').dataTable({
+                "bPaginate": true,
+                "iDisplayLength": 50,
+                "aaSorting": [[1, 'desc']],
+            });
+            $('#FVtable').dataTable({
+                "bPaginate": true,
+                "iDisplayLength": 50,
+                "aaSorting": [[1, 'desc']],
+            });
+        });
+    </script>
 {% endblock %}
