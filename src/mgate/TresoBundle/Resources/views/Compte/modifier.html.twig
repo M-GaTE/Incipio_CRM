@@ -1,37 +1,37 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-	Gestion des comptes - {{ parent() }}
+    Gestion des comptes - {{ parent() }}
 {% endblock %}
 
-
+{% block content_title %}
+    {{ compte.numero is null? "Ajout d'un" :  "Modification du" }} compte {{ compte.numero }} {{ compte.libelle }}
+{% endblock %}
 
 {% block content_bundle %}
-    <h3>{{ compte.numero ? "Ajout d'un" :  "Modification du" }} compte {{ compte.numero  }} {{ compte.libelle }}</h3>
     <form method="post" {{ form_enctype(form) }}>
-    <table class="table table-bordered table-striped standard">
-        <tr>
-            <th>{{ form_label(form.categorie) }}</th>
-            <td>{{ form_widget(form.categorie) }}</td>
-        </tr>
-        <tr>
-            <th>{{ form_label(form.numero) }}</th>
-            <td>{{ form_widget(form.numero) }}</td>
-        </tr>
-        <tr>
-            <th>{{ form_label(form.libelle) }}</th>
-            <td>{{ form_widget(form.libelle) }}</td>
-        </tr>
-    </table>
-    <input type="submit" value="Enregistrer" />
-    {{ form_rest(form) }}
+        <table class="table table-bordered table-striped standard">
+            <tr>
+                <th>{{ form_label(form.categorie) }}</th>
+                <td>{{ form_widget(form.categorie) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.numero) }}</th>
+                <td>{{ form_widget(form.numero) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.libelle) }}</th>
+                <td>{{ form_widget(form.libelle) }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="Enregistrer" class="btn btn-default"/>
+        {{ form_rest(form) }}
     </form>
-    {% if compte.numero %}
-    <table class="table">
-        <tr>
-            <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('mgateTreso_Compte_supprimer', {'id': compte.id})}}';">Supprimer le Compte (ADMIN)</button></td>
-        </tr>
-    </table>
+
+    {% if compte.numero is not null and is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('mgateTreso_Compte_supprimer', {'id': compte.id}) }}" class="btn btn-danger">
+            Supprimer le Compte
+        </a>
     {% endif %}
 
 {% endblock %}

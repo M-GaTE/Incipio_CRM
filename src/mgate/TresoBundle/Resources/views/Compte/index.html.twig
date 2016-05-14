@@ -1,44 +1,54 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
-{% block title %}
-	Gestion des comptes - {{ parent() }}
-{% endblock %}
-
-{% block javascript_quick %}
-{{ parent() }}
-<script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
-        $('#example').dataTable({
-            "bPaginate": false,
-			"aaSorting": [[0,'asc']],
-        });
-    });
-</script>
-{% endblock %}
 {% block stylesheets %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block title %}
+    Gestion des comptes - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+    Gestion des comptes comptables
 {% endblock %}
 
 
 {% block content_bundle %}
-    <button type="button" class="btn btn-success" onclick="location.href='{{ path('mgateTreso_Compte_ajouter')}}';">Ajouter un compte</button>
-    <table class="display dataTable table table-bordered table-striped" id="example">
+    <a href="{{ path('mgateTreso_Compte_ajouter') }}" class="btn btn-success">
+        Ajouter un compte
+    </a>
+    <table class="display dataTable table table-bordered table-striped" id="listeComptes">
         <thead>
-          <tr>
+        <tr>
             <th>Numéro</th>
             <th>Libellé</th>
         </tr>
         </thead>
         {% for compte in comptes %}
-        <tr {% if compte.categorie %}class="success"{% endif %}>
-            <td>{{ compte.numero }}</td>
-            <td><a href="{{ path('mgateTreso_Compte_modifier', {'id': compte.id})}}">{{ compte.libelle }}</a></td>
-        </tr>
+            <tr {% if compte.categorie %}class="success"{% endif %}>
+                <td>{{ compte.numero }}</td>
+                <td><a href="{{ path('mgateTreso_Compte_modifier', {'id': compte.id}) }}">{{ compte.libelle }}</a></td>
+            </tr>
         {% endfor %}
     </table>
 
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#listeComptes').DataTable({
+                "aaSorting": [[0, 'asc']]
+            });
+        });
+    </script>
 {% endblock %}
