@@ -1,49 +1,60 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-	Accueil - {{ parent() }}
+    Déclaration URSSAF - BRC - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+    Déclaration URSSAF - BRC
 {% endblock %}
 
 {% block content_bundle %}
+    <form method="post" {{ form_enctype(form) }} class="form-inline row">
+        {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
+        <div class="col-md-3 col-xs-12">
+            {{ form_label(form.date) }} {{ form_widget(form.date) }}
+        </div>
+        <div class="col-md-3 col-xs-12">
+            {{ form_widget(form) }}
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <input type="submit" value="Chercher" class="btn btn-default"/>
+        </div>
+    </form>
 
+    <br>
 
-<h2>Déclaration URSSAF - BRC</h2>
+    Nombre salariés pour la période de déclaration
+    <span data-toggle="tooltip" class="badge badge-default"
+          title="Nombre d’intervenants différents ayant reçu au moins un JEH via un Bulletin de Versement sur la période">
+        ?
+    </span>
+    : {{ nbSalarieRemunere }}
 
-<form method="post" {{ form_enctype(form) }}>
-    {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
-	{{ form_label(form.date) }} {{ form_widget(form.date) }}
-	{{ form_widget(form) }}
-	<br>
-    <input type="submit" value="Chercher" class="btn"/>
-</form>
-
-<br>
-<h4 title="Nombre d’intervenants différents ayant reçu au moins un JEH via un Bulletin de Versement sur la période">
-    Nombre de salariés ou d’assurés rémunérés dans l’établissement concernés par la déclaration pour la période : {{ nbSalarieRemunere }}
-</h4>
-<!--h4 title="Nombre d’intervenants différents ayant au moins un RM en cours à la fin de la période">
-    Nombre de salariés concernés par la déclaration au dernier jour de la période
-</h4-->
-<table class="table table-bordered table-striped">
-    <tr>
-        <th>Référence du BV</th>
-        <th>Etudiant</th>
-        <th>Montant des Cotisations</th>
-    </tr>
-    {% set totalCotisation = 0 %}
-    {% for bv in bvs %}
-    {% set totalCotisation = totalCotisation + bv.partJunior %}
-    <tr>
-        <td>{{ bv.reference }}</td>
-        <td>{{ bv.mission.intervenant.personne.prenomNom }}</td>
-        <td>{{ bv.partJunior }}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <th colspan="2">Total</th>
-        <th>{{ totalCotisation }}</th>
-    </tr>
-</table>
+    </span>
+    <!--h4 title="Nombre d’intervenants différents ayant au moins un RM en cours à la fin de la période">
+        Nombre de salariés concernés par la déclaration au dernier jour de la période
+    </h4-->
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Référence du BV</th>
+            <th>Etudiant</th>
+            <th>Montant des Cotisations</th>
+        </tr>
+        {% set totalCotisation = 0 %}
+        {% for bv in bvs %}
+            {% set totalCotisation = totalCotisation + bv.partJunior %}
+            <tr>
+                <td>{{ bv.reference }}</td>
+                <td>{{ bv.mission.intervenant.personne.prenomNom }}</td>
+                <td>{{ bv.partJunior }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="2">Total</th>
+            <th>{{ totalCotisation }}</th>
+        </tr>
+    </table>
 {% endblock %}
 
 {% block javascript %}
