@@ -1,35 +1,23 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
-{% block title %}
-	Gestion des Bases URSSAF - {{ parent() }}
-{% endblock %}
-
-{% block javascript_quick %}
-{{ parent() }}
-<script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function() {
-        $('#example').dataTable({
-            "bPaginate": true,
-            "iDisplayLength": 50,
-			"aaSorting": [[1,'desc']],
-        });
-    });
-</script>
-{% endblock %}
 {% block stylesheets %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
 {% endblock %}
 
+{% block title %}
+    Gestion des Bases URSSAF - {{ parent() }}
+{% endblock %}
 
 {% block content_bundle %}
-    <button type="button" class="btn btn-success" onclick="location.href='{{ path('mgateTreso_BaseURSSAF_ajouter')}}';">Ajouter une base URSSAF</button>
-    <table class="display dataTable table table-bordered table-striped" id="example">
+    <button type="button" class="btn btn-success"
+            onclick="location.href='{{ path('mgateTreso_BaseURSSAF_ajouter') }}';">Ajouter une base URSSAF
+    </button>
+    <table class="display dataTable table table-bordered table-striped dt-responsive" id="listeBase">
         <thead>
-          <tr>
+        <tr>
             <th>Action</th>
             <th>Applicable du</th>
             <th>Applicable au</th>
@@ -37,13 +25,33 @@
         </tr>
         </thead>
         {% for base in bases %}
-        <tr class="{{ base.dateFin < date() ? 'danger' : 'success' }}">
-            <td><a href="{{ path('mgateTreso_BaseURSSAF_modifier', {'id' : base.id })}}" title="Modifier"><span class="fa fa-pencil"></span></a></td>
-            <td>{{ base.dateDebut | date('d/m/Y') }}</td>
-            <td>{{ base.dateFin | date('d/m/Y') }}</td>
-            <td>{{ base.baseURSSAF }}&nbsp;€</td>
-        </tr>
+            <tr class="{{ base.dateFin < date() ? 'danger' : 'success' }}">
+                <td><a href="{{ path('mgateTreso_BaseURSSAF_modifier', {'id' : base.id }) }}" title="Modifier"><span
+                                class="fa fa-pencil"></span></a></td>
+                <td>{{ base.dateDebut | date('d/m/Y') }}</td>
+                <td>{{ base.dateFin | date('d/m/Y') }}</td>
+                <td>{{ base.baseURSSAF }}&nbsp;€</td>
+            </tr>
         {% endfor %}
     </table>
 
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#listeBase').DataTable({
+                "paging": true,
+                "iDisplayLength": 50,
+                "aaSorting": [[1, 'desc']]
+            });
+        });
+    </script>
 {% endblock %}
