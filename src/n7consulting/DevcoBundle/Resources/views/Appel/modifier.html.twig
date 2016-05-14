@@ -1,0 +1,27 @@
+{% extends "n7consultingDevcoBundle::layout.html.twig" %}
+
+{% block title %}Modifier un appel - {{ parent() }}{% endblock %}
+
+{% block content_title %}
+    Modifier un appel
+{% endblock %}
+
+{% block content_bundle %}
+
+    {% include "n7consultingDevcoBundle:Appel:formulaire.html.twig" %}
+
+
+    <hr>
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            <a href="{{ path('n7consultingDevco_homepage') }}" class="btn btn-default">Retour à la liste des appels</a>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cet appel ?" action="{{ path('n7consultingDevco_appel_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button class="btn btn-danger">Supprimer l'appel</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

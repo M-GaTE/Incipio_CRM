@@ -1,0 +1,63 @@
+<form method="post" {{ form_enctype(form) }}>
+
+    <table  class="table table-bordered table-striped" >
+        <tr>
+            <td>{{  form_label(form.suiveur) }}</td>
+            <td>{{  form_widget(form.suiveur) }}</td>
+            <td>{{  form_label(form.dateAppel) }}</td>
+            <td>{{  form_widget(form.dateAppel) }}</td>
+        </tr>
+        <tr>
+            <td>{{  form_label(form.prospect) }}</td>
+            <td>{{  form_widget(form.prospect) }}</td>
+            <td>
+                {{  form_label(form.employe) }}
+                <span class="badge badge-info btn-xs"
+                      data-rel="tooltip"
+                      title="Selectionnez l'entreprise pour obtenir la liste de ses employés" >?</span>
+            </td>
+            <td>{{  form_widget(form.employe) }}</td>
+        </tr>
+        <tr>
+            <td>{{  form_label(form.noteAppel) }}</td>
+            <td colspan="3" >{{  form_widget(form.noteAppel,{ 'attr': {'cols': '50', 'rows': '7'} }) }}</td>
+        </tr>
+        <tr>
+            <td>{{  form_label(form.aRappeller) }}</td>
+            <td>{{  form_widget(form.aRappeller) }}</td>
+            <td class="dateRappel">{{  form_label(form.dateRappel) }}</td>
+            <td class="dateRappel">{{  form_widget(form.dateRappel) }}</td>
+        </tr>
+    {{ form_widget(form) }}
+    </table>
+    {{ form_rest(form) }}
+    <input type="submit" value="Enregistrer l'appel" class="btn btn-success"/>
+
+</form>
+
+    {{ form_javascript(form) }}
+<script type="text/javascript">
+    $('#n7consulting_devcobundle_appel_prospect').change(function () {
+        var id = $(this).find(':selected').val();
+        $.get("{{ path('mgatePersonne_ajax_employes_de_prospect',{id : 0}) }}" + id, //Hack : que l'on passe 02 ou 2 au formulaire, il comprend la même chose, on lui passe donc 0 pour quand même bénéficier de la génération automatique de route.
+            function (data) {
+                var selectEmployes = $('#n7consulting_devcobundle_appel_employe');
+                selectEmployes.empty();
+                $.each(data,function (index, employe) {
+                    selectEmployes.append("<option value=" + employe.value + ">" + employe.label + "</option>");
+                });
+            });
+
+    });
+
+
+    $('#n7consulting_devcobundle_appel_aRappeller').change(
+            function(){
+                if ($(this).is(':checked')) { // si elle est cochée et qu'elle change, alors c'est que la personne ne doit pas être rappellée.
+                    $('.dateRappel').show();
+                }else{
+                    $('.dateRappel').hide();
+                }
+            });
+
+</script>

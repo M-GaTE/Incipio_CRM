@@ -1,3 +1,30 @@
-n7consulting_devco_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: n7consultingDevcoBundle:Default:index }
+n7consultingDevco_homepage:
+    pattern:     /
+    defaults: { _controller: n7consultingDevcoBundle:Appel:index }
+
+
+n7consultingDevco_appel_voir:
+    pattern:   /appel/{id}
+    defaults:  { _controller: n7consultingDevcoBundle:Appel:voir}
+    requirements:
+        id:  \d+
+    methods:  [GET, HEAD, POST]
+
+n7consultingDevco_appel_ajouter:
+    pattern: /appel/add
+    defaults: {_controller: n7consultingDevcoBundle:Appel:ajouter}
+    methods:  [GET, HEAD, POST]
+
+n7consultingDevco_appel_modifier:
+    pattern: /appel/modifier/{id}
+    defaults: {_controller: n7consultingDevcoBundle:Appel:modifier}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]
+
+n7consultingDevco_appel_supprimer:
+    pattern: /appel/supprimer/{id}
+    defaults: {_controller: n7consultingDevcoBundle:Appel:delete}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]

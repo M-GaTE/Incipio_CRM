@@ -1,0 +1,18 @@
+{% extends "n7consultingDevcoBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+    Appel
+{% endblock %}
+
+{% block content_bundle %}
+
+    {{ appel.suiveur }}<br>
+    {{ appel.employe }} <br>
+    {{ appel.prospect }}<br>
+    {{ appel.dateAppel | date('Y/m/d') }}
+
+
+    <a href="{{ path('n7consultingDevco_appel_modifier', {'id': appel.id}) }}" class="btn btn-default">Modifier l'appel</a>
+
+
+{% endblock %}
