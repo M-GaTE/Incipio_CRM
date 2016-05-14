@@ -1,57 +1,67 @@
 {# layout d'accueil pour les études  #}
-
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
-{% block title %}
-Suivi des études - {{ parent() }}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
 {% endblock %}
 
-{% block javascript_quick %}
-{{ parent() }}
-    <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            $('#example').dataTable({
-                "bPaginate": false,
-				"aaSorting": [[0,'desc']],
-            });
-        } );
-    </script>
+{% block title %}
+    Suivi des études - {{ parent() }}
 {% endblock %}
-{% block stylesheets %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/datatable.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/datatable_page.css') }}">
+
+{% block content_title %}
+    Liste des Suivis
 {% endblock %}
+
 
 {% block content_bundle %}
-<h2>Liste des Suivis</h2>
-    <table style="width: 100%;" aria-describedby="example_info" class="display dataTable table table-bordered table-striped" id="example" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table class="table table-bordered table-striped dt-responsive" id="listeSuivi">
         <thead>
-          <tr>
+        <tr>
             <th>Date</th>
             <th>Etude</th>
-			<th>Suiveur</th>
+            <th>Suiveur</th>
             <th>Client</th>
             <th>Etat</th>
             <th>Todo</th>
-          </tr>
+        </tr>
         </thead>
         <tbody>
-            {% for s in suivis %}
+        {% for s in suivis %}
             <tr>
                 <td>{{ s.date | date("d/m/y") }}</td>
                 <td>{{ s.etude.nom }}</td>
-                <td>{{ s.etude.suiveur.prenomNom}}</td>
-                <td>{{ s.etude.prospect.nom}}</td>
+                <td>{{ s.etude.suiveur.prenomNom }}</td>
+                <td>{{ s.etude.prospect.nom }}</td>
                 <td>{{ s.etat }}</td>
                 <td>{{ s.todo }}</td>
             </tr>
-            {% endfor %}
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}
 
 {% block javascript %}
-{{ parent() }}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#listeSuivi').DataTable({
+                "paging": false,
+                "aaSorting": [[0, 'desc']]
+            });
+        });
+    </script>
 {% endblock %}
