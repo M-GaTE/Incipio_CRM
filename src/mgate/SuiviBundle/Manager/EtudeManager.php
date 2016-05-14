@@ -331,12 +331,6 @@ class EtudeManager extends \Twig_Extension
                 array_push($errors, $error);
             }
         }
-        if ($etude->getPvr()) {
-            if ($etude->getDateFin(true) !== null && $etude->getPvr()->getDateSignature() > $etude->getDateFin(true)) {
-                $error = array('titre' => 'PVR  - Date de signature : ', 'message' => 'La date de signature du PVR doit être antérieure à la date de fin de l\'étude. Consulter la Convention Client ou l\'Avenant à la Convention Client pour la fin l\'étude.');
-                array_push($errors, $error);
-            }
-        }
 
         // CE <= RM
         foreach ($etude->getMissions() as $mission) {
