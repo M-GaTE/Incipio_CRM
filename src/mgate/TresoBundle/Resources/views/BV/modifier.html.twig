@@ -1,57 +1,75 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-	Gestion des BV - {{ parent() }}
+    Modification d'un BV - {{ parent() }}
 {% endblock %}
 
-
+{% block content_title %}
+    {% if bv.numero is null %}
+        Ajout d'un BV
+    {% else %}
+        Modification du BV {{ bv.mandat }} -BV- {{ bv.numero }}
+    {% endif %}
+{% endblock %}
 
 {% block content_bundle %}
-    <h3>{{ bv.numero ? "Ajout d'un" :  "Modification du" }} BV : {{ bv.mandat }}-BV-{{ bv.numero  }} </h3>
     <form method="post" {{ form_enctype(form) }}>
-    <table class="table table-bordered table-striped standard">
-        <tr>
-            <th>{{ form_label(form.mandat) }}</th>
-            <td>{{ form_widget(form.mandat) }}</td>
-            <th>{{ form_label(form.numero) }}</th>
-            <td>{{ form_widget(form.numero) }}</td>
-        </tr>
-        <tr>
-            <th>{{ form_label(form.nombreJEH) }}</th>
-            <td>{{ form_widget(form.nombreJEH) }}</td>
-            <th>{{ form_label(form.remunerationBruteParJEH) }}</th>
-            <td>{{ form_widget(form.remunerationBruteParJEH) }}</td>
-        </tr>
-        <tr>
-            <th>{{ form_label(form.numeroVirement) }}</th>
-            <td>{{ form_widget(form.numeroVirement) }}</td>
-            <th>{{ form_label(form.dateDeVersement) }}</th>
-            <td>{{ form_widget(form.dateDeVersement) }}</td>
-        </tr>
-        <tr>
-            <th>{{ form_label(form.mission) }}</th>
-            <td>{{ form_widget(form.mission) }}</td>
-            <th>{{ form_label(form.typeDeTravail) }}</th>
-            <td>{{ form_widget(form.typeDeTravail) }}</td>
-        </tr>
-        <tr>
-            <th colspan="4">Taux</th>
-        </tr>
-        <tr>
-            <th>{{ form_label(form.dateDemission) }}</th>
-            <td colspan="3">{{ form_widget(form.dateDemission) }}</td>
-        </tr>
-    </table>
-            <input type="submit" class="btn btn-success" value="Enregistrer" />
-    {{ form_rest(form) }}
+        <table class="table table-bordered table-striped standard">
+            <tr>
+                <th>{{ form_label(form.mandat) }}</th>
+                <td>{{ form_widget(form.mandat) }}</td>
+                <th>{{ form_label(form.numero) }}</th>
+                <td>{{ form_widget(form.numero) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.nombreJEH) }}</th>
+                <td>{{ form_widget(form.nombreJEH) }}</td>
+                <th>{{ form_label(form.remunerationBruteParJEH) }}</th>
+                <td>{{ form_widget(form.remunerationBruteParJEH) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.numeroVirement) }}</th>
+                <td>{{ form_widget(form.numeroVirement) }}</td>
+                <th>{{ form_label(form.dateDeVersement) }}</th>
+                <td>{{ form_widget(form.dateDeVersement) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.mission) }}</th>
+                <td>{{ form_widget(form.mission) }}</td>
+                <th>{{ form_label(form.typeDeTravail) }}</th>
+                <td>{{ form_widget(form.typeDeTravail) }}</td>
+            </tr>
+            <tr>
+                <th colspan="4">Taux</th>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.dateDemission) }}</th>
+                <td colspan="3">{{ form_widget(form.dateDemission) }}</td>
+            </tr>
+        </table>
+        <input type="submit" class="btn btn-success" value="Enregistrer"/>
+        {{ form_rest(form) }}
     </form>
-    {% if bv.numero %}
-    <table class="table">
-        <tr>
-            <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('mgateTreso_BV_supprimer', {'id': bv.id})}}';">Supprimer le BV</button></td>
-        </tr>
-    </table>
-    {% endif %}
+
+    <br>
+    <div class="row">
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('mgateTreso_BV_index') }}" class="btn btn-default">Retour à la liste des BV</a>
+        </div>
+        {% if bv.numero is not null %}
+            <div class="col-md-2 col-xs-4">
+                <a href="{{ path('mgateTreso_BV_voir', {'id': form.vars.data.id}) }}" class="btn btn-info">Retour au
+                    BV</a>
+            </div>
+            <div class="col-md-2 col-xs-4">
+                <a href="{{ path('mgateTreso_BV_supprimer', {'id': bv.id}) }}" class="btn btn-danger">
+                    Supprimer le BV
+                </a>
+            </div>
+        {% endif %}
+
+    </div>
+
 
 {% endblock %}
 
