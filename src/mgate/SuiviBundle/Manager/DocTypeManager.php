@@ -12,6 +12,7 @@
 namespace mgate\SuiviBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use mgate\SuiviBundle\Entity\DocType;
 
 class DocTypeManager /*extends \Twig_Extension*/
 {
@@ -38,13 +39,17 @@ class DocTypeManager /*extends \Twig_Extension*/
         return $this->em->getRepository('mgateSuiviBundle:Etude');
     }
 
-    public function checkSaveNewEmploye($doc)
+    public function checkSaveNewEmploye(DocType $doc)
     {
         if (!$doc->isKnownSignataire2()) {
-            $doc->setSignataire2($doc->getNewSignataire2()->getPersonne());
+            $employe = $doc->getNewSignataire2();
+            $this->em->persist($employe->getPersonne());
+            $employe->setProspect($doc->getEtude()->getProspect());
+            $employe->getPersonne()->setEmploye($employe);
+            $this->em->persist($employe);
 
-            $doc->getNewSignataire2()->setProspect($doc->getEtude()->getProspect());
-            $this->em->persist($doc->getNewSignataire2());
+            $doc->setSignataire2($employe->getPersonne());
+
         }
     }
 }
