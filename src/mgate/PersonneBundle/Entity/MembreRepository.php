@@ -161,4 +161,23 @@ class MembreRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Fonction retournant l'ensemble des membres avec une jointure sur les mandats et les postes.ti
+     * @return array
+     */
+    public function getMembres(){
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb
+            ->select('m')
+            ->from('mgatePersonneBundle:Membre', 'm')
+            ->leftJoin('m.mandats', 'mandats')
+            ->addSelect('mandats')
+            ->leftJoin('mandats.poste','poste')
+            ->addSelect('poste')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

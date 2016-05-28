@@ -28,7 +28,7 @@ class MembreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('mgatePersonneBundle:Membre')->findAll();
+        $entities = $em->getRepository('mgatePersonneBundle:Membre')->getMembres();
 
         return $this->render('mgatePersonneBundle:Membre:index.html.twig', array(
                     'membres' => $entities,
