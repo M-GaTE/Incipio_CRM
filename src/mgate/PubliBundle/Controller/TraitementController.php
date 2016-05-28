@@ -253,7 +253,7 @@ class TraitementController extends Controller
         }
 
         if (!$documenttype = $em->getRepository('mgate\PubliBundle\Entity\Document')->findOneBy(array('name' => $doc))) {
-            throw $this->createNotFoundException('Le doctype n\'existe pas... C\'est bien balo');
+            throw $this->createNotFoundException('Le doctype '.$doc.' n\'existe pas... C\'est bien balo');
         } else {
             $chemin = $documenttype->getWebPath();
         }
