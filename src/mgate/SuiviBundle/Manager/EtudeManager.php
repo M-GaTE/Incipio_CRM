@@ -76,7 +76,7 @@ class EtudeManager extends \Twig_Extension
                     return true;
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return true;
         }
     }
