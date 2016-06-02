@@ -15,7 +15,7 @@ n7consultingRh_competence_voir:
     defaults:  { _controller: n7consultingRhBundle:Competence:voir}
     requirements:
         id:  \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 n7consultingRh_competence_modifier:
     path: /competence/modifier/{id}

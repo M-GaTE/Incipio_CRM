@@ -140,7 +140,7 @@ mgatePersonne_poste_voir:
     defaults:  { _controller: mgatePersonneBundle:Poste:voir}
     requirements:
         id:  \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgatePersonne_poste_modifier:
     path: /poste/modifier/{id}
