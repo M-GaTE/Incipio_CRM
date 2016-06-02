@@ -13,7 +13,6 @@ namespace mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormBuilder;
 
 class AuditType extends AbstractType
 {
@@ -21,14 +20,14 @@ class AuditType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                'n' => 'Non audité',
-                'e' => 'Exhaustive',
-                'd' => 'Déontologique',
+                '0' => 'Non audité',
+                '1' => 'Exhaustive',
+                '2' => 'Déontologique',
             ),
         ));
     }
 
-    public function getParent(array $options)
+    public function getParent()
     {
         return 'choice';
     }
@@ -38,10 +37,4 @@ class AuditType extends AbstractType
         return 'auditType';
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
-    {
-        $builder->add('gender_code', new GenderType(), array(
-            'placeholder' => 'Type d\'audit',
-        ));
-    }
 }
