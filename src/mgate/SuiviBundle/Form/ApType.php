@@ -11,21 +11,22 @@
 
 namespace mgate\SuiviBundle\Form;
 
+use mgate\PersonneBundle\Entity\PersonneRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\SuiviBundle\Entity\Ap;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
 
 class ApType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('suiveur', 'genemu_jqueryselect2_entity', array('label' => 'Suiveur de projet',
                     'class' => 'mgate\\PersonneBundle\\Entity\\Personne',
                     'property' => 'prenomNom',
                     'query_builder' => function (PersonneRepository $pr) {
-                        return $pr->getMembreOnly();
+                        return $pr->getByMandatNonNulQueryBuilder();
                     },
                     'required' => false, ))
                 ->add('ap', new SubApType(), array('label' => ' ', 'prospect' => $options['prospect']))
@@ -41,40 +42,10 @@ class ApType extends AbstractType
         return 'mgate_suivibundle_aptype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'mgate\SuiviBundle\Entity\Etude',
-            'prospect' => '',
-        ));
-    }
-}
-
-class SubApType extends DocTypeType
-{
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('contactMgate', 'genemu_jqueryselect2_entity', array('label' => "'En cas d’absence ou de problème, il est également possible de joindre ...' ex: Vice-Président",
-            'class' => 'mgate\\PersonneBundle\\Entity\\Personne',
-            'property' => 'prenomNom',
-            'attr' => array('title' => "Dans l'AP: 'En cas d’absence ou de problème, il est également possible de joindre le ...'"),
-            'query_builder' => function (PersonneRepository $pr) {
-                return $pr->getMembresByPoste('%vice-president%');
-            },
-            'required' => true, ));
-        DocTypeType::buildForm($builder, $options);
-        $builder->add('nbrDev', 'integer', array('label' => 'Nombre d\'intervenants estimé', 'required' => false, 'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant')));
-    }
-
-    public function getName()
-    {
-        return 'mgate_suivibundle_subaptype';
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'mgate\SuiviBundle\Entity\Ap',
             'prospect' => '',
         ));
     }
