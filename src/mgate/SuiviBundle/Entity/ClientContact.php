@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * mgate\SuiviBundle\Entity\ClientContact.
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="mgate\SuiviBundle\Entity\ClientContactRepository")
  */
 class ClientContact
 {

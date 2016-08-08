@@ -187,6 +187,9 @@ class EtudeController extends Controller
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 
+        //get contacts clients
+        $clientContacts = $em->getRepository('mgateSuiviBundle:ClientContact')->getByEtude($etude);
+
         $chartManager = $this->get('mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'suivi');
 
@@ -197,6 +200,7 @@ class EtudeController extends Controller
                     'etude' => $etude,
                     'formSuivi' => $formSuivi->createView(),
                     'chart' => $ob,
+                    'clientContacts' =>$clientContacts,
                 /* 'delete_form' => $deleteForm->createView(),  */));
     }
 

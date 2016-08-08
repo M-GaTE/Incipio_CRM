@@ -95,7 +95,7 @@
 		<th>Objet</th>
 		<th>Résumé</th>
 	</tr>
-	{% for contact in etude.clientContacts%}
+	{% for contact in clientContacts%}
 	<tr>
 		<td>
 			<a href="{{ path('mgateSuivi_clientcontact_voir', {'id': contact.id}) }}">Contact n°{{etude.clientContacts | length - loop.index0}}</a>
