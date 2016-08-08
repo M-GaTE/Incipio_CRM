@@ -15,9 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\SuiviBundle\Entity\Ap;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Entity\Prospect;
 use mgate\SuiviBundle\Form\ApType;
 use mgate\SuiviBundle\Form\DocTypeSuiviType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ApController extends Controller
 {
@@ -53,7 +53,7 @@ class ApController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -75,7 +75,7 @@ class ApController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         if (!$ap = $etude->getAp()) {
@@ -119,7 +119,7 @@ class ApController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $ap = $etude->getAp();

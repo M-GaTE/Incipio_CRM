@@ -111,4 +111,23 @@ class PersonneRepository extends EntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    /**
+     * Retourne un query builder de toutes les personnes ayant au moins un poste.
+     * Utile dans le cas où l'on souhaite faire un formulaire d'uniquement les membres de la junior.
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getByMandatNonNulQueryBuilder()
+    {
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb
+            ->select('p')
+            ->from('mgatePersonneBundle:Personne', 'p')
+            ->leftJoin('p.membre', 'm')->addSelect('m')
+            ->leftJoin('m.mandats', 'mm')->addSelect('mm')
+            ->where('mm.id IS NOT NULL')
+            ;
+        return $query;
+    }
 }
