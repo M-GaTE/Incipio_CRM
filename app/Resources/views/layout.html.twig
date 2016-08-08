@@ -80,7 +80,11 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         {% block menu %}
             {% if app.user is not empty and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {# L'utilisateur est connecté ! #}
-                {% render url('mgate_dashboard_navbar') %}
+                <aside class="main-sidebar">
+                    <section class="sidebar">
+                        {% include "mgateDashboardBundle:Navbar:staff.html.twig" %}
+                    </section>
+                </aside>
             {% else %}
                 {# L'utilisateur n'est pas connecté ! #}
                 <aside></aside>

@@ -33,13 +33,6 @@
         <ul class="treeview-menu">
             <li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="fa fa-list"></span> Voir les études</a></li>
             <li><a href="{{ path('mgateSuivi_etude_ajouter') }}"><span class="fa fa-plus"></span> Créer une étude</a></li>
-        {% if etudesSuiveur | length %}
-			<li class="divider"></li>
-            <li class="dropdown-header">Mes Etudes:</li>
-            {% for etude in etudesSuiveur %}
-            <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}"><span class="fa fa-thumbs-up"></span> {{ etude.nom }}</a></li>
-            {% endfor%}
-        {% endif %}
             <li class="divider"></li>
             <li class="dropdown-header">Qualité</li>
             <li><a href="{{ path('mgateSuivi_etude_suiviQualite') }}"><span class="fa fa-exclamation-triangle"></span> Suivi des problèmes</a></li>
