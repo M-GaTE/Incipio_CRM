@@ -1,5 +1,5 @@
 mgate_publi_publiposter:
-    pattern: /Documents/Publiposter/{templateName}/{rootName}/{rootObject_id}
+    path: /Documents/Publiposter/{templateName}/{rootName}/{rootObject_id}
     defaults: {_controller: mgatePubliBundle:Traitement:publiposter}
     requirements:
         rootObject_id:  \d+
@@ -7,16 +7,16 @@ mgate_publi_publiposter:
         templateName: \w+
 
 mgate_publi_telecharger:
-    pattern: /publi/publiposter/telecharger
+    path: /publi/publiposter/telecharger
     defaults: {_controller: mgatePubliBundle:Traitement:telecharger}
 
 mgate_publi_documenttype_upload:
-    pattern: /DocumentsType/Upload
+    path: /DocumentsType/Upload
     defaults: {_controller: mgatePubliBundle:Traitement:uploadNewDoctype}
 
 #Export du Gantt seul.
 mgate_publi_getgantt:
-    pattern: /Documents/GetGantt/{id}/{width}
+    path: /Documents/GetGantt/{id}/{width}
     defaults: {_controller: mgatePubliBundle:Gantt:getGantt, width: 960}
     requirements:
         id:  \d+
@@ -26,33 +26,33 @@ mgate_publi_getgantt:
 # UPLOAD DE DOCUMENT #
 ######################
 mgate_publi_documenttype_index:
-    pattern: /Documents/
+    path: /Documents/
     defaults: {_controller: mgatePubliBundle:Document:index}
 
 mgate_publi_document_uploadEtude:
-    pattern: /Documents/Upload/Etude/{etude_id}
+    path: /Documents/Upload/Etude/{etude_id}
     defaults: {_controller: mgatePubliBundle:Document:uploadEtude}
     requirements:
         etude_id:  \d+
 
 mgate_publi_document_uploadEtudiant:
-    pattern: /Documents/Upload/Etudiant/{membre_id}
+    path: /Documents/Upload/Etudiant/{membre_id}
     defaults: {_controller: mgatePubliBundle:Document:uploadEtudiant}
     requirements:
         membre_id:  \d+
 
 mgate_publi_document_uploadFormation:
-    pattern: /Documents/Upload/Formation/{id}
+    path: /Documents/Upload/Formation/{id}
     defaults: {_controller: mgatePubliBundle:Document:uploadFormation}
     requirements:
         id:  \d+
 
 mgate_publi_document_uploadDoctype:
-    pattern: /Documents/Upload/Doctype
+    path: /Documents/Upload/Doctype
     defaults: {_controller: mgatePubliBundle:Document:uploadDoctype}
 
 mgate_publi_document_delete:
-    pattern: /Documents/Supprimer/{id}
+    path: /Documents/Supprimer/{id}
     defaults: {_controller: mgatePubliBundle:Document:delete}
     requirements:
         id:  \d+
