@@ -12,12 +12,13 @@
 namespace mgate\PubliBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\PubliBundle\Controller\TraitementController;
 
 class DocTypeType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'choice', array(
                         'required' => true,
@@ -39,6 +40,7 @@ class DocTypeType extends AbstractType
                             TraitementController::DOCTYPE_ACCORD_CONFIDENTIALITE => 'Accord de confidentialité',
                             TraitementController::DOCTYPE_DECLARATION_ETUDIANT_ETR => 'Déclaration étudiant étranger',
                             TraitementController::DOCTYPE_NOTE_DE_FRAIS => 'Note de Frais',
+                            TraitementController::ROOTNAME_BULLETIN_DE_VERSEMENT => 'Bulletin de Versement',
                             ), ))
                 ->add('etudiant', 'genemu_jqueryselect2_entity', array(
                 'class' => 'mgate\\PersonneBundle\\Entity\\Membre',
@@ -60,7 +62,7 @@ class DocTypeType extends AbstractType
         return 'mgate_suivibundle_doctypetype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => null,
