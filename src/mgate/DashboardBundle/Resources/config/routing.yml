@@ -3,7 +3,3 @@ mgate_dashboard_homepage:
     defaults: { _controller: mgateDashboardBundle:Default:index }
     methods:  [GET, HEAD]
 
-mgate_dashboard_navbar:
-    path:  /navbar/
-    defaults: { _controller: mgateDashboardBundle:Default:navbar }
-    methods:  [GET, HEAD]
