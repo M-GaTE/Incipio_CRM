@@ -20,6 +20,7 @@ parameters:
     secret:            ThisIsNotSecretYouKnow
     
     tva:  0.200
+    role_voir_confidentiel: ROLE_CA
 
 ###configuration de la Junior
 ###annee1Incipio : première année d'utilisation d'incipio.
