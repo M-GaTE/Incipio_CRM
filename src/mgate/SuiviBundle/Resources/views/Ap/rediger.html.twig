@@ -15,7 +15,10 @@
     {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
 	<table class="table table-bordered table-striped standard">
 	<tr>
-		<th>{{ form_label(form.suiveur) }}</th>
+		<th>
+			{{ form_label(form.suiveur) }}
+            <div class="badge" title="Liste des personnes ayant exercées au moins 1 mandat" data-toggle="tooltip">?</div>
+        </th>
         <td>{{ form_widget(form.suiveur) }}</td>
 	</tr>
 	<tr>
