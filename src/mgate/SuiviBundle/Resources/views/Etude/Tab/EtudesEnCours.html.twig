@@ -60,7 +60,7 @@
     <tbody>
 
 
-    {% for etude in etudesEnCours if not confidentielRefus(etude, app.security) %}
+    {% for etude in etudesEnCours if not confidentielRefus(etude, app.user, is_granted(role_voir_confidentiel)) %}
         <tr>
             <td>
                 <div>

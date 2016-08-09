@@ -176,7 +176,7 @@ class AvController extends Controller
 
         $etude = $entity->getEtude();
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -268,7 +268,7 @@ class AvController extends Controller
 
         $etude = $av->getEtude();
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 

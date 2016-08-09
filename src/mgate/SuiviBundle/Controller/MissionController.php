@@ -70,7 +70,7 @@ class MissionController extends Controller
 
         $etude = $mission->getEtude();
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette �tude est confidentielle');
         }
 

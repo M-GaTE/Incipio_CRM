@@ -3,56 +3,58 @@
 {% set enCours   = asset('img/progress.png') %}
 
 <table class="table table-striped" id="myTable">
-      <thead>
-          <tr>
-              <th>
-                  <div>Nom de l'étude</div>
-                  <!--<div>Référence</div>-->
-              </th>
-              <th>
-                  <div>Date de Lancement</div>
-                  <div>Date de Fin</div>
-              </th>
-              <th>
-                  <div>Client</div>
-                  <div>Suiveur</div>
-              </th>
+    <thead>
+    <tr>
+        <th>
+            <div>Nom de l'étude</div>
+            <!--<div>Référence</div>-->
+        </th>
+        <th>
+            <div>Date de Lancement</div>
+            <div>Date de Fin</div>
+        </th>
+        <th>
+            <div>Client</div>
+            <div>Suiveur</div>
+        </th>
 
-              <th>
-                   Etat
-              </th>
-              <th>
-                   A recontacter le
-              </th>
-              <th>
-                   <div>Prix H.T</div>
-                   <div>Nbre J.E.H.</div>
-              </th>
-            </tr>
- 	 </thead>
- 	 <tbody>
-        {% for etude in etudesEnPause if not confidentielRefus(etude, app.security)%}
-<tr>
-    <td>
-        <div>
-            <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}"{{ etude.nom }}</a>
-            <!-- {{ etude.reference }} -->
-        </div>
-        <div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }}</div>
-    </td>
-    <td>
-        {% if etude.dateLancement != NULL %}<div>{{ etude.dateLancement|date("d/m/Y") }}</div>{% endif %}
-        <br/>
-        {% if etude.dateFin != NULL %}<div>{{ etude.dateFin|date("d/m/Y") }}</div>{% endif %}
-    </td>
-    <td>
-        {% include "mgateSuiviBundle:Etude:Buttons/Prospect.html.twig" with  {'prospect':  etude.prospect} %}
-        <br /><br />
-        {% include "mgateSuiviBundle:Etude:Buttons/Suiveur.html.twig" with  {'suiveur':  etude.suiveur} %}
-    </td>
+        <th>
+            Etat
+        </th>
+        <th>
+            A recontacter le
+        </th>
+        <th>
+            <div>Prix H.T</div>
+            <div>Nbre J.E.H.</div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for etude in etudesEnPause if not confidentielRefus(etude, app.user, is_granted(role_voir_confidentiel)) %}
+        <tr>
+            <td>
+                <div>
+                    <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}"{{ etude.nom }}</a>
+                    <!-- {{ etude.reference }} -->
+                </div>
+                <div>{{ etude.confidentiel ? '<span class="label label-danger">[CONFIDENTIEL]</span> ' }}</div>
+            </td>
+            <td>
+                {% if etude.dateLancement != NULL %}
+                    <div>{{ etude.dateLancement|date("d/m/Y") }}</div>{% endif %}
+                <br/>
+                {% if etude.dateFin != NULL %}
+                    <div>{{ etude.dateFin|date("d/m/Y") }}</div>{% endif %}
+            </td>
+            <td>
+                {% include "mgateSuiviBundle:Etude:Buttons/Prospect.html.twig" with  {'prospect':  etude.prospect} %}
+                <br/><br/>
+                {% include "mgateSuiviBundle:Etude:Buttons/Suiveur.html.twig" with  {'suiveur':  etude.suiveur} %}
+            </td>
 
-        <td>
-          {{ etude.stateDescription }}
+            <td>
+                {{ etude.stateDescription }}
             </td>
             <td>
             </td>
@@ -61,7 +63,7 @@
                 <div>{{ etude.confidentiel ? '*' : etude.nbrJEH |default('') }} JEH</div>
             </td>
         </tr>
-        {% endfor %}
- 	 </tbody>
-  </table>
+    {% endfor %}
+    </tbody>
+</table>
 

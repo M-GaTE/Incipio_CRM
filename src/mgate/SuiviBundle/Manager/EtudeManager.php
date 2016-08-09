@@ -13,6 +13,8 @@ namespace mgate\SuiviBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use mgate\SuiviBundle\Entity\Etude as Etude;
+use mgate\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class EtudeManager extends \Twig_Extension
 {
@@ -40,7 +42,7 @@ class EtudeManager extends \Twig_Extension
             'getInfos' => new \Twig_Function_Method($this, 'getInfos'),
             'getEtatDoc' => new \Twig_Function_Method($this, 'getEtatDoc'),
             'getEtatFacture' => new \Twig_Function_Method($this, 'getEtatFacture'),
-            'confidentielRefus' => new \Twig_Function_Method($this, 'confidentielRefus'),
+            'confidentielRefus' => new \Twig_Function_Method($this, 'confidentielRefusTwig'),
         );
     }
 
@@ -66,10 +68,17 @@ class EtudeManager extends \Twig_Extension
         return preg_replace('#\s#', '&nbsp;', $string);
     }
 
-    public function confidentielRefus(Etude $etude, $userToken)
+    /**
+     * @param Etude $etude
+     * @param User $user
+     * @param AuthorizationChecker $userToken
+     * @return bool
+     * Comme l'authorizationChecker n'est pas dispo coté twig, on utilisera cette méthode uniquement dans les controllers.
+     * Pour twig, utiliser confidentielRefusTwig(Etude, User, is_granted('ROLE_SOUHAITE'))
+     */
+    public function confidentielRefus(Etude $etude, User $user, AuthorizationChecker $userToken)
     {
         try {
-            $user = $userToken->getToken()->getUser()->getPersonne();
 
             if ($etude->getConfidentiel() && !$userToken->isGranted('ROLE_CA')) {
                 if ($etude->getSuiveur() && $user->getId() != $etude->getSuiveur()->getId()) {
@@ -79,6 +88,24 @@ class EtudeManager extends \Twig_Extension
         } catch (\Exception $e) {
             return true;
         }
+
+        return false;
+    }
+
+    public function confidentielRefusTwig(Etude $etude, User $user,  $isGranted)
+    {
+        try {
+
+            if ($etude->getConfidentiel() && !$isGranted) {
+                if ($etude->getSuiveur() && $user->getId() != $etude->getSuiveur()->getId()) {
+                    return true;
+                }
+            }
+        } catch (\Exception $e) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

@@ -52,7 +52,7 @@ class ApController extends Controller
             throw $this->createNotFoundException('L\'Avant-Projet demandé n\'existe pas !');
         }
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -74,7 +74,7 @@ class ApController extends Controller
             throw $this->createNotFoundException('L\'étude demandée n\'existe pas!');
         }
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -118,7 +118,7 @@ class ApController extends Controller
             throw $this->createNotFoundException('L\'étude demandée n\'existe pas!');
         }
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 

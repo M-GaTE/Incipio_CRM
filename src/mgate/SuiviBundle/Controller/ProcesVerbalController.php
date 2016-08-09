@@ -48,7 +48,7 @@ class ProcesVerbalController extends Controller
 
         $etude = $entity->getEtude();
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -70,7 +70,7 @@ class ProcesVerbalController extends Controller
             throw $this->createNotFoundException('L\'étude n\'existe pas !');
         }
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -107,7 +107,7 @@ class ProcesVerbalController extends Controller
 
         $etude = $procesverbal->getEtude();
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -144,7 +144,7 @@ class ProcesVerbalController extends Controller
             throw $this->createNotFoundException('L\'étude n\'existe pas !');
         }
 
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
         }
 
@@ -195,7 +195,7 @@ class ProcesVerbalController extends Controller
 
             $etude = $entity->getEtude();
 
-            if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+            if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
                 throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
             }
 
