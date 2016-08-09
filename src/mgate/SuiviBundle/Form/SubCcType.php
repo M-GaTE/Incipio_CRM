@@ -11,31 +11,28 @@
 
 namespace mgate\SuiviBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CcType extends AbstractType
+
+class SubCcType extends DocTypeType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('cc', new SubCcType(), array('label' => ' ', 'prospect' => $options['prospect']))
-            ->add('acompte', 'checkbox', array('label' => 'Acompte', 'required' => false))
-            ->add('pourcentageAcompte', 'percent', array('label' => 'Pourcentage acompte', 'required' => false));
+        DocTypeType::buildForm($builder, $options);
+        // aucun champ propre a CC
     }
 
     public function getName()
     {
-        return 'mgate_suivibundle_cctype';
+        return 'mgate_suivibundle_subcctype';
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'mgate\SuiviBundle\Entity\Etude',
+            'data_class' => 'mgate\SuiviBundle\Entity\Cc',
             'prospect' => '',
         ));
     }
 }
-
-
