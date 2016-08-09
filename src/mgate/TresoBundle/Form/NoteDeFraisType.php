@@ -12,12 +12,13 @@
 namespace mgate\TresoBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\PersonneBundle\Entity\PersonneRepository;
 
 class NoteDeFraisType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('mandat', 'integer', array('label' => 'Mandat', 'required' => true))
                 ->add('numero', 'integer', array('label' => 'Numéro de la Note de Frais', 'required' => true))
@@ -52,7 +53,7 @@ class NoteDeFraisType extends AbstractType
         return 'mgate_tresobundle_notedefraistype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'mgate\TresoBundle\Entity\NoteDeFrais',

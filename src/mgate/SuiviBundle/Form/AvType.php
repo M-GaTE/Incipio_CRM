@@ -11,12 +11,14 @@
 
 namespace mgate\SuiviBundle\Form;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\SuiviBundle\Entity\Av;
 
 class AvType extends DocTypeType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('differentielDelai', 'integer', array('label' => 'Modification du Délai (+/- x jours)', 'required' => false))
         ->add('objet', 'textarea',
@@ -47,7 +49,7 @@ class AvType extends DocTypeType
         return 'mgate_suivibundle_avtype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'mgate\SuiviBundle\Entity\Av',

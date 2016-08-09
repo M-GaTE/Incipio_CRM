@@ -12,11 +12,12 @@
 namespace mgate\SuiviBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SuiviType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('date', 'date', array('label' => 'Date du suivi'))
                 ->add('etat', 'textarea', array('label' => 'Etat de l\'étude', 'attr' => array('cols' => '100%', 'rows' => 5)))
@@ -28,7 +29,7 @@ class SuiviType extends AbstractType
         return 'mgate_suivibundle_clientcontacttype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
                 'data_class' => 'mgate\SuiviBundle\Entity\Suivi',

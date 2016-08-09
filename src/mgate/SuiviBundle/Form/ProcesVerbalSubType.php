@@ -11,11 +11,13 @@
 
 namespace mgate\SuiviBundle\Form;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProcesVerbalSubType extends DocTypeType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $phaseNum = $options['phases'];
         if ($options['type'] == 'pvi') {
@@ -30,7 +32,7 @@ class ProcesVerbalSubType extends DocTypeType
         return 'mgate_suivibundle_procesverbalsubtype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'mgate\SuiviBundle\Entity\ProcesVerbal',

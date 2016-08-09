@@ -13,12 +13,13 @@ namespace mgate\FormationBundle\Form;
 
 use mgate\FormationBundle\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
 
 class FormationType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titre', 'text', array('label' => 'Titre de la formation', 'required' => false))
                 ->add('description', 'textarea', array('label' => 'Description de la Formation', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)))
@@ -61,7 +62,7 @@ class FormationType extends AbstractType
         return 'mgate_suivibundle_formulairetype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'mgate\FormationBundle\Entity\Formation',

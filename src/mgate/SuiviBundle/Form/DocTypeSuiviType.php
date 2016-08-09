@@ -12,11 +12,12 @@
 namespace mgate\SuiviBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocTypeSuiviType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('redige', 'checkbox', array('label' => 'Est-ce que le document est rédigé ?', 'required' => false))
@@ -30,7 +31,7 @@ class DocTypeSuiviType extends AbstractType
         return 'mgate_suivibundle_doctypetype';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
                 'data_class' => 'mgate\SuiviBundle\Entity\DocType',
