@@ -11,274 +11,33 @@
 
 namespace mgate\StatBundle\Controller;
 
+use mgate\StatBundle\Entity\Indicateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ob\HighchartsBundle\Highcharts\Highchart;
+use Symfony\Component\HttpFoundation\Response;
 
 // A externaliser dans les parametres
 define('STATE_ID_EN_COURS_X', 2);
 define('STATE_ID_TERMINEE_X', 4);
 
-class Indicateur
-{
-    private $titre;
-    private $methode;
-    private $options;
-
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    public function getMethode()
-    {
-        return $this->methode;
-    }
-
-    public function hasOptions()
-    {
-        return $this->options;
-    }
-
-    public function setTitre($x)
-    {
-        $this->titre = $x;
-
-        return $this;
-    }
-
-    public function setMethode($x)
-    {
-        $this->methode = $x;
-
-        return $this;
-    }
-
-    public function setOptions($x)
-    {
-        $this->options = $x;
-
-        return $this;
-    }
-}
-
-class IndicateursCollection
-{
-    private $indicateurs;
-    private $autorizedMethods;
-
-    public function __construct()
-    {
-        $this->indicateurs = array();
-        $this->autorizedMethods = array();
-    }
-
-    public function addCategorieIndicateurs($categorie)
-    {
-        if (!array_key_exists($categorie, $this->indicateurs)) {
-            $this->indicateurs[$categorie] = array();
-        }
-
-        return $this;
-    }
-
-    public function setIndicateurs(Indicateur $indicateur, $categorie)
-    {
-        $this->indicateurs[$categorie][] = $indicateur;
-        $this->setAutorizedMethods($indicateur->getMethode());
-
-        return $this;
-    }
-
-    public function getIndicateurs($categorie = null)
-    {
-        if ($categorie !== null) {
-            return $this->indicateurs[$categorie];
-        } else {
-            return $categorie;
-        }
-    }
-
-    public function getAutorizedMethods()
-    {
-        return $this->autorizedMethods;
-    }
-
-    public function setAutorizedMethods($method)
-    {
-        if (is_string($method)) {
-            array_push($this->autorizedMethods, $method);
-        } else {
-            $this->autorizedMethods = $method;
-        }
-
-        return $this;
-    }
-}
-
 class IndicateursController extends Controller
 {
-    public $indicateursCollection;
-
-    public function __construct()
-    {
-        $this->indicateursCollection = new IndicateursCollection();
-        if (isset($_SESSION['autorizedMethods'])) {
-            $this->indicateursCollection->setAutorizedMethods($_SESSION['autorizedMethods']);
-        }
-    }
 
     /**
      * @Secure(roles="ROLE_CA")
      */
     public function indexAction()
     {
-        if (isset($_SESSION['autorizedMethods'])) {
-            unset($_SESSION['autorizedMethods']);
-        }
 
-        // Définition des catégories
-        $this->indicateursCollection
-            ->addCategorieIndicateurs('Suivi')
-            ->addCategorieIndicateurs('Rfp')
-            ->addCategorieIndicateurs('Com')
-            ->addCategorieIndicateurs('Treso')
-            ->addCategorieIndicateurs('Gestion');
+        $em = $this->getDoctrine()->getManager();
+        $etudeManager = $this->get('mgate.etude_manager');
+        $indicateurs = $em->getRepository('mgateStatBundle:Indicateur')->findAll();
+        $statsBrutes = array('Pas de données' => 'A venir');
 
-        /************************************************
-         * 			Indicateurs Suivi d'études			*
-         * ********************************************** */
 
-        // Taux d'avenant par mandat = Rate EtudeAvecAvenant/NombreEtude
-        $tauxAvenant = new Indicateur();
-        $tauxAvenant->setTitre('Taux d\'avenant par mandat')
-            ->setMethode('getTauxDAvenantsParMandat');
-
-        // Cammember étude selon domaine de compétence
-        // TODO : Selectionner un mandat default getMaxMandat
-
-        $nombreEtudes = new Indicateur();
-        $nombreEtudes->setTitre('Nombre d\'études par mandat')
-            ->setMethode('getNombreEtudes');
-
-        $retardSurEtude = new Indicateur();
-        $retardSurEtude->setTitre('Nombre de jours de retard')
-            ->setMethode('getRetardParMandat');
-
-        /************************************************
-         * 			Indicateurs Gestion Asso			*
-         * ********************************************** */
-        // Nombre d'intervenants par promo
-        $ressourcesHumaines = new Indicateur();
-        $ressourcesHumaines->setTitre('Nombre d\'intervenants par Promo')
-            ->setMethode('getIntervenantsParPromo');
-
-        // Nombre d'e membre par promo
-        $membresParPromo = new Indicateur();
-        $membresParPromo->setTitre('Nombre de Membres par Promo')
-            ->setMethode('getMembresParPromo');
-
-        // Nombre de cotisant en continu
-        $membres = new Indicateur();
-        $membres->setTitre('Nombre de Membres')
-            ->setMethode('getNombreMembres');
-
-        /************************************************
-         * 				Indicateurs RFP					*
-         * ********************************************** */
-        $nombreDeFormationsParMandat = new Indicateur();
-        $nombreDeFormationsParMandat->setTitre('Nombre de formations théorique par mandat')
-            ->setMethode('getNombreFormationsParMandat');
-
-        $presenceAuxFormationsTimed = new Indicateur();
-        $presenceAuxFormationsTimed->setTitre('Nombre de présents aux formations')
-            ->setMethode('getNombreDePresentFormationsTimed');
-
-        /************************************************
-         * 			Indicateurs Trésorerie 			*
-         * ********************************************** */
-        //Chiffre d'affaires en fonction du temps sur les Mandats
-        $chiffreAffaires = new Indicateur();
-        $chiffreAffaires->setTitre('Evolution du Chiffre d\'Affaires')
-            ->setMethode('getCA');
-
-        //Chiffre d'affaires par mandat
-        $chiffreAffairesMandat = new Indicateur();
-        $chiffreAffairesMandat->setTitre('Evolution du Chiffre d\'Affaires par Mandat')
-            ->setMethode('getCAM');
-
-        //Dépense HT par mandat
-        $sortieNFFA = new Indicateur();
-        $sortieNFFA->setTitre('Evolution des dépenses par mandats')
-            ->setMethode('getSortie');
-
-        //Répartition des dépenses sur le mandat
-        $repartitionSortieNFFA = new Indicateur();
-        $repartitionSortieNFFA->setTitre('Répartition des dépenses sur le mandat')
-            ->setMethode('getRepartitionSorties');
-
-        /************************************************
-         * 		Indicateurs Prospection Commerciale		*
-         * ********************************************** */
-        // Provenance des études (tous mandats) par type de client
-        // TODO : selectionner un mandat default getMaxMandat -1 = tous les mandats
-        $repartitionClient = new Indicateur();
-        $repartitionClient->setTitre('Provenance de nos études par type de Client (tous mandats)')
-            ->setMethode('getRepartitionClientParNombreDEtude');
-
-        // Provenance du chiffre d'Affaires (tous mandats) par type de client
-        // TODO : selectionner un mandat default getMaxMandat -1 = tous les mandats
-        $repartitionCAClient = new Indicateur();
-        $repartitionCAClient->setTitre('Provenance du chiffre d\'Affaires par type de Client (tous mandats)')
-            ->setMethode('getRepartitionClientSelonChiffreAffaire');
-
-        // Provenance des études (tous mandats) par source de prospection
-        // TODO : selectionner un mandat default getMaxMandat -1 = tous les mandats
-        $repartitionSourceProspectionClient = new Indicateur();
-        $repartitionSourceProspectionClient->setTitre('Provenance de nos études par source de prospection (tous mandats)')
-            ->setMethode('getSourceProspectionParNombreDEtude');
-
-        // Provenance du chiffre d'Affaires (tous mandats) par source de prospection
-        // TODO : selectionner un mandat default getMaxMandat -1 = tous les mandats
-        $repartitionSourceProspectionCAClient = new Indicateur();
-        $repartitionSourceProspectionCAClient->setTitre('Provenance du chiffre d\'Affaires par source de prospection (tous mandats)')
-            ->setMethode('getSourceProspectionSelonChiffreAffaire');
-
-        // Taux de fidélisation
-        $clientFidel = new Indicateur();
-        $clientFidel->setTitre('Taux de fidélisation')
-            ->setMethode('getPartClientFidel');
-
-        $stats = $this->getStatistiques();
-
-        $this->indicateursCollection
-            ->setIndicateurs($chiffreAffaires, 'Treso')
-            ->setIndicateurs($chiffreAffairesMandat, 'Treso')
-            ->setIndicateurs($sortieNFFA, 'Treso')
-            ->setIndicateurs($repartitionSortieNFFA, 'Treso')
-            ->setIndicateurs($ressourcesHumaines, 'Gestion')
-            ->setIndicateurs($membresParPromo, 'Gestion')
-            ->setIndicateurs($membres, 'Gestion')
-            ->setIndicateurs($repartitionClient, 'Com')
-            ->setIndicateurs($repartitionCAClient, 'Com')
-            ->setIndicateurs($repartitionSourceProspectionClient, 'Com')
-            ->setIndicateurs($repartitionSourceProspectionCAClient, 'Com')
-            ->setIndicateurs($clientFidel, 'Com')
-            ->setIndicateurs($tauxAvenant, 'Suivi')
-            ->setIndicateurs($nombreEtudes, 'Suivi')
-            ->setIndicateurs($retardSurEtude, 'Suivi')
-            ->setIndicateurs($nombreDeFormationsParMandat, 'Rfp')
-            ->setIndicateurs($presenceAuxFormationsTimed, 'Rfp');
-
-        //Enregistrement Cross Requete des Méthodes tolérées
-        $_SESSION['autorizedMethods'] = $this->indicateursCollection->getAutorizedMethods();
-
-        return $this->render('mgateStatBundle:Indicateurs:index.html.twig', array('indicateursSuivi' => $this->indicateursCollection->getIndicateurs('Suivi'),
-                'indicateursRfp' => $this->indicateursCollection->getIndicateurs('Rfp'),
-                'indicateursGestion' => $this->indicateursCollection->getIndicateurs('Gestion'),
-                'indicateursCom' => $this->indicateursCollection->getIndicateurs('Com'),
-                'indicateursTreso' => $this->indicateursCollection->getIndicateurs('Treso'),
-                'stats' => $stats,
+        return $this->render('mgateStatBundle:Indicateurs:index.html.twig', array('indicateurs' => $indicateurs,
+                'stats' => $statsBrutes,
             ));
     }
 
@@ -304,12 +63,16 @@ class IndicateursController extends Controller
 
         if ($request->getMethod() == 'GET') {
             $chartMethode = $request->query->get('chartMethode');
-            if (in_array($chartMethode, $this->indicateursCollection->getAutorizedMethods())) {
-                return $this->$chartMethode();
+            $em = $this->getDoctrine()->getManager();
+            $indicateur = $em->getRepository('mgateStatBundle:Indicateur')->findOneByMethode($chartMethode);
+
+            if ($indicateur !== null) {
+                $method = $indicateur->getMethode();
+                return $this->$method(); //okay, it's a little bit dirty ...
             }
         }
 
-        return new \Symfony\Component\HttpFoundation\Response('<!-- Chart '.$chartMethode.' does not exist. -->');
+        return new Response('<!-- Chart '.$chartMethode.' does not exist. -->');
     }
 
 /**
@@ -1879,13 +1642,4 @@ class IndicateursController extends Controller
         ));
     }
 
-
-
-    private function getStatistiques()
-    {
-        $etudeManager = $this->get('mgate.etude_manager');
-        $em = $this->getDoctrine()->getManager();
-
-        return array('Pas de données' => 'A venir');
-    }
 }

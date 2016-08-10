@@ -17,7 +17,7 @@
             {% endfor %}
         </div>
         <div class="tab-pane fade row" id="gestion">
-            {% for indicateur in indicateursGestion %}
+            {% for indicateur in indicateurs if indicateur.categorie == 'Gestion' %}
                 <div class="indicateur col-md-6" id="{{ indicateur.methode }}">
                     <div>
                         <div id="{{ indicateur.methode }}"
@@ -31,7 +31,7 @@
             {% endfor %}
         </div>
         <div class="tab-pane fade row" id="rfp">
-            {% for indicateur in indicateursRfp %}
+            {% for indicateur in indicateurs if indicateur.categorie == 'Rfp'  %}
                 <div class="indicateur col-md-6" id="{{ indicateur.methode }}">
                     <div>
                         <div id="{{ indicateur.methode }}"
@@ -45,7 +45,7 @@
             {% endfor %}
         </div>
         <div class="tab-pane fade row" id="suivi">
-            {% for indicateur in indicateursSuivi %}
+            {% for indicateur in indicateurs if indicateur.categorie == 'Suivi' %}
                 <div class="indicateur col-md-6" id="{{ indicateur.methode }}">
                     <div>
                         <div id="{{ indicateur.methode }}"
@@ -59,7 +59,7 @@
             {% endfor %}
         </div>
         <div class="tab-pane fade row" id="treso">
-            {% for indicateur in indicateursTreso %}
+            {% for indicateur in indicateurs if indicateur.categorie == 'Treso'  %}
                 <div class="indicateur col-md-6" id="{{ indicateur.methode }}">
                     <div>
                         <div id="{{ indicateur.methode }}"
@@ -73,7 +73,7 @@
             {% endfor %}
         </div>
         <div class="tab-pane fade row" id="com">
-            {% for indicateur in indicateursCom %}
+            {% for indicateur in indicateurs if indicateur.categorie == 'Com' %}
                 <div class="indicateur col-md-6" id="{{ indicateur.methode }}">
                     <div>
                         <div id="{{ indicateur.methode }}"
