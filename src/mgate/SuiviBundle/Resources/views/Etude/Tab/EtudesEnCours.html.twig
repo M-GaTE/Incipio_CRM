@@ -146,11 +146,14 @@
             <td>
                 <div class="progress">
                     {# Calcul de l'avancement global a partir de l'iavancement individuel.#}
-                    {% set avancementGlobal = 0 %}
+                    {% set sommeAvancement = 0 %}
                     {% for mission in etude.missions %}
-                        {% set avancementGlobal = avancementGlobal + mission.avancement %}
+                        {% set sommeAvancement = sommeAvancement + mission.avancement %}
                     {% endfor %}
-                    <div class="bar" style="width: {{ avancementGlobal ~ '%;'|default('0%;') }}"></div>
+                    {% set avancementGlobal = sommeAvancement / (etude.missions|length) %}
+                    <div class="progress-bar" style="width: {{ avancementGlobal ~ '%;'|default('0%;') }}">
+                        {{ avancementGlobal ~ '%'|default('0%') }}
+                    </div>
                 </div>
             </td>
             <td>

@@ -12,11 +12,13 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Mission;
 use mgate\SuiviBundle\Form\MissionType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MissionController extends Controller
 {
@@ -36,14 +38,16 @@ class MissionController extends Controller
 
     /**
      * @Secure(roles="ROLE_SUIVEUR")
+     * @param Request $request
+     * @return Response
      */
-    public function avancementAction()
+    public function avancementAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $avancement = isset($_POST['avancement']) ? intval($_POST['avancement']) : 0;
-        $id = isset($_POST['id']) ? $_POST['id'] : 0;
-        $intervenant = isset($_POST['intervenant']) ? intval($_POST['intervenant']) : 0;
+        // TODO : use a symfony form instead a simili php.
+        $avancement = !empty($request->request->get('avancement')) ? intval($request->request->get('avancement')) : 0;
+        $id = !empty($request->request->get('id')) ? $request->request->get('id') : 0;
+        $intervenant = !empty($request->request->get('intervenant')) ? intval($request->request->get('intervenant')) : 0;
 
         $etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->find($id);
         if (!$etude) {
@@ -71,7 +75,7 @@ class MissionController extends Controller
         $etude = $mission->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette �tude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $form = $this->createForm(new MissionType(), $mission);
