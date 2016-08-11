@@ -11,10 +11,13 @@
 
 namespace mgate\PubliBundle\Controller;
 
+use mgate\PubliBundle\Entity\Document;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\PubliBundle\Form\DocTypeType;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class TraitementController extends Controller
 {
@@ -59,6 +62,9 @@ class TraitementController extends Controller
     const REG_SPECIAL_CHAR = '{}()[]|><?=;!+*-/';
     const REG_FILE_EXT = "#\.(jpg|png|jpeg)#i";
 
+    private $idDocx;
+    private $refDocx;
+
     /**
      * @Secure(roles="ROLE_SUIVEUR")
      */
@@ -74,14 +80,14 @@ class TraitementController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $errorRootObjectNotFound = $this->createNotFoundException('Le document ne peut être publiposté car l\'objet de référence n\'existe pas !');
-        $errorEtudeConfidentielle = new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+        $errorEtudeConfidentielle = new AccessDeniedException('Cette étude est confidentielle');
 
         switch ($rootName) {
             case self::ROOTNAME_ETUDE:
                 if (!$rootObject = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->find($rootObject_id)) {
                     throw $errorRootObjectNotFound;
                 }
-                if ($this->get('mgate.etude_manager')->confidentielRefus($rootObject, $this->container->get('security.context'))) {
+                if ($this->get('mgate.etude_manager')->confidentielRefus($rootObject, $this->getUser(), $this->get('security.authorization_checker'))) {
                     throw $errorEtudeConfidentielle;
                 }
                 break;
@@ -99,7 +105,7 @@ class TraitementController extends Controller
                 if (!$rootObject = $em->getRepository('mgate\TresoBundle\Entity\Facture')->find($rootObject_id)) {
                     throw $errorRootObjectNotFound;
                 }
-                if ($rootObject->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getEtude(), $this->container->get('security.context'))) {
+                if ($rootObject->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getEtude(),$this->getUser(), $this->get('security.authorization_checker'))) {
                     throw $errorEtudeConfidentielle;
                 }
                 break;
@@ -112,7 +118,7 @@ class TraitementController extends Controller
                 if (!$rootObject = $em->getRepository('mgate\TresoBundle\Entity\BV')->find($rootObject_id)) {
                     throw $errorRootObjectNotFound;
                 }
-                if ($rootObject->getMission() && $rootObject->getMission()->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getMission()->getEtude(), $this->container->get('security.context'))) {
+                if ($rootObject->getMission() && $rootObject->getMission()->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getMission()->getEtude(), $this->getUser(), $this->get('security.authorization_checker'))) {
                     throw $errorEtudeConfidentielle;
                 }
                 break;
@@ -120,7 +126,7 @@ class TraitementController extends Controller
                 if (!$rootObject = $em->getRepository('mgate\SuiviBundle\Entity\ProcesVerbal')->find($rootObject_id)) {
                     throw $errorRootObjectNotFound;
                 }
-                if ($rootObject->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getEtude(), $this->container->get('security.context'))) {
+                if ($rootObject->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getEtude(), $this->getUser(), $this->get('security.authorization_checker'))) {
                     throw $errorEtudeConfidentielle;
                 }
                 break;
@@ -195,8 +201,8 @@ class TraitementController extends Controller
 
         $zip->close();
 
-        $_SESSION['idDocx'] = $idDocx;
-        $_SESSION['refDocx'] = $refDocx;
+        $this->idDocx = $idDocx;
+        $this->refDocx = $refDocx;
 
         return true;
     }
@@ -208,9 +214,9 @@ class TraitementController extends Controller
     {
         $junior = $this->container->getParameter('junior');
         $this->purge();
-        if (isset($_SESSION['idDocx']) && isset($_SESSION['refDocx'])) {
-            $idDocx = $_SESSION['idDocx'];
-            $refDocx = $_SESSION['refDocx'];
+        if (isset($this->idDocx) && isset($this->refDocx)) {
+            $idDocx = $this->idDocx;
+            $refDocx = $this->refDocx;
 
             $templateName = 'tmp/'.$idDocx;
 
@@ -540,11 +546,11 @@ class TraitementController extends Controller
 
                 // Enregistrement du template
                 $em = $this->getDoctrine()->getManager();
-                $user = $this->get('security.context')->getToken()->getUser();
+                $user = $this->getUser();
                 $personne = $user->getPersonne();
-                $file = new \Symfony\Component\HttpFoundation\File\File($docxFullPath);
+                $file = new File($docxFullPath);
 
-                $doc = new \mgate\PubliBundle\Entity\Document();
+                $doc = new Document();
                 $doc->setAuthor($personne)
                     ->setName($data['name'])
                     ->setFile($file);
