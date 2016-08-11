@@ -12,6 +12,8 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\SuiviBundle\Entity\AvMission;
+use mgate\SuiviBundle\Entity\Mission;
 
 /**
  * RepartitionJEH.
@@ -52,6 +54,12 @@ class RepartitionJEH
      */
     private $avMission;
 
+
+    public function __toString()
+    {
+        return '(id :'.$this->id.') '.$this->nbrJEH.' * '.$this->prixJEH;
+    }
+
     /**
      * Get id.
      *
@@ -65,11 +73,11 @@ class RepartitionJEH
     /**
      * Set mission.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $mission
+     * @param Mission $mission
      *
      * @return RepartitionJEH
      */
-    public function setMission(\mgate\SuiviBundle\Entity\Mission $mission = null)
+    public function setMission(Mission $mission = null)
     {
         $this->mission = $mission;
 
@@ -79,7 +87,7 @@ class RepartitionJEH
     /**
      * Get mission.
      *
-     * @return \mgate\SuiviBundle\Entity\Mission
+     * @return Mission
      */
     public function getMission()
     {
@@ -137,11 +145,11 @@ class RepartitionJEH
     /**
      * Set avMission.
      *
-     * @param \mgate\SuiviBundle\Entity\AvMission $avenant
+     * @param AvMission $avMission
      *
      * @return RepartitionJEH
      */
-    public function setAvMission(\mgate\SuiviBundle\Entity\AvMission $avMission = null)
+    public function setAvMission(AvMission $avMission = null)
     {
         $this->avMission = $avMission;
 
@@ -151,7 +159,7 @@ class RepartitionJEH
     /**
      * Get avMission.
      *
-     * @return \mgate\SuiviBundle\Entity\AvMission
+     * @return AvMission
      */
     public function getAvMission()
     {
