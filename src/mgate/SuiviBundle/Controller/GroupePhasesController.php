@@ -16,6 +16,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\GroupesPhasesType;
 use mgate\SuiviBundle\Entity\GroupePhases;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class GroupePhasesController extends Controller
 {
@@ -31,7 +32,7 @@ class GroupePhasesController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $originalGroupes = array();
@@ -43,7 +44,7 @@ class GroupePhasesController extends Controller
         $form = $this->createForm(new GroupesPhasesType(), $etude);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 if ($this->get('request')->get('add')) {

@@ -6,6 +6,7 @@ use mgate\SuiviBundle\Entity\Etude;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class GetGanttController
@@ -17,12 +18,15 @@ class GanttController extends Controller
     /**
      * @Secure(roles="ROLE_SUIVEUR")
      * Génère le Gantt Chart de l'étude passée en paramètre.
+     * @param Etude $etude project whom gantt chart should be exported.
+     * @param int $width width of exported gantt
+     * @param bool $debug
+     * @return Response a png of project gantt chart
      */
-    public function getGanttAction(Etude $etude, $id,$width=960, $debug = false)
+    public function getGanttAction(Etude $etude,$width=960, $debug = false)
     {
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
-            $errorEtudeConfidentielle = new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
-            throw $errorEtudeConfidentielle;
+        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //Gantt

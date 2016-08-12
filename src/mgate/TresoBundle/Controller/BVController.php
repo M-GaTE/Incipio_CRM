@@ -58,7 +58,7 @@ class BVController extends Controller
         $form = $this->createForm(new BVType(), $bv);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
             if ($form->isValid()) {
                 $bv->setCotisationURSSAF();
                 $charges = $em->getRepository('mgateTresoBundle:CotisationURSSAF')->findAllByDate($bv->getDateDemission());
@@ -67,8 +67,8 @@ class BVController extends Controller
                 }
 
                 $baseURSSAF = $em->getRepository('mgateTresoBundle:BaseURSSAF')->findByDate($bv->getDateDemission());
-                if($baseURSSAF == null){
-                    throw new LogicException('Il n\'y a aucune base Urssaf définie pour cette période.Pour ajouter une base URSSAF : '.$this->get('router')->generate('mgateTreso_BaseURSSAF_index').'.');
+                if ($baseURSSAF == null) {
+                    throw new LogicException('Il n\'y a aucune base Urssaf définie pour cette période.Pour ajouter une base URSSAF : ' . $this->get('router')->generate('mgateTreso_BaseURSSAF_index') . '.');
                 }
                 $bv->setBaseURSSAF($baseURSSAF);
 
@@ -80,9 +80,9 @@ class BVController extends Controller
         }
 
         return $this->render('mgateTresoBundle:BV:modifier.html.twig', array(
-                    'form' => $form->createView(),
-                    'bv' => $bv,
-                ));
+            'form' => $form->createView(),
+            'bv' => $bv,
+        ));
     }
 
     /**
