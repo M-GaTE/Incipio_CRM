@@ -14,6 +14,8 @@ namespace mgate\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\UserBundle\Form\UserAdminType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends Controller
 {
@@ -57,13 +59,13 @@ class DefaultController extends Controller
         }
 
         if ($user->getId() == 1) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
+            throw new AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
         }
 
-        $form = $this->createForm(new UserAdminType('mgate\UserBundle\Entity\User'), $user);
+        $form = $this->createForm(new UserAdminType('mgate\UserBundle\Entity\User', $this->getParameter('security.role_hierarchy.roles')), $user);
         $deleteForm = $this->createDeleteForm($id);
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($user);
@@ -84,13 +86,15 @@ class DefaultController extends Controller
 
     /**
      * @Secure(roles="ROLE_ADMIN")
+     * @param $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction($id, Request $request)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
 
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -100,7 +104,7 @@ class DefaultController extends Controller
             }
 
             if ($entity->getId() == 1) {
-                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Impossible de supprimer le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
+                throw new AccessDeniedException('Impossible de supprimer le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
             }
 
             if ($entity->getPersonne()) {
