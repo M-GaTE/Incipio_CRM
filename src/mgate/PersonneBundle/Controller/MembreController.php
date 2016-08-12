@@ -99,7 +99,7 @@ class MembreController extends Controller
     public function modifierAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $documentManager = $this->get('mgate.documentManager');
+        $documentManager = $this->get('mgate.document_manager');
 
         if (!$membre = $em->getRepository('mgate\PersonneBundle\Entity\Membre')->find($id)) {
             $membre = new Membre();

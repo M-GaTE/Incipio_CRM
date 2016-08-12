@@ -151,7 +151,7 @@ class DocumentController extends Controller
             $form->bind($this->get('request'));
 
             if ($form->isValid()) {
-                $documentManager = $this->get('mgate.documentManager');
+                $documentManager = $this->get('mgate.document_manager');
                 $documentManager->uploadDocument($document, null, $deleteIfExist);
 
                 return false;

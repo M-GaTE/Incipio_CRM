@@ -1,7 +1,7 @@
 parameters:
     mgate.conversionlettre.class: mgate\PubliBundle\Controller\ConversionLettreController
     mgate.twigextentionmanager.class: mgate\PubliBundle\Manager\TwigExtensionManager
-    mgate.documentManager.class: mgate\PubliBundle\Manager\DocumentManager
+    mgate.document_manager.class: mgate\PubliBundle\Manager\DocumentManager
 
 
 services:
@@ -15,8 +15,8 @@ services:
         class: "%mgate.twigextentionmanager.class%"
         tags:
             - { name: twig.extension }
-    mgate.documentManager:
-        class: "%mgate.documentManager.class%"
+    mgate.document_manager:
+        class: "%mgate.document_manager.class%"
         arguments:
             em : "@doctrine.orm.entity_manager"
             container : "@service_container"
