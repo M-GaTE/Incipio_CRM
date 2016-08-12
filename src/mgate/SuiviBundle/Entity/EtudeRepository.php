@@ -103,7 +103,7 @@ class EtudeRepository extends EntityRepository
 
         if ($orders != null) {
             foreach ($orders as $column => $value) {
-                $qb->orderBy('e.'.$column, $value);
+                $qb->orderBy('e.' . $column, $value);
             }
         }
         //les jointures
@@ -128,14 +128,38 @@ class EtudeRepository extends EntityRepository
             ->addSelect('suiveur')
             ->leftJoin('e.missions', 'missions')
             ->addSelect('missions')
-                ->leftJoin('missions.repartitionsJEH', 'repartitionsJEH')
-                ->addSelect('repartitionsJEH')
-
-        ;
+            ->leftJoin('missions.repartitionsJEH', 'repartitionsJEH')
+            ->addSelect('repartitionsJEH');
 
         $query = $qb->getQuery();
 
         return $query->getResult();
 
     }
+
+
+    /**
+     * Get all project according to their state. Mainly used in VuCA to display negociate and current project.
+     * @param array $states 2 states whom you want all projects in that states
+     * @param array|null $orders how should project be ordered
+     * @return array of projects.
+     */
+    public function getTwoStates(array $states = [1, 2], array $orders = null)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('e')
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->where('e.stateID = :stateNegociate or e.stateID= :stateCurrent')
+            ->setParameter('stateNegociate', $states[0])
+            ->setParameter('stateCurrent', $states[1]);
+        if ($orders != null) {
+            foreach ($orders as $column => $value) {
+                $qb->orderBy('e.' . $column, $value);
+            }
+        }
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 }

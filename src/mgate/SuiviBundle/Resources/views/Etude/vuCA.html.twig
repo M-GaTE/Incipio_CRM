@@ -2,6 +2,8 @@
 {% set valide    = asset('img/succes.png') %}
 {% set nonValide = asset('img/cross.png') %}
 {% set enCours   = asset('img/progress.png') %}
+{%  set STATE_ID_EN_NEGOCIATION = 1 %}
+{%  set STATE_ID_EN_COURS = 2 %}
 {% block breadcrumb %}
 {% endblock %}
 
@@ -20,13 +22,13 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-th-list"></i> Accès Rapide <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li class="nav-header"> <i class="fa fa-unchecked"></i> En négociation</li>
-                    {% for id, etudeRef in listEtudesNegociate %}
-                    <li><a href="{{ path('mgateSuivi_vu_ca', {'id': id}) }}"><i class="fa fa-minus"></i> {{etudeRef}}</a></li>
+                    {% for etude in etudesDisplayList if etude.stateID == STATE_ID_EN_NEGOCIATION %}
+                    <li><a href="{{ path('mgateSuivi_vu_ca', {'id': etude.id}) }}"><i class="fa fa-minus"></i> {{etude.reference}}</a></li>
                     {% endfor %}
                     <li class="divider"></li>
                     <li class="nav-header"> <i class="fa fa-check"></i> En cours</li>
-                    {% for id, etudeRef in listEtudesCurrent %}
-                    <li><a href="{{ path('mgateSuivi_vu_ca', {'id': id}) }}"><i class="fa fa-minus"></i> {{etudeRef}}</a></li>
+                    {% for etude in etudesDisplayList if etude.stateID == STATE_ID_EN_COURS %}
+                    <li><a href="{{ path('mgateSuivi_vu_ca', {'id': etude.id}) }}"><i class="fa fa-minus"></i> {{etude.reference}}</a></li>
                     {% endfor %}
                 </ul>
             </li>
