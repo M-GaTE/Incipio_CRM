@@ -11,12 +11,15 @@
 
 namespace mgate\SuiviBundle\Controller;
 
+use mgate\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\EtudeType;
 use mgate\SuiviBundle\Form\SuiviEtudeType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 //use mgate\UserBundle\Entity\User;
 
@@ -99,14 +102,16 @@ class EtudeController extends Controller
 
     /**
      * @Secure(roles="ROLE_SUIVEUR")
+     * @param Request $request
+     * @return Response
      */
-    public function stateAction()
+    public function stateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $stateDescription = isset($_POST['state']) ? $_POST['state'] : '';
-        $stateID = isset($_POST['id']) ? intval($_POST['id']) : 0;
-        $etudeID = isset($_POST['etude']) ? intval($_POST['etude']) : 0;
+        $stateDescription = !empty($request->request->get('state')) ? $request->request->get('state') : '';
+        $stateID = !empty($request->request->get('id')) ? intval($request->request->get('id')) : 0;
+        $etudeID = !empty($request->request->get('etude')) ? intval($request->request->get('etude')) : 0;
 
         if (!$etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->find($etudeID)) {
             throw $this->createNotFoundException('L\'étude n\'existe pas !');
@@ -130,8 +135,8 @@ class EtudeController extends Controller
         $etude->setMandat($this->get('mgate.etude_manager')->getMaxMandat());
         $etude->setNum($this->get('mgate.etude_manager')->getNouveauNumero());
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if (is_object($user) && $user instanceof \mgate\UserBundle\Entity\User) {
+        $user = $this->getUser();
+        if (is_object($user) && $user instanceof User) {
             $etude->setSuiveur($user->getPersonne());
         }
 
@@ -184,7 +189,7 @@ class EtudeController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //get contacts clients
@@ -216,14 +221,14 @@ class EtudeController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $form = $this->createForm(new EtudeType(), $etude);
 
         $deleteForm = $this->createDeleteForm($nom);
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($etude);
@@ -242,13 +247,15 @@ class EtudeController extends Controller
 
     /**
      * @Secure(roles="ROLE_ADMIN")
+     * @param $nom string short name of project
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($nom)
+    public function deleteAction($nom, Request $request)
     {
         $form = $this->createDeleteForm($nom);
-        $request = $this->getRequest();
 
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -257,8 +264,8 @@ class EtudeController extends Controller
                 throw $this->createNotFoundException('L\'étude n\'existe pas !');
             }
 
-            if ($this->get('mgate.etude_manager')->confidentielRefus($entity, $this->container->get('security.context'))) {
-                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            if ($this->get('mgate.etude_manager')->confidentielRefus($entity, $this->getUser(), $this->get('security.authorization_checker'))) {
+                throw new AccessDeniedException('Cette étude est confidentielle');
             }
 
             /*
@@ -405,7 +412,7 @@ class EtudeController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
