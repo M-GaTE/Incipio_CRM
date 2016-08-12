@@ -28,3 +28,8 @@ services:
         class: mgate\SuiviBundle\Form\Extension\HelpMessageTypeExtension
         tags:
           - { name: "form.type_extension", alias: "form" }
+
+    mgate.email_etu:
+            class: mgate\SuiviBundle\Manager\EmailEtuManager
+            arguments:
+              - "%junior%"
