@@ -83,30 +83,6 @@ class User extends BaseUser
         return $this->personne;
     }
 
-    public static function getRolesNames()
-    {
-        $pathToSecurity = __DIR__.'/../../../..'.'/app/config/security.yml';
-        $yaml = new Parser();
-        $rolesArray = $yaml->parse(file_get_contents($pathToSecurity));
-        $arrayKeys = array();
-        foreach ($rolesArray['security']['role_hierarchy'] as $key => $value) {
-            //never allow assigning super admin
-            if ($key != 'ROLE_SUPER_ADMIN') {
-                $arrayKeys[$key] = self::convertRoleToLabel($key);
-            }
-            //skip values that are arrays --- roles with multiple sub-roles
-            if (!is_array($value)) {
-                if ($value != 'ROLE_SUPER_ADMIN') {
-                    $arrayKeys[$value] = self::convertRoleToLabel($value);
-                }
-            }
-        }
-        //sort for display purposes
-        asort($arrayKeys);
-
-        return $arrayKeys;
-    }
-
     private static function convertRoleToLabel($role)
     {
         $roleDisplay = str_replace('ROLE_', '', $role);
@@ -126,7 +102,7 @@ class User extends BaseUser
 
         $liste = '';
         foreach ($rolesArray as $role) {
-            $liste .= ' '.self::convertRoleToLabel($role);
+            $liste .= ' ' . self::convertRoleToLabel($role);
         }
 
         return $liste;
