@@ -45,15 +45,14 @@ class DeclaratifController extends Controller
 
         $defaultData = array('message' => 'Date');
         $form = $this->createFormBuilder($defaultData)
-                      ->add(
-                          'date',
-                          'genemu_jquerydate',
-                          array(
-                              'label' => 'Mois considéré',
-                              'required' => true, 'widget' => 'single_text',
-                              'data' => date_create(), 'format' => 'dd/MM/yyyy', ))
-                       ->add('trimestriel', 'checkbox', array('label' => 'Trimestriel ?', 'required' => false))
-                       ->getForm();
+            ->add(
+                'date','genemu_jquerydate',
+                array(
+                    'label' => 'Mois considéré',
+                    'required' => true, 'widget' => 'single_text',
+                    'data' => date_create(), 'format' => 'dd/MM/yyyy',))
+            ->add('trimestriel', 'checkbox', array('label' => 'Trimestriel ?', 'required' => false))
+            ->getForm();
 
         $periode = '';
         $nfs = array();
@@ -73,14 +72,14 @@ class DeclaratifController extends Controller
         }
         setlocale(LC_TIME, 'fra_fra');
         if (array_key_exists('trimestriel', $data) && $data['trimestriel']) {
-            $periode = 'Déclaratif pour la période : '.utf8_encode(strftime('%B', $date->format('U')).' - '.strftime('%B', $date->modify('+2 month')->format('U')));
+            $periode = 'Déclaratif pour la période : ' . utf8_encode(strftime('%B', $date->format('U')) . ' - ' . strftime('%B', $date->modify('+2 month')->format('U')));
             for ($i = 0; $i < 3; ++$i) {
                 $nfs = $em->getRepository('mgateTresoBundle:NoteDeFrais')->findAllByMonth($month, $year, true);
                 $fas = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_ACHAT, $month, $year, true);
                 $fvs = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_VENTE, $month, $year, true);
             }
         } else {
-            $periode = 'Déclaratif pour la période : '.utf8_encode(strftime('%B', $date->format('U')));
+            $periode = 'Déclaratif pour la période : ' . utf8_encode(strftime('%B', $date->format('U')));
             $nfs = $em->getRepository('mgateTresoBundle:NoteDeFrais')->findAllByMonth($month, $year);
             $fas = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_ACHAT, $month, $year);
             $fvs = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_VENTE, $month, $year);
@@ -101,11 +100,11 @@ class DeclaratifController extends Controller
                     } else {
                         $montantTvaParType[$tauxTVA] = $entityDeductibled->getMontantTVA();
                     }
-                    $montantHT  += $entityDeductibled->getMontantHT();
+                    $montantHT += $entityDeductibled->getMontantHT();
                     $montantTTC += $entityDeductibled->getMontantTTC();
 
                     // mise à jour des montant Globaux
-                    $totalTvaDeductible['HT']  += $entityDeductibled->getMontantHT();
+                    $totalTvaDeductible['HT'] += $entityDeductibled->getMontantHT();
                     $totalTvaDeductible['TTC'] += $entityDeductibled->getMontantTTC();
                     $totalTvaDeductible['TVA'] += $entityDeductibled->getMontantTVA();
 
@@ -119,7 +118,7 @@ class DeclaratifController extends Controller
                         $totalTvaDeductible[$tauxTVA] += $entityDeductibled->getMontantTVA();
                     }
                 }
-                $tvaDeductible[] = array('DATE' => $entityDeductible->getDate(), 'LI' => $entityDeductible->getReference(),'HT' => $montantHT, 'TTC' => $montantTTC, 'TVA' => $entityDeductible->getMontantTVA(), 'TVAT' => $montantTvaParType);
+                $tvaDeductible[] = array('DATE' => $entityDeductible->getDate(), 'LI' => $entityDeductible->getReference(), 'HT' => $montantHT, 'TTC' => $montantTTC, 'TVA' => $entityDeductible->getMontantTVA(), 'TVAT' => $montantTvaParType);
             }
         }
 
@@ -133,7 +132,7 @@ class DeclaratifController extends Controller
             $montantTTC = $fv->getMontantTVA();
 
             // Mise à jour du montant global pour le taux de TVA ciblé
-            $totalTvaCollectee['HT']  += $fv->getMontantHT();
+            $totalTvaCollectee['HT'] += $fv->getMontantHT();
             $totalTvaCollectee['TTC'] += $fv->getMontantTTC();
             $totalTvaCollectee['TVA'] += $fv->getMontantTVA();
 
@@ -176,7 +175,7 @@ class DeclaratifController extends Controller
                 }
             }
 
-            $tvaCollectee[] = array('DATE' => $fv->getDate(),'LI' => $fv->getReference(),'HT' => $montantHT, 'TTC' => $montantTTC,'TVA' => $fv->getMontantTVA() , 'TVAT' => $montantTvaParType);
+            $tvaCollectee[] = array('DATE' => $fv->getDate(), 'LI' => $fv->getReference(), 'HT' => $montantHT, 'TTC' => $montantTTC, 'TVA' => $fv->getMontantTVA(), 'TVAT' => $montantTvaParType);
         }
         sort($tvas);
 
@@ -188,8 +187,8 @@ class DeclaratifController extends Controller
                 'totalTvaDeductible' => $totalTvaDeductible,
                 'totalTvaCollectee' => $totalTvaCollectee,
                 'periode' => $periode,
-                )
-            );
+            )
+        );
     }
 
     /**
@@ -198,29 +197,24 @@ class DeclaratifController extends Controller
     public function BRCAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $defaultData = array('message' => 'Date');
-        $form = $this->createFormBuilder($defaultData)
-                      ->add(
-                          'date',
-                          'genemu_jquerydate',
-                          array(
-                              'label' => 'Mois du déclaratif',
-                              'required' => true, 'widget' => 'single_text',
-                              'data' => date_create(), 'format' => 'dd/MM/yyyy', )
-                      )->getForm();
+        $form = $this->createFormBuilder(array('message' => 'Date'))
+            ->add(
+                'date', 'genemu_jquerydate',
+                array(
+                    'label' => 'Mois du déclaratif',
+                    'required' => true, 'widget' => 'single_text',
+                    'data' => date_create(), 'format' => 'dd/MM/yyyy',)
+            )->getForm();
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
             $data = $form->getData();
             $date = $data['date'];
-            $month = $date->format('m');
-            $year = $date->format('Y');
         } else {
             $date = new \DateTime('now');
-            $month = $date->format('m');
-            $year = $date->format('Y');
         }
+        $month = $date->format('m');
+        $year = $date->format('Y');
 
         $bvs = $em->getRepository('mgateTresoBundle:BV')->findAllByMonth($month, $year);
 
@@ -229,10 +223,9 @@ class DeclaratifController extends Controller
             $id = $bv->getMission()->getIntervenant()->getIdentifiant();
             $salarieRemunere[$id] = 1;
         }
-        $nbSalarieRemunere = count($salarieRemunere);
 
         return $this->render('mgateTresoBundle:Declaratif:BRC.html.twig',
-            array('form' => $form->createView(), 'bvs' => $bvs, 'nbSalarieRemunere' => $nbSalarieRemunere)
-            );
+            array('form' => $form->createView(), 'bvs' => $bvs, 'nbSalarieRemunere' => count($salarieRemunere))
+        );
     }
 }
