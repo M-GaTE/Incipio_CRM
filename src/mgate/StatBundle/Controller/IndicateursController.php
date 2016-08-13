@@ -12,6 +12,7 @@
 namespace mgate\StatBundle\Controller;
 
 use mgate\StatBundle\Entity\Indicateur;
+use mgate\StatBundle\Manager\ChartFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Ob\HighchartsBundle\Highcharts\Highchart;
@@ -24,6 +25,9 @@ define('STATE_ID_TERMINEE_X', 4);
 class IndicateursController extends Controller
 {
 
+    public static $defaultStyle = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
+
+
     /**
      * @Secure(roles="ROLE_CA")
      */
@@ -31,14 +35,13 @@ class IndicateursController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $etudeManager = $this->get('mgate.etude_manager');
         $indicateurs = $em->getRepository('mgateStatBundle:Indicateur')->findAll();
         $statsBrutes = array('Pas de données' => 'A venir');
 
 
         return $this->render('mgateStatBundle:Indicateurs:index.html.twig', array('indicateurs' => $indicateurs,
-                'stats' => $statsBrutes,
-            ));
+            'stats' => $statsBrutes,
+        ));
     }
 
     /**
@@ -51,7 +54,7 @@ class IndicateursController extends Controller
             ->setMethode($get);
 
         return $this->render('mgateStatBundle:Indicateurs:debug.html.twig', array('indicateur' => $indicateur,
-            ));
+        ));
     }
 
     /**
@@ -72,12 +75,12 @@ class IndicateursController extends Controller
             }
         }
 
-        return new Response('<!-- Chart '.$chartMethode.' does not exist. -->');
+        return new Response('<!-- Chart ' . $chartMethode . ' does not exist. -->');
     }
 
-/**
- * @Secure(roles="ROLE_CA")
- */
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getRetardParMandat()
     {
@@ -109,7 +112,7 @@ class IndicateursController extends Controller
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
                 if ($etude->getDelai()) {
-                    $nombreJoursParMandat[$idMandat] +=  $etude->getDelai(false)->days;
+                    $nombreJoursParMandat[$idMandat] += $etude->getDelai(false)->days;
                     $nombreJoursAvecAvenantParMandat[$idMandat] += $etude->getDelai(true)->days;
                 }
             }
@@ -123,56 +126,29 @@ class IndicateursController extends Controller
                 $data[] = array('y' => 100 * ($nombreJoursAvecAvenantParMandat[$idMandat] - $datas) / $datas, 'nombreEtudes' => $datas, 'nombreEtudesAvecAv' => $nombreJoursAvecAvenantParMandat[$idMandat] - $datas);
             }
         }
-        $series = array(array('name' => 'Nombre de jour de retard / nombre de jour travaillés', 'colorByPoint' => true, 'data' => $data));
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
+        //create a new column chart with defaults already setted
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $series = array(array('name' => 'Nombre de jour de retard / nombre de jour travaillés', 'colorByPoint' => true, 'data' => $data));
+        $ob = $chartFactory->newColumnChart($series, $categories);
+
+        //customize display
         $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
-
-        /*         * ***********************
-         * DATAS
-         */
-        $series = array(array('name' => 'Nombre de jour de retard / nombre de jour travaillés', 'colorByPoint' => true, 'data' => $data));
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $ob->yAxis->max(100);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Retard par Mandat');
-        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $this::$defaultStyle));
+        $ob->yAxis->max(null);
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('Les études ont duré en moyenne {point.y:.2f} % de plus que prévu<br/>avec {point.nombreEtudesAvecAv} jours de retard sur {point.nombreEtudes} jours travaillés');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
-/**
- * @Secure(roles="ROLE_CA")
- */
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getNombreEtudes()
     {
@@ -211,51 +187,25 @@ class IndicateursController extends Controller
                 $data[] = array('y' => $datas);
             }
         }
-        $series = array(array('name' => "Nombre d'études par mandat", 'colorByPoint' => true, 'data' => $data));
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
+        //create a column chart
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $series = array(array('name' => "Nombre d'études par mandat", 'colorByPoint' => true, 'data' => $data));
+        $ob = $chartFactory->newColumnChart($series, $categories);
+
+        //set texts
         $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
-        $ob->yAxis->allowDecimals(false);
-
-        /*         * ***********************
-         * DATAS
-         */
-        $series = array(array('name' => "Nombre d'études par mandat", 'colorByPoint' => true, 'data' => $data));
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Nombre d\'études par mandat');
-        $ob->yAxis->title(array('text' => 'Nombre', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
+        $ob->yAxis->max(null);
+        $ob->yAxis->allowDecimals(false);
+        $ob->yAxis->title(array('text' => 'Nombre', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} études');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -273,7 +223,7 @@ class IndicateursController extends Controller
         $comptes = array();
         $comptes['Honoraires BV'] = 0;
         $comptes['URSSAF'] = 0;
-        $montantTotal = 0;
+        $montantTotal = 1; //set to 1 to avoid division by 0 in case montantTotal equals 0.
         foreach ($nfs as $nf) {
             foreach ($nf->getDetails() as $detail) {
                 $compte = $detail->getCompte();
@@ -303,39 +253,19 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Répartition des dépenses', 'data' => $data, 'Dépenses totale' => $montantTotal));
 
-        /*         * ***********************
-         * CHART
-         */
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // Plot Options
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Répartition des dépenses selon les comptes comptables (Mandat en cours)');
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -396,7 +326,7 @@ class IndicateursController extends Controller
             $data = array();
             foreach ($mandats as $mandat) {
                 if (array_key_exists($mandat, $compte)) {
-                    $data[] = (float) $compte[$mandat];
+                    $data[] = (float)$compte[$mandat];
                 } else {
                     $data[] = 0;
                 }
@@ -405,52 +335,25 @@ class IndicateursController extends Controller
         }
 
         foreach ($mandats as $mandat) {
-            $categories[] = 'Mandat '.$mandat;
+            $categories[] = 'Mandat ' . $mandat;
         }
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
-        $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
+        //chart
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newColumnChart($series, $categories);
         $ob->plotOptions->column(array('stacking' => 'normal'));
 
-        /*         * ***********************
-         * DATAS
-         */
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $ob->yAxis->allowDecimals(false);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(true);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
+        $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Montant HT des dépenses');
-        $ob->yAxis->title(array('text' => 'Montant (€)', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Montant (€)', 'style' => $this::$defaultStyle));
+        $ob->yAxis->max(null);
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} € HT');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -477,7 +380,7 @@ class IndicateursController extends Controller
         $repartitions = array();
         $nombreClient = count($clients);
         foreach ($clients as $clientID => $nombreEtude) {
-            if (key_exists($nombreEtude,  $repartitions)) {
+            if (key_exists($nombreEtude, $repartitions)) {
                 ++$repartitions[$nombreEtude];
             } else {
                 $repartitions[$nombreEtude] = 1;
@@ -493,39 +396,22 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Taux de fidélisation', 'data' => $data, 'Nombre de client' => $nombreClient));
 
-        /*         * ***********************
-         * CHART
-         */
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // Plot Options
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
 
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
-
-        /*         * ***********************
-         * STYLE
-         */
         $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Taux de fidélisation (% de clients ayant demandé plusieurs études)');
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -542,7 +428,7 @@ class IndicateursController extends Controller
         foreach ($formationsParMandat as $mandat => $formations) {
             foreach ($formations as $formation) {
                 if ($formation->getDateDebut()) {
-                    $interval = new \DateInterval('P'.($maxMandat - $mandat).'Y');
+                    $interval = new \DateInterval('P' . ($maxMandat - $mandat) . 'Y');
                     $dateDecale = clone $formation->getDateDebut();
                     $dateDecale->add($interval);
                     $mandats[$mandat][] = array(
@@ -556,42 +442,37 @@ class IndicateursController extends Controller
 
         $series = array();
         foreach ($mandats as $mandat => $data) {
-            $series[] = array('name' => 'Mandat '.$mandat, 'data' => $data);
+            $series[] = array('name' => 'Mandat ' . $mandat, 'data' => $data);
         }
 
-        /*         * ***********************
-         * CHART
-         */
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // OTHERS
         $ob->global->useUTC(false);
 
-        /*         * ***********************
+        /*
          * DATAS
          */
         $ob->series($series);
         $ob->xAxis->type('datetime');
         $ob->xAxis->dateTimeLabelFormats(array('month' => '%b'));
 
-        /*         * ***********************
-         * STYLE
-         */
+
         $ob->yAxis->min(0);
         $ob->yAxis->allowDecimals(false);
         $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
+        $ob->xAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
         $ob->credits->enabled(false);
         $ob->legend->enabled(false);
 
-        /*         * ***********************
+        /*
          * TEXTS AND LABELS
          */
         $ob->title->text('Nombre de présents aux formations');
-        $ob->yAxis->title(array('text' => 'Nombre de présents', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Date', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Nombre de présents', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Date', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} présent le {point.date}<br />{point.name}');
         $ob->legend->layout('vertical');
@@ -604,13 +485,10 @@ class IndicateursController extends Controller
         $ob->legend->itemStyle($style);
         $ob->plotOptions->series(array('lineWidth' => 5, 'marker' => array('radius' => 8)));
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -628,57 +506,29 @@ class IndicateursController extends Controller
         ksort($formationsParMandat); // Tire selon les promos
         foreach ($formationsParMandat as $mandat => $formations) {
             $data[] = count($formations);
-            $categories[] = 'Mandat '.$mandat;
+            $categories[] = 'Mandat ' . $mandat;
         }
         $series = array(array('name' => 'Nombre de formations', 'colorByPoint' => true, 'data' => $data));
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newColumnChart($series, $categories);
+
         $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
-
-        /*         * ***********************
-         * DATAS
-         */
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $ob->yAxis->allowDecimals(false);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Nombre de formations théorique par mandat');
-        $ob->yAxis->title(array('text' => 'Nombre de formations', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Nombre de formations', 'style' => $this::$defaultStyle));
+        $ob->yAxis->max(null);
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y}');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
-/**
- * @Secure(roles="ROLE_CA")
- */
+    /**
+     * @Secure(roles="ROLE_CA")
+     */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getTauxDAvenantsParMandat()
     {
@@ -727,49 +577,22 @@ class IndicateursController extends Controller
         }
         $series = array(array('name' => "Taux d'avenant par Mandat", 'colorByPoint' => true, 'data' => $data));
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newColumnChart($series, $categories);
+
         $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
-
-        /*         * ***********************
-         * DATAS
-         */
-        $series = array(array('name' => "Taux d'avenant", 'colorByPoint' => true, 'data' => $data));
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $ob->yAxis->max(100);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Taux d\'avenant par Mandat');
-        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y:.2f} %<br/>avec {point.nombreEtudesAvecAv} sur {point.nombreEtudes} études');
 
-        /*
-         *
-         * *********************** */
+//        var_dump($ob);
+//        exit();
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -804,39 +627,19 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Provenance de nos études par type de Client (tous mandats)', 'data' => $data, 'CA Total' => $chiffreDAffairesTotal));
 
-        /*         * ***********************
-         * CHART
-         */
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // Plot Options
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text("Répartition du CA selon le type de Client ($chiffreDAffairesTotal € CA)");
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -869,39 +672,21 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Provenance des études par type de Client (tous mandats)', 'data' => $data, 'nombreClient' => $nombreClient));
 
-        /*         * ***********************
-         * CHART
-         */
+
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // Plot Options
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
-        $ob->title->text("Provenance des études par type de Client ($nombreClient Etudes)");
+        $ob->title->text('Provenance des études par type de Client (' . $nombreClient . ' Etudes)');
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     public function cmp($a, $b)
@@ -953,12 +738,9 @@ class IndicateursController extends Controller
         $series = array();
         $categories = array_keys($cumuls[$promos[0]]);
         foreach (array_reverse($promos) as $promo) {
-            $series[] = array('name' => 'P'.$promo, 'data' => array_values($cumuls[$promo]));
+            $series[] = array('name' => 'P' . $promo, 'data' => array_values($cumuls[$promo]));
         }
 
-        /*         * ***********************
-         * CHART
-         */
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // OTHERS
@@ -966,39 +748,26 @@ class IndicateursController extends Controller
         $ob->chart->zoomType('x');
         $ob->plotOptions->area(array('stacking' => 'normal'));
 
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
         $ob->xAxis->categories($categories);
 
-        /*         * ***********************
-         * STYLE
-         */
         $ob->yAxis->min(0);
         $ob->yAxis->allowDecimals(false);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style, 'rotation' => -45));
-        $ob->yAxis->labels(array('style' => $style));
+        $ob->xAxis->labels(array('style' => $this::$defaultStyle, 'rotation' => -45));
+        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
         $ob->credits->enabled(false);
 
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Nombre de membre');
-        $ob->yAxis->title(array('text' => 'Nombre de membre', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Nombre de membre', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $this::$defaultStyle));
         $ob->tooltip->shared(true);
         $ob->tooltip->valueSuffix(' cotisants');
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -1024,51 +793,25 @@ class IndicateursController extends Controller
         ksort($promos); // Tire selon les promos
         foreach ($promos as $promo => $nombre) {
             $data[] = $nombre;
-            $categories[] = 'P'.$promo;
+            $categories[] = 'P' . $promo;
         }
         $series = array(array('name' => 'Membres', 'colorByPoint' => true, 'data' => $data));
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newColumnChart($series, $categories);
+
         $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
-
-        /*         * ***********************
-         * DATAS
-         */
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Nombre de membres par Promotion');
-        $ob->yAxis->title(array('text' => 'Nombre de membres', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'Nombre de membres', 'style' => $this::$defaultStyle));
+        $ob->yAxis->max(null);
+        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y}');
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -1092,51 +835,24 @@ class IndicateursController extends Controller
         $categories = array();
         foreach ($promos as $promo => $nombre) {
             $data[] = $nombre;
-            $categories[] = 'P'.$promo;
+            $categories[] = 'P' . $promo;
         }
         $series = array(array('name' => 'Intervenants', 'colorByPoint' => true, 'data' => $data));
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newColumnChart($series, $categories);
+
         $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
-
-        /*         * ***********************
-         * DATAS
-         */
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text('Nombre d\'intervenants par Promotion');
-        $ob->yAxis->title(array('text' => "Nombre d'intervenants", 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $style));
+        $ob->yAxis->title(array('text' => "Nombre d'intervenants", 'style' => $this::$defaultStyle));
+        $ob->yAxis->max(null);
+        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y}');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -1192,17 +908,7 @@ class IndicateursController extends Controller
             }
         }
 
-        /*         * ***********************
-         * CHART
-         */
-        $ob = new Highchart();
-        $ob->chart->renderTo(__FUNCTION__);
-        // OTHERS
-        $ob->chart->type('column');
 
-        /*         * ***********************
-         * DATAS
-         */
         $series = array(
             array(
                 'name' => 'CA Signé',
@@ -1220,39 +926,23 @@ class IndicateursController extends Controller
                         'textShadow' => '0 0 3px black',),
                     'y' => 25,
 
-                    ),
                 ),
-            );
-        $ob->series($series);
-        $ob->xAxis->categories($categories);
+            ),
+        );
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newColumnChart($series, $categories);
 
-        /*         * ***********************
-         * STYLE
-         */
-        $ob->yAxis->min(0);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
-        $ob->credits->enabled(false);
-        $ob->legend->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
+        $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Évolution du chiffre d\'affaires signé cumulé par mandat');
-        $ob->yAxis->title(array('text' => 'CA (€)', 'style' => $style));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $style));
+        $ob->yAxis->title(array('text' => 'CA (€)', 'style' => $this::$defaultStyle));
+        $ob->yAxis->max(null);
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} €<br/>en {point.JEH} JEH<br/>soit {point.moyJEH:.2f} €/JEH');
 
-        /*
-         *
-         * *********************** */
-
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /*
@@ -1265,8 +955,6 @@ class IndicateursController extends Controller
     private function getCA()
     {
         $etudeManager = $this->get('mgate.etude_manager');
-        $em = $this->getDoctrine()->getManager();
-        $etude = new \mgate\SuiviBundle\Entity\Etude();
         $Ccs = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
 
         //$data = array();
@@ -1289,15 +977,15 @@ class IndicateursController extends Controller
 
                 $cumuls[$idMandat] += $etude->getMontantHT();
 
-                $interval = new \DateInterval('P'.($maxMandat - $idMandat).'Y');
+                $interval = new \DateInterval('P' . ($maxMandat - $idMandat) . 'Y');
                 $dateDecale = clone $dateSignature;
                 $dateDecale->add($interval);
 
                 $mandats[$idMandat][]
                     = array('x' => $dateDecale->getTimestamp() * 1000,
-                    'y' => $cumuls[$idMandat], 'name' => $etude->getReference().' - '.$etude->getNom(),
+                    'y' => $cumuls[$idMandat], 'name' => $etude->getReference() . ' - ' . $etude->getNom(),
                     'date' => $dateDecale->format('d/m/Y'),
-                    'prix' => $etude->getMontantHT(), );
+                    'prix' => $etude->getMontantHT(),);
             }
         }
 
@@ -1305,7 +993,7 @@ class IndicateursController extends Controller
         $series = array();
         foreach ($mandats as $idMandat => $data) {
             //if($idMandat>=4)
-            $series[] = array('name' => 'Mandat '.$idMandat.' - '.$etudeManager->mandatToString($idMandat), 'data' => $data);
+            $series[] = array('name' => 'Mandat ' . $idMandat . ' - ' . $etudeManager->mandatToString($idMandat), 'data' => $data);
         }
 
         $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
@@ -1314,15 +1002,15 @@ class IndicateursController extends Controller
         $ob->global->useUTC(false);
 
         $ob->chart->renderTo(__FUNCTION__);  // The #id of the div where to render the chart
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
+        $ob->xAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
         $ob->title->text('Évolution par mandat du chiffre d\'affaire signé cumulé');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->title(array('text' => 'Date', 'style' => $style));
+        $ob->xAxis->title(array('text' => 'Date', 'style' => $this::$defaultStyle));
         $ob->xAxis->type('datetime');
         $ob->xAxis->dateTimeLabelFormats(array('month' => '%b'));
         $ob->yAxis->min(0);
-        $ob->yAxis->title(array('text' => "Chiffre d'Affaire signé cumulé", 'style' => $style));
+        $ob->yAxis->title(array('text' => "Chiffre d'Affaire signé cumulé", 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} le {point.date}<br />{point.name} à {point.prix} €');
         $ob->credits->enabled(false);
@@ -1339,28 +1027,14 @@ class IndicateursController extends Controller
             array(
                 'lineWidth' => 3,
                 'marker' => array('radius' => 6),
-                )
-            );
-        /*
-        $ob->plotOptions->line(
-            array(
-                'dataLabels' => array(
-                    'enabled' => true,
-                    'align' => 'left',
-                    'verticalAlign' => 'center',
-                    'x' => 5,
-                    'format' => '{point.prix} €'
-
-                    )
-                )
-            );*/
+            )
+        );
 
         $ob->series($series);
 
-        //return $this->render('mgateStatBundle:Default:ca.html.twig', array(
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -1369,8 +1043,6 @@ class IndicateursController extends Controller
     private function getRh()
     {
         $etudeManager = $this->get('mgate.etude_manager');
-        $em = $this->getDoctrine()->getManager();
-        $etude = new \mgate\SuiviBundle\Entity\Etude();
         $missions = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Mission')->findBy(array(), array('debutOm' => 'asc'));
 
         //$data = array();
@@ -1415,24 +1087,24 @@ class IndicateursController extends Controller
                 if ($addDebut) {
                     $mandats[1][]
                         = array('x' => $dateDebutDecale->getTimestamp() * 1000,
-                        'y' => 0/* $cumuls[0] */, 'name' => $etude->getReference().' + '.$etude->getNom(),
+                        'y' => 0/* $cumuls[0] */, 'name' => $etude->getReference() . ' + ' . $etude->getNom(),
                         'date' => $dateDebutDecale->format('d/m/Y'),
-                        'prix' => $etude->getMontantHT(), );
+                        'prix' => $etude->getMontantHT(),);
                 }
                 if ($addFin) {
                     $mandats[1][]
                         = array('x' => $dateFinDecale->getTimestamp() * 1000,
-                        'y' => 0/* $cumuls[0] */, 'name' => $etude->getReference().' - '.$etude->getNom(),
+                        'y' => 0/* $cumuls[0] */, 'name' => $etude->getReference() . ' - ' . $etude->getNom(),
                         'date' => $dateDebutDecale->format('d/m/Y'),
-                        'prix' => $etude->getMontantHT(), );
+                        'prix' => $etude->getMontantHT(),);
                 }
             }
         }
 
         //Etapes 2 trie dans l'ordre
         $callback = function ($a, $b) use ($mandats) {
-                return $mandats[1][$a]['x'] > $mandats[1][$b]['x'];
-            };
+            return $mandats[1][$a]['x'] > $mandats[1][$b]['x'];
+        };
         uksort($mandats[1], $callback);
         foreach ($mandats[1] as $entree) {
             $mandats[2][] = $entree;
@@ -1466,7 +1138,7 @@ class IndicateursController extends Controller
         $series = array();
         foreach ($mandats as $idMandat => $data) {
             //if($idMandat>=4)
-            $series[] = array('name' => 'Mandat '.$idMandat.' - '.$etudeManager->mandatToString($idMandat), 'data' => $data);
+            $series[] = array('name' => 'Mandat ' . $idMandat . ' - ' . $etudeManager->mandatToString($idMandat), 'data' => $data);
         }
 
         $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
@@ -1479,15 +1151,15 @@ class IndicateursController extends Controller
         $ob->chart->renderTo('getRh');  // The #id of the div where to render the chart
         ///
         $ob->chart->type('spline');
-        $ob->xAxis->labels(array('style' => $style));
-        $ob->yAxis->labels(array('style' => $style));
+        $ob->xAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
         $ob->title->text("Évolution par mandat du nombre d'intervenant");
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->title(array('text' => 'Date', 'style' => $style));
+        $ob->xAxis->title(array('text' => 'Date', 'style' => $this::$defaultStyle));
         $ob->xAxis->type('datetime');
         $ob->xAxis->dateTimeLabelFormats(array('month' => '%b'));
         $ob->yAxis->min(0);
-        $ob->yAxis->title(array('text' => "Nombre d'intervenant", 'style' => $style));
+        $ob->yAxis->title(array('text' => "Nombre d'intervenant", 'style' => $this::$defaultStyle));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->credits->enabled(false);
         $ob->legend->floating(true);
@@ -1502,10 +1174,9 @@ class IndicateursController extends Controller
         $ob->plotOptions->series(array('lineWidth' => 5, 'marker' => array('radius' => 8)));
         $ob->series($series);
 
-        //return $this->render('mgateStatBundle:Default:ca.html.twig', array(
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
-                'chart' => $ob,
-            ));
+            'chart' => $ob,
+        ));
     }
 
     /**
@@ -1538,41 +1209,22 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Provenance des études par source de prospection (tous mandats)', 'data' => $data, 'nombreClient' => $nombreClient));
 
-        /*         * ***********************
-         * CHART
-         */
+
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // Plot Options
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text("Provenance des études par source de prospection ($nombreClient Etudes)");
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
         ));
     }
-
 
 
     /**
@@ -1597,7 +1249,6 @@ class IndicateursController extends Controller
         }
 
         $data = array();
-        $categories = array();
         foreach ($repartitions as $type => $CA) {
             if ($type == null) {
                 $type = 'Autre';
@@ -1607,35 +1258,17 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Provenance de nos études par type de Client (tous mandats)', 'data' => $data, 'CA Total' => $chiffreDAffairesTotal));
 
-        /*         * ***********************
-         * CHART
-         */
         $ob = new Highchart();
         $ob->chart->renderTo(__FUNCTION__);
         // Plot Options
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
 
-        /*         * ***********************
-         * DATAS
-         */
         $ob->series($series);
-
-        /*         * ***********************
-         * STYLE
-         */
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
-
-        /*         * ***********************
-         * TEXTS AND LABELS
-         */
         $ob->title->text("Répartition du CA selon la source de prospection ($chiffreDAffairesTotal € CA)");
         $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
-        /*
-         *
-         * *********************** */
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
