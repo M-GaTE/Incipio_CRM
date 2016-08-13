@@ -62,7 +62,8 @@ class ChartManager /*extends \Twig_Extension*/
         //Documents
         if ($type == 'suivi') {
             $data = array();
-            for ($j = 0;$j < count($cats);++$j) {
+            $count_cats = count($cats);
+            for ($j = 0;$j < $count_cats;++$j) {
                 $data[] = array();
             }
             $dataSauv = $data;
@@ -115,7 +116,8 @@ class ChartManager /*extends \Twig_Extension*/
         //Etude
         if ($type == 'suivi') {
             $data = array();
-            for ($j = 0;$j < count($cats);++$j) {
+            $count_cats = count($cats);
+            for ($j = 0;$j < $count_cats;++$j) {
                 $data[] = array();
             }
 
