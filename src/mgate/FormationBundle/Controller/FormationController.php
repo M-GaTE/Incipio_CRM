@@ -16,11 +16,13 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\FormationBundle\Form\FormationType;
 use Symfony\Component\HttpFoundation\Request;
 use mgate\FormationBundle\Entity\Formation;
+use Symfony\Component\HttpFoundation\Response;
 
 class FormationController extends Controller
 {
     /**
      * @Secure(roles="ROLE_CA")
+     * Display a list of all training given order by date desc
      */
     public function indexAction()
     {
@@ -34,6 +36,7 @@ class FormationController extends Controller
 
     /**
      * @Secure(roles="ROLE_SUIVEUR")
+     * Display a list of all training group by term.
      */
     public function listerAction()
     {
@@ -47,14 +50,12 @@ class FormationController extends Controller
 
     /**
      * @Secure(roles="ROLE_SUIVEUR")
+     * @param Formation $formation The training to display
+     * @return Response
+     * Display a training
      */
-    public function voirAction($id)
+    public function voirAction(Formation $formation)
     {
-        $em = $this->getDoctrine()->getManager();
-        if (!$formation = $em->getRepository('mgate\FormationBundle\Entity\Formation')->find($id)) {
-            throw $this->createNotFoundException('La formation demandée n\'existe pas !');
-        }
-
         return $this->render('mgateFormationBundle:Formations:voir.html.twig', array(
             'formation' => $formation,
         ));
@@ -62,6 +63,9 @@ class FormationController extends Controller
 
     /**
      * @Secure(roles="ROLE_CA")
+     * @param $id mixed valid id : modify an existing training; unknown id : display a creation form.
+     * @return Response
+     * Manage creation and update of a training.
      */
     public function modifierAction($id)
     {
@@ -74,27 +78,25 @@ class FormationController extends Controller
         $messages = array();
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($formation);
                 $em->flush();
 
                 $form = $this->createForm(new FormationType(), $formation);
-                array_push($messages,array('label'=>'success','message'=>'Formation modifée') );
+                array_push($messages, array('label' => 'success', 'message' => 'Formation modifée'));
 
-            }
-            else{
+            } else {
                 //constitution du tableau d'erreurs
-                $errors = $this->get('validator')->validate( $formation );
-                foreach($errors as $error) {
-                    array_push($messages,array('label' =>'warning','message'=>$error->getPropertyPath().' : '.$error->getMessage()) );
+                $errors = $this->get('validator')->validate($formation);
+                foreach ($errors as $error) {
+                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath() . ' : ' . $error->getMessage()));
                 }
             }
         }
 
-        return $this->render('mgateFormationBundle:Gestion:modifier.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('mgateFormationBundle:Gestion:modifier.html.twig', array('form' => $form->createView(),
             'formation' => $formation,
             'messages' => $messages,
         ));
@@ -102,6 +104,9 @@ class FormationController extends Controller
 
     /**
      * @Secure(roles="ROLE_CA")
+     * @param Request $request
+     * @return Response
+     * Manage particpant present to a training
      */
     public function participationAction(Request $request)
     {
@@ -115,18 +120,18 @@ class FormationController extends Controller
 
         $defaultData = array();
         $form = $this->createFormBuilder($defaultData)
-                      ->add(
-                          'mandat',
-                          'choice',
-                          array(
-                              'label' => 'Présents aux formations du mandat ',
-                              'choices' => $choices,
-                              'required' => true,
-                              )
-                      )->getForm();
+            ->add(
+                'mandat',
+                'choice',
+                array(
+                    'label' => 'Présents aux formations du mandat ',
+                    'choices' => $choices,
+                    'required' => true,
+                )
+            )->getForm();
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
             $data = $form->getData();
             $mandat = $data['mandat'];
             $formations = array_key_exists($mandat, $formationsParMandat) ? $formationsParMandat[$mandat] : array();
@@ -156,13 +161,13 @@ class FormationController extends Controller
 
     /**
      * @Secure(roles="ROLE_ADMIN")
+     * @param Formation $formation The training to delete (paramconverter from id)
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * Delete a training
      */
-    public function supprimerAction($id)
+    public function supprimerAction(Formation $formation)
     {
         $em = $this->getDoctrine()->getManager();
-        if (!$formation = $em->getRepository('mgate\FormationBundle\Entity\Formation')->find($id)) {
-            throw $this->createNotFoundException('La formation demandée n\'existe pas !');
-        }
 
         $em->remove($formation);
         $em->flush();
