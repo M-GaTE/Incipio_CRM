@@ -11,6 +11,8 @@
 
 namespace mgate\PubliBundle\Manager;
 
+use mgate\PubliBundle\Manager\ConversionLettreFormatter;
+
 class TwigExtensionManager extends \Twig_Extension
 {
     public function getName()
@@ -60,7 +62,7 @@ class TwigExtensionManager extends \Twig_Extension
      */
     public function nbrToLetters($nbr, $devise = 0, $langue = 0)
     {
-        $cv = new \mgate\PubliBundle\Controller\ConversionLettreController();
+        $cv = new ConversionLettreFormatter();
 
         return $cv->ConvNumberLetter($nbr, $devise, $langue);
     }

@@ -13,7 +13,6 @@ namespace mgate\TresoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use mgate\PubliBundle\Controller\ConversionLettreController as Formater;
 use mgate\TresoBundle\Entity\Facture as Facture;
 use mgate\TresoBundle\Entity\FactureDetail as FactureDetail;
 use mgate\TresoBundle\Form\FactureType as FactureType;
@@ -61,7 +60,7 @@ class FactureController extends Controller
             $facture->setDateEmission($now);
 
             if ($etude = $em->getRepository('mgateSuiviBundle:Etude')->find($etude_id)) {
-                $formater = new Formater();
+                $formater = $this->container->get('mgate.conversionlettre');
 
                 $facture->setEtude($etude);
                 $facture->setBeneficiaire($etude->getProspect());

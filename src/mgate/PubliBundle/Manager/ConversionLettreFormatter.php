@@ -9,9 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\PubliBundle\Controller;
+namespace mgate\PubliBundle\Manager;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Description of chiffreEnLettre
@@ -21,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Conversion limitée à 999 999 999 999 999 ou 9 999 999 999 999,99
  * si le nombre contient plus de 2 décimales, il est arrondit à 2 décimales
  */
-class ConversionLettreController extends Controller
+class ConversionLettreFormatter
 {
     public function money_format($number)
     {

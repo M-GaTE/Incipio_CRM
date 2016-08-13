@@ -1,5 +1,5 @@
 parameters:
-    mgate.conversionlettre.class: mgate\PubliBundle\Controller\ConversionLettreController
+    mgate.conversionlettre.class: mgate\PubliBundle\Manager\ConversionLettreFormatter
     mgate.twigextentionmanager.class: mgate\PubliBundle\Manager\TwigExtensionManager
     mgate.document_manager.class: mgate\PubliBundle\Manager\DocumentManager
 
