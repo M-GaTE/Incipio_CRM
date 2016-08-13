@@ -587,8 +587,6 @@ class IndicateursController extends Controller
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y:.2f} %<br/>avec {point.nombreEtudesAvecAv} sur {point.nombreEtudes} études');
 
-//        var_dump($ob);
-//        exit();
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
@@ -689,7 +687,7 @@ class IndicateursController extends Controller
         ));
     }
 
-    public function cmp($a, $b)
+    private function cmp($a, $b)
     {
         if ($a['date'] == $b['date']) {
             return 0;
