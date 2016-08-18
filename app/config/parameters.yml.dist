@@ -25,24 +25,24 @@ parameters:
 ###configuration de la Junior
 ###annee1Incipio : première année d'utilisation d'incipio.
     junior:
-        nom:          ~
-        abbr:         ~
+        nom:          N7 Consulting
+        abbr:         N7C
         id:           ~
-        email:        ~
-        logo:         ~
-        adresse:      ~
-        url:          ~
+        email:        contact@n7consulting.fr
+        logo:         https://n7consulting.fr/themes/IOTH-bootstrap-basic/assets/images/logo_n7consulting.png
+        adresse:      2 Rue Charles Camichel
+        url:          https://n7consulting.fr
         ga_tracking:  ~
         authorizedStorageSize : 104857600
-        domaineEmailEtu:    ~
-        domaineEmailAncien: ~
-        anneeCreation: ~
-        annee1Incipio: ~
+        domaineEmailEtu:    etu.enseeiht.fr
+        domaineEmailAncien: alumni.enseeiht.fr
+        anneeCreation: 1977
+        annee1Incipio: 2015
         president:
-            prenom: ~
-            nom: ~
+            prenom: PrenomPrez
+            nom: NomPrez
             male: true
         tresorier:
-            prenom: ~
-            nom: ~
+            prenom: PrenomTrez
+            nom: NomTrez
             male: false
