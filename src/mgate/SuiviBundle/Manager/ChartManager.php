@@ -42,7 +42,7 @@ class ChartManager /*extends \Twig_Extension*/
         $mort = new \DateTime();
 
         //Contacts Client
-        if (count($etude->getClientContacts()) != 0 && $type == 'suivi') {
+        if ($etude->getClientContacts()->count() != 0 && $type == 'suivi') {
             foreach ($etude->getClientContacts() as $contact) {
                 $date = $contact->getDate();
                 if ($naissance >= $date) {
