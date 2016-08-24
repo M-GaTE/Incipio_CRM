@@ -92,11 +92,6 @@ mgateSuivi_cc_voir:
 #    requirements:
 #        id: \d+
 
-mgateSuivi_mission_rediger:
-    path: /mission/rediger/{id}
-    defaults: {_controller: mgateSuiviBundle:Mission:rediger}
-    requirements:
-        id: \d+
 
 mgateSuivi_missions_modifier:
     path: /missions/modifier/{id}

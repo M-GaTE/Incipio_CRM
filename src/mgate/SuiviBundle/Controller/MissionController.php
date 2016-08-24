@@ -61,38 +61,4 @@ class MissionController extends Controller
         return new Response('ok !');
     }
 
-    /**
-     * @Secure(roles="ROLE_SUIVEUR")
-     */
-    public function redigerAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$mission = $em->getRepository('mgate\SuiviBundle\Entity\Mission')->find($id)) {
-            throw $this->createNotFoundException('La mission n\'existe pas !');
-        }
-
-        $etude = $mission->getEtude();
-
-        if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new AccessDeniedException('Cette étude est confidentielle');
-        }
-
-        $form = $this->createForm(new MissionType(), $mission);
-
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
-
-            if ($form->isValid()) {
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('mgateSuivi_mission_voir', array('id' => $mission->getId())));
-            }
-        }
-
-        return $this->render('mgateSuiviBundle:Mission:rediger.html.twig', array(
-                    'form' => $form->createView(),
-                    'mission' => $mission,
-                ));
-    }
 }
