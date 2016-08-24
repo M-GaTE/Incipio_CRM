@@ -20,7 +20,7 @@ class MissionsType extends AbstractType
 {
     protected $etude;
 
-    function __construct(Etude $etude)
+    public function __construct(Etude $etude)
     {
         $this->etude = $etude;
     }

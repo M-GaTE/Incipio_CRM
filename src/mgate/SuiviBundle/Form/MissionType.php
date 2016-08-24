@@ -11,8 +11,6 @@
 
 namespace mgate\SuiviBundle\Form;
 
-use mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
-use mgate\PersonneBundle\Form\MembreType as MembreType;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\PhaseRepository;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +20,7 @@ class MissionType extends DocTypeType
 {
     protected $etude;
 
-    function __construct(Etude $etude)
+    public function __construct(Etude $etude)
     {
         $this->etude = $etude;
     }

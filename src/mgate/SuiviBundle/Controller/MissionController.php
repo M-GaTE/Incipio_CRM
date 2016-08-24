@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Mission;
-use mgate\SuiviBundle\Form\MissionType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MissionController extends Controller
 {
