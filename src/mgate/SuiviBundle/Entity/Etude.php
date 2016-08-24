@@ -12,8 +12,22 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use mgate\CommentBundle\Entity\Thread;
+use mgate\PubliBundle\Entity\RelatedDocument;
+use mgate\SuiviBundle\Entity\Ap;
+use mgate\SuiviBundle\Entity\Av;
+use mgate\SuiviBundle\Entity\AvMission;
+use mgate\SuiviBundle\Entity\Cc;
+use mgate\SuiviBundle\Entity\DomaineCompetence;
+use mgate\SuiviBundle\Entity\GroupePhases;
+use mgate\SuiviBundle\Entity\Mission;
+use mgate\SuiviBundle\Entity\Phase;
+use mgate\SuiviBundle\Entity\ProcesVerbal;
+use mgate\SuiviBundle\Entity\Suivi;
+use mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Component\DependencyInjection\ContainerAware;
 use n7consulting\RhBundle\Entity\Competence;
@@ -297,7 +311,7 @@ class Etude extends ContainerAware
     public function getFa()
     {
         foreach ($this->factures as $facture) {
-            if ($facture->getType() == \mgate\TresoBundle\Entity\Facture::$TYPE_VENTE_ACCOMPTE) {
+            if ($facture->getType() == Facture::$TYPE_VENTE_ACCOMPTE) {
                 return $facture;
             }
         }
@@ -308,7 +322,7 @@ class Etude extends ContainerAware
     public function getFs()
     {
         foreach ($this->factures as $facture) {
-            if ($facture->getType() == \mgate\TresoBundle\Entity\Facture::$TYPE_VENTE_SOLDE) {
+            if ($facture->getType() == Facture::$TYPE_VENTE_SOLDE) {
                 return $facture;
             }
         }
@@ -949,11 +963,11 @@ class Etude extends ContainerAware
     /**
      * Add suivi.
      *
-     * @param \mgate\SuiviBundle\Entity\Suivi $suivi
+     * @param Suivi $suivi
      *
      * @return Etude
      */
-    public function addSuivi(\mgate\SuiviBundle\Entity\Suivi $suivi)
+    public function addSuivi(Suivi $suivi)
     {
         $this->suivis[] = $suivi;
 
@@ -963,9 +977,9 @@ class Etude extends ContainerAware
     /**
      * Remove suivi.
      *
-     * @param \mgate\SuiviBundle\Entity\Suivi $suivi
+     * @param Suivi $suivi
      */
-    public function removeSuivi(\mgate\SuiviBundle\Entity\Suivi $suivi)
+    public function removeSuivi(Suivi $suivi)
     {
         $this->suivis->removeElement($suivi);
     }
@@ -983,11 +997,11 @@ class Etude extends ContainerAware
     /**
      * Set ap.
      *
-     * @param \mgate\SuiviBundle\Entity\Ap $ap
+     * @param Ap $ap
      *
      * @return Etude
      */
-    public function setAp(\mgate\SuiviBundle\Entity\Ap $ap = null)
+    public function setAp(Ap $ap = null)
     {
         if ($ap != null) {
             $ap->setEtude($this);
@@ -1001,7 +1015,7 @@ class Etude extends ContainerAware
     /**
      * Get ap.
      *
-     * @return \mgate\SuiviBundle\Entity\Ap
+     * @return Ap
      */
     public function getAp()
     {
@@ -1011,11 +1025,11 @@ class Etude extends ContainerAware
     /**
      * Add phases.
      *
-     * @param \mgate\SuiviBundle\Entity\Phase $phases
+     * @param Phase $phases
      *
      * @return Etude
      */
-    public function addPhase(\mgate\SuiviBundle\Entity\Phase $phases)
+    public function addPhase(Phase $phases)
     {
         $this->phases[] = $phases;
 
@@ -1025,9 +1039,9 @@ class Etude extends ContainerAware
     /**
      * Remove phases.
      *
-     * @param \mgate\SuiviBundle\Entity\Phase $phases
+     * @param Phase $phases
      */
-    public function removePhase(\mgate\SuiviBundle\Entity\Phase $phases)
+    public function removePhase(Phase $phases)
     {
         $this->phases->removeElement($phases);
     }
@@ -1045,11 +1059,11 @@ class Etude extends ContainerAware
     /**
      * Set cc.
      *
-     * @param \mgate\SuiviBundle\Entity\Cc $cc
+     * @param Cc $cc
      *
      * @return Etude
      */
-    public function setCc(\mgate\SuiviBundle\Entity\Cc $cc = null)
+    public function setCc(Cc $cc = null)
     {
         if ($cc != null) {
             $cc->setEtude($this);
@@ -1063,7 +1077,7 @@ class Etude extends ContainerAware
     /**
      * Get cc.
      *
-     * @return \mgate\SuiviBundle\Entity\Cc
+     * @return Cc
      */
     public function getCc()
     {
@@ -1073,11 +1087,11 @@ class Etude extends ContainerAware
     /**
      * Add mission.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $mission
+     * @param Mission $mission
      *
      * @return Etude
      */
-    public function addMission(\mgate\SuiviBundle\Entity\Mission $mission)
+    public function addMission(Mission $mission)
     {
         $this->missions[] = $mission;
 
@@ -1087,9 +1101,9 @@ class Etude extends ContainerAware
     /**
      * Remove missions.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $missions
+     * @param Mission $missions
      */
-    public function removeMission(\mgate\SuiviBundle\Entity\Mission $missions)
+    public function removeMission(Mission $missions)
     {
         $this->missions->removeElement($missions);
     }
@@ -1107,11 +1121,11 @@ class Etude extends ContainerAware
     /**
      * Add Facture.
      *
-     * @param \mgate\TresoBundle\Entity\Facture $facture
+     * @param Facture $facture
      *
      * @return Etude
      */
-    public function addFacture(\mgate\TresoBundle\Entity\Facture $facture)
+    public function addFacture(Facture $facture)
     {
         $this->factures[] = $facture;
 
@@ -1121,9 +1135,9 @@ class Etude extends ContainerAware
     /**
      * Remove Facture.
      *
-     * @param \mgate\TresoBundle\Entity\Facture $facture
+     * @param Facture $facture
      */
-    public function removeFacture(\mgate\TresoBundle\Entity\Facture $facture)
+    public function removeFacture(Facture $facture)
     {
         $this->factures->removeElement($facture);
     }
@@ -1141,9 +1155,9 @@ class Etude extends ContainerAware
     /**
      * Remove procesVerbal.
      *
-     * @param \mgate\SuiviBundle\Entity\ProcesVerbal $facture
+     * @param ProcesVerbal $pv
      */
-    public function removeProcesVerbal(\mgate\SuiviBundle\Entity\ProcesVerbal $pv)
+    public function removeProcesVerbal(ProcesVerbal $pv)
     {
         $this->procesVerbaux->removeElement($pv);
     }
@@ -1161,11 +1175,11 @@ class Etude extends ContainerAware
     /**
      * Add pvis.
      *
-     * @param \mgate\SuiviBundle\Entity\ProcesVerbal $pvi
+     * @param ProcesVerbal $pvi
      *
      * @return Etude
      */
-    public function addPvi(\mgate\SuiviBundle\Entity\ProcesVerbal $pvi)
+    public function addPvi(ProcesVerbal $pvi)
     {
         $this->procesVerbaux[] = $pvi;
         $pvi->setEtude($this);
@@ -1177,9 +1191,9 @@ class Etude extends ContainerAware
     /**
      * Remove pvis.
      *
-     * @param \mgate\SuiviBundle\Entity\PvProcesVerbali $pvis
+     * @param \mgate\SuiviBundle\Entity\ProcesVerbal $pvis
      */
-    public function removePvi(\mgate\SuiviBundle\Entity\ProcesVerbal $pvis)
+    public function removePvi(ProcesVerbal $pvis)
     {
         $this->procesVerbaux->removeElement($pvis);
     }
@@ -1215,11 +1229,11 @@ class Etude extends ContainerAware
     /**
      * Add avs.
      *
-     * @param \mgate\SuiviBundle\Entity\Av $avs
+     * @param Av $avs
      *
      * @return Etude
      */
-    public function addAv(\mgate\SuiviBundle\Entity\Av $avs)
+    public function addAv(Av $avs)
     {
         $this->avs[] = $avs;
 
@@ -1229,9 +1243,9 @@ class Etude extends ContainerAware
     /**
      * Remove avs.
      *
-     * @param \mgate\SuiviBundle\Entity\Av $avs
+     * @param Av $avs
      */
-    public function removeAv(\mgate\SuiviBundle\Entity\Av $avs)
+    public function removeAv(Av $avs)
     {
         $this->avs->removeElement($avs);
     }
@@ -1249,11 +1263,11 @@ class Etude extends ContainerAware
     /**
      * Add avMissions.
      *
-     * @param \mgate\SuiviBundle\Entity\AvMission $avMissions
+     * @param AvMission $avMissions
      *
      * @return Etude
      */
-    public function addAvMission(\mgate\SuiviBundle\Entity\AvMission $avMissions)
+    public function addAvMission(AvMission $avMissions)
     {
         $this->avMissions[] = $avMissions;
 
@@ -1263,9 +1277,9 @@ class Etude extends ContainerAware
     /**
      * Remove avMissions.
      *
-     * @param \mgate\SuiviBundle\Entity\AvMission $avMissions
+     * @param AvMission $avMissions
      */
-    public function removeAvMission(\mgate\SuiviBundle\Entity\AvMission $avMissions)
+    public function removeAvMission(AvMission $avMissions)
     {
         $this->avMissions->removeElement($avMissions);
     }
@@ -1283,11 +1297,11 @@ class Etude extends ContainerAware
     /**
      * Set pvr.
      *
-     * @param \mgate\SuiviBundle\Entity\ProcesVerbal $pvr
+     * @param ProcesVerbal $pvr
      *
      * @return Etude
      */
-    public function setPvr(\mgate\SuiviBundle\Entity\ProcesVerbal $pvr)
+    public function setPvr(ProcesVerbal $pvr)
     {
         $pvr->setEtude($this);
         $pvr->setType('pvr');
@@ -1305,7 +1319,7 @@ class Etude extends ContainerAware
     /**
      * Get pvr.
      *
-     * @return \mgate\SuiviBundle\Entity\ProcesVerbal
+     * @return ProcesVerbal
      */
     public function getPvr()
     {
@@ -1319,11 +1333,11 @@ class Etude extends ContainerAware
     /**
      * Set thread.
      *
-     * @param \mgate\CommentBundle\Entity\Thread $thread
+     * @param Thread $thread
      *
      * @return Prospect
      */
-    public function setThread(\mgate\CommentBundle\Entity\Thread $thread)
+    public function setThread(Thread $thread)
     {
         $this->thread = $thread;
 
@@ -1436,11 +1450,11 @@ class Etude extends ContainerAware
     /**
      * Add groupes.
      *
-     * @param \mgate\SuiviBundle\Entity\GroupePhases $groupes
+     * @param GroupePhases $groupes
      *
      * @return Etude
      */
-    public function addGroupe(\mgate\SuiviBundle\Entity\GroupePhases $groupe)
+    public function addGroupe(GroupePhases $groupe)
     {
         $this->groupes[] = $groupe;
 
@@ -1450,9 +1464,9 @@ class Etude extends ContainerAware
     /**
      * Remove groupes.
      *
-     * @param \mgate\SuiviBundle\Entity\GroupePhases $groupes
+     * @param GroupePhases $groupes
      */
-    public function removeGroupe(\mgate\SuiviBundle\Entity\GroupePhases $groupe)
+    public function removeGroupe(GroupePhases $groupe)
     {
         $this->groupes->removeElement($groupe);
     }
@@ -1523,11 +1537,11 @@ class Etude extends ContainerAware
     /**
      * Add procesVerbaux.
      *
-     * @param \mgate\SuiviBundle\Entity\ProcesVerbal $procesVerbaux
+     * @param ProcesVerbal $procesVerbaux
      *
      * @return Etude
      */
-    public function addProcesVerbaux(\mgate\SuiviBundle\Entity\ProcesVerbal $procesVerbaux)
+    public function addProcesVerbaux(ProcesVerbal $procesVerbaux)
     {
         $this->procesVerbaux[] = $procesVerbaux;
 
@@ -1537,9 +1551,9 @@ class Etude extends ContainerAware
     /**
      * Remove procesVerbaux.
      *
-     * @param \mgate\SuiviBundle\Entity\ProcesVerbal $procesVerbaux
+     * @param ProcesVerbal $procesVerbaux
      */
-    public function removeProcesVerbaux(\mgate\SuiviBundle\Entity\ProcesVerbal $procesVerbaux)
+    public function removeProcesVerbaux(ProcesVerbal $procesVerbaux)
     {
         $this->procesVerbaux->removeElement($procesVerbaux);
     }
@@ -1556,11 +1570,11 @@ class Etude extends ContainerAware
     /**
      * Add relatedDocuments.
      *
-     * @param \mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments
+     * @param RelatedDocument $relatedDocuments
      *
      * @return Etude
      */
-    public function addRelatedDocument(\mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments)
+    public function addRelatedDocument(RelatedDocument $relatedDocuments)
     {
         $this->relatedDocuments[] = $relatedDocuments;
 
@@ -1570,9 +1584,9 @@ class Etude extends ContainerAware
     /**
      * Remove relatedDocuments.
      *
-     * @param \mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments
+     * @param RelatedDocument $relatedDocuments
      */
-    public function removeRelatedDocument(\mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments)
+    public function removeRelatedDocument(RelatedDocument $relatedDocuments)
     {
         $this->relatedDocuments->removeElement($relatedDocuments);
     }
@@ -1610,11 +1624,11 @@ class Etude extends ContainerAware
     /**
      * Set domaineCompetence.
      *
-     * @param \mgate\SuiviBundle\Entity\DomaineCompetence $domaineCompetence
+     * @param DomaineCompetence $domaineCompetence
      *
      * @return Etude
      */
-    public function setDomaineCompetence(\mgate\SuiviBundle\Entity\DomaineCompetence $domaineCompetence = null)
+    public function setDomaineCompetence(DomaineCompetence $domaineCompetence = null)
     {
         $this->domaineCompetence = $domaineCompetence;
 
@@ -1624,7 +1638,7 @@ class Etude extends ContainerAware
     /**
      * Get domaineCompetence.
      *
-     * @return \mgate\SuiviBundle\Entity\DomaineCompetence
+     * @return DomaineCompetence
      */
     public function getDomaineCompetence()
     {

@@ -11,11 +11,16 @@
 
 namespace mgate\SuiviBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use mgate\SuiviBundle\Entity\RepartitionJEH;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\MissionsType;
 use mgate\SuiviBundle\Entity\Mission;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MissionsController extends Controller
 {
@@ -29,12 +34,14 @@ class MissionsController extends Controller
         $entities = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
 
         return $this->render('mgateSuiviBundle:Etude:index.html.twig', array(
-                    'etudes' => $entities,
-                ));
+            'etudes' => $entities,
+        ));
     }
 
     /**
      * @Secure(roles="ROLE_SUIVEUR")
+     * @param $id int id of project.
+     * @return RedirectResponse|Response
      */
     public function modifierAction($id)
     {
@@ -45,29 +52,36 @@ class MissionsController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $missionsToRemove = $etude->getMissions()->toArray();
-
-        $repartitionsToRemove = array();
-        foreach ($missionsToRemove as $mission) {
-            array_push($repartitionsToRemove, $mission->getRepartitionsJEH()->toArray());
+        //save missions and repartition before form handling
+        $missionList = new ArrayCollection();
+        foreach($etude->getMissions() as $mission){
+            $missionList->add($mission);
         }
 
-        $form = $this->createForm(new MissionsType(), $etude);
+        $repartitionList = new ArrayCollection();
+        foreach ($missionList as $mission) {
+            $repartitionList->add($mission->getRepartitionsJEH());
+        }
+
+        /** Form handling */
+        $form = $this->createForm(new MissionsType($etude), $etude);
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
+                //if a new missions set is created
                 if ($this->get('request')->get('add')) {
-                    $missionNew = new Mission();
+                    $missionNew = new Mission(); // add a new empty mission to mission set.
                     $missionNew->setEtude($etude);
                     $etude->addMission($missionNew);
                 }
 
+                //if a repartition is added to a mission
                 if ($this->get('request')->get('addRepartition')) {
-                    $repartitionNew = new \mgate\SuiviBundle\Entity\RepartitionJEH();
+                    $repartitionNew = new RepartitionJEH();
 
                     if ($this->get('request')->get('idMission') !== null) {
                         $idMission = intval($this->get('request')->get('idMission'));
@@ -81,32 +95,25 @@ class MissionsController extends Controller
                         }
                     }
                 }
-
-                // Recherche des missions à supprimer de la BDD
+                //removing existing missions from missionList to get missions to delete
                 foreach ($etude->getMissions() as $mission) {
-                    if (!$mission->isKnownIntervenant() && $mission->getNewIntervenant() != null) {
-                        $mission->setIntervenant($mission->getNewIntervenant());
-                    }
+                    //compare current missions to initial mission list
+                    if ($missionList->contains($mission)) { // mission still exists, let's remove it
+                        $missionList->removeElement($mission);
 
-                    $key = array_search($mission, $missionsToRemove);
-                    if ($key !== false) { // L'entité est trouvée, elle ne doit pas être supprimée
-                        unset($missionsToRemove[$key]);
-
-                        // Recherche des répartitions à supprimer de la BDD
+                        //compare current repartition to initial repartition list
                         foreach ($mission->getRepartitionsJEH() as $repartition) {
-                            $keyJEH = array_search($repartition, $repartitionsToRemove[$key]);
-                            if ($keyJEH !== false) { // L'entité est trouvée, elle ne doit pas être supprimée
-                                unset($repartitionsToRemove[$key][$keyJEH]);
+                            if ($repartitionList->contains($repartition)) { // repartition still exist, let's remove it
+                                $repartitionList->removeElement($repartition);
                             }
                         }
                     }
                 }
-                //Suppression des missions à supprimer de la BDD
-                foreach ($missionsToRemove as $mission) {
+                //at that point we have missionList and repartitionlist are containing only objects to delete. let's iterate on them
+                foreach ($missionList as $mission) {
                     $em->remove($mission);
                 }
-                // Suppression de la BDD des répartitions à supprimer de la BDD
-                foreach ($repartitionsToRemove as $repartitions) {
+                foreach ($repartitionList as $repartitions) {
                     foreach ($repartitions as $repartition) {
                         $em->remove($repartition);
                     }
@@ -120,8 +127,8 @@ class MissionsController extends Controller
         }
 
         return $this->render('mgateSuiviBundle:Mission:missions.html.twig', array(
-                    'form' => $form->createView(),
-                    'etude' => $etude,
-                ));
+            'form' => $form->createView(),
+            'etude' => $etude,
+        ));
     }
 }

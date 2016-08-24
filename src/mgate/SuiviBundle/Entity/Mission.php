@@ -11,7 +11,10 @@
 
 namespace mgate\SuiviBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Membre;
+use mgate\SuiviBundle\Entity\RepartitionJEH;
 
 /**
  * mgate\SuiviBundle\Entity\Mission.
@@ -77,6 +80,12 @@ class Mission extends DocType
     private $repartitionsJEH;
 
     /**
+     * @var Phase
+     * @ORM\OneToMany(targetEntity="mgate\SuiviBundle\Entity\Phase", mappedBy="mission", cascade={"merge"})
+     */
+    private $phases;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="avancement", type="integer", nullable=true)
@@ -107,7 +116,20 @@ class Mission extends DocType
 //Ajout fonction rapide
     public function getReference()
     {
-            return $this->etude->getReference().'/'.$this->getDebutOm()->format('Y').'/RM/'.$this->getVersion();
+        return $this->etude->getReference() . '/' . $this->getDebutOm()->format('Y') . '/RM/' . $this->getVersion();
+    }
+
+
+    public function __construct()
+    {
+        $this->repartitionsJEH = new ArrayCollection();
+        $this->phases = new ArrayCollection();
+        $this->pourcentageJunior = 0.4;
+    }
+
+    public function __toString()
+    {
+        return 'RM - ' . $this->getIntervenant();
     }
 
     /**
@@ -117,8 +139,8 @@ class Mission extends DocType
      */
     public function getRemuneration()
     {
-        $nbrJEHRemuneration = (int) 0;
-        $prixRemuneration = (float) 0;
+        $nbrJEHRemuneration = (int)0;
+        $prixRemuneration = (float)0;
         foreach ($this->getRepartitionsJEH() as $repartitionJEH) {
             $nbrJEHRemuneration += $repartitionJEH->getNbrJEH();
             $prixRemuneration += $repartitionJEH->getNbrJEH() * $repartitionJEH->getPrixJEH();
@@ -130,7 +152,7 @@ class Mission extends DocType
 
     public function getRemunerationBrute()
     {
-        $prixRemuneration = (float) 0;
+        $prixRemuneration = (float)0;
         foreach ($this->getRepartitionsJEH() as $repartitionJEH) {
             $prixRemuneration += $repartitionJEH->getNbrJEH() * $repartitionJEH->getPrixJEH();
         }
@@ -193,11 +215,11 @@ class Mission extends DocType
     /**
      * Set intervenant.
      *
-     * @param mgate\PersonneBundle\Entity\Membre $intervenant
+     * @param Membre $intervenant
      *
      * @return Mission
      */
-    public function setIntervenant(\mgate\PersonneBundle\Entity\Membre $intervenant)
+    public function setIntervenant(Membre $intervenant)
     {
         $this->intervenant = $intervenant;
 
@@ -409,11 +431,11 @@ class Mission extends DocType
     /**
      * Set referentTechnique.
      *
-     * @param \mgate\PersonneBundle\Entity\Membre $referentTechnique
+     * @param Membre $referentTechnique
      *
      * @return Mission
      */
-    public function setReferentTechnique(\mgate\PersonneBundle\Entity\Membre $referentTechnique = null)
+    public function setReferentTechnique(Membre $referentTechnique = null)
     {
         $this->referentTechnique = $referentTechnique;
 
@@ -423,7 +445,7 @@ class Mission extends DocType
     /**
      * Get referentTechnique.
      *
-     * @return \mgate\PersonneBundle\Entity\Membre
+     * @return Membre
      */
     public function getReferentTechnique()
     {
@@ -433,11 +455,11 @@ class Mission extends DocType
     /**
      * Add repartitionsJEH.
      *
-     * @param \mgate\SuiviBundle\Entity\RepartitionJEH $repartitionsJEH
+     * @param RepartitionJEH $repartitionsJEH
      *
      * @return Mission
      */
-    public function addRepartitionsJEH(\mgate\SuiviBundle\Entity\RepartitionJEH $repartitionsJEH)
+    public function addRepartitionsJEH(RepartitionJEH $repartitionsJEH)
     {
         $this->repartitionsJEH[] = $repartitionsJEH;
 
@@ -447,9 +469,9 @@ class Mission extends DocType
     /**
      * Remove repartitionsJEH.
      *
-     * @param \mgate\SuiviBundle\Entity\RepartitionJEH $repartitionsJEH
+     * @param RepartitionJEH $repartitionsJEH
      */
-    public function removeRepartitionsJEH(\mgate\SuiviBundle\Entity\RepartitionJEH $repartitionsJEH)
+    public function removeRepartitionsJEH(RepartitionJEH $repartitionsJEH)
     {
         $this->repartitionsJEH->removeElement($repartitionsJEH);
     }
@@ -464,17 +486,42 @@ class Mission extends DocType
         return $this->repartitionsJEH;
     }
 
+
     /**
-     * Constructor.
+     * Add phase.
+     *
+     * @param Phase $phase
+     *
+     * @return Mission
      */
-    public function __construct()
+    public function addPhase(Phase $phase)
     {
-        $this->repartitionsJEH = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->pourcentageJunior = 0.4;
+        $this->phases[] = $phase;
+        $phase->setMission($this);
+
+        return $this;
     }
 
-    public function __toString()
+    /**
+     * Remove phase.
+     *
+     * @param Phase $phase
+     */
+    public function removePhase(Phase $phase)
     {
-        return 'RM - '.$this->getIntervenant();
+        $this->phases->removeElement($phase);
+        $phase->setMission(null);
     }
+
+    /**
+     * Get phases.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhases()
+    {
+        return $this->phases;
+    }
+
+
 }

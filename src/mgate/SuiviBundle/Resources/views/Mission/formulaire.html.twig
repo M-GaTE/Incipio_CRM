@@ -1,7 +1,71 @@
-<form method="post" {{ form_enctype(form) }}>
+<div class="row">
+	<div class="col-xs-12 col-md-8">
+		<div class="row">
 
-	{{ form_widget(form) }}
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.debutOm) }}<br>
+				{{ form_widget(mission.debutOm) }}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.finOm) }}<br>
+				{{ form_widget(mission.finOm) }}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.pourcentageJunior) }}<br>
+				{{ form_widget(mission.pourcentageJunior) }}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.referentTechnique) }}<br>
+				{{ form_widget(mission.referentTechnique) }}
+			</div>
+		</div>
+		<div class="row" style="margin-top: 10px">
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.version) }}<br>
+				{{ form_widget(mission.version) }}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.dateSignature) }}<br>
+				{{ form_widget(mission.dateSignature) }}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-3">
+				{{ form_label(mission.signataire1) }}<br>
+				{{ form_widget(mission.signataire1) }}
+			</div>
+		</div>
+		<div class="row" style="margin-top: 25px">
+			<div class="col-md-12 col-xs-12">
+				{{ form_label(mission.phases) }}
+				{{ form_widget(mission.phases, {'attr': {'style': 'width:100%'}}) }}
 
-	<input type="submit" value="Enregistrer la phase" class="btn btn-default"/>
-    <input type="submit" value="Enregistrer la phase et passer à une suivante" name="ap" id="ap" class="btn btn-default"/>
-</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-4">
+		<table class="table table-striped table-bordered">
+			<thead>
+			<tr>
+				<td colspan="4">
+					<button class="btn btn-sm" type="submit" value="Ajouter des JEH"
+							name="addRepartition"
+							onclick="document.forms['missionsForm'].elements['idMission'].value = {{ loop.index0 }};"
+							title="Ajouter des JEH" data-toggle="tooltip">
+						<i class="fa fa-plus"></i></button>
+					<h4 style="display: inline;">Répartition des JEH</h4>
+				</td>
+			</tr>
+			</thead>
+			<tbody>
+			{% for repartitionJEH in mission.repartitionsJEH %}
+				<tr class="repartitions">
+					<td>{{ form_label(repartitionJEH.nbrJEH) }}&nbsp;</td>
+					<td>{{ form_widget(repartitionJEH.nbrJEH) }}</td>
+					<td>{{ form_label(repartitionJEH.prixJEH) }}</td>
+					<td>{{ form_widget(repartitionJEH.prixJEH) }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		{{ form_rest(mission) }}
+	</div>
+</div>

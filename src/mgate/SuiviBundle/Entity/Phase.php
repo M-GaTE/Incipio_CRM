@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * mgate\SuiviBundle\Entity\Phase.
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="mgate\SuiviBundle\Entity\PhaseRepository")
  */
 class Phase
 {
@@ -124,6 +124,12 @@ class Phase
     private $etatSurAvenant;
 
     /**
+     * @ORM\ManyToOne(targetEntity="mgate\SuiviBundle\Entity\Mission", inversedBy="phases", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $mission;
+
+    /**
      * ADDITIONAL GETTERS/SETTERS.
      */
     public function getMontantHT()
@@ -151,6 +157,11 @@ class Phase
         $this->validation = 0;
         $this->avenantStatut = 0;
     }
+
+    public function __toString(){
+        return 'Phase : '.$this->getTitre();
+    }
+
 
     /**
      * Get id.
@@ -519,7 +530,22 @@ class Phase
         return $this->etatSurAvenant;
     }
 
-    public function __toString(){
-        return 'Phase : '.$this->getTitre();
+    /**
+     * @return mixed
+     */
+    public function getMission()
+    {
+        return $this->mission;
     }
+
+    /**
+     * @param mixed $mission
+     */
+    public function setMission($mission)
+    {
+        $this->mission = $mission;
+    }
+
+
+
 }
