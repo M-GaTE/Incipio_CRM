@@ -205,7 +205,7 @@ class AvController extends Controller
         foreach (self::$phaseMethodes as $methode) {
             $getMethode = 'get'.$methode;
             $setMethode = 'set'.$methode;
-            if ($phaseToMerge->$getMethode() != null) {
+            if ($phaseToMerge->$getMethode() !== null) {
                 $changes->$setMethode(true);
                 $phaseReceptor->$setMethode($phaseToMerge->$getMethode());
             }
@@ -226,7 +226,7 @@ class AvController extends Controller
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
             $getMethode = 'get'.$methode;
-            $isNotNull = $isNotNull || ($phase->$getMethode() != null && $methode != 'Position');
+            $isNotNull = $isNotNull || ($phase->$getMethode() !== null && $methode != 'Position');
         }
 
         return $isNotNull;

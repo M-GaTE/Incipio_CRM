@@ -54,13 +54,12 @@ class DeclaratifController extends Controller
             ->add('trimestriel', 'checkbox', array('label' => 'Trimestriel ?', 'required' => false))
             ->getForm();
 
-        $periode = '';
         $nfs = array();
         $fas = array();
         $fvs = array();
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
             $data = $form->getData();
             $date = $data['date'];
             $month = $date->format('m');
@@ -109,7 +108,7 @@ class DeclaratifController extends Controller
                     $totalTvaDeductible['TVA'] += $entityDeductibled->getMontantTVA();
 
                     // Mise à jour du montant global pour le taux de TVA ciblé
-                    if (!in_array($tauxTVA, $tvas) && $tauxTVA != null) {
+                    if (!in_array($tauxTVA, $tvas) && $tauxTVA !== null) {
                         $tvas[] = $tauxTVA;
                     }
                     if (!key_exists($tauxTVA, $totalTvaDeductible)) {
@@ -151,7 +150,7 @@ class DeclaratifController extends Controller
                 }
 
                 // Ajout de l'éventuel nouveau taux de TVA à la liste des taux
-                if (!in_array($tauxTVA, $tvas) && $tauxTVA != null) {
+                if (!in_array($tauxTVA, $tvas) && $tauxTVA !== null) {
                     $tvas[] = $tauxTVA;
                 }
             }
@@ -170,7 +169,7 @@ class DeclaratifController extends Controller
                 }
 
                 // Ajout de l'éventuel nouveau taux de TVA à la liste des taux
-                if (!in_array($tauxTVA, $tvas) && $tauxTVA != null) {
+                if (!in_array($tauxTVA, $tvas) && $tauxTVA !== null) {
                     $tvas[] = $tauxTVA;
                 }
             }

@@ -373,7 +373,7 @@ class Etude extends ContainerAware
             $dateDebut = array();
             $phases = $this->phases;
             foreach ($phases as $phase) {
-                if ($phase->getDateDebut() != null) {
+                if ($phase->getDateDebut() !== null) {
                     array_push($dateDebut, $phase->getDateDebut());
                 }
             }
@@ -397,7 +397,7 @@ class Etude extends ContainerAware
         $phases = $this->phases;
 
         foreach ($phases as $p) {
-            if ($p->getDateDebut() != null && $p->getDelai() != null) {
+            if ($p->getDateDebut() !== null && $p->getDelai() !== null) {
                 $dateDebut = clone $p->getDateDebut(); //WARN $a = $b : $a pointe vers le même objet que $b...
                 array_push($dateFin, $dateDebut->modify('+'.$p->getDelai().' day'));
                 unset($dateDebut);
@@ -1003,7 +1003,7 @@ class Etude extends ContainerAware
      */
     public function setAp(Ap $ap = null)
     {
-        if ($ap != null) {
+        if ($ap !== null) {
             $ap->setEtude($this);
         }
 
@@ -1065,7 +1065,7 @@ class Etude extends ContainerAware
      */
     public function setCc(Cc $cc = null)
     {
-        if ($cc != null) {
+        if ($cc !== null) {
             $cc->setEtude($this);
         }
 

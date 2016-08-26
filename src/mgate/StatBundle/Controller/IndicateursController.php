@@ -227,7 +227,7 @@ class IndicateursController extends Controller
         foreach ($nfs as $nf) {
             foreach ($nf->getDetails() as $detail) {
                 $compte = $detail->getCompte();
-                if ($compte != null) {
+                if ($compte !== null) {
                     $compte = $detail->getCompte()->getLibelle();
                     $montantTotal += $detail->getMontantHT();
                     if (array_key_exists($compte, $comptes)) {
@@ -291,7 +291,7 @@ class IndicateursController extends Controller
             foreach ($nfs as $nf) { // Pour chaque NF d'un mandat
                 foreach ($nf->getDetails() as $detail) { // Pour chaque détail d'une NF
                     $compte = $detail->getCompte();
-                    if ($compte != null) {
+                    if ($compte !== null) {
                         $compte = $detail->getCompte()->getLibelle();
                         if (array_key_exists($compte, $comptes)) {
                             if (array_key_exists($mandat, $comptes[$compte])) {

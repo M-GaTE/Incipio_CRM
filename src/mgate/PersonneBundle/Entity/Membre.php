@@ -13,6 +13,12 @@ namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use mgate\PersonneBundle\Entity\Mandat;
+use mgate\PersonneBundle\Entity\Personne;
+use mgate\PersonneBundle\Entity\Poste;
+use mgate\PubliBundle\Entity\RelatedDocument;
+use mgate\SuiviBundle\Entity\Mission;
+use n7consulting\RhBundle\Entity\Competence;
 
 /**
  * mgate\PersonneBundle\Entity\Membre.
@@ -130,6 +136,21 @@ class Membre
     private $competences;
 
 
+    public function __construct()
+    {
+        $this->mandats = new ArrayCollection();
+        $this->missions = new ArrayCollection();
+        $this->relatedDocuments = new ArrayCollection();
+        $this->competences = new ArrayCollection();
+
+    }
+
+    public function __toString()
+    {
+        return $this->getPersonne()->__toString();
+    }
+
+
     /**
      * Get id.
      *
@@ -167,13 +188,13 @@ class Membre
     /**
      * Set personne.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $personne
+     * @param Personne $personne
      *
      * @return Membre
      */
-    public function setPersonne(\mgate\PersonneBundle\Entity\Personne $personne = null)
+    public function setPersonne(Personne $personne = null)
     {
-        if ($personne != null) {
+        if ($personne !== null) {
             $personne->setMembre($this);
         }
         $this->personne = $personne;
@@ -184,7 +205,7 @@ class Membre
     /**
      * Get personne.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getPersonne()
     {
@@ -194,11 +215,11 @@ class Membre
     /**
      * Set poste.
      *
-     * @param \mgate\PersonneBundle\Entity\Membre $poste
+     * @param \mgate\PersonneBundle\Entity\Poste $poste
      *
      * @return Membre
      */
-    public function setPoste(\mgate\PersonneBundle\Entity\Poste $poste = null)
+    public function setPoste(Poste $poste = null)
     {
         $this->poste = $poste;
 
@@ -216,25 +237,13 @@ class Membre
     }
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->mandats = new ArrayCollection();
-        $this->missions = new ArrayCollection();
-        $this->relatedDocuments = new ArrayCollection();
-        $this->competences = new ArrayCollection();
-
-    }
-
-    /**
      * Add mandats.
      *
-     * @param \mgate\PersonneBundle\Entity\Mandat $mandats
+     * @param Mandat $mandats
      *
      * @return Membre
      */
-    public function addMandat(\mgate\PersonneBundle\Entity\Mandat $mandats)
+    public function addMandat(Mandat $mandats)
     {
         $this->mandats[] = $mandats;
 
@@ -244,9 +253,9 @@ class Membre
     /**
      * Remove mandats.
      *
-     * @param \mgate\PersonneBundle\Entity\Mandat $mandats
+     * @param Mandat $mandats
      */
-    public function removeMandat(\mgate\PersonneBundle\Entity\Mandat $mandats)
+    public function removeMandat(Mandat $mandats)
     {
         $this->mandats->removeElement($mandats);
     }
@@ -408,11 +417,11 @@ class Membre
     /**
      * Add missions.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $missions
+     * @param Mission $missions
      *
      * @return Membre
      */
-    public function addMission(\mgate\SuiviBundle\Entity\Mission $missions)
+    public function addMission(Mission $missions)
     {
         $this->missions[] = $missions;
 
@@ -422,9 +431,9 @@ class Membre
     /**
      * Remove missions.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $missions
+     * @param Mission $missions
      */
-    public function removeMission(\mgate\SuiviBundle\Entity\Mission $missions)
+    public function removeMission(Mission $missions)
     {
         $this->missions->removeElement($missions);
     }
@@ -442,11 +451,11 @@ class Membre
     /**
      * Add relatedDocuments.
      *
-     * @param \mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments
+     * @param RelatedDocument $relatedDocuments
      *
      * @return Membre
      */
-    public function addRelatedDocument(\mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments)
+    public function addRelatedDocument(RelatedDocument $relatedDocuments)
     {
         $this->relatedDocuments[] = $relatedDocuments;
 
@@ -456,9 +465,9 @@ class Membre
     /**
      * Remove relatedDocuments.
      *
-     * @param \mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments
+     * @param RelatedDocument $relatedDocuments
      */
-    public function removeRelatedDocument(\mgate\PubliBundle\Entity\RelatedDocument $relatedDocuments)
+    public function removeRelatedDocument(RelatedDocument $relatedDocuments)
     {
         $this->relatedDocuments->removeElement($relatedDocuments);
     }
@@ -568,11 +577,11 @@ class Membre
     /**
      * Add missions.
      *
-     * @param \n7consulting\RhBundle\Entity\Competence $competences
+     * @param Competence $competences
      *
      * @return Membre
      */
-    public function addCompetence(\n7consulting\RhBundle\Entity\Competence $competences)
+    public function addCompetence(Competence $competences)
     {
         $this->competences[] = $competences;
 
@@ -582,9 +591,9 @@ class Membre
     /**
      * Remove missions.
      *
-     * @param \n7consulting\RhBundle\Entity\Competence $competences
+     * @param Competence $competences
      */
-    public function removeCompetence(\n7consulting\RhBundle\Entity\Competence $competences)
+    public function removeCompetence(Competence $competences)
     {
         $this->competences->removeElement($competences);
     }
@@ -598,11 +607,6 @@ class Membre
     {
         return $this->competences;
     }
-	
-	
-    public function __toString()
-    {
-        return $this->getPersonne()->__toString();
-    }
+
 	
 }

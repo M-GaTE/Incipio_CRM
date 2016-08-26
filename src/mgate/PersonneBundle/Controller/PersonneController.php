@@ -50,10 +50,10 @@ class PersonneController extends Controller
          *
          * $mailEtu = $cotisant->getEmailEMSE();
          * $mail = $cotisant->getPersonne()->getEmail();
-         * if ($mail != null) {
+         * if ($mail !== null) {
          * $cotisants[$nom] = $mail;
          * }
-         * if ($mailEtu != null) {
+         * if ($mailEtu !== null) {
          * $cotisantsEtu[$nom] = $mailEtu;
          * }
          * }

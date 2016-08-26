@@ -101,7 +101,7 @@ class EtudeRepository extends EntityRepository
             ->where('e.stateID = :stateId')
             ->setParameter('stateId', $etat[key($etat)]);
 
-        if ($orders != null) {
+        if ($orders !== null) {
             foreach ($orders as $column => $value) {
                 $qb->orderBy('e.' . $column, $value);
             }
@@ -152,7 +152,7 @@ class EtudeRepository extends EntityRepository
             ->where('e.stateID = :stateNegociate or e.stateID= :stateCurrent')
             ->setParameter('stateNegociate', $states[0])
             ->setParameter('stateCurrent', $states[1]);
-        if ($orders != null) {
+        if ($orders !== null) {
             foreach ($orders as $column => $value) {
                 $qb->orderBy('e.' . $column, $value);
             }

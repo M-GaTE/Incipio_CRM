@@ -447,7 +447,7 @@ class EtudeManager extends \Twig_Extension
          * On créé juste un compteur d'erreur pour ne pas spammer l'utilisateur sous un grand nombre d'erreurs liées juste aux phases.
          */
         $phasesErreurDate =0; //compteur des phases avec date incorrectes
-        if($etude->getCc() != null) {
+        if($etude->getCc() !== null) {
             foreach ($etude->getPhases() as $phase) {
                 if ($phase->getDateDebut() < $etude->getCc()->getDateSignature()) {
                     $phasesErreurDate++;

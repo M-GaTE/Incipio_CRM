@@ -164,7 +164,7 @@ class MembreController extends Controller
                     if ($photoUpload) {
                         $document = $documentManager->uploadDocumentFromFile($photoUpload, $authorizedMIMEType, $name, $photoInformation, true);
                         $membre->setPhotoURI($document->getWebPath());
-                    } elseif (!$membre->getPhotoURI() && $promo != null && $membre->getPersonne()) { // Spécifique EMSE
+                    } elseif (!$membre->getPhotoURI() && $promo !== null && $membre->getPersonne()) { // Spécifique EMSE
                         $ressourceURL = 'http://ismin.emse.fr/ismin/Photos/P'.urlencode($path);
                         $headers = get_headers($ressourceURL);
                         if (preg_match('#200#', $headers[0])) {
