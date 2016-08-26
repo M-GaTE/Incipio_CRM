@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use n7consulting\DevcoBundle\Entity\Appel;
 use n7consulting\DevcoBundle\Entity\AppelRepository;
-use n7consulting\DevcoBundle\Form\AppelType;
+use n7consulting\DevcoBundle\Form\Type\AppelType;
 
 class AppelController extends Controller
 {

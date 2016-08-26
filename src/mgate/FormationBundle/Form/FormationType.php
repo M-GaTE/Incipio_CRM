@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\FormationBundle\Form;
+namespace mgate\FormationBundle\Form\Type;
 
 use mgate\FormationBundle\Entity\Formation;
 use Symfony\Component\Form\AbstractType;

@@ -14,7 +14,7 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Av;
-use mgate\SuiviBundle\Form\AvType;
+use mgate\SuiviBundle\Form\Type\AvType;
 
 class PhaseChange
 {

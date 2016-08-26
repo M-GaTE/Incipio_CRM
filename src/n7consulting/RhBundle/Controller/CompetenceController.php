@@ -6,7 +6,7 @@ namespace n7consulting\RhBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use n7consulting\RhBundle\Entity\Competence;
-use n7consulting\RhBundle\Form\CompetenceType;
+use n7consulting\RhBundle\Form\Type\CompetenceType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CompetenceController extends Controller

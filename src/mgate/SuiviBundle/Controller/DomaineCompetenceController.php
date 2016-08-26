@@ -14,7 +14,7 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\DomaineCompetence;
-use mgate\SuiviBundle\Form\DomaineCompetenceType;
+use mgate\SuiviBundle\Form\Type\DomaineCompetenceType;
 
 class DomaineCompetenceController extends Controller
 {

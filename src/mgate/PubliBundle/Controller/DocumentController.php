@@ -14,7 +14,7 @@ namespace mgate\PubliBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PubliBundle\Entity\Document;
-use mgate\PubliBundle\Form\DocumentType;
+use mgate\PubliBundle\Form\Type\DocumentType;
 
 class DocumentController extends Controller
 {

@@ -17,8 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Form\EtudeType;
-use mgate\SuiviBundle\Form\SuiviEtudeType;
+use mgate\SuiviBundle\Form\Type\EtudeType;
+use mgate\SuiviBundle\Form\Type\SuiviEtudeType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 define('STATE_ID_EN_NEGOCIATION', 1);

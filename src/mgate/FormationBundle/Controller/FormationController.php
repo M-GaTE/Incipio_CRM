@@ -13,7 +13,7 @@ namespace mgate\FormationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\FormationBundle\Form\FormationType;
+use mgate\FormationBundle\Form\Type\FormationType;
 use Symfony\Component\HttpFoundation\Request;
 use mgate\FormationBundle\Entity\Formation;
 use Symfony\Component\HttpFoundation\Response;

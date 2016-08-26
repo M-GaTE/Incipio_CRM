@@ -14,7 +14,7 @@ namespace mgate\TresoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Entity\NoteDeFrais as NoteDeFrais;
-use mgate\TresoBundle\Form\NoteDeFraisType as NoteDeFraisType;
+use mgate\TresoBundle\Form\Type\NoteDeFraisType as NoteDeFraisType;
 
 class NoteDeFraisController extends Controller
 {

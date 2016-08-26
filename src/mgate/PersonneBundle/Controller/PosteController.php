@@ -14,7 +14,7 @@ namespace mgate\PersonneBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Poste;
-use mgate\PersonneBundle\Form\PosteType;
+use mgate\PersonneBundle\Form\Type\PosteType;
 
 class PosteController extends Controller
 {

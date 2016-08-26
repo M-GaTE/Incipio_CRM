@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Entity\Facture as Facture;
 use mgate\TresoBundle\Entity\FactureDetail as FactureDetail;
-use mgate\TresoBundle\Form\FactureType as FactureType;
+use mgate\TresoBundle\Form\Type\FactureType as FactureType;
 
 class FactureController extends Controller
 {

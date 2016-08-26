@@ -14,8 +14,8 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\AvMission;
-use mgate\SuiviBundle\Form\AvMissionHandler;
-use mgate\SuiviBundle\Form\AvMissionType;
+use mgate\SuiviBundle\Form\Type\AvMissionHandler;
+use mgate\SuiviBundle\Form\Type\AvMissionType;
 
 class AvMissionController extends Controller
 {

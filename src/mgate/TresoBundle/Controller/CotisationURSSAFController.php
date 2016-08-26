@@ -14,7 +14,7 @@ namespace mgate\TresoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\CotisationURSSAF;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\TresoBundle\Form\CotisationURSSAFType;
+use mgate\TresoBundle\Form\Type\CotisationURSSAFType;
 
 class CotisationURSSAFController extends Controller
 {

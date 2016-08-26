@@ -14,7 +14,7 @@ namespace mgate\TresoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\Compte;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\TresoBundle\Form\CompteType;
+use mgate\TresoBundle\Form\Type\CompteType;
 
 class CompteController extends Controller
 {

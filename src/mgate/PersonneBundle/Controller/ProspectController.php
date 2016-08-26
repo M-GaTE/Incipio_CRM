@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Prospect;
-use mgate\PersonneBundle\Form\ProspectType;
+use mgate\PersonneBundle\Form\Type\ProspectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 

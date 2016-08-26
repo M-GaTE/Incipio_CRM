@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Suivi;
-use mgate\SuiviBundle\Form\SuiviType;
+use mgate\SuiviBundle\Form\Type\SuiviType;
 
 class SuiviController extends Controller
 {

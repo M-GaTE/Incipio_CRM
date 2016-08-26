@@ -14,7 +14,7 @@ namespace mgate\PersonneBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Employe;
-use mgate\PersonneBundle\Form\EmployeType;
+use mgate\PersonneBundle\Form\Type\EmployeType;
 use Symfony\Component\HttpFoundation\Request;
 
 class EmployeController extends Controller

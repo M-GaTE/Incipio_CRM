@@ -13,7 +13,7 @@ namespace mgate\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\UserBundle\Form\UserAdminType;
+use mgate\UserBundle\Form\Type\UserAdminType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

@@ -14,7 +14,7 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Form\GroupesPhasesType;
+use mgate\SuiviBundle\Form\Type\GroupesPhasesType;
 use mgate\SuiviBundle\Entity\GroupePhases;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

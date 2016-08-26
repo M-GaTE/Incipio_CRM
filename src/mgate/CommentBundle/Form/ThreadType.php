@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\CommentBundle\Form;
+namespace mgate\CommentBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

@@ -14,9 +14,9 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Form\ClientContactHandler;
+use mgate\SuiviBundle\Form\Type\ClientContactHandler;
 use mgate\SuiviBundle\Entity\ClientContact;
-use mgate\SuiviBundle\Form\ClientContactType;
+use mgate\SuiviBundle\Form\Type\ClientContactType;
 
 class ClientContactController extends Controller
 {

@@ -14,8 +14,8 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\ProcesVerbal;
-use mgate\SuiviBundle\Form\ProcesVerbalType;
-use mgate\SuiviBundle\Form\ProcesVerbalSubType;
+use mgate\SuiviBundle\Form\Type\ProcesVerbalType;
+use mgate\SuiviBundle\Form\Type\ProcesVerbalSubType;
 
 class ProcesVerbalController extends Controller
 {

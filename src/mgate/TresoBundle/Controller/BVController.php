@@ -15,7 +15,7 @@ use JMS\Serializer\Exception\LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\BV;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\TresoBundle\Form\BVType;
+use mgate\TresoBundle\Form\Type\BVType;
 
 class BVController extends Controller
 {

@@ -14,7 +14,7 @@ namespace mgate\PubliBundle\Controller;
 use mgate\PubliBundle\Entity\Document;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\PubliBundle\Form\DocTypeType;
+use mgate\PubliBundle\Form\Type\DocTypeType;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
