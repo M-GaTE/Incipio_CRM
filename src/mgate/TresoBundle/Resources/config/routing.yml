@@ -1,7 +1,7 @@
 mgate_treso_urssaf:
     path:  /urssaf
     defaults: { _controller: mgateTresoBundle:Urssaf:index }
-
+    methods:  [GET, HEAD, POST]
 
 
 ################################################################################
@@ -13,14 +13,19 @@ mgate_treso_urssaf:
 mgateTreso_Declaratif_index:
     path:  /Declaratifs
     defaults: { _controller: mgateTresoBundle:Declaratif:index }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_Declaratif_TVA:
     path:  /Declaratifs/TVA
     defaults: { _controller: mgateTresoBundle:Declaratif:TVA }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_Declaratif_BRC:
     path:  /Declaratifs/BRC
     defaults: { _controller: mgateTresoBundle:Declaratif:BRC }
+    methods:  [GET, HEAD, POST]
 
 ################################################################################
 #                                                                              #
@@ -31,28 +36,38 @@ mgateTreso_Declaratif_BRC:
 mgateTreso_Facture_index:
     path:  /Factures
     defaults: { _controller: mgateTresoBundle:Facture:index }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_Facture_voir:
     path:  /Facture/{id}
     defaults: { _controller: mgateTresoBundle:Facture:voir }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_Facture_ajouter:
     path:  /Facture/Ajouter/{etude_id}
     defaults: { _controller: mgateTresoBundle:Facture:modifier,  id:-1 , etude_id:-1 }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_Facture_modifier:
     path:  /Facture/Modifier/{id}/{etude_id}
     defaults: { _controller: mgateTresoBundle:Facture:modifier, etude_id:-1 }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_Facture_supprimer:
     path:  /Facture/Supprimer/{id}
     defaults: { _controller: mgateTresoBundle:Facture:supprimer }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 ################################################################################
 #                                                                              #
@@ -63,28 +78,38 @@ mgateTreso_Facture_supprimer:
 mgateTreso_NoteDeFrais_index:
     path:  /NoteDeFrais
     defaults: { _controller: mgateTresoBundle:NoteDeFrais:index }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_NoteDeFrais_voir:
     path:  /NoteDeFrais/{id}
     defaults: { _controller: mgateTresoBundle:NoteDeFrais:voir }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_NoteDeFrais_ajouter:
     path:  /NoteDeFrais/Ajouter
     defaults: { _controller: mgateTresoBundle:NoteDeFrais:modifier,  id:-1  }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_NoteDeFrais_modifier:
     path:  /NoteDeFrais/Modifier/{id}
     defaults: { _controller: mgateTresoBundle:NoteDeFrais:modifier }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_NoteDeFrais_supprimer:
     path:  /NoteDeFrais/Supprimer/{id}
     defaults: { _controller: mgateTresoBundle:NoteDeFrais:supprimer }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 ################################################################################
 #                                                                              #
@@ -94,37 +119,43 @@ mgateTreso_NoteDeFrais_supprimer:
 mgateTreso_BV_index:
     path:  /BV
     defaults: { _controller: mgateTresoBundle:BV:index }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_BV_voir:
     path:  /BV/Voir/{id}
     defaults: { _controller: mgateTresoBundle:BV:voir }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_BV_ajouter:
     path:  /BV/Ajouter
     defaults: { _controller: mgateTresoBundle:BV:modifier,  id:-1  }
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_BV_modifier:
     path:  /BV/Modifier/{id}
     defaults: { _controller: mgateTresoBundle:BV:modifier }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
+
 
 mgateTreso_BV_supprimer:
     path:  /BV/Supprimer/{id}
     defaults: { _controller: mgateTresoBundle:BV:supprimer }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
-################################################################################
-################################################################################
+
 ################################################################################
 #
 #                               ADMINISTRATION
 #
-################################################################################
-################################################################################
 ################################################################################
 
 ################################################################################
@@ -136,22 +167,26 @@ mgateTreso_BV_supprimer:
 mgateTreso_Compte_index:
     path:  /Comptes
     defaults: { _controller: mgateTresoBundle:Compte:index }
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_Compte_ajouter:
     path:  /Compte/Ajouter
     defaults: { _controller: mgateTresoBundle:Compte:modifier,  id:-1, etude_id :-1  }
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_Compte_modifier:
     path:  /Compte/Modifier/{id}
     defaults: { _controller: mgateTresoBundle:Compte:modifier }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_Compte_supprimer:
     path:  /Compte/Supprimer/{id}
     defaults: { _controller: mgateTresoBundle:Compte:supprimer }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 ################################################################################
 #                                                                              #
@@ -161,22 +196,26 @@ mgateTreso_Compte_supprimer:
 mgateTreso_BaseURSSAF_index:
     path:  /BasesURSSAF
     defaults: { _controller: mgateTresoBundle:BaseURSSAF:index }
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_BaseURSSAF_ajouter:
     path:  /BaseURSSAF/Ajouter
     defaults: { _controller: mgateTresoBundle:BaseURSSAF:modifier,  id:-1  }
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_BaseURSSAF_modifier:
     path:  /BaseURSSAF/Modifier/{id}
     defaults: { _controller: mgateTresoBundle:BaseURSSAF:modifier }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_BaseURSSAF_supprimer:
     path:  /BaseURSSAF/Supprimer/{id}
     defaults: { _controller: mgateTresoBundle:BaseURSSAF:supprimer }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 
 ################################################################################
@@ -188,19 +227,23 @@ mgateTreso_BaseURSSAF_supprimer:
 mgateTreso_CotisationURSSAF_index:
     path:  /CotisationsURSSAF
     defaults: { _controller: mgateTresoBundle:CotisationURSSAF:index }
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_CotisationURSSAF_ajouter:
     path:  /CotisationURSSAF/Ajouter
     defaults: { _controller: mgateTresoBundle:CotisationURSSAF:modifier,  id:-1  }
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_CotisationURSSAF_modifier:
     path:  /CotisationURSSAF/Modifier/{id}
     defaults: { _controller: mgateTresoBundle:CotisationURSSAF:modifier }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateTreso_CotisationURSSAF_supprimer:
     path:  /CotisationURSSAF/Supprimer/{id}
     defaults: { _controller: mgateTresoBundle:BV:supprimer }
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
