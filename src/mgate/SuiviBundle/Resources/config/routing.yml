@@ -3,88 +3,104 @@
 mgateSuivi_domaine_index:
     path: /DomainesDeCompetence
     defaults: {_controller: mgateSuiviBundle:DomaineCompetence:index }
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_domaine_delete:
     path: /DomainesDeCompetence/Supprimer/{id}
     defaults: {_controller: mgateSuiviBundle:DomaineCompetence:delete }
     requirements:
       id : \d+
+    methods:  [GET, HEAD, POST]
 
 ###############################################################################
 
 mgateSuivi_vu_ca:
     path:  /ca/{id}
     defaults: {_controller: mgateSuiviBundle:Etude:vuCA, id:-1 }
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_homepage:
     path:  /{page}
     defaults: {_controller: mgateSuiviBundle:Etude:index , page: 1}
     requirements:
       page : \d*
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_ajax:
     path:  /get
     defaults: {_controller: mgateSuiviBundle:Etude:getEtudesAsync}
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_suivi:
     path: /etudes/suivi
     defaults: {_controller: mgateSuiviBundle:Etude:suivi}
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_suiviQualite:
     path: /etudes/suiviQualite
     defaults: {_controller: mgateSuiviBundle:Etude:suiviQualite}
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_ajouter:
     path: /etude/ajouter
     defaults: {_controller: mgateSuiviBundle:Etude:add}
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_voir:
     path:   /etude/{nom}
     defaults: {_controller: mgateSuiviBundle:Etude:voir}
     requirements:
         numero:  \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_modifier:
     path: /etude/modifier/{nom}
     defaults: {_controller: mgateSuiviBundle:Etude:modifier}
     requirements:
         numero:  \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_supprimer:
     path: /etude/supprimer/{nom}
     defaults: {_controller: mgateSuiviBundle:Etude:delete}
     requirements:
         numero: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_ap_voir:
     path: /ap/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Ap:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_ap_rediger:
     path: /ap/rediger/{id}
     defaults: {_controller: mgateSuiviBundle:Ap:rediger}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_ap_suivi:
     path: /ap/suivi/{id}
     defaults: {_controller: mgateSuiviBundle:Ap:suivi}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_cc_rediger:
     path: /cc/rediger/{id}
     defaults: {_controller: mgateSuiviBundle:Cc:rediger}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_cc_voir:
     path: /cc/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Cc:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 #mgateSuivi_cc_suivi:
 #    path: /cc/suivi/{id}
@@ -98,16 +114,19 @@ mgateSuivi_missions_modifier:
     defaults: {_controller: mgateSuiviBundle:Missions:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 #AJOUT AJAX
 
 mgateSuivi_mission_avancement:
     path: /missions/modifier/avancement/
     defaults: {_controller: mgateSuiviBundle:Mission:avancement}
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_state:
     path: /suivi/state/
     defaults: {_controller: mgateSuiviBundle:Etude:state}
+    methods:  [GET, HEAD, POST]
 
 #mgateSuivi_missions_repartition:
 #    path: /missions/repartition/{id}
@@ -121,22 +140,26 @@ mgateSuivi_clientcontact_ajouter:
     defaults: {_controller: mgateSuiviBundle:ClientContact:add}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_clientcontact_modifier:
     path: /clientcontact/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:ClientContact:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_clientcontact_voir:
     path: /clientcontact/voir/{id}
     defaults: {_controller: mgateSuiviBundle:ClientContact:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_clientcontact_index:
     path: /clientcontact/
     defaults: {_controller: mgateSuiviBundle:ClientContact:index}
+    methods:  [GET, HEAD, POST]
 
 
 mgateSuivi_suivi_ajouter:
@@ -144,22 +167,26 @@ mgateSuivi_suivi_ajouter:
     defaults: {_controller: mgateSuiviBundle:Suivi:add}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_suivi_modifier:
     path: /suivi/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Suivi:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_suivi_voir:
     path: /suivi/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Suivi:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_suivi_index:
     path: /suivi
     defaults: {_controller: mgateSuiviBundle:Suivi:index}
+    methods:  [GET, HEAD, POST]
 
 
 mgateSuivi_av_ajouter:
@@ -167,24 +194,28 @@ mgateSuivi_av_ajouter:
     defaults: {_controller: mgateSuiviBundle:Av:add}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_av_modifier:
     path: /av/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Av:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_av_voir:
     path: /av/voir/{id}
     defaults: {_controller: mgateSuiviBundle:Av:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_avmission_ajouter:
     path: /avmission/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:AvMission:add}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 
 mgateSuivi_avmission_voir:
@@ -192,6 +223,7 @@ mgateSuivi_avmission_voir:
     defaults: {_controller: mgateSuiviBundle:AvMission:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 
 mgateSuivi_avmission_modifier:
@@ -199,47 +231,55 @@ mgateSuivi_avmission_modifier:
     defaults: {_controller: mgateSuiviBundle:AvMission:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_phases_modifier:
     path: /phases/modifier/{id}
     defaults: {_controller: mgateSuiviBundle:Phases:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_procesverbal_ajouter:
     path: /procesverbal/ajouter/{id}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:add}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_procesverbal_modifier:
     path: /procesverbal/modifier/{id_pv}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_procesverbal_rediger:
     path: /procesverbal/rediger/{id_etude}/{type}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:rediger}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_procesverbal_voir:
     path: /procesverbal/voir/{id}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:voir}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_procesverbal_supprimer:
     path: /procesverbal/supprimer/{id_pv}
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:delete}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
 
 mgateSuivi_etude_suivi_update:
     path:  /suivi/update/{id}
     defaults: { _controller: mgateSuiviBundle:Etude:suiviUpdate }
     methods:  [POST]
+    methods:  [GET, HEAD, POST]
 
 
 mgateSuivi_groupes_modifier:
@@ -247,3 +287,4 @@ mgateSuivi_groupes_modifier:
     defaults: {_controller: mgateSuiviBundle:GroupePhases:modifier}
     requirements:
         id: \d+
+    methods:  [GET, HEAD, POST]
