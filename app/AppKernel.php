@@ -46,15 +46,8 @@ class AppKernel extends Kernel
             new Ob\HighchartsBundle\ObHighchartsBundle(),
 			new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             
-            
-            
-            //new Io\FormBundle\IoFormBundle(),
 			new JMS\SerializerBundle\JMSSerializerBundle($this),
-            // JMS Security Extra Bundle :
-            new JMS\AopBundle\JMSAopBundle(),
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-			
+
 			/****************************************
 			*				M-GaTE					*
 			*****************************************/

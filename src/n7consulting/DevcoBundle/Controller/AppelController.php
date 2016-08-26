@@ -3,7 +3,7 @@
 namespace n7consulting\DevcoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use n7consulting\DevcoBundle\Entity\Appel;
 use n7consulting\DevcoBundle\Entity\AppelRepository;
 use n7consulting\DevcoBundle\Form\AppelType;
@@ -11,7 +11,7 @@ use n7consulting\DevcoBundle\Form\AppelType;
 class AppelController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction()
     {
@@ -19,7 +19,7 @@ class AppelController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajouterAction(){
         $em = $this->getDoctrine()->getManager();
@@ -46,7 +46,7 @@ class AppelController extends Controller
 
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -77,7 +77,7 @@ class AppelController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * utilisation du paramconverter
      */
     public function voirAction(Appel $appel, $id){
@@ -86,7 +86,7 @@ class AppelController extends Controller
 
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function deleteAction($id)
     {

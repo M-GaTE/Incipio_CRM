@@ -12,14 +12,14 @@
 namespace mgate\PubliBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PubliBundle\Entity\Document;
 use mgate\PubliBundle\Form\DocumentType;
 
 class DocumentController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function indexAction()
     {
@@ -39,7 +39,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function uploadEtudeAction($etude_id)
     {
@@ -65,7 +65,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function uploadEtudiantAction($membre_id)
     {
@@ -87,14 +87,14 @@ class DocumentController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function uploadFormationAction($id)
     {
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function uploadDoctypeAction()
     {
@@ -107,7 +107,7 @@ class DocumentController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function deleteAction($id)
     {

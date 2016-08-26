@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\GroupesPhasesType;
 use mgate\SuiviBundle\Entity\GroupePhases;
@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class GroupePhasesController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {

@@ -13,13 +13,13 @@ namespace mgate\TresoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\BaseURSSAF;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Form\BaseURSSAFType;
 
 class BaseURSSAFController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class BaseURSSAFController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function modifierAction($id)
     {
@@ -59,7 +59,7 @@ class BaseURSSAFController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function supprimerAction($id)
     {

@@ -12,7 +12,7 @@
 namespace mgate\PersonneBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Membre;
 use mgate\PersonneBundle\Entity\Personne;
 use mgate\PersonneBundle\Entity\Mandat;
@@ -22,7 +22,7 @@ use mgate\PubliBundle\Entity\RelatedDocument;
 class MembreController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction()
     {
@@ -36,7 +36,7 @@ class MembreController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function listIntervenantsAction()
     {
@@ -49,7 +49,7 @@ class MembreController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function statistiqueAction($page)
     {
@@ -72,7 +72,7 @@ class MembreController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ELEVE")
+     * @Security("has_role('ROLE_ELEVE')")
      */
     public function voirAction($id)
     {
@@ -94,7 +94,7 @@ class MembreController extends Controller
      */
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {
@@ -240,7 +240,7 @@ class MembreController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function deleteAction($id)
     {
@@ -283,7 +283,7 @@ class MembreController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function impayesAction()
     {

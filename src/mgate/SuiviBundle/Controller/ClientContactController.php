@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\ClientContactHandler;
 use mgate\SuiviBundle\Entity\ClientContact;
@@ -21,7 +21,7 @@ use mgate\SuiviBundle\Form\ClientContactType;
 class ClientContactController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction()
     {
@@ -35,7 +35,7 @@ class ClientContactController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function addAction($id)
     {
@@ -74,7 +74,7 @@ class ClientContactController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($id)
     {
@@ -104,7 +104,7 @@ class ClientContactController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {

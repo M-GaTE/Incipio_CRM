@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Cc;
 use mgate\SuiviBundle\Form\CcType;
@@ -20,7 +20,7 @@ use mgate\SuiviBundle\Form\CcType;
 class CcController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -34,7 +34,7 @@ class CcController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($id)
     {
@@ -60,7 +60,7 @@ class CcController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function redigerAction($id)
     {

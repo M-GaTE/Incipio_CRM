@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\AvMission;
 use mgate\SuiviBundle\Form\AvMissionHandler;
 use mgate\SuiviBundle\Form\AvMissionType;
@@ -20,7 +20,7 @@ use mgate\SuiviBundle\Form\AvMissionType;
 class AvMissionController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -34,7 +34,7 @@ class AvMissionController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function addAction($id)
     {
@@ -64,7 +64,7 @@ class AvMissionController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($id)
     {
@@ -90,7 +90,7 @@ class AvMissionController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {

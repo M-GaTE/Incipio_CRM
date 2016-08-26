@@ -12,14 +12,14 @@
 namespace mgate\PersonneBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Membre;
 use mgate\PersonneBundle\Entity\Personne;
 
 class PersonneController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function annuaireAction()
     {
@@ -33,7 +33,7 @@ class PersonneController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function listeMailAction()
     {
@@ -84,7 +84,7 @@ class PersonneController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction($id)
     {

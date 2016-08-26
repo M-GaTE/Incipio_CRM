@@ -14,7 +14,7 @@ namespace mgate\StatBundle\Controller;
 use mgate\StatBundle\Entity\Indicateur;
 use mgate\StatBundle\Manager\ChartFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,7 +29,7 @@ class IndicateursController extends Controller
 
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function indexAction()
     {
@@ -45,7 +45,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function debugAction($get)
     {
@@ -58,7 +58,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function ajaxAction()
     {
@@ -79,7 +79,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getRetardParMandat()
@@ -147,7 +147,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getNombreEtudes()
@@ -209,7 +209,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getRepartitionSorties()
     {
@@ -269,7 +269,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getSortie()
     {
@@ -357,7 +357,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getPartClientFidel()
     {
@@ -415,7 +415,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getNombreDePresentFormationsTimed()
     {
@@ -492,7 +492,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getNombreFormationsParMandat()
     {
@@ -527,7 +527,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     // NB On se base pas sur les numéro mais les dates de signature CC !
     private function getTauxDAvenantsParMandat()
@@ -594,7 +594,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getRepartitionClientSelonChiffreAffaire()
     {
@@ -641,7 +641,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getRepartitionClientParNombreDEtude()
     {
@@ -697,7 +697,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getNombreMembres()
     {
@@ -769,7 +769,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getMembresParPromo()
     {
@@ -813,7 +813,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getIntervenantsParPromo()
     {
@@ -854,7 +854,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getCAM()
     {
@@ -948,7 +948,7 @@ class IndicateursController extends Controller
      */
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getCA()
     {
@@ -1036,7 +1036,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getRh()
     {
@@ -1178,7 +1178,7 @@ class IndicateursController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getSourceProspectionParNombreDEtude()
     {
@@ -1226,7 +1226,7 @@ class IndicateursController extends Controller
 
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     private function getSourceProspectionSelonChiffreAffaire()
     {

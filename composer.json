@@ -18,7 +18,6 @@
         "gedmo/doctrine-extensions": "~2.3",
         "genemu/form-bundle": "v2.2.1",
         "incenteev/composer-parameter-handler": "~2.0",
-        "jms/security-extra-bundle": "~1.5",
         "ob/highcharts-bundle": "~1.2",
         "sensio/distribution-bundle": "~2.3",
         "sensio/framework-extra-bundle": "~3.0",

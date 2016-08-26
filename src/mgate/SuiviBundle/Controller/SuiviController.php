@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Suivi;
 use mgate\SuiviBundle\Form\SuiviType;
@@ -20,7 +20,7 @@ use mgate\SuiviBundle\Form\SuiviType;
 class SuiviController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function indexAction()
     {
@@ -42,7 +42,7 @@ class SuiviController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function addAction($id)
     {
@@ -84,7 +84,7 @@ class SuiviController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function voirAction($id)
     {
@@ -108,7 +108,7 @@ class SuiviController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function modifierAction($id)
     {

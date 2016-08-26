@@ -14,7 +14,7 @@ namespace mgate\SuiviBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use mgate\SuiviBundle\Entity\RepartitionJEH;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\MissionsType;
 use mgate\SuiviBundle\Entity\Mission;
@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class MissionsController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -39,7 +39,7 @@ class MissionsController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * @param $id int id of project.
      * @return RedirectResponse|Response
      */

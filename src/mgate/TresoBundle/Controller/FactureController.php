@@ -12,7 +12,7 @@
 namespace mgate\TresoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Entity\Facture as Facture;
 use mgate\TresoBundle\Entity\FactureDetail as FactureDetail;
 use mgate\TresoBundle\Form\FactureType as FactureType;
@@ -20,7 +20,7 @@ use mgate\TresoBundle\Form\FactureType as FactureType;
 class FactureController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function indexAction()
     {
@@ -31,7 +31,7 @@ class FactureController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function voirAction($id)
     {
@@ -44,7 +44,7 @@ class FactureController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function modifierAction($id, $etude_id)
     {
@@ -139,7 +139,7 @@ class FactureController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function supprimerAction($id)
     {

@@ -4,7 +4,7 @@ namespace n7consulting\RhBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use n7consulting\RhBundle\Entity\Competence;
 use n7consulting\RhBundle\Form\CompetenceType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class CompetenceController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajouterAction()
     {
@@ -39,7 +39,7 @@ class CompetenceController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -52,7 +52,7 @@ class CompetenceController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($id)
     {
@@ -76,7 +76,7 @@ class CompetenceController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {
@@ -122,7 +122,7 @@ class CompetenceController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      */
     public function deleteAction($id)
     {

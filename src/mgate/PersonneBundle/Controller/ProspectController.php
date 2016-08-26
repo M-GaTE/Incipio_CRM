@@ -14,7 +14,7 @@ namespace mgate\PersonneBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PersonneBundle\Form\ProspectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProspectController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajouterAction($format)
     {
@@ -50,7 +50,7 @@ class ProspectController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -64,7 +64,7 @@ class ProspectController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($id)
     {
@@ -102,7 +102,7 @@ class ProspectController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {
@@ -134,7 +134,7 @@ class ProspectController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function deleteAction($id)
     {
@@ -175,7 +175,7 @@ class ProspectController extends Controller
     /**
      * Point d'entré ajax retournant un json des prospect dont le nom contient une partie de $_GET['term'].
      * @Route("/ajax_prospect", name="ajax_prospect")
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajaxProspectAction(Request $request)
     {
@@ -200,7 +200,7 @@ class ProspectController extends Controller
 
     /**
      * Point d'entrée ajax retournant un Json avec la liste des employés d'un prospect donné.
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajaxEmployesAction(Prospect $prospect, $id){
 

@@ -4,7 +4,7 @@ namespace mgate\PubliBundle\Controller;
 
 use mgate\SuiviBundle\Entity\Etude;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class GanttController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * Génère le Gantt Chart de l'étude passée en paramètre.
      * @param Etude $etude project whom gantt chart should be exported.
      * @param int $width width of exported gantt

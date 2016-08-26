@@ -12,14 +12,14 @@
 namespace mgate\PersonneBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Poste;
 use mgate\PersonneBundle\Form\PosteType;
 
 class PosteController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajouterAction()
     {
@@ -46,7 +46,7 @@ class PosteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -60,7 +60,7 @@ class PosteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ELEVE")
+     * @Security("has_role('ROLE_ELEVE')")
      */
     public function voirAction($id)
     {
@@ -80,7 +80,7 @@ class PosteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {
@@ -111,7 +111,7 @@ class PosteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function deleteAction($id)
     {

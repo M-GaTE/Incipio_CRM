@@ -13,7 +13,7 @@ namespace mgate\TresoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\Compte;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Form\CompteType;
 
 class CompteController extends Controller
@@ -27,7 +27,7 @@ class CompteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function modifierAction($id)
     {
@@ -56,7 +56,7 @@ class CompteController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function supprimerAction($id)
     {

@@ -15,7 +15,7 @@ use mgate\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\EtudeType;
 use mgate\SuiviBundle\Form\SuiviEtudeType;
@@ -30,7 +30,7 @@ define('STATE_ID_AVORTEE', 5);
 class EtudeController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -71,7 +71,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function getEtudesAsyncAction()
     {
@@ -99,7 +99,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * @param Request $request
      * @return Response
      */
@@ -124,7 +124,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function addAction()
     {
@@ -174,7 +174,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($nom)
     {
@@ -207,7 +207,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($nom)
     {
@@ -243,7 +243,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      * @param $nom string short name of project
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -294,7 +294,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function suiviAction()
     {
@@ -375,7 +375,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function suiviQualiteAction()
     {
@@ -396,7 +396,7 @@ class EtudeController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function suiviUpdateAction($id)
     {
@@ -431,7 +431,7 @@ class EtudeController extends Controller
 
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function vuCAAction($id)
     {

@@ -12,7 +12,7 @@
 namespace mgate\FormationBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\FormationBundle\Form\FormationType;
 use Symfony\Component\HttpFoundation\Request;
 use mgate\FormationBundle\Entity\Formation;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 class FormationController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      * Display a list of all training given order by date desc
      */
     public function indexAction()
@@ -35,7 +35,7 @@ class FormationController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * Display a list of all training group by term.
      */
     public function listerAction()
@@ -49,7 +49,7 @@ class FormationController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      * @param Formation $formation The training to display
      * @return Response
      * Display a training
@@ -62,7 +62,7 @@ class FormationController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      * @param $id mixed valid id : modify an existing training; unknown id : display a creation form.
      * @return Response
      * Manage creation and update of a training.
@@ -103,7 +103,7 @@ class FormationController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_CA")
+     * @Security("has_role('ROLE_CA')")
      * @param Request $request
      * @return Response
      * Manage particpant present to a training
@@ -160,7 +160,7 @@ class FormationController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      * @param Formation $formation The training to delete (paramconverter from id)
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * Delete a training

@@ -12,14 +12,14 @@
 namespace mgate\TresoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Entity\NoteDeFrais as NoteDeFrais;
 use mgate\TresoBundle\Form\NoteDeFraisType as NoteDeFraisType;
 
 class NoteDeFraisController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class NoteDeFraisController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function voirAction($id)
     {
@@ -43,7 +43,7 @@ class NoteDeFraisController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function modifierAction($id)
     {
@@ -77,7 +77,7 @@ class NoteDeFraisController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function supprimerAction($id)
     {

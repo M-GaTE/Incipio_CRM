@@ -13,7 +13,7 @@ namespace mgate\PubliBundle\Controller;
 
 use mgate\PubliBundle\Entity\Document;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PubliBundle\Form\DocTypeType;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,7 +66,7 @@ class TraitementController extends Controller
     private $refDocx;
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function publiposterAction($templateName, $rootName, $rootObject_id)
     {
@@ -208,7 +208,7 @@ class TraitementController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function telechargerAction($templateName)
     {
@@ -471,7 +471,7 @@ class TraitementController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function uploadNewDoctypeAction()
     {

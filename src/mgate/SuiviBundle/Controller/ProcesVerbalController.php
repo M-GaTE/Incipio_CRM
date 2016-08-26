@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\ProcesVerbal;
 use mgate\SuiviBundle\Form\ProcesVerbalType;
 use mgate\SuiviBundle\Form\ProcesVerbalSubType;
@@ -20,7 +20,7 @@ use mgate\SuiviBundle\Form\ProcesVerbalSubType;
 class ProcesVerbalController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function indexAction($page)
     {
@@ -34,7 +34,7 @@ class ProcesVerbalController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function voirAction($id)
     {
@@ -60,7 +60,7 @@ class ProcesVerbalController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function addAction($id)
     {
@@ -95,7 +95,7 @@ class ProcesVerbalController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function modifierAction($id_pv)
     {
@@ -134,7 +134,7 @@ class ProcesVerbalController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function redigerAction($id_etude, $type)
     {
@@ -177,7 +177,7 @@ class ProcesVerbalController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function deleteAction($id_pv)
     {

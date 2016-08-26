@@ -12,14 +12,14 @@
 namespace mgate\TresoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\HttpFoundation\Request;
 
 class DeclaratifController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class DeclaratifController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function TVAAction(Request $request)
     {
@@ -191,7 +191,7 @@ class DeclaratifController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function BRCAction(Request $request)
     {

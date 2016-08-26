@@ -14,13 +14,13 @@ namespace mgate\TresoBundle\Controller;
 use JMS\Serializer\Exception\LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use mgate\TresoBundle\Entity\BV;
-use JMS\SecurityExtraBundle\Annotation\Secure;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\TresoBundle\Form\BVType;
 
 class BVController extends Controller
 {
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function indexAction()
     {
@@ -31,7 +31,7 @@ class BVController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO")
+     * @Security("has_role('ROLE_TRESO')")
      */
     public function voirAction($id)
     {
@@ -42,7 +42,7 @@ class BVController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_TRESO, ROLE_SUIVEUR")
+     * @Security("has_role('ROLE_TRESO', 'ROLE_SUIVEUR')")
      */
     public function modifierAction($id)
     {
@@ -86,7 +86,7 @@ class BVController extends Controller
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function supprimerAction($id)
     {
