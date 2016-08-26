@@ -1,21 +1,27 @@
 mgate_user_lister:
-    pattern:  /user/lister
+    path:  /user/lister
     defaults: { _controller: mgateUserBundle:Default:lister }
+    methods:  [GET, HEAD, POST]
+
 
 mgate_user_voir:
-    pattern:  /user/voir/{id}
+    path:  /user/voir/{id}
     defaults: { _controller: mgateUserBundle:Default:voir }
+    methods:  [GET, HEAD, POST]
 
 mgate_user_modifier:
-    pattern:  /user/modifier/{id}
+    path:  /user/modifier/{id}
     defaults: { _controller: mgateUserBundle:Default:modifier }
+    methods:  [GET, HEAD, POST]
 
 mgate_user_supprimer:
-    pattern:  /user/supprimer/{id}
+    path:  /user/supprimer/{id}
     defaults: { _controller: mgateUserBundle:Default:delete }
+    methods:  [GET, HEAD, POST]
 
 
 mgate_user_addFromPersonne:
-    pattern: /user/addFromPersonne/{id}
+    path: /user/addFromPersonne/{id}
     defaults: { _controller: mgateUserBundle:Default:addUserFromPersonne }
+    methods:  [GET, HEAD, POST]
 
