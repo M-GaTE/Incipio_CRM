@@ -27,7 +27,7 @@ class UrssafController extends Controller
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if($form->isValid()) {
+            if ($form->isValid()) {
                 $data = $form->getData();
                 return $this->redirect($this->generateUrl('mgate_treso_urssaf', array('year' => $data['date']->format('Y'),
                     'month' => $data['date']->format('m')
@@ -35,25 +35,24 @@ class UrssafController extends Controller
             }
         }
 
-        if($year == null || $month === null){
+        if ($year == null || $month === null) {
             $date = new \DateTime('now');
-        }
-        else{
+        } else {
             $date = new \DateTime();
-            $date->setDate($year,$month,01);
+            $date->setDate($year, $month, 01);
         }
 
-            $qb = $em->createQueryBuilder();
-            $qb->select('m')
-                ->from('mgateSuiviBundle:Mission', 'm')
-                ->where('m.debutOm <= :date')
-                ->orderBy('m.finOm', 'DESC')
-                //->andWhere('m.finOm >= :date')
-                ->setParameters(array('date' => $date));
+        $qb = $em->createQueryBuilder();
+        $qb->select('m')
+            ->from('mgateSuiviBundle:Mission', 'm')
+            ->where('m.debutOm <= :date')
+            ->orderBy('m.finOm', 'DESC')
+            //->andWhere('m.finOm >= :date')
+            ->setParameters(array('date' => $date));
 
-            $RMs = $qb->getQuery()->getResult();
+        $RMs = $qb->getQuery()->getResult();
 
 
-return $this->render('mgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
-}
+        return $this->render('mgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
+    }
 }

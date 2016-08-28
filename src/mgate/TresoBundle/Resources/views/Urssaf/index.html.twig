@@ -1,83 +1,97 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
-{% block title %}
-	Accueil - {{ parent() }}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
 {% endblock %}
+
+{% block title %}Tableau des intervenants - {{ parent() }}{% endblock %}
+
+{% block content_title %}
+    Tableau des intervenants
+{% endblock %}
+
 
 {% block content_bundle %}
 
-
-        <h2>URSSAF</h2>
-
-<form method="post" {{ form_enctype(form) }}>
-    {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
-	{{ form_label(form.date) }} {{ form_widget(form.date) }}
-	{{ form_widget(form) }}
-	<br>
-    <input type="submit" value="Chercher" class="btn"/>
-</form>
+    <form method="post" {{ form_enctype(form) }}>
+        {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
+        {{ form_label(form.date) }} {{ form_widget(form.date) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Chercher" class="btn btn-primary"/>
+    </form>
 
 
-<br>
-<table class="table table-striped" id="myTable">
-      <thead>
-          <tr>
-              <th>
-                  <div>Nom de l'étude</div>
-                  <div>Référence</div>
-              </th>
-              <th>
-                  <div>Client</div>
-                  <div>Suiveur</div>
-              </th>
-              <th>
-                  <div>Date de Lancement de l'étude</div>
-                  <div>Date de Fin de l'étude</div>
-              </th>
-              <th>
-                   Nom Prénom
-              </th>
-              <th>
-                   <div>Nombre de JEH de l'étude</div>
-              </th>
-              <th>
-                   <div>Nombre de JEH pour l'étudiant</div>
-              </th>
-            </tr>
- 	 </thead>
- 	 <tbody>
+    <br>
+    <table class="table table-bordered table-striped dataTable dt-responsive" id="listeUrssaf" role="grid">
+        <thead>
+        <tr>
+            <th>
+                <div>Nom de l'étude</div>
+            </th>
+            <th>
+                <div>Client</div>
+                <div>Suiveur</div>
+            </th>
+            <th>
+                <div>Date de Lancement de l'étude</div>
+                <div>Date de Fin de l'étude</div>
+            </th>
+            <th>
+                Nom Prénom
+            </th>
+            <th>
+                <div>Nombre de JEH de l'étude</div>
+            </th>
+            <th>
+                <div>Nombre de JEH pour l'étudiant</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
 
         {% for rm in RMs %}
-    <tr>
-    <td><div>{{ rm.etude.nom }}</div><div> <a href="{{ path('mgateSuivi_etude_voir', {'nom': rm.etude.nom}) }}"> {{ rm.etude.reference }}</a></div></td>
-    <td>{{ rm.etude.prospect.nom }}
-        <br /><br />
-     {{rm.etude.suiveur.prenomNom| default("Pas de suiveur!")}}</td>
-    <td>
-            {% if rm.etude.dateLancement != NULL %}<div>{{ rm.etude.dateLancement |date("d/m/Y") }}</div>{% endif %}
-            {% if rm.etude.dateFin != NULL %}<div>{{ rm.etude.dateFin|date("d/m/Y") }}</div>{% endif %}
-        </td>
-            <td>
-                {{ rm.intervenant.personne.prenomNom | default("Intervenant non choisi") }} {{ rm.intervenant.nom | default("") }}
-            </td>
-            <td>
-                <div>{{ rm.etude.montantHT |default('') }} €</div>
-                <div>{{ rm.etudenbrJEH |default('') }} JEH</div>
-            </td>
-           <td>
-               {% set totalJEH = 0 %}
-               {% set totalRem = 0 %}
-               {% for repartition in rm.repartitionsJEH if repartition %}
-               {% set totalJEH = totalJEH + repartition.nbrJEH %}
-               {% set totalRem = totalRem + repartition.nbrJEH * repartition.prixJEH * (1-rm.pourcentageJunior/100) %}
-                <div>Repartition n°{{ loop.index }} : {{ repartition.nbrJEH }} * {{ repartition.prixJEH * (1-rm.pourcentageJunior/100)}} = {{ repartition.prixJEH * repartition.nbrJEH*(1-rm.pourcentageJunior/100) }} €</div>
-                {% endfor %}
-                <div>Total : {{ totalJEH }} JEH - {{ totalRem }} €</div>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <div>
+                        <a href="{{ path('mgateSuivi_etude_voir', {'nom': rm.etude.nom}) }}"> {{ rm.etude.reference }}</a>
+                    </div>
+                </td>
+                <td>{{ rm.etude.prospect.nom }}
+                    <br/><br/>
+                    {{ rm.etude.suiveur.prenomNom| default("Pas de suiveur!") }}</td>
+                <td>
+                    {% if rm.etude.dateLancement != NULL %}
+                        <div>{{ rm.etude.dateLancement |date("d/m/Y") }}</div>{% endif %}
+                    {% if rm.etude.dateFin != NULL %}
+                        <div>{{ rm.etude.dateFin|date("d/m/Y") }}</div>{% endif %}
+                </td>
+                <td>
+                    {{ rm.intervenant.personne.prenomNom | default("Intervenant non choisi") }} {{ rm.intervenant.nom | default("") }}
+                </td>
+                <td>
+                    <div>{{ rm.etude.montantHT |default('') }} €</div>
+                    <div>{{ rm.etudenbrJEH |default('') }} JEH</div>
+                </td>
+                <td>
+                    {% set totalJEH = 0 %}
+                    {% set totalRem = 0 %}
+                    {% for repartition in rm.repartitionsJEH if repartition %}
+                        {% set totalJEH = totalJEH + repartition.nbrJEH %}
+                        {% set totalRem = totalRem + repartition.nbrJEH * repartition.prixJEH * (1-rm.pourcentageJunior/100) %}
+                        <div>Repartition n°{{ loop.index }} : {{ repartition.nbrJEH }}
+                            * {{ repartition.prixJEH * (1-rm.pourcentageJunior/100) }}
+                            = {{ repartition.prixJEH * repartition.nbrJEH*(1-rm.pourcentageJunior/100) }} €
+                        </div>
+                    {% endfor %}
+                    <div>Total : {{ totalJEH }} JEH - {{ totalRem }} €</div>
+                </td>
+            </tr>
         {% endfor %}
- 	 </tbody>
-</table>
+        </tbody>
+    </table>
 
 
 {% endblock %}
@@ -85,4 +99,23 @@
 {% block javascript %}
     {{ parent() }}
     {{ form_javascript(form) }}
+
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#listeUrssaf').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "iDisplayLength": 50,
+                "aaSorting": [[0, 'desc']]
+            });
+        });
+    </script>
 {% endblock %}
