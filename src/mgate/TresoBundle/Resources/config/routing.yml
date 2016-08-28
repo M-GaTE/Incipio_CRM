@@ -23,8 +23,8 @@ mgateTreso_Declaratif_TVA:
 
 
 mgateTreso_Declaratif_BRC:
-    path:  /Declaratifs/BRC
-    defaults: { _controller: mgateTresoBundle:Declaratif:BRC }
+    path:  /Declaratifs/BRC/{year}/{month}
+    defaults: { _controller: mgateTresoBundle:Declaratif:BRC, year: null, month: null }
     methods:  [GET, HEAD, POST]
 
 ################################################################################

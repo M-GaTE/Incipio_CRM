@@ -192,8 +192,11 @@ class DeclaratifController extends Controller
 
     /**
      * @Security("has_role('ROLE_TRESO')")
+     * @param Request $request
+     * @param null $year
+     * @param null $month
      */
-    public function BRCAction(Request $request)
+    public function BRCAction(Request $request, $year, $month)
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder(array('message' => 'Date'))
@@ -205,15 +208,21 @@ class DeclaratifController extends Controller
                     'data' => date_create(), 'format' => 'dd/MM/yyyy',)
             )->getForm();
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {//small hack to keep api working
             $form->handleRequest($request);
             $data = $form->getData();
             $date = $data['date'];
-        } else {
-            $date = new \DateTime('now');
+            return $this->redirect($this->generateUrl('mgateTreso_Declaratif_BRC', array('year' => $date->format('Y'),
+                                                                                        'month' => $date->format('m'),
+                )));
         }
-        $month = $date->format('m');
-        $year = $date->format('Y');
+
+        if($year == null || $month === null){
+            $date = new \DateTime('now');
+            $month = $date->format('m');
+            $year = $date->format('Y');
+        }
+
 
         $bvs = $em->getRepository('mgateTresoBundle:BV')->findAllByMonth($month, $year);
 
