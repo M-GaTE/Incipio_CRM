@@ -1,10 +1,13 @@
 {
     "name": "in6pio/Incipio",
     "description": "ERP for Junior-Entreprises.",
-    "license": "GNU",
+    "license": "AGPL-3.0",
     "type": "project",
     "autoload": {
-        "psr-4": { "": "src/", "SymfonyStandard\\": "app/" }
+        "psr-4": {
+          "": "src/",
+          "Incipio\\": "app/"
+        }
     },
     "require": {
         "php": ">=5.3.3",
