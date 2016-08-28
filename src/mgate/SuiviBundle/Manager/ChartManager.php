@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManager;
 use mgate\SuiviBundle\Entity\Etude as Etude;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Monolog\Logger;
+use Zend\Json\Expr;
 
 class ChartManager /*extends \Twig_Extension*/
 {
@@ -145,7 +146,7 @@ class ChartManager /*extends \Twig_Extension*/
                     $mort = clone $fin;
                 }
 
-                $func = new \Zend\Json\Expr('function() {return this.point.titre;}');
+                $func = new Expr('function() {return this.point.titre;}');
                 $data[] = array('low' => $fin->getTimestamp() * 1000, 'y' => $debut->getTimestamp() * 1000,
                     'titre' => $phase->getTitre(), 'detail' => 'du '.$debut->format('d/m/Y').' au '.$fin->format('d/m/Y'), 'color' => '#F26729',
                         'dataLabels' => array('enabled' => true, 'align' => 'left', 'inside' => true, 'verticalAlign' => 'bottom', 'formatter' => $func, 'y' => -5), );
@@ -274,7 +275,7 @@ class ChartManager /*extends \Twig_Extension*/
                     $mort = clone $fin;
                 }
 
-                $func = new \Zend\Json\Expr('function() {return this.point.titre;}');
+                $func = new Expr('function() {return this.point.titre;}');
                 $data[] = array('low' => $fin->getTimestamp() * 1000, 'y' => $debut->getTimestamp() * 1000,
                     'titre' => $etude->getNom(), 'detail' => 'du '.$debut->format('d/m/Y').' au '.$fin->format('d/m/Y'), 'color' => '#F26729',
                         'dataLabels' => array('enabled' => true, 'align' => 'left', 'inside' => true, 'verticalAlign' => 'bottom', 'formatter' => $func, 'y' => -5), );

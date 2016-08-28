@@ -11,7 +11,10 @@
 
 namespace mgate\PersonneBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\CommentBundle\Entity\Thread;
+use mgate\PersonneBundle\Entity\Employe;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -100,11 +103,11 @@ class Prospect
     /**
      * Set thread.
      *
-     * @param \mgate\CommentBundle\Entity\Thread $thread
+     * @param Thread $thread
      *
      * @return Prospect
      */
-    public function setThread(\mgate\CommentBundle\Entity\Thread $thread)
+    public function setThread(Thread $thread)
     {
         $this->thread = $thread;
 
@@ -128,7 +131,7 @@ class Prospect
      *
      * @return Prospect
      */
-    public function addEmploye(\mgate\PersonneBundle\Entity\Employe $employes)
+    public function addEmploye(Employe $employes)
     {
         $this->employes[] = $employes;
 
@@ -140,7 +143,7 @@ class Prospect
      *
      * @param mgate\PersonneBundle\Entity\Employe $employes
      */
-    public function removeEmploye(\mgate\PersonneBundle\Entity\Employe $employes)
+    public function removeEmploye(Employe $employes)
     {
         $this->employes->removeElement($employes);
     }
@@ -184,7 +187,7 @@ class Prospect
      */
     public function __construct()
     {
-        $this->employes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->employes = new ArrayCollection();
     }
 
     /**

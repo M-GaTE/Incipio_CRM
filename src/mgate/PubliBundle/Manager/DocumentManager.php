@@ -23,6 +23,7 @@ namespace mgate\PubliBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use mgate\PubliBundle\Entity\Document;
@@ -124,7 +125,7 @@ class DocumentManager extends BaseManager
      * @return \mgate\PubliBundle\Entity\Document
      *
      * @throws \Exception
-     * @throws \Symfony\Component\HttpFoundation\File\Exception\UploadException
+     * @throws UploadException
      */
     public function uploadDocument(Document $document, RelatedDocument $relatedDocument = null, $deleteIfExist = false)
     {
@@ -145,7 +146,7 @@ class DocumentManager extends BaseManager
         // Authorized Storage Size Overflow
         $totalSize = $document->getSize() + $this->getRepository()->getTotalSize();
         if ($totalSize > $junior['authorizedStorageSize']) {
-            throw new \Symfony\Component\HttpFoundation\File\Exception\UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à dsi@n7consulting.fr.');
+            throw new UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à dsi@n7consulting.fr.');
         }
 
         // Delete every document with the same name

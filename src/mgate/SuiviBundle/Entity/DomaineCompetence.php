@@ -11,6 +11,7 @@
 
 namespace mgate\SuiviBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,7 +59,7 @@ class DomaineCompetence
      */
     public function __construct()
     {
-        $this->etude = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->etude = new ArrayCollection();
     }
 
     /**

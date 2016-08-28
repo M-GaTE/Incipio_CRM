@@ -86,8 +86,10 @@ class DefaultController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param $id
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction($id, Request $request)
@@ -160,7 +162,6 @@ class DefaultController extends Controller
         $user->setConfirmationToken($token);
         // \\
         $user->setUsername($this->enMinusculeSansAccent($personne->getPrenom().'.'.$personne->getNom()));
-        /**/
 
         $userManager->updateUser($user); // Pas besoin de faire un flush (ça le fait tout seul)
 

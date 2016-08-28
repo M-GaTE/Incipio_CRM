@@ -11,7 +11,11 @@
 
 namespace mgate\TresoBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\SuiviBundle\Entity\Mission;
+use mgate\TresoBundle\Entity\BaseURSSAF;
+use mgate\TresoBundle\Entity\CotisationURSSAF;
 
 /**
  * BV.
@@ -238,7 +242,7 @@ class BV
      */
     public function __construct()
     {
-        $this->cotisationURSSAF = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cotisationURSSAF = new ArrayCollection();
     }
 
     /**
@@ -446,11 +450,11 @@ class BV
     /**
      * Set mission.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $mission
+     * @param Mission $mission
      *
      * @return BV
      */
-    public function setMission(\mgate\SuiviBundle\Entity\Mission $mission = null)
+    public function setMission(Mission $mission = null)
     {
         $this->mission = $mission;
 
@@ -460,7 +464,7 @@ class BV
     /**
      * Get mission.
      *
-     * @return \mgate\SuiviBundle\Entity\Mission
+     * @return Mission
      */
     public function getMission()
     {
@@ -470,11 +474,11 @@ class BV
     /**
      * Set baseURSSAF.
      *
-     * @param \mgate\TresoBundle\Entity\BaseURSSAF $baseURSSAF
+     * @param BaseURSSAF $baseURSSAF
      *
      * @return BV
      */
-    public function setBaseURSSAF(\mgate\TresoBundle\Entity\BaseURSSAF $baseURSSAF = null)
+    public function setBaseURSSAF(BaseURSSAF $baseURSSAF = null)
     {
         $this->baseURSSAF = $baseURSSAF;
 
@@ -484,7 +488,7 @@ class BV
     /**
      * Get baseURSSAF.
      *
-     * @return \mgate\TresoBundle\Entity\BaseURSSAF
+     * @return BaseURSSAF
      */
     public function getBaseURSSAF()
     {
@@ -494,11 +498,11 @@ class BV
     /**
      * Add cotisationURSSAF.
      *
-     * @param \mgate\TresoBundle\Entity\CotisationURSSAF $cotisationURSSAF
+     * @param CotisationURSSAF $cotisationURSSAF
      *
      * @return BV
      */
-    public function addCotisationURSSAF(\mgate\TresoBundle\Entity\CotisationURSSAF $cotisationURSSAF)
+    public function addCotisationURSSAF(CotisationURSSAF $cotisationURSSAF)
     {
         $this->cotisationURSSAF[] = $cotisationURSSAF;
 
@@ -508,9 +512,9 @@ class BV
     /**
      * Remove cotisationURSSAF.
      *
-     * @param \mgate\TresoBundle\Entity\CotisationURSSAF $cotisationURSSAF
+     * @param CotisationURSSAF $cotisationURSSAF
      */
-    public function removeCotisationURSSAF(\mgate\TresoBundle\Entity\CotisationURSSAF $cotisationURSSAF)
+    public function removeCotisationURSSAF(CotisationURSSAF $cotisationURSSAF)
     {
         $this->cotisationURSSAF->removeElement($cotisationURSSAF);
     }

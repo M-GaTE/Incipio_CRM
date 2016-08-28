@@ -12,6 +12,7 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\SuiviBundle\Entity\Etude;
 
 /**
  * mgate\SuiviBundle\Entity\Cc.
@@ -61,7 +62,7 @@ class Cc extends DocType
      *
      * @return Cc
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude = null)
+    public function setEtude(Etude $etude = null)
     {
         $this->etude = $etude;
 

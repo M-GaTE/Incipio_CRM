@@ -12,6 +12,8 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\CommentBundle\Entity\Thread;
+use mgate\PersonneBundle\Entity\Personne;
 
 /** @ORM\MappedSuperclass */
 class DocType
@@ -156,11 +158,11 @@ class DocType
     /**
      * Set thread.
      *
-     * @param \mgate\CommentBundle\Entity\Thread $thread
+     * @param Thread $thread
      *
      * @return Prospect
      */
-    public function setThread(\mgate\CommentBundle\Entity\Thread $thread)
+    public function setThread(Thread $thread)
     {
         $this->thread = $thread;
 
@@ -348,11 +350,11 @@ class DocType
     /**
      * Set signataire1.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $signataire1
+     * @param Personne $signataire1
      *
      * @return DocType
      */
-    public function setSignataire1(\mgate\PersonneBundle\Entity\Personne $signataire1)
+    public function setSignataire1(Personne $signataire1)
     {
         $this->signataire1 = $signataire1;
 
@@ -362,7 +364,7 @@ class DocType
     /**
      * Get signataire1.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getSignataire1()
     {
@@ -372,11 +374,11 @@ class DocType
     /**
      * Set signataire2.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $signataire2
+     * @param Personne $signataire2
      *
      * @return DocType
      */
-    public function setSignataire2(\mgate\PersonneBundle\Entity\Personne $signataire2)
+    public function setSignataire2(Personne $signataire2)
     {
         $this->signataire2 = $signataire2;
 
@@ -386,7 +388,7 @@ class DocType
     /**
      * Get signataire2.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getSignataire2()
     {

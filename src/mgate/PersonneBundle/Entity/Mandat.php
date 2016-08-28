@@ -15,6 +15,8 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Membre;
+use mgate\PersonneBundle\Entity\Poste;
 
 /**
  * Mandat.
@@ -118,11 +120,11 @@ class Mandat
     /**
      * Set membre.
      *
-     * @param \mgate\PersonneBundle\Entity\Membre $membre
+     * @param Membre $membre
      *
      * @return Mandat
      */
-    public function setMembre(\mgate\PersonneBundle\Entity\Membre $membre)
+    public function setMembre(Membre $membre)
     {
         $this->membre = $membre;
 
@@ -132,7 +134,7 @@ class Mandat
     /**
      * Get membre.
      *
-     * @return \mgate\PersonneBundle\Entity\Membre
+     * @return Membre
      */
     public function getMembre()
     {
@@ -142,11 +144,11 @@ class Mandat
     /**
      * Set poste.
      *
-     * @param \mgate\PersonneBundle\Entity\Poste $poste
+     * @param Poste $poste
      *
      * @return Mandat
      */
-    public function setPoste(\mgate\PersonneBundle\Entity\Poste $poste)
+    public function setPoste(Poste $poste)
     {
         $this->poste = $poste;
 
@@ -156,7 +158,7 @@ class Mandat
     /**
      * Get poste.
      *
-     * @return \mgate\PersonneBundle\Entity\Poste
+     * @return Poste
      */
     public function getPoste()
     {

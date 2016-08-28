@@ -11,8 +11,10 @@
 
 namespace mgate\SuiviBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use mgate\SuiviBundle\Entity\Phase;
 
 /**
  * mgate\SuiviBundle\Entity\GroupePhases.
@@ -71,7 +73,7 @@ class GroupePhases
      */
     public function __construct()
     {
-        $this->phases = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->phases = new ArrayCollection();
     }
 
     /**
@@ -183,11 +185,11 @@ class GroupePhases
     /**
      * Add phases.
      *
-     * @param \mgate\SuiviBundle\Entity\Phase $phases
+     * @param Phase $phases
      *
      * @return GroupePhases
      */
-    public function addPhase(\mgate\SuiviBundle\Entity\Phase $phases)
+    public function addPhase(Phase $phases)
     {
         $this->phases[] = $phases;
 
@@ -197,9 +199,9 @@ class GroupePhases
     /**
      * Remove phases.
      *
-     * @param \mgate\SuiviBundle\Entity\Phase $phases
+     * @param Phase $phases
      */
-    public function removePhase(\mgate\SuiviBundle\Entity\Phase $phases)
+    public function removePhase(Phase $phases)
     {
         $this->phases->removeElement($phases);
     }

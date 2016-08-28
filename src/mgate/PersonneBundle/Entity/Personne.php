@@ -12,6 +12,9 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Employe;
+use mgate\PersonneBundle\Entity\Membre;
+use mgate\UserBundle\Entity\User;
 
 /**
  * mgate\PersonneBundle\Entity\Personne.
@@ -421,11 +424,11 @@ class Personne
     /**
      * Set employe.
      *
-     * @param \mgate\PersonneBundle\Entity\Employe $employe
+     * @param Employe $employe
      *
      * @return Personne
      */
-    public function setEmploye(\mgate\PersonneBundle\Entity\Employe $employe = null)
+    public function setEmploye(Employe $employe = null)
     {
         $this->employe = $employe;
 
@@ -435,7 +438,7 @@ class Personne
     /**
      * Get employe.
      *
-     * @return \mgate\PersonneBundle\Entity\Employe
+     * @return Employe
      */
     public function getEmploye()
     {
@@ -445,11 +448,11 @@ class Personne
     /**
      * Set user.
      *
-     * @param \mgate\UserBundle\Entity\User $user
+     * @param User $user
      *
      * @return Personne
      */
-    public function setUser(\mgate\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -459,7 +462,7 @@ class Personne
     /**
      * Get user.
      *
-     * @return \mgate\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -469,11 +472,11 @@ class Personne
     /**
      * Set membre.
      *
-     * @param \mgate\PersonneBundle\Entity\Membre $membre
+     * @param Membre $membre
      *
      * @return Personne
      */
-    public function setMembre(\mgate\PersonneBundle\Entity\Membre $membre = null)
+    public function setMembre(Membre $membre = null)
     {
         $this->membre = $membre;
 
@@ -483,7 +486,7 @@ class Personne
     /**
      * Get membre.
      *
-     * @return \mgate\PersonneBundle\Entity\Membre
+     * @return Membre
      */
     public function getMembre()
     {

@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\AvMission;
 use mgate\SuiviBundle\Form\Type\AvMissionHandler;
 use mgate\SuiviBundle\Form\Type\AvMissionType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AvMissionController extends Controller
 {
@@ -46,7 +47,7 @@ class AvMissionController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $avmission = new AvMission();
@@ -79,7 +80,7 @@ class AvMissionController extends Controller
         $etude = $entity->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -103,7 +104,7 @@ class AvMissionController extends Controller
         $etude = $avmission->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $form = $this->createForm(new AvMissionType(), $avmission);

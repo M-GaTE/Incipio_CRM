@@ -15,6 +15,7 @@ namespace mgate\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Personne;
 
 /**
  * @ORM\Entity(repositoryClass="mgate\UserBundle\Entity\UserRepository")
@@ -56,11 +57,11 @@ class User extends BaseUser
     /**
      * Set personne.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $personne
+     * @param Personne $personne
      *
      * @return User
      */
-    public function setPersonne(\mgate\PersonneBundle\Entity\Personne $personne = null)
+    public function setPersonne(Personne $personne = null)
     {
         $this->personne = $personne;
 
@@ -74,7 +75,7 @@ class User extends BaseUser
     /**
      * Get personne.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getPersonne()
     {

@@ -11,6 +11,7 @@
 
 namespace mgate\TresoBundle\Form\Type;
 
+use mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +22,7 @@ class FactureType extends AbstractType
     {
         $builder->add('exercice', 'integer', array('label' => 'Exercice Comptable', 'required' => true))
                 ->add('numero', 'integer', array('label' => 'Numéro de la Facture', 'required' => true))
-                ->add('type', 'choice', array('choices' => \mgate\TresoBundle\Entity\Facture::getTypeChoices(), 'required' => true))
+                ->add('type', 'choice', array('choices' => Facture::getTypeChoices(), 'required' => true))
                 ->add('objet', 'textarea',
                     array('label' => 'Objet de la Facture',
                         'required' => true,

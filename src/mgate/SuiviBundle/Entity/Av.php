@@ -11,7 +11,11 @@
 
 namespace mgate\SuiviBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\SuiviBundle\Entity\AvMission;
+use mgate\SuiviBundle\Entity\Etude;
+use mgate\SuiviBundle\Entity\Phase;
 
 /**
  * mgate\SuiviBundle\Entity\Av.
@@ -94,7 +98,7 @@ class Av extends DocType
      *
      * @return Av
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude)
+    public function setEtude(Etude $etude)
     {
         $this->etude = $etude;
 
@@ -115,8 +119,8 @@ class Av extends DocType
      */
     public function __construct()
     {
-        $this->avenantsMissions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->phases = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->avenantsMissions = new ArrayCollection();
+        $this->phases = new ArrayCollection();
     }
 
     /**
@@ -170,11 +174,11 @@ class Av extends DocType
     /**
      * Add avenantsMissions.
      *
-     * @param \mgate\SuiviBundle\Entity\AvMission $avenantsMissions
+     * @param AvMission $avenantsMissions
      *
      * @return Av
      */
-    public function addAvenantsMission(\mgate\SuiviBundle\Entity\AvMission $avenantsMissions)
+    public function addAvenantsMission(AvMission $avenantsMissions)
     {
         $this->avenantsMissions[] = $avenantsMissions;
 
@@ -184,9 +188,9 @@ class Av extends DocType
     /**
      * Remove avenantsMissions.
      *
-     * @param \mgate\SuiviBundle\Entity\AvMission $avenantsMissions
+     * @param AvMission $avenantsMissions
      */
-    public function removeAvenantsMission(\mgate\SuiviBundle\Entity\AvMission $avenantsMissions)
+    public function removeAvenantsMission(AvMission $avenantsMissions)
     {
         $this->avenantsMissions->removeElement($avenantsMissions);
     }
@@ -228,11 +232,11 @@ class Av extends DocType
     /**
      * Add phases.
      *
-     * @param \mgate\SuiviBundle\Entity\Phase $phases
+     * @param Phase $phases
      *
      * @return Av
      */
-    public function addPhase(\mgate\SuiviBundle\Entity\Phase $phases)
+    public function addPhase(Phase $phases)
     {
         $this->phases[] = $phases;
 
@@ -242,9 +246,9 @@ class Av extends DocType
     /**
      * Remove phases.
      *
-     * @param \mgate\SuiviBundle\Entity\Phase $phases
+     * @param Phase $phases
      */
-    public function removePhase(\mgate\SuiviBundle\Entity\Phase $phases)
+    public function removePhase(Phase $phases)
     {
         $this->phases->removeElement($phases);
     }

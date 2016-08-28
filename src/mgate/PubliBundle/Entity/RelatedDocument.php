@@ -12,6 +12,11 @@
 namespace mgate\PubliBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\FormationBundle\Entity\Formation;
+use mgate\PersonneBundle\Entity\Membre;
+use mgate\PersonneBundle\Entity\Prospect;
+use mgate\PubliBundle\Entity\Document;
+use mgate\SuiviBundle\Entity\Etude;
 
 /**
  * @ORM\Entity
@@ -69,11 +74,11 @@ class RelatedDocument
     /**
      * Set document.
      *
-     * @param \mgate\PubliBundle\Entity\Document $document
+     * @param Document $document
      *
      * @return CategorieDocument
      */
-    public function setDocument(\mgate\PubliBundle\Entity\Document $document = null)
+    public function setDocument(Document $document = null)
     {
         $this->document = $document;
 
@@ -83,7 +88,7 @@ class RelatedDocument
     /**
      * Get document.
      *
-     * @return \mgate\PubliBundle\Entity\Document
+     * @return Document
      */
     public function getDocument()
     {
@@ -93,11 +98,11 @@ class RelatedDocument
     /**
      * Set membre.
      *
-     * @param \mgate\PersonneBundle\Entity\Membre $membre
+     * @param Membre $membre
      *
      * @return CategorieDocument
      */
-    public function setMembre(\mgate\PersonneBundle\Entity\Membre $membre = null)
+    public function setMembre(Membre $membre = null)
     {
         $this->membre = $membre;
 
@@ -107,7 +112,7 @@ class RelatedDocument
     /**
      * Get membre.
      *
-     * @return \mgate\PersonneBundle\Entity\Membre
+     * @return Membre
      */
     public function getMembre()
     {
@@ -117,11 +122,11 @@ class RelatedDocument
     /**
      * Set etude.
      *
-     * @param \mgate\SuiviBundle\Entity\Etude $etude
+     * @param Etude $etude
      *
      * @return CategorieDocument
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude = null)
+    public function setEtude(Etude $etude = null)
     {
         $this->etude = $etude;
 
@@ -131,7 +136,7 @@ class RelatedDocument
     /**
      * Get etude.
      *
-     * @return \mgate\SuiviBundle\Entity\Etude
+     * @return Etude
      */
     public function getEtude()
     {
@@ -141,11 +146,11 @@ class RelatedDocument
     /**
      * Set formation.
      *
-     * @param \mgate\FormationBundle\Entity\Formation $formation
+     * @param Formation $formation
      *
      * @return CategorieDocument
      */
-    public function setFormation(\mgate\FormationBundle\Entity\Formation $formation = null)
+    public function setFormation(Formation $formation = null)
     {
         $this->formation = $formation;
 
@@ -155,7 +160,7 @@ class RelatedDocument
     /**
      * Get formation.
      *
-     * @return \mgate\FormationBundle\Entity\Formation
+     * @return Formation
      */
     public function getFormation()
     {
@@ -165,11 +170,11 @@ class RelatedDocument
     /**
      * Set prospect.
      *
-     * @param \mgate\PersonneBundle\Entity\Prospect $prospect
+     * @param Prospect $prospect
      *
      * @return CategorieDocument
      */
-    public function setProspect(\mgate\PersonneBundle\Entity\Prospect $prospect = null)
+    public function setProspect(Prospect $prospect = null)
     {
         $this->prospect = $prospect;
 
@@ -179,7 +184,7 @@ class RelatedDocument
     /**
      * Get prospect.
      *
-     * @return \mgate\PersonneBundle\Entity\Prospect
+     * @return Prospect
      */
     public function getProspect()
     {

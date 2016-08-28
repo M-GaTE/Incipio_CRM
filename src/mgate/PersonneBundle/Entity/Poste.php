@@ -11,7 +11,9 @@
 
 namespace mgate\PersonneBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Mandat;
 
 /**
  * mgate\PersonneBundle\Entity\Poste.
@@ -112,17 +114,17 @@ class Poste
      */
     public function __construct()
     {
-        $this->mandat = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mandat = new ArrayCollection();
     }
 
     /**
      * Add mandats.
      *
-     * @param \mgate\PersonneBundle\Entity\Mandat $mandats
+     * @param Mandat $mandats
      *
      * @return Poste
      */
-    public function addMandat(\mgate\PersonneBundle\Entity\Mandat $mandats)
+    public function addMandat(Mandat $mandats)
     {
         $this->mandats[] = $mandats;
 
@@ -132,9 +134,9 @@ class Poste
     /**
      * Remove mandats.
      *
-     * @param \mgate\PersonneBundle\Entity\Mandat $mandats
+     * @param Mandat $mandats
      */
-    public function removeMandat(\mgate\PersonneBundle\Entity\Mandat $mandats)
+    public function removeMandat(Mandat $mandats)
     {
         $this->mandats->removeElement($mandats);
     }

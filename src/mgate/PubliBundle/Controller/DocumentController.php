@@ -11,10 +11,12 @@
 
 namespace mgate\PubliBundle\Controller;
 
+use mgate\PubliBundle\Entity\RelatedDocument;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PubliBundle\Entity\Document;
 use mgate\PubliBundle\Form\Type\DocumentType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DocumentController extends Controller
 {
@@ -51,7 +53,7 @@ class DocumentController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle !');
+            throw new AccessDeniedException('Cette étude est confidentielle !');
         }
 
         $options['etude'] = $etude;
@@ -134,7 +136,7 @@ class DocumentController extends Controller
     {
         $document = new Document();
         if (count($options)) {
-            $relatedDocument = new \mgate\PubliBundle\Entity\RelatedDocument();
+            $relatedDocument = new RelatedDocument();
             $relatedDocument->setDocument($document);
             $document->setRelation($relatedDocument);
             if (key_exists('etude', $options)) {

@@ -50,7 +50,9 @@ class AddMembreFieldSubscriber implements EventSubscriberInterface
                        'class' => 'mgate\PersonneBundle\Entity\Personne',
                        'property' => 'prenomNom',
                        'required' => false,
-                       'query_builder' => function (PersonneRepository $pr) use ($user) { return $pr->getMembreNotUser($user); },
+                       'query_builder' => function (PersonneRepository $pr) use ($user) {
+                           return $pr->getMembreNotUser($user);
+                       },
                         ));
 
         }

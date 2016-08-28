@@ -12,6 +12,7 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\SuiviBundle\Entity\Etude;
 
 /**
  * mgate\SuiviBundle\Entity\ProcesVerbal.
@@ -76,7 +77,7 @@ class ProcesVerbal extends DocType
      *
      * @return ProcesVerbal
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude)
+    public function setEtude(Etude $etude)
     {
         $this->etude = $etude;
 

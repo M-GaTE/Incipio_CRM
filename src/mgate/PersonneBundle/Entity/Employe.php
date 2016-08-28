@@ -12,6 +12,8 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Personne;
+use mgate\PersonneBundle\Entity\Prospect;
 
 /**
  * mgate\PersonneBundle\Entity\Employe.
@@ -62,11 +64,11 @@ class Employe
     /**
      * Set prospect.
      *
-     * @param \mgate\PersonneBundle\Entity\Prospect $prospect
+     * @param Prospect $prospect
      *
      * @return Employe
      */
-    public function setProspect(\mgate\PersonneBundle\Entity\Prospect $prospect)
+    public function setProspect(Prospect $prospect)
     {
         $this->prospect = $prospect;
 
@@ -76,7 +78,7 @@ class Employe
     /**
      * Get prospect.
      *
-     * @return \mgate\PersonneBundle\Entity\Prospect
+     * @return Prospect
      */
     public function getProspect()
     {
@@ -86,11 +88,11 @@ class Employe
     /**
      * Set personne.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $personne
+     * @param Personne $personne
      *
      * @return Employe
      */
-    public function setPersonne(\mgate\PersonneBundle\Entity\Personne $personne)
+    public function setPersonne(Personne $personne)
     {
         $personne->setEmploye($this);
 
@@ -102,7 +104,7 @@ class Employe
     /**
      * Get personne.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getPersonne()
     {

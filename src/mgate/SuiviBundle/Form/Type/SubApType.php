@@ -3,11 +3,12 @@
 namespace mgate\SuiviBundle\Form\Type;
 
 use mgate\PersonneBundle\Entity\PersonneRepository;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SubApType extends DocTypeType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('contactMgate', 'genemu_jqueryselect2_entity', array('label' => "'En cas d’absence ou de problème, il est également possible de joindre ...' ex: Vice-Président",
             'class' => 'mgate\\PersonneBundle\\Entity\\Personne',

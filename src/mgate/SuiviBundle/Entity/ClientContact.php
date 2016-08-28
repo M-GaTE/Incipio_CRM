@@ -12,6 +12,8 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\CommentBundle\Entity\Thread;
+use mgate\PersonneBundle\Entity\Personne;
 
 /**
  * mgate\SuiviBundle\Entity\ClientContact.
@@ -119,7 +121,7 @@ class ClientContact
      *
      * @return ClientContact
      */
-    public function setFaitPar(\mgate\PersonneBundle\Entity\Personne $faitPar)
+    public function setFaitPar(Personne $faitPar)
     {
         $this->faitPar = $faitPar;
 
@@ -163,11 +165,11 @@ class ClientContact
     /**
      * Set thread.
      *
-     * @param \mgate\CommentBundle\Entity\Thread $thread
+     * @param Thread $thread
      *
      * @return Prospect
      */
-    public function setThread(\mgate\CommentBundle\Entity\Thread $thread)
+    public function setThread(Thread $thread)
     {
         $this->thread = $thread;
 

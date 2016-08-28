@@ -11,7 +11,12 @@
 
 namespace mgate\TresoBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Prospect;
+use mgate\PubliBundle\Controller\TraitementController;
+use mgate\SuiviBundle\Entity\Etude;
+use mgate\TresoBundle\Entity\FactureDetail;
 
 /**
  * FV.
@@ -158,9 +163,9 @@ class Facture
             0 => 'Facture',
             1 => 'Facture',
             2 => 'FV',
-            3 => \mgate\PubliBundle\Controller\TraitementController::DOCTYPE_FACTURE_ACOMTE,
-            4 => \mgate\PubliBundle\Controller\TraitementController::DOCTYPE_FACTURE_INTERMEDIAIRE,
-            5 => \mgate\PubliBundle\Controller\TraitementController::DOCTYPE_FACTURE_SOLDE, );
+            3 => TraitementController::DOCTYPE_FACTURE_ACOMTE,
+            4 => TraitementController::DOCTYPE_FACTURE_INTERMEDIAIRE,
+            5 => TraitementController::DOCTYPE_FACTURE_SOLDE, );
 
         return $type[$this->type];
     }
@@ -207,7 +212,7 @@ class Facture
      */
     public function __construct()
     {
-        $this->details = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->details = new ArrayCollection();
         $this->montantADeduire = new FactureDetail();
         $this->montantADeduire->setMontantHT(0);
     }
@@ -335,11 +340,11 @@ class Facture
     /**
      * Add details.
      *
-     * @param \mgate\TresoBundle\Entity\FactureDetail $details
+     * @param FactureDetail $details
      *
      * @return Facture
      */
-    public function addDetail(\mgate\TresoBundle\Entity\FactureDetail $details)
+    public function addDetail(FactureDetail $details)
     {
         $this->details[] = $details;
 
@@ -349,9 +354,9 @@ class Facture
     /**
      * Remove details.
      *
-     * @param \mgate\TresoBundle\Entity\FactureDetail $details
+     * @param FactureDetail $details
      */
-    public function removeDetail(\mgate\TresoBundle\Entity\FactureDetail $details)
+    public function removeDetail(FactureDetail $details)
     {
         $this->details->removeElement($details);
         $details->setFacture();
@@ -394,11 +399,11 @@ class Facture
     /**
      * Set etude.
      *
-     * @param \mgate\SuiviBundle\Entity\Etude $etude
+     * @param Etude $etude
      *
      * @return BV
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude = null)
+    public function setEtude(Etude $etude = null)
     {
         $this->etude = $etude;
 
@@ -408,7 +413,7 @@ class Facture
     /**
      * Get etude.
      *
-     * @return \mgate\SuiviBundle\Entity\Etude
+     * @return Etude
      */
     public function getEtude()
     {
@@ -418,11 +423,11 @@ class Facture
     /**
      * Set montantADeduire.
      *
-     * @param \mgate\TresoBundle\Entity\FactureDetail $montantADeduire
+     * @param FactureDetail $montantADeduire
      *
      * @return Facture
      */
-    public function setMontantADeduire(\mgate\TresoBundle\Entity\FactureDetail $montantADeduire = null)
+    public function setMontantADeduire(FactureDetail $montantADeduire = null)
     {
         $this->montantADeduire = $montantADeduire;
 
@@ -432,7 +437,7 @@ class Facture
     /**
      * Get montantADeduire.
      *
-     * @return \mgate\TresoBundle\Entity\FactureDetail
+     * @return FactureDetail
      */
     public function getMontantADeduire()
     {
@@ -442,11 +447,11 @@ class Facture
     /**
      * Set beneficiaire.
      *
-     * @param \mgate\PersonneBundle\Entity\Prospect $beneficiaire
+     * @param Prospect $beneficiaire
      *
      * @return Facture
      */
-    public function setBeneficiaire(\mgate\PersonneBundle\Entity\Prospect $beneficiaire)
+    public function setBeneficiaire(Prospect $beneficiaire)
     {
         $this->beneficiaire = $beneficiaire;
 
@@ -456,7 +461,7 @@ class Facture
     /**
      * Get beneficiaire.
      *
-     * @return \mgate\PersonneBundle\Entity\Prospect
+     * @return Prospect
      */
     public function getBeneficiaire()
     {

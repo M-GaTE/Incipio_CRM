@@ -12,6 +12,8 @@
 namespace mgate\TresoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\TresoBundle\Entity\Compte;
+use mgate\TresoBundle\Entity\NoteDeFrais;
 
 /**
  * NoteDeFraisDetail.
@@ -299,11 +301,11 @@ class NoteDeFraisDetail
     /**
      * Set noteDeFrais.
      *
-     * @param \mgate\TresoBundle\Entity\NoteDeFrais $noteDeFrais
+     * @param NoteDeFrais $noteDeFrais
      *
      * @return NoteDeFraisDetail
      */
-    public function setNoteDeFrais(\mgate\TresoBundle\Entity\NoteDeFrais $noteDeFrais = null)
+    public function setNoteDeFrais(NoteDeFrais $noteDeFrais = null)
     {
         $this->noteDeFrais = $noteDeFrais;
 
@@ -313,7 +315,7 @@ class NoteDeFraisDetail
     /**
      * Get noteDeFrais.
      *
-     * @return \mgate\TresoBundle\Entity\NoteDeFrais
+     * @return NoteDeFrais
      */
     public function getNoteDeFrais()
     {
@@ -323,11 +325,11 @@ class NoteDeFraisDetail
     /**
      * Set compte.
      *
-     * @param \mgate\TresoBundle\Entity\Compte $compte
+     * @param Compte $compte
      *
      * @return NoteDeFraisDetail
      */
-    public function setCompte(\mgate\TresoBundle\Entity\Compte $compte = null)
+    public function setCompte(Compte $compte = null)
     {
         $this->compte = $compte;
 
@@ -337,7 +339,7 @@ class NoteDeFraisDetail
     /**
      * Get compte.
      *
-     * @return \mgate\TresoBundle\Entity\Compte
+     * @return Compte
      */
     public function getCompte()
     {

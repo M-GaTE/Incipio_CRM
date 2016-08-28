@@ -17,6 +17,7 @@ use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\Type\ClientContactHandler;
 use mgate\SuiviBundle\Entity\ClientContact;
 use mgate\SuiviBundle\Form\Type\ClientContactType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ClientContactController extends Controller
 {
@@ -46,7 +47,7 @@ class ClientContactController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $clientcontact = new ClientContact();
@@ -89,7 +90,7 @@ class ClientContactController extends Controller
         $etude = $contactClient->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $etude = $contactClient->getEtude();
@@ -117,7 +118,7 @@ class ClientContactController extends Controller
         $etude = $clientcontact->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $form = $this->createForm(new ClientContactType(), $clientcontact);

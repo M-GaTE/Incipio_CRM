@@ -12,6 +12,8 @@
 namespace mgate\PubliBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Personne;
+use mgate\PubliBundle\Entity\RelatedDocument;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -237,11 +239,11 @@ class Document
     /**
      * Set relation.
      *
-     * @param \mgate\PubliBundle\Entity\RelatedDocument $relation
+     * @param RelatedDocument $relation
      *
      * @return Document
      */
-    public function setRelation(\mgate\PubliBundle\Entity\RelatedDocument $relation = null)
+    public function setRelation(RelatedDocument $relation = null)
     {
         $this->relation = $relation;
 
@@ -251,7 +253,7 @@ class Document
     /**
      * Get relation.
      *
-     * @return \mgate\PubliBundle\Entity\RelatedDocument
+     * @return RelatedDocument
      */
     public function getRelation()
     {
@@ -261,11 +263,11 @@ class Document
     /**
      * Set author.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $author
+     * @param Personne $author
      *
      * @return Document
      */
-    public function setAuthor(\mgate\PersonneBundle\Entity\Personne $author = null)
+    public function setAuthor(Personne $author = null)
     {
         $this->author = $author;
 
@@ -288,7 +290,7 @@ class Document
     /**
      * Get author.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getAuthor()
     {

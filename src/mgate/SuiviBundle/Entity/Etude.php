@@ -16,7 +16,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use mgate\CommentBundle\Entity\Thread;
+use mgate\PersonneBundle\Entity\Personne;
+use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PubliBundle\Entity\RelatedDocument;
+use mgate\SuiviBundle\Entity\ClientContact;
 use mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -870,11 +873,11 @@ class Etude extends ContainerAware
     /**
      * Set prospect.
      *
-     * @param \mgate\PersonneBundle\Entity\Prospect $prospect
+     * @param Prospect $prospect
      *
      * @return Etude
      */
-    public function setProspect(\mgate\PersonneBundle\Entity\Prospect $prospect)
+    public function setProspect(Prospect $prospect)
     {
         $this->prospect = $prospect;
 
@@ -884,7 +887,7 @@ class Etude extends ContainerAware
     /**
      * Get prospect.
      *
-     * @return \mgate\PersonneBundle\Entity\Prospect
+     * @return Prospect
      */
     public function getProspect()
     {
@@ -894,11 +897,11 @@ class Etude extends ContainerAware
     /**
      * Set suiveur.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $suiveur
+     * @param Personne $suiveur
      *
      * @return Etude
      */
-    public function setSuiveur(\mgate\PersonneBundle\Entity\Personne $suiveur = null)
+    public function setSuiveur(Personne $suiveur = null)
     {
         $this->suiveur = $suiveur;
 
@@ -908,7 +911,7 @@ class Etude extends ContainerAware
     /**
      * Get suiveur.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getSuiveur()
     {
@@ -918,11 +921,11 @@ class Etude extends ContainerAware
     /**
      * Add clientContacts.
      *
-     * @param \mgate\SuiviBundle\Entity\ClientContact $clientContacts
+     * @param ClientContact $clientContacts
      *
      * @return Etude
      */
-    public function addClientContact(\mgate\SuiviBundle\Entity\ClientContact $clientContacts)
+    public function addClientContact(ClientContact $clientContacts)
     {
         $this->clientContacts[] = $clientContacts;
 
@@ -932,9 +935,9 @@ class Etude extends ContainerAware
     /**
      * Remove clientContacts.
      *
-     * @param \mgate\SuiviBundle\Entity\ClientContact $clientContacts
+     * @param ClientContact $clientContacts
      */
-    public function removeClientContact(\mgate\SuiviBundle\Entity\ClientContact $clientContacts)
+    public function removeClientContact(ClientContact $clientContacts)
     {
         $this->clientContacts->removeElement($clientContacts);
     }

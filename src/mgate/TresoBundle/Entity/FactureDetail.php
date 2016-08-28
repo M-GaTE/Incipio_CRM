@@ -12,6 +12,8 @@
 namespace mgate\TresoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\TresoBundle\Entity\Compte;
+use mgate\TresoBundle\Entity\Facture;
 
 /**
  * FactureDetail.
@@ -161,11 +163,11 @@ class FactureDetail
     /**
      * Set compte.
      *
-     * @param \mgate\TresoBundle\Entity\Compte $compte
+     * @param Compte $compte
      *
      * @return FactureDetail
      */
-    public function setCompte(\mgate\TresoBundle\Entity\Compte $compte = null)
+    public function setCompte(Compte $compte = null)
     {
         $this->compte = $compte;
 
@@ -175,7 +177,7 @@ class FactureDetail
     /**
      * Get compte.
      *
-     * @return \mgate\TresoBundle\Entity\Compte
+     * @return Compte
      */
     public function getCompte()
     {
@@ -185,11 +187,11 @@ class FactureDetail
     /**
      * Set facture.
      *
-     * @param \mgate\TresoBundle\Entity\Facture $facture
+     * @param Facture $facture
      *
      * @return FactureDetail
      */
-    public function setFacture(\mgate\TresoBundle\Entity\Facture $facture = null)
+    public function setFacture(Facture $facture = null)
     {
         $this->facture = $facture;
 
@@ -199,7 +201,7 @@ class FactureDetail
     /**
      * Get facture.
      *
-     * @return \mgate\TresoBundle\Entity\Facture
+     * @return Facture
      */
     public function getFacture()
     {

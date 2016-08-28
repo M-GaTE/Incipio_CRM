@@ -11,7 +11,12 @@
 
 namespace mgate\SuiviBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\SuiviBundle\Entity\Av;
+use mgate\SuiviBundle\Entity\Etude;
+use mgate\SuiviBundle\Entity\Mission;
+use mgate\SuiviBundle\Entity\RepartitionJEH;
 
 /**
  * mgate\SuiviBundle\Entity\AvMission.
@@ -79,7 +84,7 @@ class AvMission extends DocType
      */
     public function __construct()
     {
-        $this->nouvelleRepartition = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->nouvelleRepartition = new ArrayCollection();
     }
 
     /**
@@ -109,11 +114,11 @@ class AvMission extends DocType
     /**
      * Add nouvelleRepartition.
      *
-     * @param \mgate\SuiviBundle\Entity\RepartitionJEH $nouvelleRepartition
+     * @param RepartitionJEH $nouvelleRepartition
      *
      * @return AvMission
      */
-    public function addNouvelleRepartition(\mgate\SuiviBundle\Entity\RepartitionJEH $nouvelleRepartition)
+    public function addNouvelleRepartition(RepartitionJEH $nouvelleRepartition)
     {
         $this->nouvelleRepartition[] = $nouvelleRepartition;
 
@@ -123,9 +128,9 @@ class AvMission extends DocType
     /**
      * Remove nouvelleRepartition.
      *
-     * @param \mgate\SuiviBundle\Entity\RepartitionJEH $nouvelleRepartition
+     * @param RepartitionJEH $nouvelleRepartition
      */
-    public function removeNouvelleRepartition(\mgate\SuiviBundle\Entity\RepartitionJEH $nouvelleRepartition)
+    public function removeNouvelleRepartition(RepartitionJEH $nouvelleRepartition)
     {
         $this->nouvelleRepartition->removeElement($nouvelleRepartition);
     }
@@ -143,11 +148,11 @@ class AvMission extends DocType
     /**
      * Set mission.
      *
-     * @param \mgate\SuiviBundle\Entity\Mission $mission
+     * @param Mission $mission
      *
      * @return AvMission
      */
-    public function setMission(\mgate\SuiviBundle\Entity\Mission $mission = null)
+    public function setMission(Mission $mission = null)
     {
         $this->mission = $mission;
 
@@ -157,7 +162,7 @@ class AvMission extends DocType
     /**
      * Get mission.
      *
-     * @return \mgate\SuiviBundle\Entity\Mission
+     * @return Mission
      */
     public function getMission()
     {
@@ -191,11 +196,11 @@ class AvMission extends DocType
     /**
      * Set avenant.
      *
-     * @param \mgate\SuiviBundle\Entity\Av $avenant
+     * @param Av $avenant
      *
      * @return AvMission
      */
-    public function setAvenant(\mgate\SuiviBundle\Entity\Av $avenant = null)
+    public function setAvenant(Av $avenant = null)
     {
         $this->avenant = $avenant;
 
@@ -205,7 +210,7 @@ class AvMission extends DocType
     /**
      * Get avenant.
      *
-     * @return \mgate\SuiviBundle\Entity\Av
+     * @return Av
      */
     public function getAvenant()
     {
@@ -219,7 +224,7 @@ class AvMission extends DocType
      *
      * @return AvMission
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude)
+    public function setEtude(Etude $etude)
     {
         $this->etude = $etude;
 

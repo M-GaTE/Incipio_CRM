@@ -13,6 +13,8 @@ namespace mgate\DashboardBundle\DQL;
 
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Parser;
+use Doctrine\ORM\Query\SqlWalker;
 
 class Year extends FunctionNode
 {
@@ -21,7 +23,7 @@ class Year extends FunctionNode
     /**
      * @override
      */
-    public function parse(\Doctrine\ORM\Query\Parser $parser)
+    public function parse(Parser $parser)
     {
         $lexer = $parser->getLexer();
 
@@ -36,7 +38,7 @@ class Year extends FunctionNode
     /**
      * @override
      */
-    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
+    public function getSql(SqlWalker $sqlWalker)
     {
         return 'YEAR('.$sqlWalker->walkArithmeticPrimary($this->date).')';
     }

@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Cc;
 use mgate\SuiviBundle\Form\Type\CcType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CcController extends Controller
 {
@@ -49,7 +50,7 @@ class CcController extends Controller
         $etude = $entity->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -71,7 +72,7 @@ class CcController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         if (!$cc = $etude->getCc()) {

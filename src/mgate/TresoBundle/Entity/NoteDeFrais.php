@@ -11,7 +11,10 @@
 
 namespace mgate\TresoBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Personne;
+use mgate\TresoBundle\Entity\NoteDeFraisDetail;
 
 /**
  * NoteDeFrais.
@@ -121,7 +124,7 @@ class NoteDeFrais
      */
     public function __construct()
     {
-        $this->details = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->details = new ArrayCollection();
     }
 
     /**
@@ -151,11 +154,11 @@ class NoteDeFrais
     /**
      * Add details.
      *
-     * @param \mgate\TresoBundle\Entity\NoteDeFraisDetail $details
+     * @param NoteDeFraisDetail $details
      *
      * @return NoteDeFrais
      */
-    public function addDetail(\mgate\TresoBundle\Entity\NoteDeFraisDetail $details)
+    public function addDetail(NoteDeFraisDetail $details)
     {
         $this->details[] = $details;
 
@@ -165,9 +168,9 @@ class NoteDeFrais
     /**
      * Remove details.
      *
-     * @param \mgate\TresoBundle\Entity\NoteDeFraisDetail $details
+     * @param NoteDeFraisDetail $details
      */
-    public function removeDetail(\mgate\TresoBundle\Entity\NoteDeFraisDetail $details)
+    public function removeDetail(NoteDeFraisDetail $details)
     {
         $this->details->removeElement($details);
         $details->setNoteDeFrais();
@@ -186,11 +189,11 @@ class NoteDeFrais
     /**
      * Set demandeur.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $demandeur
+     * @param Personne $demandeur
      *
      * @return NoteDeFrais
      */
-    public function setDemandeur(\mgate\PersonneBundle\Entity\Personne $demandeur = null)
+    public function setDemandeur(Personne $demandeur = null)
     {
         $this->demandeur = $demandeur;
 
@@ -200,7 +203,7 @@ class NoteDeFrais
     /**
      * Get demandeur.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getDemandeur()
     {

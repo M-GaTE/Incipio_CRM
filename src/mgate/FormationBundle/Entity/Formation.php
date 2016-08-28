@@ -11,7 +11,9 @@
 
 namespace mgate\FormationBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Personne;
 
 /**
  * Formation.
@@ -254,8 +256,8 @@ class Formation
      */
     public function __construct()
     {
-        $this->formateurs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->membresPresents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->formateurs = new ArrayCollection();
+        $this->membresPresents = new ArrayCollection();
     }
 
     /**
@@ -333,11 +335,11 @@ class Formation
     /**
      * Add formateurs.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $formateurs
+     * @param Personne $formateurs
      *
      * @return Formation
      */
-    public function addFormateur(\mgate\PersonneBundle\Entity\Personne $formateurs)
+    public function addFormateur(Personne $formateurs)
     {
         $this->formateurs[] = $formateurs;
 
@@ -347,9 +349,9 @@ class Formation
     /**
      * Remove formateurs.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $formateurs
+     * @param Personne $formateurs
      */
-    public function removeFormateur(\mgate\PersonneBundle\Entity\Personne $formateurs)
+    public function removeFormateur(Personne $formateurs)
     {
         $this->formateurs->removeElement($formateurs);
     }
@@ -357,11 +359,11 @@ class Formation
     /**
      * Add membresPresents.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $membresPresents
+     * @param Personne $membresPresents
      *
      * @return Formation
      */
-    public function addMembresPresent(\mgate\PersonneBundle\Entity\Personne $membresPresents)
+    public function addMembresPresent(Personne $membresPresents)
     {
         $this->membresPresents[] = $membresPresents;
 
@@ -371,9 +373,9 @@ class Formation
     /**
      * Remove membresPresents.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $membresPresents
+     * @param Personne $membresPresents
      */
-    public function removeMembresPresent(\mgate\PersonneBundle\Entity\Personne $membresPresents)
+    public function removeMembresPresent(Personne $membresPresents)
     {
         $this->membresPresents->removeElement($membresPresents);
     }

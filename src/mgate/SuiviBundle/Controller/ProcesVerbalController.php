@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\ProcesVerbal;
 use mgate\SuiviBundle\Form\Type\ProcesVerbalType;
 use mgate\SuiviBundle\Form\Type\ProcesVerbalSubType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProcesVerbalController extends Controller
 {
@@ -49,7 +50,7 @@ class ProcesVerbalController extends Controller
         $etude = $entity->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -71,7 +72,7 @@ class ProcesVerbalController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $proces = new ProcesVerbal();
@@ -108,7 +109,7 @@ class ProcesVerbalController extends Controller
         $etude = $procesverbal->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $form = $this->createForm(new ProcesVerbalSubType(), $procesverbal, array('type' => $procesverbal->getType(), 'prospect' => $procesverbal->getEtude()->getProspect(), 'phases' => count($procesverbal->getEtude()->getPhases()->getValues())));
@@ -145,7 +146,7 @@ class ProcesVerbalController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         if (!$procesverbal = $etude->getDoc($type)) {
@@ -196,7 +197,7 @@ class ProcesVerbalController extends Controller
             $etude = $entity->getEtude();
 
             if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+                throw new AccessDeniedException('Cette étude est confidentielle');
             }
 
             $em->remove($entity);

@@ -11,10 +11,12 @@
 
 namespace mgate\SuiviBundle\Controller;
 
+use mgate\SuiviBundle\Entity\Phase;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Av;
 use mgate\SuiviBundle\Form\Type\AvType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PhaseChange
 {
@@ -177,7 +179,7 @@ class AvController extends Controller
         $etude = $entity->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -269,7 +271,7 @@ class AvController extends Controller
         $etude = $av->getEtude();
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $phasesAv = array();
@@ -287,7 +289,7 @@ class AvController extends Controller
         $phasesEtude = $av->getEtude()->getPhases()->toArray();
         foreach ($phasesEtude as $phase) {
             $changes = new PhaseChange();
-            $phaseAV = new \mgate\SuiviBundle\Entity\Phase();
+            $phaseAV = new Phase();
 
             $this->copyPhase($phase, $phaseAV);
 

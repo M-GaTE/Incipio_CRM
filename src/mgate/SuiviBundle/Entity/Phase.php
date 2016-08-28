@@ -13,6 +13,7 @@ namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use mgate\SuiviBundle\Entity\Av;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -467,11 +468,11 @@ class Phase
     /**
      * Set avenant.
      *
-     * @param \mgate\SuiviBundle\Entity\Av $avenant
+     * @param Av $avenant
      *
      * @return Phase
      */
-    public function setAvenant(\mgate\SuiviBundle\Entity\Av $avenant = null)
+    public function setAvenant(Av $avenant = null)
     {
         $this->avenant = $avenant;
 
@@ -481,7 +482,7 @@ class Phase
     /**
      * Get avenant.
      *
-     * @return \mgate\SuiviBundle\Entity\Av
+     * @return Av
      */
     public function getAvenant()
     {

@@ -12,11 +12,12 @@
 namespace mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RepartitionJEHType extends AbstractType
 {
-    public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nbrJEH', 'integer', array('required' => true))
                 ->add('prixJEH', 'integer', array('required' => true, 'attr' => array('min' => 80, 'max' => 320)));

@@ -14,6 +14,7 @@ namespace mgate\SuiviBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use mgate\PersonneBundle\Entity\Membre;
+use mgate\SuiviBundle\Entity\Etude;
 
 /**
  * mgate\SuiviBundle\Entity\Mission.
@@ -385,7 +386,7 @@ class Mission extends DocType
      *
      * @return Mission
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude)
+    public function setEtude(Etude $etude)
     {
         $this->etude = $etude;
 
