@@ -10,12 +10,6 @@
 
 {% block content_bundle %}
 
-    {% if message is not empty %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endif %}
-
     <form action="" method="post" {{ form_enctype(form) }}>
         <table class="table table-bordered table-striped">
             <tr>

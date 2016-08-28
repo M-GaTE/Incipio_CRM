@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PubliBundle\Form\Type\DocTypeType;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -473,14 +474,14 @@ class TraitementController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function uploadNewDoctypeAction()
+    public function uploadNewDoctypeAction(Request $request)
     {
-        $message = '';
         $data = array();
         $form = $this->createForm(new DocTypeType(), $data);
+        $session = $request->getSession();
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $data = $form->getData();
@@ -526,7 +527,7 @@ class TraitementController extends Controller
                     $data['name'] == self::DOCTYPE_SUIVI_ETUDE) &&
                     $data['verification'] && $this->publipostage($docxFullPath, self::ROOTNAME_ETUDE, $etude->getId(), true)
                     ) {
-                    $message .= 'Le template a été vérifié, il ne contient pas d\'erreur<br>';
+                    $session->getFlashBag()->add('success', 'Le template a été vérifié, il ne contient pas d\'erreur');
                 }
 
                 if (array_key_exists('etudiant', $data)) {
@@ -541,7 +542,7 @@ class TraitementController extends Controller
                     $data['name'] == self::DOCTYPE_DECLARATION_ETUDIANT_ETR) &&
                     $data['verification'] && $this->publipostage($docxFullPath, self::ROOTNAME_ETUDIANT, $etudiant->getId(), true)
                     ) {
-                    $message .= 'Le template a été vérifié, il ne contient pas d\'erreur<br>';
+                    $session->getFlashBag()->add('success', 'Le template a été vérifié, il ne contient pas d\'erreur');
                 }
 
                 // Enregistrement du template
@@ -561,13 +562,14 @@ class TraitementController extends Controller
                 }
                 $em->flush();
 
-                $message .= 'Le document a été mis à jour : ';
+                $session->getFlashBag()->add('success', 'Le document a été mis à jour : ');
+
+                return $this->redirect($this->generateUrl('mgate_publi_documenttype_upload'));
             }
         }
 
         return $this->render('mgatePubliBundle:DocType:upload.html.twig',
-                            array('form' => $form->createView(),
-                                    'message' => $message)
+                            array('form' => $form->createView())
                 );
     }
 }
