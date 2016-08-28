@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UrssafController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $year = null, $month = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -25,12 +25,23 @@ class UrssafController extends Controller
             ->add('date', 'genemu_jquerydate', array('label' => 'Nombre de développeur au :', 'required' => true, 'widget' => 'single_text', 'data' => date_create(), 'format' => 'dd/MM/yyyy'))
             ->getForm();
 
-        $RMs = array();
         if ($request->isMethod('POST')) {
-            $form->bind($request);
-            $data = $form->getData();
+            $form->handleRequest($request);
+            if($form->isValid()) {
+                $data = $form->getData();
+                return $this->redirect($this->generateUrl('mgate_treso_urssaf', array('year' => $data['date']->format('Y'),
+                    'month' => $data['date']->format('m')
+                )));
+            }
+        }
 
-            //$RMs = $em->getRepository('mgateSuiviBundle:Mission')->findBy(array('$debutOm' => 1));
+        if($year == null || $month === null){
+            $date = new \DateTime('now');
+        }
+        else{
+            $date = new \DateTime();
+            $date->setDate($year,$month,01);
+        }
 
             $qb = $em->createQueryBuilder();
             $qb->select('m')
@@ -38,11 +49,11 @@ class UrssafController extends Controller
                 ->where('m.debutOm <= :date')
                 ->orderBy('m.finOm', 'DESC')
                 //->andWhere('m.finOm >= :date')
-                ->setParameters(array('date' => $data['date']));
+                ->setParameters(array('date' => $date));
 
             $RMs = $qb->getQuery()->getResult();
-        }
 
-        return $this->render('mgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
-    }
+
+return $this->render('mgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
+}
 }

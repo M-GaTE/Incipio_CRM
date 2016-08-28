@@ -1,6 +1,6 @@
 mgate_treso_urssaf:
-    path:  /urssaf
-    defaults: { _controller: mgateTresoBundle:Urssaf:index }
+    path:  /urssaf/{year}/{month}
+    defaults: { _controller: mgateTresoBundle:Urssaf:index, year: null, month: null }
     methods:  [GET, HEAD, POST]
 
 

@@ -102,6 +102,7 @@
             <li class="dropdown-header">Tableaux de Suivi</li>
             <li><a href="{{ path('mgateTreso_Declaratif_TVA') }}"><span class="fa fa-barcode"></span> Déclaratif TVA</a></li>
             <li><a href="{{ path('mgateTreso_Declaratif_BRC') }}"><span class="fa fa-qrcode"></span> Bordereau Récapitulatif des Cotisations </a></li>
+            <li><a href="{{ path('mgate_treso_urssaf', {'year': "now"|date('Y'), 'month': "now"|date('m')}) }}"><span class="fa fa-group"></span> Intervenants </a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Administration</li>
             <li>
