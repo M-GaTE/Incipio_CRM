@@ -106,19 +106,24 @@ class EtudeController extends Controller
      */
     public function stateAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $stateDescription = !empty($request->request->get('state')) ? $request->request->get('state') : '';
-        $stateID = !empty($request->request->get('id')) ? intval($request->request->get('id')) : 0;
-        $etudeID = !empty($request->request->get('etude')) ? intval($request->request->get('etude')) : 0;
+        if ($this->get('request')->getMethod() == 'POST') {
 
-        if (!$etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->find($etudeID)) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        } else {
-            $etude->setStateDescription($stateDescription);
-            $etude->setStateID($stateID);
-            $em->persist($etude);
-            $em->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            $stateDescription = !empty($request->request->get('state')) ? $request->request->get('state') : '';
+            $stateID = !empty($request->request->get('id')) ? intval($request->request->get('id')) : 0;
+            $etudeID = !empty($request->request->get('etude')) ? intval($request->request->get('etude')) : 0;
+
+            if (!$etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->find($etudeID)) {
+                throw $this->createNotFoundException('L\'étude n\'existe pas !');
+            } else {
+                $etude->setStateDescription($stateDescription);
+                $etude->setStateID($stateID);
+                $em->persist($etude);
+                $em->flush();
+            }
+            return $this->redirect($this->generateUrl('mgateSuivi_state'));
         }
 
         return new Response('ok !');
@@ -144,7 +149,7 @@ class EtudeController extends Controller
 
         $error_messages = array();
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 if (!$etude->isKnownProspect()) {
