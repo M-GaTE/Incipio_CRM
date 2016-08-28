@@ -13,6 +13,7 @@ namespace mgate\SuiviBundle\Controller;
 
 use mgate\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -413,7 +414,7 @@ class EtudeController extends Controller
 
         $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
         if ($this->get('request')->getMethod() == 'POST') {
-            $formSuivi->bind($this->get('request'));
+            $formSuivi->handleRequest($this->get('request'));
 
             if ($formSuivi->isValid()) {
                 $em->persist($etude);
@@ -425,8 +426,7 @@ class EtudeController extends Controller
             }
         }
 
-        $return = json_encode($return); //jscon encode the array
-        return new Response($return, 200, array('Content-Type' => 'application/json')); //make sure it has the correct content type
+        return new JsonResponse($return); //make sure it has the correct content type
     }
 
 
