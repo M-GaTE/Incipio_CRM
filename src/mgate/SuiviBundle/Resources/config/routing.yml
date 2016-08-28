@@ -181,12 +181,12 @@ mgateSuivi_suivi_voir:
     defaults: {_controller: mgateSuiviBundle:Suivi:voir}
     requirements:
         id: \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgateSuivi_suivi_index:
     path: /suivi
     defaults: {_controller: mgateSuiviBundle:Suivi:index}
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 
 mgateSuivi_av_ajouter:
@@ -266,7 +266,7 @@ mgateSuivi_procesverbal_voir:
     defaults: {_controller: mgateSuiviBundle:ProcesVerbal:voir}
     requirements:
         id: \d+
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgateSuivi_procesverbal_supprimer:
     path: /procesverbal/supprimer/{id_pv}

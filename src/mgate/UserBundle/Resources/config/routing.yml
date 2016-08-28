@@ -1,13 +1,13 @@
 mgate_user_lister:
     path:  /user/lister
     defaults: { _controller: mgateUserBundle:Default:lister }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 
 mgate_user_voir:
     path:  /user/voir/{id}
     defaults: { _controller: mgateUserBundle:Default:voir }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgate_user_modifier:
     path:  /user/modifier/{id}
