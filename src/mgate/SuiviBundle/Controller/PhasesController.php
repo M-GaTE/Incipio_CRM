@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\Type\PhasesType;
 use mgate\SuiviBundle\Entity\Phase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PhasesController extends Controller
 {
@@ -45,7 +46,7 @@ class PhasesController extends Controller
         }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException('Cette étude est confidentielle');
+            throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         $originalPhases = array();
@@ -57,7 +58,7 @@ class PhasesController extends Controller
         $form = $this->createForm(new PhasesType(), $etude, array('etude' => $etude));
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 if ($this->get('request')->get('add')) {
@@ -84,10 +85,8 @@ class PhasesController extends Controller
                 $em->persist($etude); // persist $etude / $form->getData()
                 $em->flush();
 
-                //Necessaire pour refraichir l ordre
-                $em->refresh($etude);
-                $form = $this->createForm(new PhasesType(), $etude, array('etude' => $etude));
             }
+            return $this->redirect($this->generateUrl('mgateSuivi_phases_modifier', array('id' => $etude->getId())));
         }
 
         return $this->render('mgateSuiviBundle:Phase:phases.html.twig', array(
