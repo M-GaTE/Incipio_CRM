@@ -1,14 +1,14 @@
 mgate_indicateurs_index:
     path:  /admin/indicateurs
     defaults: { _controller: mgateStatBundle:Indicateurs:index }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgate_indicateurs_ajax_suivi:
     path:  /admin/indicateurs/etudes
     defaults: { _controller: mgateStatBundle:Indicateurs:ajax }
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
 
 mgate_indicateurs_debug:
     path:  /admin/indicateurs/{get}
     defaults: { _controller: mgateStatBundle:Indicateurs:debug}
-    methods:  [GET, HEAD, POST]
+    methods:  [GET, HEAD]
