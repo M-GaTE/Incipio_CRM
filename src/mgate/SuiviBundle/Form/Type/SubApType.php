@@ -1,8 +1,6 @@
 <?php
 
-
 namespace mgate\SuiviBundle\Form\Type;
-
 
 use mgate\PersonneBundle\Entity\PersonneRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +16,7 @@ class SubApType extends DocTypeType
             'query_builder' => function (PersonneRepository $pr) {
                 return $pr->getMembresByPoste('%vice-president%');
             },
-            'required' => true,));
+            'required' => true, ));
         DocTypeType::buildForm($builder, $options);
         $builder->add('nbrDev', 'integer', array('label' => 'Nombre d\'intervenants estimé', 'required' => false, 'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant')));
     }
@@ -28,7 +26,6 @@ class SubApType extends DocTypeType
         return 'mgate_suivibundle_subaptype';
     }
 
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -36,5 +33,4 @@ class SubApType extends DocTypeType
             'prospect' => '',
         ));
     }
-
 }

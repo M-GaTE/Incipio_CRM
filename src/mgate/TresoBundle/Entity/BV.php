@@ -188,15 +188,15 @@ class BV
         );
         foreach ($this->cotisationURSSAF as $cotisation) {
             if ($cotisation->getIsSurBaseURSSAF() && $this->baseURSSAF) {
-                $partJunior['baseURSSAF'] += round($this->nombreJEH  * $this->baseURSSAF->getBaseURSSAF() * $cotisation->getTauxPartJE(), 2);
+                $partJunior['baseURSSAF'] += round($this->nombreJEH * $this->baseURSSAF->getBaseURSSAF() * $cotisation->getTauxPartJE(), 2);
             } else {
-                $partJunior['baseBrute'] += round($this->nombreJEH  * $cotisation->getTauxPartJE() * $this->remunerationBruteParJEH, 2);
+                $partJunior['baseBrute'] += round($this->nombreJEH * $cotisation->getTauxPartJE() * $this->remunerationBruteParJEH, 2);
             }
         }
         if ($inArray) {
             return $partJunior;
         } else {
-            return $partJunior['baseURSSAF'] +  $partJunior['baseBrute'];
+            return $partJunior['baseURSSAF'] + $partJunior['baseBrute'];
         }
     }
 
@@ -218,16 +218,16 @@ class BV
             }
 
             if ($cotisation->getIsSurBaseURSSAF() && $this->baseURSSAF) {
-                $partEtu['baseURSSAF'] += round($this->nombreJEH  * $this->baseURSSAF->getBaseURSSAF() * $cotisation->getTauxPartEtu(), 2);
+                $partEtu['baseURSSAF'] += round($this->nombreJEH * $this->baseURSSAF->getBaseURSSAF() * $cotisation->getTauxPartEtu(), 2);
             } else {
-                $partEtu['baseBrute'] += round($this->nombreJEH  * $cotisation->getTauxPartEtu() * $this->remunerationBruteParJEH, 2);
+                $partEtu['baseBrute'] += round($this->nombreJEH * $cotisation->getTauxPartEtu() * $this->remunerationBruteParJEH, 2);
             }
         }
 
         if ($inArray) {
             return $partEtu;
         } else {
-            return $partEtu['baseURSSAF'] +  $partEtu['baseBrute'];
+            return $partEtu['baseURSSAF'] + $partEtu['baseBrute'];
         }
     }
 

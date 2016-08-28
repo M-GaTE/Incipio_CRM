@@ -144,11 +144,11 @@
 
         });
 
-        function addPhaseBouton($tagFormLi) {
-            var $delete = $('<button class="btn" id="myButtonDelete" class="btn">X</button>');
-            $tagFormLi.children().first().append($delete);
+        function addPhaseBouton(phaseDiv) {
+            var deleteButton = $('<button class="btn" id="myButtonDelete" class="btn"><i class="fa fa-times"></i></button>');
+            phaseDiv.children().first().append(deleteButton);
 
-            $delete.on('click', function (e) {
+            deleteButton.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
@@ -156,7 +156,7 @@
                 var message = "Êtes vous sûr de vouloir supprimer ce mandat ?";
                 bootbox.confirm(message, function (result) {
                     if (result) {
-                        $tagFormLi.remove();
+                    phaseDiv.remove();
                     }
                 });
             });

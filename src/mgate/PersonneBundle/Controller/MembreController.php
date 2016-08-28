@@ -295,7 +295,4 @@ class MembreController extends Controller
             'membres' => $entities,
         ));
     }
-
-
-
 }

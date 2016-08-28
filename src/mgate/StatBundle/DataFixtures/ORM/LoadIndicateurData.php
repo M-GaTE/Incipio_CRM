@@ -1,6 +1,5 @@
 <?php
 
-
 namespace mgate\PersonneBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -10,7 +9,7 @@ use mgate\StatBundle\Entity\Indicateur;
 class LoadIndicateurData implements FixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -158,4 +157,3 @@ class LoadIndicateurData implements FixtureInterface
         $manager->flush();
     }
 }
-

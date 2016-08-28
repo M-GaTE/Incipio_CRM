@@ -60,7 +60,9 @@ class PersonneRepository extends EntityRepository
 
     /**
      * Requete récupérant uniquement les employés et retournant un query builder, utilisable dans un form.
+     *
      * @param null $prospect
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getEmployeOnly($prospect = null)
@@ -99,9 +101,10 @@ class PersonneRepository extends EntityRepository
     }
 
     /**
-     * Requete sur l'ensemble des personnes avec en jointure les différents OneToOne possibles
+     * Requete sur l'ensemble des personnes avec en jointure les différents OneToOne possibles.
      */
-    public function getAllPersonne(){
+    public function getAllPersonne()
+    {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('p')->from('mgatePersonneBundle:Personne', 'p')
             ->leftJoin('p.employe', 'employe')
@@ -115,6 +118,7 @@ class PersonneRepository extends EntityRepository
     /**
      * Retourne un query builder de toutes les personnes ayant au moins un poste.
      * Utile dans le cas où l'on souhaite faire un formulaire d'uniquement les membres de la junior.
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getByMandatNonNulQueryBuilder()
@@ -128,6 +132,7 @@ class PersonneRepository extends EntityRepository
             ->leftJoin('m.mandats', 'mm')->addSelect('mm')
             ->where('mm.id IS NOT NULL')
             ;
+
         return $query;
     }
 }

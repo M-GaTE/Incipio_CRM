@@ -259,7 +259,8 @@ class Av extends DocType
         return $this->phases;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->etude->getReference().'/AV/'.$this->getId();
     }
 }

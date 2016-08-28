@@ -40,7 +40,9 @@ class MissionsController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
-     * @param $id int id of project.
+     *
+     * @param $id int id of project
+     *
      * @return RedirectResponse|Response
      */
     public function modifierAction($id)
@@ -57,7 +59,7 @@ class MissionsController extends Controller
 
         //save missions and repartition before form handling
         $missionList = new ArrayCollection();
-        foreach($etude->getMissions() as $mission){
+        foreach ($etude->getMissions() as $mission) {
             $missionList->add($mission);
         }
 
@@ -66,7 +68,7 @@ class MissionsController extends Controller
             $repartitionList->add($mission->getRepartitionsJEH());
         }
 
-        /** Form handling */
+        /* Form handling */
         $form = $this->createForm(new MissionsType($etude), $etude);
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));

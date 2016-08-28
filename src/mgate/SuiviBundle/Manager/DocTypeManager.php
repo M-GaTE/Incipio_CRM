@@ -49,7 +49,6 @@ class DocTypeManager /*extends \Twig_Extension*/
             $this->em->persist($employe);
 
             $doc->setSignataire2($employe->getPersonne());
-
         }
     }
 }

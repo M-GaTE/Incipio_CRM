@@ -165,6 +165,6 @@ class Mandat
 
     public function __toString()
     {
-       return 'Mandat '.$this->getDebutMandat()->format('d/m/Y').' - '.$this->getFinMandat()->format('d/m/Y');
+        return 'Mandat '.$this->getDebutMandat()->format('d/m/Y').' - '.$this->getFinMandat()->format('d/m/Y');
     }
 }

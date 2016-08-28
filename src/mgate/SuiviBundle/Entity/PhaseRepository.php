@@ -11,9 +11,11 @@ class PhaseRepository extends EntityRepository
 {
     /**
      * @param \mgate\SuiviBundle\Entity\Etude $etude
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getByEtudeQuery(Etude $etude){
+    public function getByEtudeQuery(Etude $etude)
+    {
         $qb = $this->_em->createQueryBuilder()
             ->select('p')
             ->from('mgateSuiviBundle:Phase', 'p')
@@ -22,5 +24,4 @@ class PhaseRepository extends EntityRepository
 
         return $qb;
     }
-
 }

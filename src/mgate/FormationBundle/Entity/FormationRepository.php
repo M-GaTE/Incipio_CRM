@@ -49,7 +49,7 @@ class FormationRepository extends EntityRepository
     }
 
     /**
-     * Requete pour select l'ensemble des formations avec en jointure les différents OneToOne possibles
+     * Requete pour select l'ensemble des formations avec en jointure les différents OneToOne possibles.
      */
     public function getAllFormations()
     {
@@ -59,7 +59,6 @@ class FormationRepository extends EntityRepository
             ->addSelect('formateurs')
             ->leftJoin('f.membresPresents', 'membresPresents')
             ->addSelect('membresPresents');
-
 
         return $query->getQuery()->getResult();
     }

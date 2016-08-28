@@ -24,7 +24,7 @@ class EtudeRepository extends EntityRepository
 {
     public function findByNumero($numero)
     {
-        $mandat = (int)($numero / 100);
+        $mandat = (int) ($numero / 100);
         $num = $numero % 100;
 
         $qb = $this->_em->createQueryBuilder();
@@ -38,9 +38,11 @@ class EtudeRepository extends EntityRepository
 
     /**
      * @param $nom
+     *
      * @return mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
-     * Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure.
+     *                                                Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure
      */
     public function getByNom($nom)
     {
@@ -64,10 +66,8 @@ class EtudeRepository extends EntityRepository
         //->where('e.cc IS NOT NULL')
         //->addOrderBy('cc.dateSignature');
 
-
         return $query->getQuery()->getResult();
     }
-
 
     public function findByCompetence(Competence $competence)
     {
@@ -88,10 +88,10 @@ class EtudeRepository extends EntityRepository
     }
 
     /**
-     * @param $etat variable pour récuperer les études selon leurs etats d'avancement.
+     * @param $etat variable pour récuperer les études selon leurs etats d'avancement
      * @param $order tableau des champs sur lesquels ordonnés les études.
      * Requete spéciale pour afficher le pipeline des études.
-     * A permis de réduire le nombre de requetes de 109 à 34. Il est possible de réduire encore plus le nombre de requetes, mais la page se met alors à diverger en temps, car les reuqtes sont de plus en plus longues.
+     * A permis de réduire le nombre de requetes de 109 à 34. Il est possible de réduire encore plus le nombre de requetes, mais la page se met alors à diverger en temps, car les reuqtes sont de plus en plus longues
      */
     public function getPipeline(array $etat, array $orders = null)
     {
@@ -103,7 +103,7 @@ class EtudeRepository extends EntityRepository
 
         if ($orders !== null) {
             foreach ($orders as $column => $value) {
-                $qb->orderBy('e.' . $column, $value);
+                $qb->orderBy('e.'.$column, $value);
             }
         }
         //les jointures
@@ -134,15 +134,15 @@ class EtudeRepository extends EntityRepository
         $query = $qb->getQuery();
 
         return $query->getResult();
-
     }
-
 
     /**
      * Get all project according to their state. Mainly used in VuCA to display negociate and current project.
-     * @param array $states 2 states whom you want all projects in that states
+     *
+     * @param array      $states 2 states whom you want all projects in that states
      * @param array|null $orders how should project be ordered
-     * @return array of projects.
+     *
+     * @return array of projects
      */
     public function getTwoStates(array $states = [1, 2], array $orders = null)
     {
@@ -154,12 +154,11 @@ class EtudeRepository extends EntityRepository
             ->setParameter('stateCurrent', $states[1]);
         if ($orders !== null) {
             foreach ($orders as $column => $value) {
-                $qb->orderBy('e.' . $column, $value);
+                $qb->orderBy('e.'.$column, $value);
             }
         }
         $query = $qb->getQuery();
 
         return $query->getResult();
     }
-
 }

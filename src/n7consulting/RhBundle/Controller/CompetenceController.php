@@ -2,12 +2,10 @@
 
 namespace n7consulting\RhBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use n7consulting\RhBundle\Entity\Competence;
 use n7consulting\RhBundle\Form\Type\CompetenceType;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CompetenceController extends Controller
 {
@@ -43,7 +41,6 @@ class CompetenceController extends Controller
      */
     public function indexAction($page)
     {
-
         $entities = $this->getDoctrine()->getManager()->getRepository('n7consultingRhBundle:Competence')->findAll();
 
         return $this->render('n7consultingRhBundle:Competence:index.html.twig', array(
@@ -63,15 +60,15 @@ class CompetenceController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Cette compétence n\'existe pas !');
         }
-		
-		$devs = $em->getRepository('mgatePersonneBundle:Membre')->findByCompetence($entity);
 
-       $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findByCompetence($entity);
-		
+        $devs = $em->getRepository('mgatePersonneBundle:Membre')->findByCompetence($entity);
+
+        $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findByCompetence($entity);
+
         return $this->render('n7consultingRhBundle:Competence:voir.html.twig', array(
             'competence' => $entity,
-			'devs'=>$devs,
-            'etudes' =>$etudes,
+            'devs' => $devs,
+            'etudes' => $etudes,
         ));
     }
 
@@ -107,7 +104,6 @@ class CompetenceController extends Controller
     }
 
     /**
-     *
      * Par souci de simplicité, on fait 2 requetes (une sur les competences, une sur les intervenants), alors que seule la requete sur les competences suffirait.
      */
     public function visualiserAction()
@@ -115,6 +111,7 @@ class CompetenceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $competences = $em->getRepository('n7consulting\RhBundle\Entity\Competence')->getCompetencesTree();
         $membres = $em->getRepository('mgatePersonneBundle:Membre')->getByCompetencesNonNul();
+
         return $this->render('n7consultingRhBundle:Competence:visualiser.html.twig', array(
             'competences' => $competences,
             'membres' => $membres,
@@ -158,7 +155,4 @@ class CompetenceController extends Controller
             ->getForm()
             ;
     }
-
-
-
 }

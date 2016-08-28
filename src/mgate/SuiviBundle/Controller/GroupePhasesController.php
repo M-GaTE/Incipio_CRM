@@ -72,7 +72,8 @@ class GroupePhasesController extends Controller
                 $em->persist($etude); // persist $etude / $form->getData()
                 $em->flush();
             }
-            return $this->redirect($this->generateUrl('mgateSuivi_groupes_modifier',array('id' => $etude->getId())));
+
+            return $this->redirect($this->generateUrl('mgateSuivi_groupes_modifier', array('id' => $etude->getId())));
         }
 
         return $this->render('mgateSuiviBundle:GroupePhases:modifier.html.twig', array(

@@ -34,13 +34,15 @@ class ProspectRepository extends EntityRepository
 
     /**
      * Remplace le findAll avec une jointure sur les employés, utile notamment lors du comptage de ces derniers.
+     *
      * @return array
      */
-    public function getAllProspect(){
+    public function getAllProspect()
+    {
         $qb = $this->_em->createQueryBuilder();
         $query = $qb->select('p')
-                    ->from('mgatePersonneBundle:Prospect','p')
-                    ->leftJoin('p.employes','employes')
+                    ->from('mgatePersonneBundle:Prospect', 'p')
+                    ->leftJoin('p.employes', 'employes')
                     ->addSelect('employes')
                     ->getQuery();
 

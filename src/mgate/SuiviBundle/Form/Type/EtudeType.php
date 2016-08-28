@@ -45,7 +45,9 @@ class EtudeType extends AbstractType
                 array('label' => 'Suiveur de projet',
                        'class' => 'mgate\\PersonneBundle\\Entity\\Personne',
                        'property' => 'prenomNom',
-                       'query_builder' => function (PersonneRepository $pr) { return $pr->getMembreOnly(); },
+                       'query_builder' => function (PersonneRepository $pr) {
+                           return $pr->getMembreOnly();
+                       },
                        'required' => false, ))
             ->add('domaineCompetence', 'genemu_jqueryselect2_entity', array(
                 'class' => 'mgate\SuiviBundle\Entity\DomaineCompetence',

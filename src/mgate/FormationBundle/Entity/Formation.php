@@ -103,7 +103,7 @@ class Formation
             '5' => 'Développement Commercial',
             '6' => 'Communication',
             '7' => 'Intervenants',
-            '8' => 'Autre',);
+            '8' => 'Autre', );
     }
 
     public static function getCategoriesChoiceToString($choice = null)

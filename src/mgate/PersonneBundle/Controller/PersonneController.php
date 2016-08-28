@@ -45,7 +45,7 @@ class PersonneController extends Controller
 
         $cotisants = array();
         $cotisantsEtu = array();
-        /** foreach ($membres as $cotisant) {
+        /* foreach ($membres as $cotisant) {
          * $nom = $cotisant->getPersonne()->getNom().' '.$cotisant->getPersonne()->getPrenom();
          *
          * $mailEtu = $cotisant->getEmailEMSE();

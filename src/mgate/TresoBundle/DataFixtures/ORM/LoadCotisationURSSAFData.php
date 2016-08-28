@@ -18,7 +18,7 @@ use mgate\TresoBundle\Entity\CotisationURSSAF;
 class LoadCotisationURSSAFData implements FixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {

@@ -53,7 +53,9 @@ class AddUserFieldSubscriber implements EventSubscriberInterface
                            'class' => 'mgate\\UserBundle\\Entity\\User',
                            'property' => 'username',
                            'required' => false,
-                           'query_builder' => function (UserRepository $ur) use ($personne) { return $ur->getNotPersonne($personne); },
+                           'query_builder' => function (UserRepository $ur) use ($personne) {
+                               return $ur->getNotPersonne($personne);
+                           },
                                    ));
 
         // check if the product object is "new"

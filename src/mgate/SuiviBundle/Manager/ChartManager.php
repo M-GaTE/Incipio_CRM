@@ -63,7 +63,7 @@ class ChartManager /*extends \Twig_Extension*/
         if ($type == 'suivi') {
             $data = array();
             $count_cats = count($cats);
-            for ($j = 0;$j < $count_cats;++$j) {
+            for ($j = 0; $j < $count_cats; ++$j) {
                 $data[] = array();
             }
             $dataSauv = $data;
@@ -117,7 +117,7 @@ class ChartManager /*extends \Twig_Extension*/
         if ($type == 'suivi') {
             $data = array();
             $count_cats = count($cats);
-            for ($j = 0;$j < $count_cats;++$j) {
+            for ($j = 0; $j < $count_cats; ++$j) {
                 $data[] = array();
             }
 
@@ -196,7 +196,7 @@ class ChartManager /*extends \Twig_Extension*/
         return $ob;
     }
 
-    public function exportGantt(Highchart $ob, $filename, $width=800)
+    public function exportGantt(Highchart $ob, $filename, $width = 800)
     {
         $logger = $this->logger;
 
@@ -234,7 +234,7 @@ class ChartManager /*extends \Twig_Extension*/
         $output = shell_exec($cmd);
         //l'execution de la commande affiche des messages de fonctionnement. On ne retient que la 3eme ligne (celle de la destination quand tout fonctionne bien).
         //Highcharts.options.parsed Highcharts.customCode.parsed tmp/gantt411ENS.png
-        $temp = preg_split('#\n#',$output);
+        $temp = preg_split('#\n#', $output);
         $output = $temp[2];
         if (strncmp($output, $destination, strlen($destination)) == 0) {
             if (file_exists($destination)) {

@@ -9,19 +9,18 @@ use mgate\SuiviBundle\Entity\Etude;
 
 /**
  * Competence : objet pouvant être attaché à un intervenant ou a une étude pour caractériser ce dont il a besoin.
+ *
  * @ORM\Entity(repositoryClass="n7consulting\RhBundle\Entity\CompetenceRepository")
  * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="NameConstraintes", columns={"nom"})})
  */
 class Competence
 {
-
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $description;
-
 
     /**
      * @var string
@@ -39,9 +38,8 @@ class Competence
      */
     private $etudes;
 
-
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id",type="integer")
      * @ORM\Id
@@ -49,14 +47,11 @@ class Competence
      */
     private $id;
 
-
-
     public function __construct()
     {
         $this->membres = new ArrayCollection();
         $this->etudes = new ArrayCollection();
     }
-
 
     /**
      * @return string
@@ -166,9 +161,8 @@ class Competence
         return $this->etudes;
     }
 
-
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getNom();
     }
-
 }

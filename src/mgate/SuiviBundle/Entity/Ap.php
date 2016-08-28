@@ -12,6 +12,7 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use mgate\PersonneBundle\Entity\Personne;
 
 /**
  * mgate\SuiviBundle\Entity\Ap.
@@ -74,11 +75,11 @@ class Ap extends DocType
     /**
      * Set etude.
      *
-     * @param mgate\SuiviBundle\Entity\Etude $etude
+     * @param Etude $etude
      *
      * @return Ap
      */
-    public function setEtude(\mgate\SuiviBundle\Entity\Etude $etude = null)
+    public function setEtude(Etude $etude = null)
     {
         $this->etude = $etude;
 
@@ -122,11 +123,11 @@ class Ap extends DocType
     /**
      * Set contactMgate.
      *
-     * @param \mgate\PersonneBundle\Entity\Personne $contactMgate
+     * @param Personne $contactMgate
      *
      * @return Ap
      */
-    public function setContactMgate(\mgate\PersonneBundle\Entity\Personne $contactMgate = null)
+    public function setContactMgate(Personne $contactMgate = null)
     {
         $this->contactMgate = $contactMgate;
 
@@ -136,7 +137,7 @@ class Ap extends DocType
     /**
      * Get contactMgate.
      *
-     * @return \mgate\PersonneBundle\Entity\Personne
+     * @return Personne
      */
     public function getContactMgate()
     {
@@ -167,7 +168,8 @@ class Ap extends DocType
         return $this->deonto;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->etude->getReference().'/PM/';
     }
 }

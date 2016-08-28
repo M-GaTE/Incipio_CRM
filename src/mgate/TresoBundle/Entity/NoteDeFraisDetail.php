@@ -90,7 +90,7 @@ class NoteDeFraisDetail
     public static function getTypeChoices()
     {
         return array(1 => 'Classique',
-            2 => 'Kilométrique',);
+            2 => 'Kilométrique', );
     }
 
     public function getMontantHT()

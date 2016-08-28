@@ -84,8 +84,8 @@ class PhasesController extends Controller
 
                 $em->persist($etude); // persist $etude / $form->getData()
                 $em->flush();
-
             }
+
             return $this->redirect($this->generateUrl('mgateSuivi_phases_modifier', array('id' => $etude->getId())));
         }
 

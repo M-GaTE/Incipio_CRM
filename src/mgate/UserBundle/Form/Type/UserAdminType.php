@@ -13,9 +13,7 @@ namespace mgate\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
-use mgate\UserBundle\Entity\User as User;
 use mgate\UserBundle\Form\Type\EventListener\AddMembreFieldSubscriber;
-
 
 class UserAdminType extends BaseType
 {
@@ -25,7 +23,6 @@ class UserAdminType extends BaseType
     {
         parent::__construct($class);
         $this->roles = $roles;
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

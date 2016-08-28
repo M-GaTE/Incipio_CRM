@@ -171,9 +171,9 @@ class ProspectController extends Controller
         ;
     }
 
-
     /**
      * Point d'entré ajax retournant un json des prospect dont le nom contient une partie de $_GET['term'].
+     *
      * @Route("/ajax_prospect", name="ajax_prospect")
      * @Security("has_role('ROLE_SUIVEUR')")
      */
@@ -200,21 +200,20 @@ class ProspectController extends Controller
 
     /**
      * Point d'entrée ajax retournant un Json avec la liste des employés d'un prospect donné.
+     *
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajaxEmployesAction(Prospect $prospect, $id){
-
+    public function ajaxEmployesAction(Prospect $prospect, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $employes = $em->getRepository('mgatePersonneBundle:Employe')->findByProspect($prospect);
         $json = array();
-        foreach($employes as $employe){
-            array_push( $json,array('label' => $employe->__toString(), 'value'=>$employe->getId()) );
+        foreach ($employes as $employe) {
+            array_push($json, array('label' => $employe->__toString(), 'value' => $employe->getId()));
         }
         $response = new JsonResponse();
         $response->setData($json);
 
         return $response;
     }
-
-
 }

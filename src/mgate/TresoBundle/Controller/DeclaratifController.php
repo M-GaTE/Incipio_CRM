@@ -46,11 +46,11 @@ class DeclaratifController extends Controller
         $defaultData = array('message' => 'Date');
         $form = $this->createFormBuilder($defaultData)
             ->add(
-                'date','genemu_jquerydate',
+                'date', 'genemu_jquerydate',
                 array(
                     'label' => 'Mois considéré',
                     'required' => true, 'widget' => 'single_text',
-                    'data' => date_create(), 'format' => 'dd/MM/yyyy',))
+                    'data' => date_create(), 'format' => 'dd/MM/yyyy', ))
             ->add('trimestriel', 'checkbox', array('label' => 'Trimestriel ?', 'required' => false))
             ->getForm();
 
@@ -71,14 +71,14 @@ class DeclaratifController extends Controller
         }
         setlocale(LC_TIME, 'fra_fra');
         if (array_key_exists('trimestriel', $data) && $data['trimestriel']) {
-            $periode = 'Déclaratif pour la période : ' . utf8_encode(strftime('%B', $date->format('U')) . ' - ' . strftime('%B', $date->modify('+2 month')->format('U')));
+            $periode = 'Déclaratif pour la période : '.utf8_encode(strftime('%B', $date->format('U')).' - '.strftime('%B', $date->modify('+2 month')->format('U')));
             for ($i = 0; $i < 3; ++$i) {
                 $nfs = $em->getRepository('mgateTresoBundle:NoteDeFrais')->findAllByMonth($month, $year, true);
                 $fas = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_ACHAT, $month, $year, true);
                 $fvs = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_VENTE, $month, $year, true);
             }
         } else {
-            $periode = 'Déclaratif pour la période : ' . utf8_encode(strftime('%B', $date->format('U')));
+            $periode = 'Déclaratif pour la période : '.utf8_encode(strftime('%B', $date->format('U')));
             $nfs = $em->getRepository('mgateTresoBundle:NoteDeFrais')->findAllByMonth($month, $year);
             $fas = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_ACHAT, $month, $year);
             $fvs = $em->getRepository('mgateTresoBundle:Facture')->findAllTVAByMonth(Facture::$TYPE_VENTE, $month, $year);
@@ -192,9 +192,10 @@ class DeclaratifController extends Controller
 
     /**
      * @Security("has_role('ROLE_TRESO')")
+     *
      * @param Request $request
-     * @param null $year
-     * @param null $month
+     * @param null    $year
+     * @param null    $month
      */
     public function BRCAction(Request $request, $year, $month)
     {
@@ -205,24 +206,25 @@ class DeclaratifController extends Controller
                 array(
                     'label' => 'Mois du déclaratif',
                     'required' => true, 'widget' => 'single_text',
-                    'data' => date_create(), 'format' => 'dd/MM/yyyy',)
+                    'data' => date_create(), 'format' => 'dd/MM/yyyy', )
             )->getForm();
 
-        if ($request->isMethod('POST')) {//small hack to keep api working
+        if ($request->isMethod('POST')) {
+            //small hack to keep api working
             $form->handleRequest($request);
             $data = $form->getData();
             $date = $data['date'];
+
             return $this->redirect($this->generateUrl('mgateTreso_Declaratif_BRC', array('year' => $date->format('Y'),
                                                                                         'month' => $date->format('m'),
                 )));
         }
 
-        if($year == null || $month === null){
+        if ($year == null || $month === null) {
             $date = new \DateTime('now');
             $month = $date->format('m');
             $year = $date->format('Y');
         }
-
 
         $bvs = $em->getRepository('mgateTresoBundle:BV')->findAllByMonth($month, $year);
 

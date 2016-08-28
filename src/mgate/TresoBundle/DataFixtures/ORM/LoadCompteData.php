@@ -18,7 +18,7 @@ use mgate\TresoBundle\Entity\Compte;
 class LoadCompteData implements FixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {

@@ -69,17 +69,17 @@ class EtudeManager extends \Twig_Extension
     }
 
     /**
-     * @param Etude $etude
-     * @param User $user
+     * @param Etude                $etude
+     * @param User                 $user
      * @param AuthorizationChecker $userToken
+     *
      * @return bool
-     * Comme l'authorizationChecker n'est pas dispo coté twig, on utilisera cette méthode uniquement dans les controllers.
-     * Pour twig, utiliser confidentielRefusTwig(Etude, User, is_granted('ROLE_SOUHAITE'))
+     *              Comme l'authorizationChecker n'est pas dispo coté twig, on utilisera cette méthode uniquement dans les controllers.
+     *              Pour twig, utiliser confidentielRefusTwig(Etude, User, is_granted('ROLE_SOUHAITE'))
      */
     public function confidentielRefus(Etude $etude, User $user, AuthorizationChecker $userToken)
     {
         try {
-
             if ($etude->getConfidentiel() && !$userToken->isGranted('ROLE_CA')) {
                 if ($etude->getSuiveur() && $user->getId() != $etude->getSuiveur()->getId()) {
                     return true;
@@ -95,7 +95,6 @@ class EtudeManager extends \Twig_Extension
     public function confidentielRefusTwig(Etude $etude, User $user,  $isGranted)
     {
         try {
-
             if ($etude->getConfidentiel() && !$isGranted) {
                 if ($etude->getSuiveur() && $user->getId() != $etude->getSuiveur()->getId()) {
                     return true;
@@ -110,7 +109,9 @@ class EtudeManager extends \Twig_Extension
 
     /**
      * Get montant total TTC.
+     *
      * @param Etude $etude
+     *
      * @return float
      */
     public function getTotalTTC(Etude $etude)
@@ -120,7 +121,9 @@ class EtudeManager extends \Twig_Extension
 
     /**
      * Get nombre de JEH.
+     *
      * @param Etude $etude
+     *
      * @return float
      */
     public function getMontantVerse(Etude $etude)
@@ -442,19 +445,19 @@ class EtudeManager extends \Twig_Extension
             }
         }
 
-        /**
+        /*
          * Verification que les dates de debut de phases correspondent bien avec la date de signature de la CC
          * On créé juste un compteur d'erreur pour ne pas spammer l'utilisateur sous un grand nombre d'erreurs liées juste aux phases.
          */
-        $phasesErreurDate =0; //compteur des phases avec date incorrectes
-        if($etude->getCc() !== null) {
+        $phasesErreurDate = 0; //compteur des phases avec date incorrectes
+        if ($etude->getCc() !== null) {
             foreach ($etude->getPhases() as $phase) {
                 if ($phase->getDateDebut() < $etude->getCc()->getDateSignature()) {
-                    $phasesErreurDate++;
+                    ++$phasesErreurDate;
                 }
             }
             if ($phasesErreurDate > 0) {
-                $error = array('titre' => 'Date des phases', 'message' => "Il y a " . $phasesErreurDate . " erreur(s) dans les dates de début de phases.");
+                $error = array('titre' => 'Date des phases', 'message' => 'Il y a '.$phasesErreurDate.' erreur(s) dans les dates de début de phases.');
                 array_push($errors, $error);
             }
         }
@@ -468,7 +471,7 @@ class EtudeManager extends \Twig_Extension
 
         // Description de l'AP insuffisante
         $length = strlen($etude->getDescriptionPrestation());
-        if ($length > 300 && $length  < 500) {
+        if ($length > 300 && $length < 500) {
             $error = array('titre' => 'Description de l\'étude:', 'message' => 'Attention la description de l\'étude dans l\'AP fait moins de 500 caractères');
             array_push($warnings, $error);
         }
@@ -484,7 +487,7 @@ class EtudeManager extends \Twig_Extension
         $DateAvert0 = new \DateInterval('P20D');
         $DateAvert1 = new \DateInterval('P10D');
         if ($etude->getDateFin()) {
-            if ($etude->getDateFin()->sub($DateAvert1) > $now &&  $etude->getDateFin()->sub($DateAvert0) < $now) {
+            if ($etude->getDateFin()->sub($DateAvert1) > $now && $etude->getDateFin()->sub($DateAvert0) < $now) {
                 $warning = array('titre' => 'Fin de l\'étude :', 'message' => 'l\'étude se termine dans moins de vingt jours, pensez à faire signer le PVR ou à faire signer des avenants de délais si vous pensez que l\'étude ne se terminera pas à temps.');
                 array_push($warnings, $warning);
             }
@@ -617,20 +620,20 @@ class EtudeManager extends \Twig_Extension
         return $ok;
     }
 
-
     //Copie de getEtatDoc pour les factures. Les factures n'étendant pas Doctype, le relu, rédigé ... n'est pas pertinent. On ne teste donc que l'existence et loe versement.
 
     /**
      * @param $doc
-     * @return $ok : 0=> null, 1 => emis, 2=>recu.
+     *
+     * @return $ok : 0=> null, 1 => emis, 2=>recu
      */
     public function getEtatFacture($doc)
     {
-        if($doc !== null){
+        if ($doc !== null) {
             $now = new \DateTime('now');
             $dateDebutEtude = $doc->getEtude()->getCc()->getDateSignature();
-            $ok = ($doc->getDateVersement() < $now && $doc->getDateVersement() > $dateDebutEtude  ? 2: 1);
-        } else{
+            $ok = ($doc->getDateVersement() < $now && $doc->getDateVersement() > $dateDebutEtude ? 2 : 1);
+        } else {
             $ok = 0;
         }
 
@@ -742,7 +745,7 @@ class EtudeManager extends \Twig_Extension
                         $ApRedige = 1;
                         $ApSigne = 1;
                     }
-                    $tauxConversionCalc = array('mandat' => $mandat,'ap_redige' => $ApRedige,'ap_signe' => $ApSigne);
+                    $tauxConversionCalc = array('mandat' => $mandat, 'ap_redige' => $ApRedige, 'ap_signe' => $ApSigne);
                     $tauxConversion[$mandat] = $tauxConversionCalc;
                 } elseif ($etude->getAp()->getRedige()) {
                     if (isset($tauxConversion[$mandat])) {
@@ -753,7 +756,7 @@ class EtudeManager extends \Twig_Extension
                         $ApRedige = 1;
                         $ApSigne = 0;
                     }
-                    $tauxConversionCalc = array('mandat' => $mandat,'ap_redige' => $ApRedige,'ap_signe' => $ApSigne);
+                    $tauxConversionCalc = array('mandat' => $mandat, 'ap_redige' => $ApRedige, 'ap_signe' => $ApSigne);
                     $tauxConversion[$mandat] = $tauxConversionCalc;
                 }
                             //var_dump($tauxConversionCalc);

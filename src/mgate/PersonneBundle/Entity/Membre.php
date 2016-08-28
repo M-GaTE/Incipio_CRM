@@ -13,9 +13,6 @@ namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use mgate\PersonneBundle\Entity\Mandat;
-use mgate\PersonneBundle\Entity\Personne;
-use mgate\PersonneBundle\Entity\Poste;
 use mgate\PubliBundle\Entity\RelatedDocument;
 use mgate\SuiviBundle\Entity\Mission;
 use n7consulting\RhBundle\Entity\Competence;
@@ -108,22 +105,22 @@ class Membre
      * @ORM\Column(name="photoURI", type="string", nullable=true)
      */
     private $photoURI;
-	
-	/** Ajout N7 Consulting **/
-	
+
+    /** Ajout N7 Consulting **/
+
     /**
      * @var string
      * @ORM\Column(name="formatPaiement", type="string", length=15)
      */
     private $formatPaiement;
-	
-	/**
+
+    /**
      * @var bool
      * @ORM\Column(name="estSocieteGenerale", type="boolean", nullable=false, options={"default" = false})
      */
     private $estSocieteGenerale;
-	
-	/**
+
+    /**
      * @var string
      * @ORM\Column(name="filiere", type="string", length=15)
      */
@@ -135,21 +132,18 @@ class Membre
      */
     private $competences;
 
-
     public function __construct()
     {
         $this->mandats = new ArrayCollection();
         $this->missions = new ArrayCollection();
         $this->relatedDocuments = new ArrayCollection();
         $this->competences = new ArrayCollection();
-
     }
 
     public function __toString()
     {
         return $this->getPersonne()->__toString();
     }
-
 
     /**
      * Get id.
@@ -505,10 +499,12 @@ class Membre
     {
         return $this->photoURI;
     }
-	
-	/**
+
+    /**
      * Set formatPaiement.
+     *
      * @param string $formatPaiement
+     *
      * @return Membre
      */
     public function setformatPaiement($formatPaiement)
@@ -526,9 +522,9 @@ class Membre
     public function getformatPaiement()
     {
         return $this->formatPaiement;
-    }    
-	
-	/**
+    }
+
+    /**
      * Set estSocieteGenerale.
      *
      * @param string $estSocieteGenerale
@@ -551,10 +547,12 @@ class Membre
     {
         return $this->estSocieteGenerale;
     }
-	
-		/**
+
+    /**
      * Set filiere.
+     *
      * @param string $filiere
+     *
      * @return Membre
      */
     public function setFiliere($filiere)
@@ -607,6 +605,4 @@ class Membre
     {
         return $this->competences;
     }
-
-	
 }

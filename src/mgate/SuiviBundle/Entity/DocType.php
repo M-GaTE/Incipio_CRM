@@ -21,9 +21,6 @@ class DocType
      */
     private $knownSignataire2 = false;
 
-    /**
-     *
-     */
     private $newSignataire2;
 
     /**

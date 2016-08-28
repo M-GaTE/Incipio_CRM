@@ -67,7 +67,7 @@ class EtudeController extends Controller
             'etudesTermineesParMandat' => $etudesTermineesParMandat,
             'etudesAvorteesParMandat' => $etudesAvorteesParMandat,
             'anneeCreation' => $junior['anneeCreation'],
-            'mandatMax' => $MANDAT_MAX
+            'mandatMax' => $MANDAT_MAX,
         ));
     }
 
@@ -101,14 +101,14 @@ class EtudeController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function stateAction(Request $request)
     {
-
         if ($this->get('request')->getMethod() == 'POST') {
-
             $em = $this->getDoctrine()->getManager();
 
             $stateDescription = !empty($request->request->get('state')) ? $request->request->get('state') : '';
@@ -123,6 +123,7 @@ class EtudeController extends Controller
                 $em->persist($etude);
                 $em->flush();
             }
+
             return $this->redirect($this->generateUrl('mgateSuivi_state'));
         }
 
@@ -168,7 +169,7 @@ class EtudeController extends Controller
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate($etude);
                 foreach ($errors as $error) {
-                    array_push($error_messages, $error->getPropertyPath() . ' : ' . $error->getMessage());
+                    array_push($error_messages, $error->getPropertyPath().' : '.$error->getMessage());
                 }
             }
         }
@@ -250,8 +251,10 @@ class EtudeController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param $nom string short name of project
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction($nom, Request $request)
@@ -338,8 +341,8 @@ class EtudeController extends Controller
         $id = 0;
         foreach (array_reverse($etudesParMandat) as $etudesInMandat) {
             foreach ($etudesInMandat as $etude) {
-                $form = $form->add((string)(2 * $id), 'hidden', array('label' => 'refEtude', 'data' => $etude->getReference()))
-                    ->add((string)(2 * $id + 1), 'textarea', array('label' => $etude->getReference(), 'required' => false, 'data' => $etude->getStateDescription()));
+                $form = $form->add((string) (2 * $id), 'hidden', array('label' => 'refEtude', 'data' => $etude->getReference()))
+                    ->add((string) (2 * $id + 1), 'textarea', array('label' => $etude->getReference(), 'required' => false, 'data' => $etude->getStateDescription()));
                 ++$id;
                 if ($etude->getStateID() == STATE_ID_EN_COURS) {
                     array_push($etudesEnCours, $etude);
@@ -427,13 +430,12 @@ class EtudeController extends Controller
 
                 $return = array('responseCode' => 100, 'msg' => 'ok');
             } else {
-                $return = array('responseCode' => 200, 'msg' => 'Erreur:' . $formSuivi->getErrorsAsString());
+                $return = array('responseCode' => 200, 'msg' => 'Erreur:'.$formSuivi->getErrorsAsString());
             }
         }
 
         return new JsonResponse($return); //make sure it has the correct content type
     }
-
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
@@ -453,7 +455,7 @@ class EtudeController extends Controller
         }
 
         //Etudes En Négociation : stateID = 1
-        $etudesDisplayList = $em->getRepository('mgateSuiviBundle:Etude')->getTwoStates([STATE_ID_EN_NEGOCIATION, STATE_ID_EN_COURS,], array('mandat' => 'ASC', 'num' => 'ASC'));
+        $etudesDisplayList = $em->getRepository('mgateSuiviBundle:Etude')->getTwoStates([STATE_ID_EN_NEGOCIATION, STATE_ID_EN_COURS], array('mandat' => 'ASC', 'num' => 'ASC'));
 
         if (!in_array($etude, $etudesDisplayList)) {
             throw $this->createNotFoundException('Etude incorrecte');

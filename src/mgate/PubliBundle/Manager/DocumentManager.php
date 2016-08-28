@@ -19,7 +19,6 @@
  *
  * Manager pour l'upload de Documents (Aucun document ne doit être persisté sans utiliser ces méthodes)
  */
-
 namespace mgate\PubliBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
@@ -29,9 +28,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use mgate\PubliBundle\Entity\Document;
 use mgate\PubliBundle\Entity\RelatedDocument;
 
-/**
- *
- */
 class DocumentManager extends BaseManager
 {
     protected $em;

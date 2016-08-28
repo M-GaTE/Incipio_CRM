@@ -214,7 +214,8 @@ class GroupePhases
         return $this->phases;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return 'Groupe : '.$this->getTitre();
     }
 }

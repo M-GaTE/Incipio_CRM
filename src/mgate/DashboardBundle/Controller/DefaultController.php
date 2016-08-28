@@ -19,5 +19,4 @@ class DefaultController extends Controller
     {
         return $this->render('mgateDashboardBundle:Default:index.html.twig');
     }
-
 }

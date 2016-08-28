@@ -106,7 +106,7 @@ class TraitementController extends Controller
                 if (!$rootObject = $em->getRepository('mgate\TresoBundle\Entity\Facture')->find($rootObject_id)) {
                     throw $errorRootObjectNotFound;
                 }
-                if ($rootObject->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getEtude(),$this->getUser(), $this->get('security.authorization_checker'))) {
+                if ($rootObject->getEtude() && $this->get('mgate.etude_manager')->confidentielRefus($rootObject->getEtude(), $this->getUser(), $this->get('security.authorization_checker'))) {
                     throw $errorEtudeConfidentielle;
                 }
                 break;
@@ -230,12 +230,12 @@ class TraitementController extends Controller
             $response->headers->set('Expires', 0);
 
             $response->setContent(file_get_contents($templateName));
+
             return $response;
 
-	//$response->send();
+    //$response->send();
          //   readfile($templateName);
           //  exit();
-
         }
 
         return $this->redirect($this->generateUrl('mgateSuivi_etude_homepage', array('page' => 1)));
@@ -247,7 +247,6 @@ class TraitementController extends Controller
 
         return $array;
     }
-
 
     //TODO
     private function getDoctypeAbsolutePathFromName($doc, $debug = false)

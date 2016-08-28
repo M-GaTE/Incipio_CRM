@@ -158,10 +158,10 @@ class Phase
         $this->avenantStatut = 0;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return 'Phase : '.$this->getTitre();
     }
-
 
     /**
      * Get id.
@@ -545,7 +545,4 @@ class Phase
     {
         $this->mission = $mission;
     }
-
-
-
 }

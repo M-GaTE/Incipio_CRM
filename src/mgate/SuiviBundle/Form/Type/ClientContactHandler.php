@@ -11,7 +11,6 @@
 
 // src/Sdz/BlogBundle/Form/ArticleHandler.php
 
-
 namespace mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\Form;

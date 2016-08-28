@@ -36,5 +36,4 @@ class AuditType extends AbstractType
     {
         return 'auditType';
     }
-
 }

@@ -66,7 +66,9 @@ class MembreRepository extends EntityRepository
 
     /**
      * Retourne tous les membres connaissant $competence.
+     *
      * @param Competence $competence
+     *
      * @return array
      */
     public function findByCompetence(Competence $competence)
@@ -87,6 +89,7 @@ class MembreRepository extends EntityRepository
     /**
      * Retourne un query builder de tous les membres ayant au moins un poste.
      * Utile dans le cas où l'on souhaite faire un formulaire d'uniquement les membres de la junior.
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getByMandatNonNulQueryBuilder()
@@ -163,10 +166,12 @@ class MembreRepository extends EntityRepository
     }
 
     /**
-     * Fonction retournant l'ensemble des membres avec une jointure sur les mandats et les postes.ti
+     * Fonction retournant l'ensemble des membres avec une jointure sur les mandats et les postes.ti.
+     *
      * @return array
      */
-    public function getMembres(){
+    public function getMembres()
+    {
         $qb = $this->_em->createQueryBuilder();
 
         $query = $qb
@@ -174,7 +179,7 @@ class MembreRepository extends EntityRepository
             ->from('mgatePersonneBundle:Membre', 'm')
             ->leftJoin('m.mandats', 'mandats')
             ->addSelect('mandats')
-            ->leftJoin('mandats.poste','poste')
+            ->leftJoin('mandats.poste', 'poste')
             ->addSelect('poste')
             ->getQuery();
 

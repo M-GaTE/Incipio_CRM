@@ -38,7 +38,7 @@ class AvType extends DocTypeType
             'allow_delete' => true,
             'prototype' => true,
             'by_reference' => false,
-        ))*/;
+        ))*/
 
         DocTypeType::buildForm($builder, $options);
     }

@@ -11,12 +11,10 @@
 
 // src/mgate/UserBundle/Entity/User.php
 
-
 namespace mgate\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Yaml\Parser;
 
 /**
  * @ORM\Entity(repositoryClass="mgate\UserBundle\Entity\UserRepository")
@@ -102,7 +100,7 @@ class User extends BaseUser
 
         $liste = '';
         foreach ($rolesArray as $role) {
-            $liste .= ' ' . self::convertRoleToLabel($role);
+            $liste .= ' '.self::convertRoleToLabel($role);
         }
 
         return $liste;

@@ -9,9 +9,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClientContactRepository extends EntityRepository
 {
-
     /** Returns all contacts for an Etude */
-    public function getByEtude(Etude $etude){
+    public function getByEtude(Etude $etude)
+    {
         $qb = $this->_em->createQueryBuilder();
 
         $query = $qb->select('cc')
@@ -26,7 +26,8 @@ class ClientContactRepository extends EntityRepository
     }
 
     /** Returns the last contact for an Etude */
-    public function getLastByEtude(Etude $etude){
+    public function getLastByEtude(Etude $etude)
+    {
         $qb = $this->_em->createQueryBuilder();
 
         $query = $qb->select('cc')

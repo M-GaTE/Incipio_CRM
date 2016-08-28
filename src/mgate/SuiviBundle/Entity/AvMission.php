@@ -49,7 +49,7 @@ class AvMission extends DocType
     private $nouvelleRepartition;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(name="nouveauPourcentage", type="integer")
      */
     private $nouveauPourcentage;

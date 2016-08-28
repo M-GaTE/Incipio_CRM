@@ -27,7 +27,6 @@ class MissionType extends DocTypeType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
             ->add('intervenant', 'genemu_jqueryselect2_entity', array(
                 'class' => 'mgate\\PersonneBundle\\Entity\\Membre',
@@ -52,7 +51,7 @@ class MissionType extends DocTypeType
                 },
                 'multiple' => true,
                 'by_reference' => false,
-                'attr' => array('class' => 'select2-multiple')
+                'attr' => array('class' => 'select2-multiple'),
 
             ))
             ->add('repartitionsJEH', 'collection', array(

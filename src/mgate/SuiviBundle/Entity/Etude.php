@@ -17,19 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use mgate\CommentBundle\Entity\Thread;
 use mgate\PubliBundle\Entity\RelatedDocument;
-use mgate\SuiviBundle\Entity\Ap;
-use mgate\SuiviBundle\Entity\Av;
-use mgate\SuiviBundle\Entity\AvMission;
-use mgate\SuiviBundle\Entity\Cc;
-use mgate\SuiviBundle\Entity\DomaineCompetence;
-use mgate\SuiviBundle\Entity\GroupePhases;
-use mgate\SuiviBundle\Entity\Mission;
-use mgate\SuiviBundle\Entity\Phase;
-use mgate\SuiviBundle\Entity\ProcesVerbal;
-use mgate\SuiviBundle\Entity\Suivi;
 use mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Validator\Constraints as Assert;
-use \Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use n7consulting\RhBundle\Entity\Competence;
 
 /**
@@ -304,7 +294,7 @@ class Etude extends ContainerAware
      */
     public function getReference()
     {
-       // return (string) ($this->getMandat() * 100 + $this->getNum());
+        // return (string) ($this->getMandat() * 100 + $this->getNum());
         return $this->getNom();
     }
 
@@ -642,7 +632,6 @@ class Etude extends ContainerAware
         return $this->description;
     }
 
-
     /**
      * Set auditDate.
      *
@@ -859,7 +848,7 @@ class Etude extends ContainerAware
             '2' => 'ingénieur EN',
             '3' => 'ingénieur TR',
             '4' => 'ingénieur GEA',
-            '5'=> 'ingénieur Hydro');
+            '5' => 'ingénieur Hydro', );
     }
 
     public static function getTypePrestationChoiceAssert()
@@ -1644,7 +1633,6 @@ class Etude extends ContainerAware
     {
         return $this->domaineCompetence;
     }
-
 
     /**
      * Add competences.

@@ -11,7 +11,6 @@
 
 namespace mgate\PubliBundle\Manager;
 
-
 /**
  * Description of chiffreEnLettre
  * source : http://www.javascriptfr.com/codes/CONVERSION-CHIFFRE-MONETAIRE-LETTRE_30141.aspx.
@@ -60,18 +59,18 @@ class ConversionLettreFormatter
             }
         }
         switch ($Devise) {
-            case 0 :
+            case 0:
                 if ($byDec > 0) {
                     $strDev = ' virgule';
                 }
                 break;
-            case 1 :
+            case 1:
                 $strDev = ' euro';
                 if ($byDec > 0) {
                     $strCentimes = $strCentimes.' centime'.($byDec > 1 ? 's' : '');
                 }
                 break;
-            case 2 :
+            case 2:
                 $strDev = ' dollar';
                 if ($byDec > 0) {
                     $strCentimes = $strCentimes.' cent';
@@ -103,12 +102,12 @@ class ConversionLettreFormatter
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
         $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
-            case 0 :
+            case 0:
                 break;
-            case 1 :
+            case 1:
                 $StrTmp = 'mille ';
                 break;
-            default :
+            default:
                 $StrTmp = $StrTmp.' mille ';
         }
         $NumEnt = $StrTmp.$NumEnt;
@@ -116,12 +115,12 @@ class ConversionLettreFormatter
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
         $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
-            case 0 :
+            case 0:
                 break;
-            case 1 :
+            case 1:
                 $StrTmp = $StrTmp.' million ';
                 break;
-            default :
+            default:
                 $StrTmp = $StrTmp.' millions ';
         }
         $NumEnt = $StrTmp.$NumEnt;
@@ -129,12 +128,12 @@ class ConversionLettreFormatter
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
         $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
-            case 0 :
+            case 0:
                 break;
-            case 1 :
+            case 1:
                 $StrTmp = $StrTmp.' milliard ';
                 break;
-            default :
+            default:
                 $StrTmp = $StrTmp.' milliards ';
         }
         $NumEnt = $StrTmp.$NumEnt;
@@ -142,12 +141,12 @@ class ConversionLettreFormatter
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
         $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
-            case 0 :
+            case 0:
                 break;
-            case 1 :
+            case 1:
                 $StrTmp = $StrTmp.' billion ';
                 break;
-            default :
+            default:
                 $StrTmp = $StrTmp.' billions ';
         }
         $NumEnt = $StrTmp.$NumEnt;
@@ -181,24 +180,24 @@ class ConversionLettreFormatter
             $strLiaison = ' et ';
         }
         switch ($byDiz) {
-            case 0 :
+            case 0:
                 $strLiaison = '';
                 break;
-            case 1 :
+            case 1:
                 $byUnit = $byUnit + 10;
                 $strLiaison = '';
                 break;
-            case 7 :
+            case 7:
                 if ($Langue == 0) {
                     $byUnit = $byUnit + 10;
                 }
                 break;
-            case 8 :
+            case 8:
                 if ($Langue != 2) {
                     $strLiaison = '-';
                 }
                 break;
-            case 9 :
+            case 9:
                 if ($Langue == 0) {
                     $byUnit = $byUnit + 10;
                     $strLiaison = '-';
@@ -230,17 +229,17 @@ class ConversionLettreFormatter
         $byReste = $Nombre - ($byCent * 100);
         $strReste = $this->ConvNumDizaine($byReste, $Langue);
         switch ($byCent) {
-            case 0 :
+            case 0:
                 $NumCent = $strReste;
                 break;
-            case 1 :
+            case 1:
                 if ($byReste == 0) {
                     $NumCent = 'cent';
                 } else {
                     $NumCent = 'cent '.$strReste;
                 }
                 break;
-            default :
+            default:
                 if ($byReste == 0) {
                     $NumCent = $TabUnit[$byCent].' cents';
                 } else {

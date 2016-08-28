@@ -50,9 +50,11 @@ class FormationController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Formation $formation The training to display
+     *
      * @return Response
-     * Display a training
+     *                  Display a training
      */
     public function voirAction(Formation $formation)
     {
@@ -63,9 +65,11 @@ class FormationController extends Controller
 
     /**
      * @Security("has_role('ROLE_CA')")
-     * @param $id mixed valid id : modify an existing training; unknown id : display a creation form.
+     *
+     * @param $id mixed valid id : modify an existing training; unknown id : display a creation form
+     *
      * @return Response
-     * Manage creation and update of a training.
+     *                  Manage creation and update of a training
      */
     public function modifierAction($id)
     {
@@ -86,12 +90,11 @@ class FormationController extends Controller
 
                 $form = $this->createForm(new FormationType(), $formation);
                 array_push($messages, array('label' => 'success', 'message' => 'Formation modifée'));
-
             } else {
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate($formation);
                 foreach ($errors as $error) {
-                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath() . ' : ' . $error->getMessage()));
+                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath().' : '.$error->getMessage()));
                 }
             }
         }
@@ -104,9 +107,11 @@ class FormationController extends Controller
 
     /**
      * @Security("has_role('ROLE_CA')")
+     *
      * @param Request $request
+     *
      * @return Response
-     * Manage particpant present to a training
+     *                  Manage particpant present to a training
      */
     public function participationAction(Request $request)
     {
@@ -161,9 +166,11 @@ class FormationController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Formation $formation The training to delete (paramconverter from id)
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * Delete a training
+     *                                                            Delete a training
      */
     public function supprimerAction(Formation $formation)
     {

@@ -14,7 +14,6 @@ namespace mgate\SuiviBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use mgate\PersonneBundle\Entity\Membre;
-use mgate\SuiviBundle\Entity\RepartitionJEH;
 
 /**
  * mgate\SuiviBundle\Entity\Mission.
@@ -116,9 +115,8 @@ class Mission extends DocType
 //Ajout fonction rapide
     public function getReference()
     {
-        return $this->etude->getReference() . '/' . $this->getDebutOm()->format('Y') . '/RM/' . $this->getVersion();
+        return $this->etude->getReference().'/'.$this->getDebutOm()->format('Y').'/RM/'.$this->getVersion();
     }
-
 
     public function __construct()
     {
@@ -129,7 +127,7 @@ class Mission extends DocType
 
     public function __toString()
     {
-        return 'RM - ' . $this->getIntervenant();
+        return 'RM - '.$this->getIntervenant();
     }
 
     /**
@@ -139,8 +137,8 @@ class Mission extends DocType
      */
     public function getRemuneration()
     {
-        $nbrJEHRemuneration = (int)0;
-        $prixRemuneration = (float)0;
+        $nbrJEHRemuneration = (int) 0;
+        $prixRemuneration = (float) 0;
         foreach ($this->getRepartitionsJEH() as $repartitionJEH) {
             $nbrJEHRemuneration += $repartitionJEH->getNbrJEH();
             $prixRemuneration += $repartitionJEH->getNbrJEH() * $repartitionJEH->getPrixJEH();
@@ -152,7 +150,7 @@ class Mission extends DocType
 
     public function getRemunerationBrute()
     {
-        $prixRemuneration = (float)0;
+        $prixRemuneration = (float) 0;
         foreach ($this->getRepartitionsJEH() as $repartitionJEH) {
             $prixRemuneration += $repartitionJEH->getNbrJEH() * $repartitionJEH->getPrixJEH();
         }
@@ -486,7 +484,6 @@ class Mission extends DocType
         return $this->repartitionsJEH;
     }
 
-
     /**
      * Add phase.
      *
@@ -522,6 +519,4 @@ class Mission extends DocType
     {
         return $this->phases;
     }
-
-
 }

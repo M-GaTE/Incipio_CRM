@@ -95,7 +95,8 @@ class DomaineCompetence
         return $this->etude;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->nom;
     }
 }

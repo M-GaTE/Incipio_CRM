@@ -1,21 +1,17 @@
 <?php
 
-
 namespace mgate\StatBundle\Manager;
 
 use mgate\StatBundle\Controller\IndicateursController;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
 /**
- * Class ChartFactory
- * @package mgate\StatBundle\Manager
- * A service to create more easily charts and factoring common code.
- * Each parameter define here can be overwritten or deleted (setted to null)
+ * Class ChartFactory.
  */
 class ChartFactory
 {
-
-    public function newColumnChart($series, $categories){
+    public function newColumnChart($series, $categories)
+    {
         $ob = new Highchart();
         // OTHERS
         $ob->chart->type('column');
@@ -36,6 +32,7 @@ class ChartFactory
         $ob->xAxis->title(array('text' => 'Title x', 'style' => $style));
         $ob->tooltip->headerFormat('<b>header Format</b><br />');
         $ob->tooltip->pointFormat('Point format');
+
         return $ob;
     }
 }

@@ -43,14 +43,12 @@ class Poste
      */
     private $mandats;
 
-
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
-
 
     /**
      * Get id.
@@ -150,7 +148,6 @@ class Poste
     {
         return $this->mandats;
     }
-
 
     public function __toString()
     {

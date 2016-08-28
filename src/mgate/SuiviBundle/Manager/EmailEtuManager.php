@@ -1,13 +1,11 @@
 <?php
 
-
 namespace mgate\SuiviBundle\Manager;
 
 use mgate\PersonneBundle\Entity\Membre;
 
 class EmailEtuManager
 {
-
     private $emailEtu;
     private $emailAncien;
 
@@ -24,15 +22,13 @@ class EmailEtuManager
      */
     public function getEmailEtu(Membre $membre)
     {
-
         $now = new \DateTime('now');
         $now = (int) $now->format('Y');
 
         if ($promo = $membre->getPromotion() && $membre->getPersonne()) {
             if ($promo < $now) {
                 return preg_replace('#[^a-zA-Z.0-9_]#', '', $this->enMinusculeSansAccent($membre->getPersonne()->getPrenom().'.'.$membre->getPersonne()->getNom())).$this->emailAncien;
-            }
-            else {
+            } else {
                 return preg_replace('#[^a-zA-Z.0-9_]#', '', $this->enMinusculeSansAccent($membre->getPersonne()->getPrenom().'.'.$membre->getPersonne()->getNom())).$this->emailEtu;
             }
         } elseif ($membre->getPersonne()) {
@@ -41,7 +37,6 @@ class EmailEtuManager
             return '';
         }
     }
-
 
     private function enMinusculeSansAccent($texte)
     {
@@ -68,7 +63,4 @@ class EmailEtuManager
 
         return $texte;
     }
-
-
 }
-

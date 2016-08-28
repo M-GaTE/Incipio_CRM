@@ -15,7 +15,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\CommentBundle\Form\Type\ThreadType;
-use mgate\SuiviBundle\Form\Type\MoyenContactType as MoyenContactType;
 
 class ClientContactType extends AbstractType
 {

@@ -29,8 +29,9 @@ class UrssafController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
+
                 return $this->redirect($this->generateUrl('mgate_treso_urssaf', array('year' => $data['date']->format('Y'),
-                    'month' => $data['date']->format('m')
+                    'month' => $data['date']->format('m'),
                 )));
             }
         }
@@ -51,7 +52,6 @@ class UrssafController extends Controller
             ->setParameters(array('date' => $date));
 
         $RMs = $qb->getQuery()->getResult();
-
 
         return $this->render('mgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
     }

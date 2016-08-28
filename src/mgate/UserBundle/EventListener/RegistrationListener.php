@@ -30,7 +30,7 @@ class RegistrationListener implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
@@ -42,7 +42,7 @@ class RegistrationListener implements EventSubscriberInterface
     // Prévenir lorsque quelqu'un valide compte
     public function onRegistrationConfirmed(FilterUserResponseEvent $event)
     {
-       // $junior = $this->container->getParameter('junior');  //ligne faisant bugger la validation, skippé pour un remplacement. TODO : Regler ce problème.
+        // $junior = $this->container->getParameter('junior');  //ligne faisant bugger la validation, skippé pour un remplacement. TODO : Regler ce problème.
         $message = \Swift_Message::newInstance()
             ->setSubject('Incipio : Nouvel utilisateur '.$event->getUser()->getUsername())
             ->setFrom('no-reply@erp.n7consulting.fr')

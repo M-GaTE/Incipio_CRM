@@ -11,8 +11,6 @@
 
 namespace mgate\PubliBundle\Manager;
 
-use mgate\PubliBundle\Manager\ConversionLettreFormatter;
-
 class TwigExtensionManager extends \Twig_Extension
 {
     public function getName()

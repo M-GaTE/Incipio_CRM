@@ -5,7 +5,6 @@ namespace n7consulting\DevcoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use n7consulting\DevcoBundle\Entity\Appel;
-use n7consulting\DevcoBundle\Entity\AppelRepository;
 use n7consulting\DevcoBundle\Form\Type\AppelType;
 
 class AppelController extends Controller
@@ -21,7 +20,8 @@ class AppelController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction(){
+    public function ajouterAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $appel = new Appel();
@@ -44,13 +44,15 @@ class AppelController extends Controller
         ));
     }
 
-
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param $id
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function modifierAction($id){
+    public function modifierAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         if (!$appel = $em->getRepository('n7consulting\DevcoBundle\Entity\Appel')->find($id)) {
@@ -80,10 +82,10 @@ class AppelController extends Controller
      * @Security("has_role('ROLE_SUIVEUR')")
      * utilisation du paramconverter
      */
-    public function voirAction(Appel $appel, $id){
-        return $this->render('n7consultingDevcoBundle:Appel:voir.html.twig',array('appel' => $appel));
+    public function voirAction(Appel $appel, $id)
+    {
+        return $this->render('n7consultingDevcoBundle:Appel:voir.html.twig', array('appel' => $appel));
     }
-
 
     /**
      * @Security("has_role('ROLE_CA')")
@@ -109,7 +111,6 @@ class AppelController extends Controller
         return $this->redirect($this->generateUrl('n7consultingDevco_homepage'));
     }
 
-
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
@@ -117,6 +118,4 @@ class AppelController extends Controller
             ->getForm()
             ;
     }
-
-
 }

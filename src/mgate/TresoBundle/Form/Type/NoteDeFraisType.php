@@ -42,8 +42,8 @@ class NoteDeFraisType extends AbstractType
                        'class' => 'mgate\\PersonneBundle\\Entity\\Personne',
                        'property' => 'prenomNom',
                        'query_builder' => function (PersonneRepository $pr) {
-                            return $pr->getMembreOnly();
-                        },
+                           return $pr->getMembreOnly();
+                       },
                        'required' => true, ))
                 ->add('date', 'genemu_jquerydate', array('label' => 'Date', 'required' => true, 'widget' => 'single_text'));
     }

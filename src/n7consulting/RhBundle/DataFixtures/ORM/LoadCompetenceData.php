@@ -9,7 +9,7 @@ use n7consulting\RhBundle\Entity\Competence;
 class LoadCompetenceData implements FixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {
@@ -29,7 +29,7 @@ class LoadCompetenceData implements FixtureInterface
             'IOS',
         );
 
-        foreach($competences as $competence){
+        foreach ($competences as $competence) {
             $c = new Competence();
             $c->setNom($competence);
 
@@ -38,4 +38,3 @@ class LoadCompetenceData implements FixtureInterface
         $manager->flush();
     }
 }
-

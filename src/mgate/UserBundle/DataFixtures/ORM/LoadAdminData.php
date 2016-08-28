@@ -25,7 +25,7 @@ class LoadAdminData implements FixtureInterface, ContainerAwareInterface
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -33,7 +33,7 @@ class LoadAdminData implements FixtureInterface, ContainerAwareInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $manager)
     {

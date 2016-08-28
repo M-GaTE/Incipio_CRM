@@ -12,8 +12,6 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use mgate\SuiviBundle\Entity\AvMission;
-use mgate\SuiviBundle\Entity\Mission;
 
 /**
  * RepartitionJEH.
@@ -53,7 +51,6 @@ class RepartitionJEH
      * @ORM\ManyToOne(targetEntity="AvMission", inversedBy="nouvelleRepartition")
      */
     private $avMission;
-
 
     public function __toString()
     {

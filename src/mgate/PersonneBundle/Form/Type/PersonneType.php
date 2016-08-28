@@ -14,7 +14,6 @@ namespace mgate\PersonneBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use mgate\PersonneBundle\Form\Type\SexeType;
 
 class PersonneType extends AbstractType
 {
@@ -41,10 +40,10 @@ class PersonneType extends AbstractType
             $builder->add('fix', 'text', array('required' => false));
         }
         if (!$options['mini']) {
-            $builder->add('adresse', 'textarea', array('label' => 'Adresse','required' => false))
-                ->add('codepostal', 'text', array('label' => 'Code Postal','required' => false))
-                ->add('ville', 'text', array('label' => 'Ville','required' => false))
-                ->add('pays', 'text', array('label' => 'pays','required' => false));
+            $builder->add('adresse', 'textarea', array('label' => 'Adresse', 'required' => false))
+                ->add('codepostal', 'text', array('label' => 'Code Postal', 'required' => false))
+                ->add('ville', 'text', array('label' => 'Ville', 'required' => false))
+                ->add('pays', 'text', array('label' => 'pays', 'required' => false));
         }
     }
 

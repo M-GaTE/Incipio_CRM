@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Entity\Mission;
 
 class MissionController extends Controller
 {
@@ -36,14 +35,14 @@ class MissionController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function avancementAction(Request $request)
     {
-
         if ($this->get('request')->getMethod() == 'POST') {
-
             $em = $this->getDoctrine()->getManager();
             // TODO : use a symfony form instead a simili php.
             $avancement = !empty($request->request->get('avancement')) ? intval($request->request->get('avancement')) : 0;
@@ -58,10 +57,10 @@ class MissionController extends Controller
                 $em->persist($etude->getMissions()->get($intervenant));
                 $em->flush();
             }
+
             return $this->redirect($this->generateUrl('mgateSuivi_mission_avancement'));
         }
 
         return new Response('ok !');
     }
-
 }

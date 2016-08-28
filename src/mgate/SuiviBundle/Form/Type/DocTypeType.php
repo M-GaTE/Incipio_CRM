@@ -29,7 +29,9 @@ class DocTypeType extends AbstractType
             array('label' => 'Signataire Junior',
                    'class' => 'mgate\\PersonneBundle\\Entity\\Personne',
                    'property' => 'prenomNom',
-                   'query_builder' => function (PersonneRepository $pr) { return $pr->getMembresByPoste('president%'); },
+                   'query_builder' => function (PersonneRepository $pr) {
+                       return $pr->getMembresByPoste('president%');
+                   },
                    'required' => true, ));
 
         // Si le document n'est ni une FactureVente ni un RM
@@ -48,7 +50,9 @@ class DocTypeType extends AbstractType
                 'class' => 'mgate\\PersonneBundle\\Entity\\Personne',
                 'property' => 'prenomNom',
                 'label' => 'Signataire '.$pro->getNom(),
-                'query_builder' => function (PersonneRepository $pr) use ($pro) { return $pr->getEmployeOnly($pro); },
+                'query_builder' => function (PersonneRepository $pr) use ($pro) {
+                    return $pr->getEmployeOnly($pro);
+                },
                 'required' => false,
                 ));
         }

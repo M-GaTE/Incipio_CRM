@@ -3,18 +3,17 @@
 namespace n7consulting\DevcoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PersonneBundle\Entity\Employe;
 use mgate\PersonneBundle\Entity\Membre;
 
 /**
  * Appel : objet représentant un appel de prospection passé ou à passer.
+ *
  * @ORM\Entity(repositoryClass="n7consulting\DevcoBundle\Entity\AppelRepository")
  */
 class Appel
 {
-
     /**
      * @var string
      *
@@ -61,15 +60,13 @@ class Appel
     private $dateRappel;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id",type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-
 
     /**
      * @return string
@@ -152,7 +149,7 @@ class Appel
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isARappeller()
     {
@@ -160,7 +157,7 @@ class Appel
     }
 
     /**
-     * @param boolean $aRappeller
+     * @param bool $aRappeller
      */
     public function setARappeller($aRappeller)
     {
@@ -190,6 +187,4 @@ class Appel
     {
         $this->dateRappel = $dateRappel;
     }
-
-
 }

@@ -1,12 +1,10 @@
 <?php
 
-
 namespace mgate\StatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- *
  * @ORM\Table()
  * @ORM\Entity()
  */
@@ -19,7 +17,6 @@ class Indicateur
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
 
     /**
      * @var string
@@ -40,12 +37,10 @@ class Indicateur
     private $methode;
 
     /**
-     * @var boolean
+     * @var bool
      * @ORM\Column(type="boolean",  nullable=true)
      */
     private $options;
-
-
 
     /**
      * @return int
@@ -54,7 +49,6 @@ class Indicateur
     {
         return $this->id;
     }
-
 
     /**
      * @return string
@@ -66,11 +60,13 @@ class Indicateur
 
     /**
      * @param string $categorie
+     *
      * @return Indicateur
      */
     public function setCategorie($categorie)
     {
         $this->categorie = $categorie;
+
         return $this;
     }
 
@@ -84,11 +80,13 @@ class Indicateur
 
     /**
      * @param string $titre
+     *
      * @return Indicateur
      */
     public function setTitre($titre)
     {
         $this->titre = $titre;
+
         return $this;
     }
 
@@ -102,14 +100,15 @@ class Indicateur
 
     /**
      * @param string $methode
+     *
      * @return Indicateur
      */
     public function setMethode($methode)
     {
         $this->methode = $methode;
+
         return $this;
     }
-
 
     public function hasOptions()
     {
@@ -118,6 +117,7 @@ class Indicateur
 
     /**
      * @param string $methode
+     *
      * @return Indicateur
      */
     public function setOptions($x)
@@ -126,5 +126,4 @@ class Indicateur
 
         return $this;
     }
-
 }

@@ -37,5 +37,3 @@ class CcType extends AbstractType
         ));
     }
 }
-
-
