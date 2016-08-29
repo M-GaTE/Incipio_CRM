@@ -43,15 +43,9 @@ class UrssafController extends Controller
             $date->setDate($year, $month, 01);
         }
 
-        $qb = $em->createQueryBuilder();
-        $qb->select('m')
-            ->from('mgateSuiviBundle:Mission', 'm')
-            ->where('m.debutOm <= :date')
-            ->orderBy('m.finOm', 'DESC')
-            //->andWhere('m.finOm >= :date')
-            ->setParameters(array('date' => $date));
+        $RMs = $em->getRepository('mgateSuiviBundle:Mission')->getMissionsBeginBeforeDate($date);
 
-        $RMs = $qb->getQuery()->getResult();
+
 
         return $this->render('mgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
     }

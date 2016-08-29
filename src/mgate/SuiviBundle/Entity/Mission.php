@@ -20,7 +20,7 @@ use mgate\SuiviBundle\Entity\Etude;
  * mgate\SuiviBundle\Entity\Mission.
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="mgate\SuiviBundle\Entity\MissionRepository")
  */
 class Mission extends DocType
 {
