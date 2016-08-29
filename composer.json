@@ -34,8 +34,7 @@
         "javiereguiluz/easyadmin-bundle": "^1.9"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "^1.9",
-        "theofidry/psysh-bundle": "~1.0@beta"
+        "fabpot/php-cs-fixer": "^1.9"
     },
     "scripts": {
         "style:check": "php bin/php-cs-fixer fix --no-interaction --dry-run --diff -vvvv src/",
