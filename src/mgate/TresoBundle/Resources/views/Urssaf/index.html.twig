@@ -64,29 +64,29 @@
                     {{ rm.etude.suiveur.prenomNom| default("Pas de suiveur!") }}</td>
                 <td>
                     {% if rm.etude.dateLancement != NULL %}
-                        <div>{{ rm.etude.dateLancement |date("d/m/Y") }}</div>{% endif %}
+                        <div>{{ rm.etude.dateLancement |date("Y/m/d") }}</div>{% endif %}
                     {% if rm.etude.dateFin != NULL %}
-                        <div>{{ rm.etude.dateFin|date("d/m/Y") }}</div>{% endif %}
+                        <div>{{ rm.etude.dateFin|date("Y/m/d") }}</div>{% endif %}
                 </td>
                 <td>
                     {{ rm.intervenant.personne.prenomNom | default("Intervenant non choisi") }} {{ rm.intervenant.nom | default("") }}
                 </td>
-                <td>
+                <td data-order="{{ rm.etude.montantHT |default(0) }}">
                     <div>{{ rm.etude.montantHT |default('') }} €</div>
-                    <div>{{ rm.etudenbrJEH |default('') }} JEH</div>
+                    <div>{{ rm.etude.nbrJEH |default('') }} JEH</div>
                 </td>
                 <td>
                     {% set totalJEH = 0 %}
                     {% set totalRem = 0 %}
                     {% for repartition in rm.repartitionsJEH if repartition %}
                         {% set totalJEH = totalJEH + repartition.nbrJEH %}
-                        {% set totalRem = totalRem + repartition.nbrJEH * repartition.prixJEH * (1-rm.pourcentageJunior/100) %}
+                        {% set totalRem = totalRem + repartition.nbrJEH * repartition.prixJEH * (1-rm.pourcentageJunior) %}
                         <div>Repartition n°{{ loop.index }} : {{ repartition.nbrJEH }}
-                            * {{ repartition.prixJEH * (1-rm.pourcentageJunior/100) }}
-                            = {{ repartition.prixJEH * repartition.nbrJEH*(1-rm.pourcentageJunior/100) }} €
+                            * {{ repartition.prixJEH * (1-rm.pourcentageJunior) }}
+                            = {{ repartition.prixJEH * repartition.nbrJEH*(1-rm.pourcentageJunior) }} €
                         </div>
                     {% endfor %}
-                    <div>Total : {{ totalJEH }} JEH - {{ totalRem }} €</div>
+                    <div>Total versé : {{ totalJEH }} JEH - {{ totalRem }} €</div>
                 </td>
             </tr>
         {% endfor %}
@@ -106,7 +106,6 @@
     <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
 
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
             $('#listeUrssaf').DataTable({
                 "paging": true,
                 "lengthChange": true,
@@ -114,8 +113,11 @@
                 "ordering": true,
                 "info": true,
                 "iDisplayLength": 50,
-                "aaSorting": [[0, 'desc']]
+                "aaSorting": [[0, 'desc']],
+                "columnDefs": [ {
+                    "targets": 4,
+                    "sortable": true
+                } ]
             });
-        });
     </script>
 {% endblock %}
