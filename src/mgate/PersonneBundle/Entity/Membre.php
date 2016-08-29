@@ -115,12 +115,6 @@ class Membre
     private $formatPaiement;
 
     /**
-     * @var bool
-     * @ORM\Column(name="estSocieteGenerale", type="boolean", nullable=false, options={"default" = false})
-     */
-    private $estSocieteGenerale;
-
-    /**
      * @var string
      * @ORM\Column(name="filiere", type="string", length=15)
      */
@@ -522,30 +516,6 @@ class Membre
     public function getformatPaiement()
     {
         return $this->formatPaiement;
-    }
-
-    /**
-     * Set estSocieteGenerale.
-     *
-     * @param string $estSocieteGenerale
-     *
-     * @return Membre
-     */
-    public function setestSocieteGenerale($estSocieteGenerale)
-    {
-        $this->estSocieteGenerale = $estSocieteGenerale;
-
-        return $this;
-    }
-
-    /**
-     * Get estSocieteGenerale.
-     *
-     * @return string
-     */
-    public function getestSocieteGenerale()
-    {
-        return $this->estSocieteGenerale;
     }
 
     /**
