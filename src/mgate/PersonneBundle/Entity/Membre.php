@@ -110,13 +110,13 @@ class Membre
 
     /**
      * @var string
-     * @ORM\Column(name="formatPaiement", type="string", length=15)
+     * @ORM\Column(name="formatPaiement", type="string", length=15, nullable=true)
      */
     private $formatPaiement;
 
     /**
      * @var string
-     * @ORM\Column(name="filiere", type="string", length=15)
+     * @ORM\Column(name="filiere", type="string", length=15, nullable=true)
      */
     private $filiere;
 

@@ -40,8 +40,8 @@ class MembreType extends AbstractType
                     'required' => false,
                     'label' => 'Modifier la photo de profil du membre',
                 ))
-                ->add('formatPaiement', 'choice', array('choices' => array('aucun' => 'aucun', 'cheque' => 'Chèque', 'especes' => 'Espèces')))
-                ->add('filiere', 'choice', array('choices' => array('EN' => 'EN', 'HMF' => 'HMF', 'IMA' => 'IMA', 'TR' => 'TR', 'GEA' => 'GEA')));
+                ->add('formatPaiement', 'choice', array('choices' => array('aucun' => 'aucun', 'cheque' => 'Chèque', 'especes' => 'Espèces'), 'required' => true))
+                ->add('filiere', 'choice', array('choices' => array('EN' => 'EN', 'HMF' => 'HMF', 'IMA' => 'IMA', 'TR' => 'TR', 'GEA' => 'GEA'), 'required' => true));
     }
 
     public function getName()

@@ -50,7 +50,7 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="sexe", type="string", length=15)
+     * @ORM\Column(name="sexe", type="string", length=15, nullable=true)
      */
     private $sexe;
 

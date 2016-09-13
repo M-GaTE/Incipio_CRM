@@ -30,7 +30,7 @@ class PersonneType extends AbstractType
         $builder
                 ->add('prenom')
                 ->add('nom')
-                ->add('sexe', new SexeType())
+                ->add('sexe', new SexeType(), array('required' => true))
                 ->add('mobile', 'text', array('required' => false, 'attr' => $helpMobile))
                 ->add('email', 'email', array('required' => false, 'attr' => $helpEmail))
                 ->add('estAbonneNewsletter', 'checkbox', array('label' => 'Abonné Newsletter ?', 'required' => false))
