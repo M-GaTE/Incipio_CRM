@@ -183,14 +183,9 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function voirAction($nom)
+    public function voirAction(Etude $etude)
     {
         $em = $this->getDoctrine()->getManager();
-        $etude = $em->getRepository('mgateSuiviBundle:Etude')->getByNom($nom);
-
-        if (!$etude) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
@@ -202,7 +197,6 @@ class EtudeController extends Controller
         $chartManager = $this->get('mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'suivi');
 
-        //$deleteForm = $this->createDeleteForm($id);
         $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
 
         return $this->render('mgateSuiviBundle:Etude:voir.html.twig', array(
@@ -216,13 +210,9 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($nom)
+    public function modifierAction(Etude $etude)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$etude = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->getByNom($nom)) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        }
 
         if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
@@ -230,7 +220,7 @@ class EtudeController extends Controller
 
         $form = $this->createForm(new EtudeType(), $etude);
 
-        $deleteForm = $this->createDeleteForm($nom);
+        $deleteForm = $this->createDeleteForm($etude);
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));
 
@@ -252,52 +242,35 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param $nom string short name of project
+     * @param Etude $etude
      * @param Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($nom, Request $request)
+    public function deleteAction(Etude $etude, Request $request)
     {
-        $form = $this->createDeleteForm($nom);
+        $form = $this->createDeleteForm($etude);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if (!$entity = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->getByNom($nom)) {
-                throw $this->createNotFoundException('L\'étude n\'existe pas !');
-            }
-
-            if ($this->get('mgate.etude_manager')->confidentielRefus($entity, $this->getUser(), $this->get('security.authorization_checker'))) {
+            if ($this->get('mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
                 throw new AccessDeniedException('Cette étude est confidentielle');
             }
 
-            /*
-             * @todo Cascade remove
-             */
-            foreach ($entity->getPhases() as $phase) {
-                $em->remove($phase); //suppression des phases
-            }
-
-            $em->remove($entity);
+            $em->remove($etude);
             $em->flush();
+            $request->getSession()->getFlashBag()->add('success', 'Etude supprimée');
+
         }
 
         return $this->redirect($this->generateUrl('mgateSuivi_etude_homepage'));
     }
 
-    private function createDeleteForm($nom)
+    private function createDeleteForm(Etude $etude)
     {
-        $em = $this->getDoctrine()->getManager();
-        if (!$entity = $em->getRepository('mgate\SuiviBundle\Entity\Etude')->getByNom($nom)) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        } else {
-            $id = $entity->getId();
-        }
-
-        return $this->createFormBuilder(array('id' => $id))
+        return $this->createFormBuilder(array('id' => $etude->getId()))
             ->add('id', 'hidden')
             ->getForm();
     }
