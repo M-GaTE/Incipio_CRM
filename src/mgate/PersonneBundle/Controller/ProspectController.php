@@ -33,7 +33,7 @@ class ProspectController extends Controller
         $form = $this->createForm(new ProspectType(), $prospect);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($prospect);
@@ -135,29 +135,35 @@ class ProspectController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Prospect $prospect the prospect to delete
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Prospect $prospect, Request $request)
     {
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
+        $session = $request->getSession();
 
-        $form->bind($request);
+        $form = $this->createDeleteForm($prospect->getId());
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if (!$entity = $em->getRepository('mgate\PersonneBundle\Entity\Prospect')->find($id)) {
-                throw $this->createNotFoundException('Le prospect demandé n\'existe pas!');
-            }
+            $related_projects = $em->getRepository('mgateSuiviBundle:Etude')->findByProspect($prospect);
 
-            /*if($entity->getPersonne())
-            {
-                $entity->getPersonne()->setMembre(null);
+            if(count($related_projects) > 0){//can't delete a prospect with related projects
+                $session->getFlashBag()->add('warning', 'Impossible de supprimer un prospect ayant une étude liée.');
+                return $this->redirect($this->generateUrl('mgatePersonne_prospect_voir', array('id' => $prospect->getId())));
             }
-            $entity->setPersonne(null);*/
-
-            $em->remove($entity);
-            $em->flush();
+            else {
+                //remove employes
+                foreach($prospect->getEmployes() as $employe){
+                    $em->remove($employe);
+                }
+                $em->remove($prospect);
+                $em->flush();
+                $session->getFlashBag()->add('success', 'Prospect supprimé');
+            }
         }
 
         return $this->redirect($this->generateUrl('mgatePersonne_prospect_homepage'));

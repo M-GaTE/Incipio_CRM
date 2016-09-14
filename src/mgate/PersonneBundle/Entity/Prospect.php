@@ -42,7 +42,7 @@ class Prospect
     /**
      * , cascade={"persist"}.
      *
-     * @ORM\OneToOne(targetEntity="\mgate\CommentBundle\Entity\Thread", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\mgate\CommentBundle\Entity\Thread", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $thread;
