@@ -1,6 +1,6 @@
 {
-    "name": "in6pio/Incipio",
-    "description": "ERP for Junior-Entreprises.",
+    "name": "n7consulting/jeyser-crm",
+    "description": "ERP / CRM for Junior-Entreprises",
     "license": "AGPL-3.0",
     "type": "project",
     "autoload": {
