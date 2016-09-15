@@ -66,3 +66,9 @@ mgate_publi_document_delete:
     requirements:
         id:  \d+
     methods:  [GET, HEAD, POST]
+
+mgate_publi_import:
+    path: /Documents/import
+    defaults: {_controller: mgatePubliBundle:Import:index}
+    methods:  [GET, HEAD, POST]
+

@@ -167,8 +167,14 @@
     <li>
         <a href="#" ><span class="nav-label">Administration</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
-            <li><a href="{{ path('mgate_publi_documenttype_index') }}"><span class="fa fa-file"></span> Gestion des Documents</a></li>
-            <li><a href="{{ path('mgate_publi_documenttype_upload') }}"><span class="fa fa-floppy-o"></span> Ajouter un Doctype</a></li>
+            <li>
+                <a href="#" >Documents <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ path('mgate_publi_documenttype_index') }}"><span class="fa fa-file"></span> Gestion des Documents</a></li>
+                    <li><a href="{{ path('mgate_publi_documenttype_upload') }}"><span class="fa fa-floppy-o"></span> Ajouter un Doctype</a></li>
+                    <li><a href="{{ path('mgate_publi_import') }}"><span class="fa fa-upload"></span> Importer données externes</a></li>
+                </ul>
+            </li>
             <li class="divider"></li>
             <li class="dropdown-header">Postes</li>
             <li><a href="{{ path('mgatePersonne_poste_homepage') }}"><span class="fa fa-list"></span> Lister les postes</a></li>

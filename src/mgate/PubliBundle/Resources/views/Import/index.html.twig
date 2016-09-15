@@ -1,0 +1,10 @@
+{% extends "mgatePubliBundle::layout.html.twig" %}
+
+{% block content_bundle %}
+
+    <form action="{{ path('mgate_publi_import') }}" method="post"  {{ form_enctype(form) }}>
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Importer</button>
+    </form>
+{% endblock %}

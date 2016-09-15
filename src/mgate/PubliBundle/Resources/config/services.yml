@@ -21,3 +21,7 @@ services:
             em : "@doctrine.orm.entity_manager"
             container : "@service_container"
             securityContext : "@security.context"
+
+    mgate.import.siaje_etude:
+            class:  mgate\PubliBundle\Manager\SiajeEtudeImporter
+            arguments: [ "@doctrine.orm.entity_manager" ]
