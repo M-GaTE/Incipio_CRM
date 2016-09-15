@@ -40,11 +40,11 @@ class ImportController extends Controller
                 // Création d'un fichier temporaire
                 $file = $data['file'];
 
-                $siajeImporter = $this->get('mgate.import.siaje');
+                $siajeImporter = $this->get('mgate.import.siaje_etude');
 
-                $siajeImporter->run($file);
+               $results = $siajeImporter->run($file);
 
-                $request->getSession()->getFlashBag()->add('success', 'Document importé.');
+                $request->getSession()->getFlashBag()->add('success', 'Document importé. '.$results['inserted_projects'].' études créées, '.$results['inserted_prospects'].' prospects créés');
                 return $this->redirect($this->generateUrl('mgate_publi_import'));
             }
         }

@@ -56,6 +56,8 @@ class SiajeEtudeImporter implements FileImporterInterface
         if ($file->guessExtension() == "txt") {//csv is seen as text/plain
 
             $i = 1;
+            $inserted_projects = 0;
+            $inserted_prospects = 0;
             if (($handle = fopen($file->getPathname(), "r")) !== FALSE) {
 
                 $array_manager = array();//an array containing references to managers.
@@ -69,6 +71,7 @@ class SiajeEtudeImporter implements FileImporterInterface
 
                             //create project if it doesn't exists in DB
                             $e = new Etude();
+                            $inserted_projects ++;
                             $e->setMandat($this->readArray($data, 'Exercice comptable'));
                            // $e->setNum($this->readArray($data, 'No Etude')); //untrusted, can be duplicated in siaje.
                             $e->setNom($this->readArray($data, 'Intitule'));
@@ -107,6 +110,7 @@ class SiajeEtudeImporter implements FileImporterInterface
                                 $e->setProspect($prospect);
                             } else {
                                 $p = new Prospect();
+                                $inserted_prospects ++;
                                 if($this->readArray($data, 'Entreprise', true) !== "") {
                                     $p->setNom($this->readArray($data, 'Entreprise', true));
                                 }else{
@@ -232,7 +236,7 @@ class SiajeEtudeImporter implements FileImporterInterface
             }
 
 
-            // ...
+            return array('inserted_projects' => $inserted_projects, 'inserted_prospects' => $inserted_prospects);
 
         }
     }
@@ -250,7 +254,7 @@ class SiajeEtudeImporter implements FileImporterInterface
         if (in_array($columnName, self::EXPECTED_FORMAT)) {
             $result = $row[array_search($columnName, self::EXPECTED_FORMAT)];
             if ($clean) {
-                return ucwords(strtolower($result));
+                return utf8_encode(ucwords(strtolower($result)));
             } else {
                 return $result;
             }
