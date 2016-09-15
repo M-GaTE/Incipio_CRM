@@ -13,6 +13,7 @@ namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use mgate\CommentBundle\Entity\Thread;
@@ -291,6 +292,22 @@ class Etude extends ContainerAware
      * @var bool
      */
     private $newProspect;
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function createThread(LifecycleEventArgs $args){
+        if($this->getThread() == null) {
+            $em = $args->getEntityManager();
+            $t = new Thread();
+            $this->setThread($t);
+            $this->getThread()->setId('etude_'.$this->getId());
+            $this->getThread()->setPermalink('fake');
+            $em->persist($t);
+            $em->flush($t);
+        }
+    }
+
 
     /**
      * ADDITIONAL GETTERS/SETTERS.
