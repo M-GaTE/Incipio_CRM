@@ -12,6 +12,7 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use mgate\CommentBundle\Entity\Thread;
 use mgate\PersonneBundle\Entity\Employe;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * mgate\PersonneBundle\Entity\Prospect.
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="mgate\PersonneBundle\Entity\ProspectRepository")
  */
 class Prospect
@@ -40,7 +42,6 @@ class Prospect
     private $employes;
 
     /**
-     * , cascade={"persist"}.
      *
      * @ORM\OneToOne(targetEntity="\mgate\CommentBundle\Entity\Thread", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
@@ -98,6 +99,21 @@ class Prospect
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @ORM\PostPersist
+     */
+    public function createThread(LifecycleEventArgs $args){
+        if($this->getThread() == null) {
+            $em = $args->getEntityManager();
+            $t = new Thread();
+            $t->setId('prospect_'.$this->getId());
+            $this->setThread($t);
+            $this->getThread()->setPermalink('fake');
+            $em->persist($t);
+            $em->flush();
+        }
     }
 
     /**
