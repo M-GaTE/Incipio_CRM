@@ -38,12 +38,13 @@ class SiajeEtudeImporter implements FileImporterInterface
 
 
     /**
-     * @return array  an array containing expected fields in form. Controller will iterate
-     * that array to display it as a table in form view.
+     * @return array  an array  2 fields :
+     *  - file format, the expected file format
+     *  - columns_format, expected columns in file
      */
     public function expectedFormat()
     {
-        return self::EXPECTED_FORMAT;
+        return array('file_format' => 'csv', 'columns_format' =>self::EXPECTED_FORMAT);
     }
 
     /**
@@ -64,7 +65,7 @@ class SiajeEtudeImporter implements FileImporterInterface
                 $array_prospect = array();//an array containing references to projects.
                 //iterate csv, row by row
                 while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
-                    if ($i > 1 and $this->readArray($data, 'Intitule') != "") { //first row is column headers
+                    if ($i > 1 && $this->readArray($data, 'Intitule') != "") { //first row is column headers
                         $etude = $this->em->getRepository('mgateSuiviBundle:Etude')->findOneByNom($this->readArray($data, 'Intitule'));
 
                         if ($etude === null) {
@@ -177,7 +178,7 @@ class SiajeEtudeImporter implements FileImporterInterface
                             if ($pm !== null) {
                                 $e->setSuiveur($pm);
                             } else {//create a new member and a new person
-                                if(array_key_exists($this->readArray($data, 'Suiveur principal', true),$array_manager) and $this->readArray($data, 'Suiveur principal', true) != ''){//has already been created before
+                                if(array_key_exists($this->readArray($data, 'Suiveur principal', true),$array_manager) && $this->readArray($data, 'Suiveur principal', true) != ''){//has already been created before
                                     $e->setSuiveur($array_manager[$this->readArray($data, 'Suiveur principal', true)]);
                                 }
                                 else {
