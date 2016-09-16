@@ -978,7 +978,7 @@ class IndicateursController extends Controller
         $series = array();
         foreach ($mandats as $idMandat => $data) {
             //if($idMandat>=4)
-            $series[] = array('name' => 'Mandat '.$idMandat.' - '.$etudeManager->mandatToString($idMandat), 'data' => $data);
+            $series[] = array('name' => 'Mandat '.$etudeManager->mandatToString($idMandat), 'data' => $data);
         }
 
         $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
@@ -999,7 +999,7 @@ class IndicateursController extends Controller
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} le {point.date}<br />{point.name} à {point.prix} €');
         $ob->credits->enabled(false);
-        $ob->legend->floating(true);
+        $ob->legend->floating(false);
         $ob->legend->layout('vertical');
         $ob->legend->y(-60);
         $ob->legend->x(-10);
