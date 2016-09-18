@@ -126,7 +126,12 @@ class SiajeEtudeImporter implements FileImporterInterface
                                 $pe = new Personne();
                                 $pe->setPrenom($contact[0]);//whitespace explode : not perfect but better than nothing
                                 unset($contact[0]);
-                                $pe->setNom(implode(' ', $contact));
+                                if(implode(' ', $contact) == ""){
+                                    $pe->setNom('inconnu');
+                                }
+                                else{
+                                    $pe->setNom(implode(' ', $contact));
+                                }
                                 $pe->setEmailEstValide(true);
                                 $pe->setEstAbonneNewsletter(false);
                                 $pe->setEmail($this->readArray($data, 'Email'));
@@ -184,7 +189,12 @@ class SiajeEtudeImporter implements FileImporterInterface
                                 else {
                                     $pm = new Personne();
                                     $pm->setPrenom($firstname);
-                                    $pm->setNom($surname);
+                                    if($surname == ""){
+                                        $pm->setNom('inconnu');
+                                    }
+                                    else{
+                                        $pm->setNom($surname);
+                                    }
                                     $pm->setEmailEstValide(false);
                                     $pm->setEstAbonneNewsletter(false);
                                     $this->em->persist($pm);
