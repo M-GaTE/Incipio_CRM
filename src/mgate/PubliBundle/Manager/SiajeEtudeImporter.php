@@ -85,11 +85,14 @@ class SiajeEtudeImporter extends CsvImporter implements FileImporterInterface
                                 $e->setStateID(self::SIAJE_AVAILABLE_STATE['Contact initial']);
                             }
                             $e->setAcompte(true);
-                            $rate = explode(',', $this->readArray($data, 'Acompte'));//acompte is a percentage such as "30,00%".
-                            $e->setPourcentageAcompte($rate['0'] / 100);
+                            if($this->readArray($data,'Acompte') !== null) {
+                                $rate = explode(',', $this->readArray($data, 'Acompte'));//acompte is a percentage such as "30,00%".
+                                $e->setPourcentageAcompte($rate['0'] / 100);
+                            }
                             $e->setFraisDossier($this->readArray($data, 'Frais de dossier HT'));
                             $e->setPresentationProjet('Etude importée depuis Siaje');
                             $e->setDescriptionPrestation($this->readArray($data, 'Domaine de compétence'));
+                                $e->setPourcentageAcompte($this->readArray($data,'Acompte'));
                             $this->em->persist($e);
 
                             /** Prospect management */
