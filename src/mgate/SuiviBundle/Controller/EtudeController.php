@@ -192,7 +192,7 @@ class EtudeController extends Controller
         }
 
         //get contacts clients
-        $clientContacts = $em->getRepository('mgateSuiviBundle:ClientContact')->getByEtude($etude);
+        $clientContacts = $em->getRepository('mgateSuiviBundle:ClientContact')->getByEtude($etude,array('date' => 'desc'));
 
         $chartManager = $this->get('mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'suivi');
