@@ -103,7 +103,7 @@ class EmployeController extends Controller
 
         // On passe l'$article récupéré au formulaire
         $form = $this->createForm(new EmployeType(), $employe);
-
+        $deleteForm = $this->createDeleteForm($id);
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));
 
@@ -117,7 +117,42 @@ class EmployeController extends Controller
 
         return $this->render('mgatePersonneBundle:Employe:modifier.html.twig', array(
             'form' => $form->createView(),
+            'delete_form' => $deleteForm->createView(),
             'employe' => $employe,
         ));
+    }
+
+    /**
+     * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Employe $employe the employee to delete
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Employe $employe, Request $request)
+    {
+        $session = $request->getSession();
+
+        $form = $this->createDeleteForm($employe->getId());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+                //remove employes
+                $em->remove($employe);
+                $em->flush();
+                $session->getFlashBag()->add('success', 'Employé supprimé');
+            return $this->redirect($this->generateUrl('mgatePersonne_prospect_voir',array('id'=>$employe->getProspect()->getId())));
+
+        }
+        return $this->redirect($this->generateUrl('mgatePersonne_prospect_homepage'));
+    }
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+            ;
     }
 }

@@ -82,6 +82,13 @@ mgatePersonne_employe_modifier:
         id: \d+
     methods:  [GET, HEAD, POST]
 
+mgatePersonne_employe_supprimer:
+    path: /employe/supprimer/{id}
+    defaults: {_controller: mgatePersonneBundle:Employe:delete}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]
+
 mgatePersonne_intervenants_homepage:
     path:  /intervenants
     defaults: { _controller: mgatePersonneBundle:Membre:listIntervenants }

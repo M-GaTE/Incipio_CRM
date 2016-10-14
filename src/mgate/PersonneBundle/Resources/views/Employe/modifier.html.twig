@@ -7,10 +7,22 @@
     <h2>Modifier un employé</h2>
     {% include "mgatePersonneBundle:Employe:formulaire.html.twig" %}
 
-
-<p>
-    <a href="{{ path('mgatePersonne_employe_voir', {'id': employe.id}) }}" >Retour à l'employé</a>
-</p>
+    <div class="row">
+        <div class="col-md-2 col-xs-6">
+            <p>
+                <a href="{{ path('mgatePersonne_employe_voir', {'id': employe.id}) }}">Retour à l'employé</a>
+            </p>
+        </div>
+        <div class="col-md-2 col-xs-6">
+            {% if is_granted('ROLE_SUIVEUR') %}
+            <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cet employé ?"
+                  action="{{ path('mgatePersonne_employe_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button class=" btn btn-danger">Supprimer l'employé</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
 
