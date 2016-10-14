@@ -116,7 +116,7 @@ class ProspectController extends Controller
         $form = $this->createForm(new ProspectType(), $prospect);
         $deleteForm = $this->createDeleteForm($id);
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($prospect);

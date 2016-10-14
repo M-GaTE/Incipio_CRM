@@ -105,7 +105,7 @@ class EmployeController extends Controller
         $form = $this->createForm(new EmployeType(), $employe);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($employe);

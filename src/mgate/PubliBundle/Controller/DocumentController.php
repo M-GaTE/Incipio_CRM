@@ -150,7 +150,7 @@ class DocumentController extends Controller
         $form = $this->createForm(new DocumentType(), $document, $options);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $documentManager = $this->get('mgate.document_manager');
