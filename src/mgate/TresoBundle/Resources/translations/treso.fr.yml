@@ -1,0 +1,138 @@
+treso:
+    bv_add: Ajouter un BV
+    reference: Référence
+    date_versement: Date de Versement
+    beneficiaire: Bénéficiaire
+    mission: Mission
+    remuneration_brute: Rémunération Brute
+    nombre_jeh: Nombre de jours-étude homme
+    remuneration_brute_jeh: Rémunération brute par JEH
+    base_urssaf: Base U.R.S.S.A.F
+    assiette_cotisations: Assiette des cotisations
+    part_je: Part Junior-Entreprise
+    part_etudiant: Part étudiant
+    total_cotisations_dues: TOTAL DES COTISATIONS DUES
+    indexes_remunerations_brutes: indexées sur la rémunération brute
+    total_cotisations_part_je: TOTAL DES COTISATIONS (part Junior)
+    total_cotisations_part_etudiant: TOTAL DES COTISATIONS (part étudiant)
+    total_cotisations_total: TOTAL DES COTISATIONS (part Junior + part étudiant)
+    total_retenues_etudiant: Total retenues étudiant
+    montant_net: Montant net
+    total_payer: TOTAL A PAYER
+    bv_modifier: Modifier le BV
+    montant_net:
+        taxes: (net+C.S.G. Non déd +R.D.S.)
+        imposable: Montant net imposable
+    remuneration_brute: Rémunération brute
+    part_junior: Part Junior
+    part_etudiant: Part Etudiant
+    bv_list: Liste des BV
+    bv_gestion: Gestion des BV
+    ajouter_base_urssaf: Ajouter une base URSSAF
+    action: Action
+    applicable_du: Applicable du
+    applicable_au: Applicable au
+    montant: Montant
+    base_urssaf_gestion: Gestion des Bases URSSAF
+    base: Base
+    supprimer_base: Supprimer la base
+    bv_modification: Modification d'un BV
+    bv_ajout: Ajout d'un BV
+    bv_unique_modification: Modification du BV
+    taux: Taux
+    enregistrer: Enregistrer
+    compte: compte
+    cotisations_urssaf_gestion: Gestion des Cotisation URSSAF
+    cotisations_urssaf_ajouter: Ajouter une cotisation URSSAF
+    taux_part_junior: Taux Part Junior
+    taux_part_etudiant: Taux Part Etudiant
+    applicable_base: Applicable sur la base
+    est_deductible: Est déductible ?
+    modifier: Modifier
+    deductible: déductible
+    charge: Charge
+    cotisation_urssaf_supprimer: Supprimer la Cotisation URSSAF
+    declaration_urssaf_brc: Déclaration URSSAF - BRC
+    chercher: Chercher
+    nombre_salaries_periode_declaration: Nombre salariés pour la période de déclaration
+    nombre_intervenants_au_moins_un_jeh: Nombre d’intervenants différents ayant reçu au moins un JEH via un Bulletin de Versement sur la période
+    bv_reference: Référence du BV
+    etudiant: Etudiant
+    cotisations_montant: Montant des Cotisations
+    total: Total
+    tva_declaration: Déclaration de la TVA
+    tva_collecte: TVA Collectée
+    date: Date
+    montant_ht: Montant HT
+    tva: TVA
+    montant_ttc: Montant TTC
+    tva_deductible: TVA Deductible
+    factures_gestion: Gestion des factures
+    facture_ajouter: Ajouter une Facture
+    facture_achat: Facture d'Achat
+    facture_vente: Facture de Vente
+    date_emission: Date d'émission
+    objet: Objet
+    montant_tva: Montant TVA
+    statut: Statut
+    delai: Délai
+    facture_modifier_la: Modifier la facture
+    facture_enregistrer: Enregistrer la Facture
+    details: Détails
+    facture: Facture
+    facture_émise: Facture émise
+    reglee_le: Réglée le
+    depenses_details: Détails des dépenses
+    prix_ht: Prix HT
+    taux_tva: Taux TVA
+    prix_ttc: Prix TTC
+    details_frais_kilometriques: Détails des frais kilométrique
+    note_frais_generer: Générer la Note de Frais
+    note_frais_modifier: Modifier la Note de Frais
+    note_frais_supprimer: Supprimer la Note de Frais
+    prix_km: Prix par km
+    nombre_kilometre: Nombre de kilomètre
+    prix_total: Prix Total
+    de_tva: de TVA
+    intervenants_tableau: Tableau des intervenants
+    client: Client
+    suiveur: Suiveur
+    nom_etude: Nom de l'étude
+    date_lancement_etude: Date de Lancement de l'étude
+    date_fin_etude: Date de Fin de l'étude
+    nom: Nom
+    prenom: Prénom
+    nombre_jeh_etude: Nombre de JEH de l'étude
+    nombre_jeh_etudiant: Nombre de JEH pour l'étudiant
+    total_verse: Total versé
+    jeh: JEH
+    description: Description
+    prix_ht: Prix HT
+    taux_tva: Taux TVA
+    prix_ttc: Prix TTC
+    de_tva: de TVA
+    ttc: TTC
+    retour_etude: Retour à l'étude
+    facture_generer: Générer la Facture
+    facture_modifier: Modifier la Facture
+    facture_supprimer: Supprimer la Facture
+    tresorerie: Trésorerie
+    note_frais_gestion: Gestion des notes de frais
+    note_frais_ajouter: Ajouter une note de frais
+    demandeur: Demandeur
+    note_frais_editer: Editer une note de frais
+    note_frais_enregistrer: Enregistrer la Note de Frais
+    note_frais: Note de Frais
+    bv_list_retour: Retour à la liste des BV
+    bv_retour: Retour au BV
+    bv_supprimer: Supprimer le BV
+    bv: Bulletin de versement
+    montant: montant
+    comptes_gestion: Gestion des comptes
+    gestion_comptable_gestion: Gestion des comptes comptables
+    compte_ajouter: Ajouter un compte
+    numero: Numéro
+    libelle: Libellé
+    compte_supprimer: Supprimer le Compte
+    ht: HT
+    

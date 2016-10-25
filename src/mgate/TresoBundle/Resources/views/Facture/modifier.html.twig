@@ -1,16 +1,16 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-	Modifier une facture - {{ parent() }}
+	{{ 'treso.facture_modifier'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Modifier la facture {{ form.vars.data.reference }}
+    {{ 'treso.facture_modifier_la'|trans({}, 'treso') }} {{ form.vars.data.reference }}
 {% endblock %}
 
 {% block content_bundle %}
 <form method="post" {{ form_enctype(form) }}>
-    <input name="save" type="submit" value="Enregistrer la Facture" class="btn" />
+    <input name="save" type="submit" value="{{ 'treso.facture_enregistrer'|trans({}, 'treso') }}" class="btn" />
     <br/><br/>
     <table class="table table-bordered table-striped standard">
         <tr>
@@ -43,7 +43,7 @@
     </table>
     <table class="table table-bordered table-striped" id="details" data-prototype="{{ form_widget(form.details.vars.prototype) | e }}">
         <tr>
-            <th colspan="2"><a href="#" id="addDetail">+</a> Détails</th>
+            <th colspan="2"><a href="#" id="addDetail">+</a> {{ 'treso.details'|trans({}, 'treso') }}</th>
         </tr>
         {% for detail in form.details %}
         <tr id="detail">

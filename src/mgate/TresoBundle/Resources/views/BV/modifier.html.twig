@@ -1,14 +1,14 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Modification d'un BV - {{ parent() }}
+    {{ 'treso.bv_modification'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
     {% if bv.numero is null %}
-        Ajout d'un BV
+        {{ 'treso.bv_ajout'|trans({}, 'treso') }}
     {% else %}
-        Modification du BV {{ bv.mandat }} -BV- {{ bv.numero }}
+        {{ 'treso.bv_unique_modification'|trans({}, 'treso') }} {{ bv.mandat }} -BV- {{ bv.numero }}
     {% endif %}
 {% endblock %}
 
@@ -40,30 +40,29 @@
                 <td>{{ form_widget(form.typeDeTravail) }}</td>
             </tr>
             <tr>
-                <th colspan="4">Taux</th>
+                <th colspan="4">{{ 'treso.taux'|trans({}, 'treso') }}</th>
             </tr>
             <tr>
                 <th>{{ form_label(form.dateDemission) }}</th>
                 <td colspan="3">{{ form_widget(form.dateDemission) }}</td>
             </tr>
         </table>
-        <input type="submit" class="btn btn-success" value="Enregistrer"/>
+        <input type="submit" class="btn btn-success" value="{{ 'treso.enregistrer'|trans({}, 'treso') }}"/>
         {{ form_rest(form) }}
     </form>
 
     <br>
     <div class="row">
         <div class="col-md-2 col-xs-4">
-            <a href="{{ path('mgateTreso_BV_index') }}" class="btn btn-default">Retour à la liste des BV</a>
+            <a href="{{ path('mgateTreso_BV_index') }}" class="btn btn-default">{{ 'treso.bv_list_retour'|trans({}, 'treso') }}</a>
         </div>
         {% if bv.numero is not null %}
             <div class="col-md-2 col-xs-4">
-                <a href="{{ path('mgateTreso_BV_voir', {'id': form.vars.data.id}) }}" class="btn btn-info">Retour au
-                    BV</a>
+                <a href="{{ path('mgateTreso_BV_voir', {'id': form.vars.data.id}) }}" class="btn btn-info">{{ 'treso.bv_retour'|trans({}, 'treso') }}</a>
             </div>
             <div class="col-md-2 col-xs-4">
                 <a href="{{ path('mgateTreso_BV_supprimer', {'id': bv.id}) }}" class="btn btn-danger">
-                    Supprimer le BV
+                    {{ 'treso.bv_supprimer'|trans({}, 'treso') }}
                 </a>
             </div>
         {% endif %}

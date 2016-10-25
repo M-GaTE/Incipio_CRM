@@ -8,40 +8,39 @@
 {% endblock %}
 
 {% block title %}
-    Gestion des Cotisation URSSAF - {{ parent() }}
+    {{ 'treso.cotisations_urssaf_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
-    <a href="{{ path('mgateTreso_CotisationURSSAF_ajouter') }}" class="btn btn-success">Ajouter une cotisation
-        URSSAF</a>
+    <a href="{{ path('mgateTreso_CotisationURSSAF_ajouter') }}" class="btn btn-success">{{ 'treso.cotisations_urssaf_ajouter'|trans({}, 'treso') }}</a>
     <table class="display dataTable table table-bordered table-striped dt-responsive" id="listeCotisations">
         <thead>
         <tr>
-            <th>Action</th>
-            <th>Applicable du</th>
-            <th>Applicable au</th>
-            <th>Libelle</th>
-            <th>Taux Part Junior</th>
-            <th>Taux Part Etudiant</th>
-            <th>Applicable sur la base</th>
-            <th>Est déductible ?</th>
+            <th>{{ 'treso.action'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.applicable_du'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.applicable_au'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.libelle'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.taux_part_junior'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.taux_part_etudiant'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.applicable_base'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.est_deductible'|trans({}, 'treso') }}</th>
         </tr>
         </thead>
         {% for cotisation in cotisations %}
             <tr style="text-align: right;" class="{{ cotisation.dateFin < date() ? 'danger' : 'success' }}">
                 <td><a href="{{ path('mgateTreso_CotisationURSSAF_modifier', {'id' : cotisation.id }) }}"
-                       title="Modifier"><span class="fa fa-pencil"></span></a></td>
+                       title="{{ 'treso.modifier'|trans({}, 'treso') }}"><span class="fa fa-pencil"></span></a></td>
                 <td>{{ cotisation.dateDebut | date('d/m/Y') }}</td>
                 <td>{{ cotisation.dateFin | date('d/m/Y') }}</td>
                 <td>{{ cotisation.libelle }}</td>
                 <td>{{ (cotisation.tauxPartJE * 100) | money(false) }}</td>
                 <td>{{ (cotisation.tauxPartEtu * 100) | money(false) }}</td>
                 <td>
-                    <span class="label label-{{ cotisation.isSurBaseURSSAF ? 'success' : 'warning' }}">Base {{ cotisation.isSurBaseURSSAF ? "URSSAF" : "Brut" }}</span>
+                    <span class="label label-{{ cotisation.isSurBaseURSSAF ? 'success' : 'warning' }}">{{ 'treso.base'|trans({}, 'treso') }} {{ cotisation.isSurBaseURSSAF ? "URSSAF" : "Brut" }}</span>
                 </td>
                 <td>
                     <span class="label label-{{ cotisation.deductible ? 'success' : 'danger' }}">{{ cotisation.deductible ? "" : "Non" }}
-                        déductible</span></td>
+                        {{ 'treso.deductible'|trans({}, 'treso') }}</span></td>
             </tr>
         {% endfor %}
     </table>

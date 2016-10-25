@@ -1,7 +1,7 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Gestion des factures - {{ parent() }}
+    {{ 'treso.factures_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,19 +12,19 @@
 {% endblock %}
 
 {% block content_title %}
-    Gestion des factures
+    {{ 'treso.factures_gestion'|trans({}, 'treso') }}
 {% endblock %}
 
 {% block content_bundle %}
     <ul id="myTab" class="nav nav-tabs">
         <li>
-            <a href="{{ path('mgateTreso_Facture_ajouter') }}"> <span class="fa fa-plus"></span> Ajouter une Facture</a>
+            <a href="{{ path('mgateTreso_Facture_ajouter') }}"> <span class="fa fa-plus"></span> {{ 'treso.facture_ajouter'|trans({}, 'treso') }}</a>
         </li>
         <li class="">
-            <a href="#FA" data-toggle="tab">Facture d'Achat</a>
+            <a href="#FA" data-toggle="tab">{{ 'treso.facture_achat'|trans({}, 'treso') }}</a>
         </li>
         <li class="active">
-            <a href="#FV" data-toggle="tab">Facture de Vente</a>
+            <a href="#FV" data-toggle="tab">{{ 'treso.facture_vente'|trans({}, 'treso') }}</a>
         </li>
     </ul>
     <div id="myTabContent" class="tab-content">
@@ -32,13 +32,13 @@
             <table class="display dataTable table table-bordered table-striped dt-responsive" id="FAtable">
                 <thead>
                 <tr>
-                    <th>Date d'émission</th>
-                    <th>Référence</th>
-                    <th>Objet</th>
-                    <th>Montant HT</th>
-                    <th>Montant TVA</th>
-                    <th>Montant TTC</th>
-                    <th>Statut</th>
+                    <th>{{ 'treso.date_emission'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.reference'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.objet'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.montant_ht'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.montant_tva'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.montant_ttc'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.statut'|trans({}, 'treso') }}</th>
                 </tr>
                 </thead>
                 {% for facture in factures if facture.type == 1 %}
@@ -61,14 +61,14 @@
             <table class="display dataTable table table-bordered table-striped dt-responsive" id="FVtable">
                 <thead>
                 <tr>
-                    <th>Date d'émission</th>
-                    <th>Référence</th>
-                    <th>Objet</th>
-                    <th>Montant HT</th>
-                    <th>Montant TVA</th>
-                    <th>Montant TTC</th>
-                    <th>Statut</th>
-                    <th>Délai</th>
+                    <th>{{ 'treso.date_emission'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.reference'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.objet'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.montant_ht'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.montant_tva'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.montant_ttc'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.statut'|trans({}, 'treso') }}</th>
+                    <th>{{ 'treso.delai'|trans({}, 'treso') }}</th>
                 </tr>
                 </thead>
                 {% set totalDelai = 0 %}
