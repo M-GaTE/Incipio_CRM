@@ -1,7 +1,7 @@
 {% extends "mgateFormationBundle::layout.html.twig" %}
 
 {% block content_title %}
-    Modifier une formation
+    {{ 'formation.formation_modifier'|trans({}, 'formation') }}
 {% endblock %}
 
 {% block content_bundle %}
@@ -11,7 +11,7 @@
         </div>
     {% endfor%}
 <form method="post" {{ form_enctype(form) }}>
-    <input class="btn" type="submit" value="Enregistrer la Formation"/>
+    <input class="btn" type="submit" value="{{ 'formation.formation_enregistrer'|trans({}, 'formation') }}"/>
     <br/><br/>
     <table class="table table-bordered table-striped standard">
         <tr>
@@ -45,7 +45,7 @@
     </table>
     <table class="table table-bordered table-striped" id="formateurs" data-prototype="{{ form_widget(form.formateurs.vars.prototype) | e }}">
         <tr>
-            <th colspan="2"><a href="#" id="addFormateur">+</a> Formateurs</th>
+            <th colspan="2"><a href="#" id="addFormateur">+</a> {{ 'formation.formateurs'|trans({}, 'formation') }}</th>
         </tr>
         {% for formateur in form.formateurs %}
         <tr id="formateur">
@@ -56,7 +56,7 @@
     </table>
     <table class="table table-bordered table-striped">
         <tr>
-            <th colspan="2"><a href="#" id="addMembres">+</a> Membres Présents</th>
+            <th colspan="2"><a href="#" id="addMembres">+</a> {{ 'formation.membres_present'|trans({}, 'formation') }}</th>
         </tr>
         <tr><td colspan="2">
             <div class="row" id="membres" data-prototype="{{ form_widget(form.membresPresents.vars.prototype) | e }}">
@@ -72,7 +72,7 @@
 
 	{{ form_widget(form) }}
 
-	<input class="btn" type="submit" value="Enregistrer la Formation"/>
+	<input class="btn" type="submit" value="{{ 'formation.formation_enregistrer'|trans({}, 'formation') }}"/>
 </form>
 {% endblock %}
 
