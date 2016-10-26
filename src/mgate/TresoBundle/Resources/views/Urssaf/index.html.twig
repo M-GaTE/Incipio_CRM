@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
 {% endblock %}
 
-{% block title %}Tableau des intervenants - {{ parent() }}{% endblock %}
+{% block title %}{{ 'treso.intervenants_tableau'|trans({}, 'treso') }} - {{ parent() }}{% endblock %}
 
 {% block content_title %}
-    Tableau des intervenants
+    {{ 'treso.intervenants_tableau'|trans({}, 'treso') }}
 {% endblock %}
 
 
@@ -20,7 +20,7 @@
         {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
         {{ form_label(form.date) }} {{ form_widget(form.date) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Chercher" class="btn btn-primary"/>
+        <input type="submit" value="{{ 'treso.chercher'|trans({}, 'treso') }}" class="btn btn-primary"/>
     </form>
 
 
@@ -29,24 +29,24 @@
         <thead>
         <tr>
             <th>
-                <div>Nom de l'étude</div>
+                <div>{{ 'treso.nom_etude'|trans({}, 'treso') }}</div>
             </th>
             <th>
-                <div>Client</div>
-                <div>Suiveur</div>
+                <div>{{ 'treso.client'|trans({}, 'treso') }}</div>
+                <div>{{ 'treso.suiveur'|trans({}, 'treso') }}</div>
             </th>
             <th>
-                <div>Date de Lancement de l'étude</div>
-                <div>Date de Fin de l'étude</div>
+                <div>{{ 'treso.date_lancement_etude'|trans({}, 'treso') }}</div>
+                <div>{{ 'treso.date_fin_etude'|trans({}, 'treso') }}</div>
             </th>
             <th>
-                Nom Prénom
+                {{ 'treso.nom'|trans({}, 'treso') }} {{ 'treso.prenom'|trans({}, 'treso') }}
             </th>
             <th>
-                <div>Nombre de JEH de l'étude</div>
+                <div>{{ 'treso.nombre_jeh_etude'|trans({}, 'treso') }}</div>
             </th>
             <th>
-                <div>Nombre de JEH pour l'étudiant</div>
+                <div>{{ 'treso.nombre_jeh_etudiant'|trans({}, 'treso') }}</div>
             </th>
         </tr>
         </thead>
@@ -73,7 +73,7 @@
                 </td>
                 <td data-order="{{ rm.etude.montantHT |default(0) }}">
                     <div>{{ rm.etude.montantHT |default('') }} €</div>
-                    <div>{{ rm.etude.nbrJEH |default('') }} JEH</div>
+                    <div>{{ rm.etude.nbrJEH |default('') }} {{ 'treso.jeh'|trans({}, 'treso') }}</div>
                 </td>
                 <td>
                     {% set totalJEH = 0 %}
@@ -86,7 +86,7 @@
                             = {{ repartition.prixJEH * repartition.nbrJEH*(1-rm.pourcentageJunior) }} €
                         </div>
                     {% endfor %}
-                    <div>Total versé : {{ totalJEH }} JEH - {{ totalRem }} €</div>
+                    <div>{{ 'treso.total_verse'|trans({}, 'treso') }} : {{ totalJEH }} {{ 'treso.jeh'|trans({}, 'treso') }} - {{ totalRem }} €</div>
                 </td>
             </tr>
         {% endfor %}

@@ -1,11 +1,11 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Déclaration URSSAF - BRC - {{ parent() }}
+    {{ 'treso.declaration_urssaf_brc'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Déclaration URSSAF - BRC
+    {{ 'treso.declaration_urssaf_brc'|trans({}, 'treso') }}
 {% endblock %}
 
 {% block content_bundle %}
@@ -18,15 +18,15 @@
             {{ form_widget(form) }}
         </div>
         <div class="col-md-3 col-xs-12">
-            <input type="submit" value="Chercher" class="btn btn-default"/>
+            <input type="submit" value="{{ 'treso.chercher'|trans({}, 'treso') }}" class="btn btn-default"/>
         </div>
     </form>
 
     <br>
 
-    Nombre salariés pour la période de déclaration
+    {{ 'treso.nombre_salaries_periode_declaration'|trans({}, 'treso') }}
     <span data-toggle="tooltip" class="badge badge-default"
-          title="Nombre d’intervenants différents ayant reçu au moins un JEH via un Bulletin de Versement sur la période">
+          title="{{ 'treso.nombre_intervenants_au_moins_un_jeh'|trans({}, 'treso') }}">
         ?
     </span>
     : {{ nbSalarieRemunere }}
@@ -37,9 +37,9 @@
     </h4-->
     <table class="table table-bordered table-striped">
         <tr>
-            <th>Référence du BV</th>
-            <th>Etudiant</th>
-            <th>Montant des Cotisations</th>
+            <th>{{ 'treso.bv_reference'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.etudiant'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.cotisations_montant'|trans({}, 'treso') }}</th>
         </tr>
         {% set totalCotisation = 0 %}
         {% for bv in bvs %}
@@ -51,7 +51,7 @@
             </tr>
         {% endfor %}
         <tr>
-            <th colspan="2">Total</th>
+            <th colspan="2">{{ 'treso.total'|trans({}, 'treso') }}</th>
             <th>{{ totalCotisation }}</th>
         </tr>
     </table>

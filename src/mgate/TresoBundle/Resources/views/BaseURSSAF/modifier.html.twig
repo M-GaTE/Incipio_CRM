@@ -1,13 +1,13 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-	Gestion des Bases URSSAF - {{ parent() }}
+	{{ 'treso.base_urssaf_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 
 
 {% block content_bundle %}
-    <h3>{{ base.baseURSSAF ? "Ajout d'une" :  "Modification de la" }} Base : </h3>
+    <h3>{{ base.baseURSSAF ? "Ajout d'une" :  "Modification de la" }} {{ 'treso.base'|trans({}, 'treso') }} : </h3>
     <form method="post" {{ form_enctype(form) }}>
     <table class="table table-bordered table-striped standard">
         <tr>
@@ -27,7 +27,7 @@
     {% if base.baseURSSAF %}
     <table class="table">
         <tr>
-            <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('mgateTreso_BaseURSSAF_supprimer', {'id': base.id})}}';">Supprimer la base</button></td>
+            <td style="text-align: right;"><button type="button" class="btn btn-danger" onclick="location.href='{{ path('mgateTreso_BaseURSSAF_supprimer', {'id': base.id})}}';">{{ 'treso.supprimer_base'|trans({}, 'treso') }}</button></td>
         </tr>
     </table>
     {% endif %}

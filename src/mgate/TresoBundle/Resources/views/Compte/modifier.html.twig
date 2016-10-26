@@ -1,11 +1,11 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Gestion des comptes - {{ parent() }}
+    {{ 'treso.comptes_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    {{ compte.numero is null? "Ajout d'un" :  "Modification du" }} compte {{ compte.numero }} {{ compte.libelle }}
+    {{ compte.numero is null? "Ajout d'un" :  "Modification du" }} {{ 'treso.compte'|trans({}, 'treso') }} {{ compte.numero }} {{ compte.libelle }}
 {% endblock %}
 
 {% block content_bundle %}
@@ -24,13 +24,13 @@
                 <td>{{ form_widget(form.libelle) }}</td>
             </tr>
         </table>
-        <input type="submit" value="Enregistrer" class="btn btn-default"/>
+        <input type="submit" value="{{ 'treso.enregistrer'|trans({}, 'treso') }}" class="btn btn-default"/>
         {{ form_rest(form) }}
     </form>
 
     {% if compte.numero is not null and is_granted('ROLE_ADMIN') %}
         <a href="{{ path('mgateTreso_Compte_supprimer', {'id': compte.id}) }}" class="btn btn-danger">
-            Supprimer le Compte
+            {{ 'treso.compte_supprimer'|trans({}, 'treso') }}
         </a>
     {% endif %}
 

@@ -1,0 +1,27 @@
+formation:
+    formations: Formations
+    formations_presence: Présence aux formations
+    chercher: Chercher
+    present: Présents
+    taux: Taux
+    formation_enregistrer: Enregistrer la Formation
+    espace_admin: Espace Admin
+    membres: membres
+    minutes: minutes
+    modifier: Modifier
+    documents: Documents
+    date: formation.date
+    date: Date
+    titre: Titre
+    description: Description
+    formateurs: Formateurs
+    duree: Durée
+    personnes_presentes: Personnes présentes
+    formation_modifier: Modifier la Formation
+    documents_telecharger: Télécharger les documents
+    formation_supprimer: Supprimer la Formation
+    formateurs: Formateurs
+    formation_modifier: Modifier une formation
+    membres_present: Membres Présents
+    categories: Categories
+    mandat: Mandat

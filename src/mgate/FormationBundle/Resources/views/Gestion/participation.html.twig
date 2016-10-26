@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block title %}
-    Présence aux formations - {{ parent() }}
+    {{ 'formation.formations_presence'|trans({}, 'formation') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Présence aux formations
+    {{ 'formation.formations_presence'|trans({}, 'formation') }}
 {% endblock %}
 
 {% block content_bundle %}
@@ -21,17 +21,17 @@
     <form method="post" {{ form_enctype(form) }}>
         {{ form_label(form.mandat) }} {{ form_widget(form.mandat) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Chercher" class="btn"/>
+        <input type="submit" value="{{ 'formation.chercher'|trans({}, 'formation') }}" class="btn"/>
     </form>
 
     <table class="dataTable table table-bordered table-striped" id="presence">
         <thead>
         <tr>
-            <th>Présents</th>
+            <th>{{ 'formation.present'|trans({}, 'formation') }}</th>
             {% for formation in formations %}
                 <th>{{ formation.titre }}</th>
             {% endfor %}
-            <th>Taux</th>
+            <th>{{ 'formation.taux'|trans({}, 'formation') }}</th>
         </tr>
         </thead>
         <tbody>

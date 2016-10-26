@@ -2,7 +2,7 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    Tresorerie - {{ parent() }}
+    {{ 'treso.tresorerie'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 {% block content_title %}
-                    Trésorerie
+                    {{ 'treso.tresorerie'|trans({}, 'treso') }}
                 {% endblock %}
             </h3>
         </div>

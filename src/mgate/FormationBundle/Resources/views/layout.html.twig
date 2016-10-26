@@ -2,7 +2,7 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    Formations - {{ parent() }}
+    {{ 'formation.formations'|trans({}, 'formation') }} - {{ parent() }}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 {% block content_title %}
-                    Formations
+                    {{ 'formation.formations'|trans({}, 'formation') }}
                 {% endblock %}
             </h3>
         </div>

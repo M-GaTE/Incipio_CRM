@@ -1,16 +1,16 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Gestion des notes de frais - {{ parent() }}
+    {{ 'treso.note_frais_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Editer une note de frais
+    {{ 'treso.note_frais_editer'|trans({}, 'treso') }}
 {% endblock %}
 
 {% block content_bundle %}
     <form method="POST" {{ form_enctype(form) }}>
-        <input name="save" type="submit" value="Enregistrer la Note de Frais" class="btn"/>
+        <input name="save" type="submit" value="{{ 'treso.note_frais_enregistrer'|trans({}, 'treso') }}" class="btn"/>
         <br/><br/>
         <table class="table table-bordered table-striped standard">
             <tr>
@@ -37,7 +37,7 @@
         <table class="table table-bordered table-striped" id="details"
                data-prototype="{{ form_widget(form.details.vars.prototype) | e }}">
             <tr>
-                <th colspan="2"><a href="#" id="addDetail">+</a> Détails</th>
+                <th colspan="2"><a href="#" id="addDetail">+</a> {{ 'treso.details'|trans({}, 'treso') }}</th>
             </tr>
             {% for detail in form.details %}
                 <tr id="detail">

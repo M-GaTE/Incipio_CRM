@@ -8,28 +8,27 @@
 {% endblock %}
 
 {% block title %}
-    Gestion des BV - {{ parent() }}
+    {{ 'treso.bv_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Liste des BV
+    {{ 'treso.bv_list'|trans({}, 'treso') }}
 {% endblock %}
 
 {% block content_bundle %}
-    <button type="button" class="btn btn-success" onclick="location.href='{{ path('mgateTreso_BV_ajouter') }}';">Ajouter
-        un BV
+    <button type="button" class="btn btn-success" onclick="location.href='{{ path('mgateTreso_BV_ajouter') }}';">{{ 'treso.bv_add'|trans({}, 'treso') }}
     </button>
     <br>
     <table class="display dataTable table table-bordered table-striped dt-responsive" id="listeBV">
         <thead>
         <tr>
-            <th>Référence</th>
-            <th>Date de Versement</th>
-            <th>Bénéficiaire</th>
-            <th>Mission</th>
-            <th>Rémunération Brute</th>
-            <th>Part Junior</th>
-            <th>Part Etudiant</th>
+            <th>{{ 'treso.reference'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.date_versement'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.beneficiaire'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.mission'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.remuneration_brute'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.part_junior'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.part_etudiant'|trans({}, 'treso') }}</th>
         </tr>
         </thead>
         <tbody>

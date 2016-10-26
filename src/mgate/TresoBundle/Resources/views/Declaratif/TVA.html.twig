@@ -1,11 +1,11 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Déclaration de la TVA - {{ parent() }}
+    {{ 'treso.tva_declaration'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Déclaration de la TVA
+    {{ 'treso.tva_declaration'|trans({}, 'treso') }}
 {% endblock %}
 
 {% block content_bundle %}
@@ -18,24 +18,24 @@
             {{ form_widget(form) }}
         </div>
         <div class="col-md-3 col-xs-12">
-            <input type="submit" value="Chercher" class="btn btn-default"/>
+            <input type="submit" value="{{ 'treso.chercher'|trans({}, 'treso') }}" class="btn btn-default"/>
         </div>
     </form>
     <h3>{{ periode }}</h3>
     <br>
     <table class="table table-bordered table-striped">
         <tr>
-            <td colspan="{{ tvas | length +5 }}"><h3>TVA Collectée</h3></td>
+            <td colspan="{{ tvas | length +5 }}"><h3>{{ 'treso.tva_collecte'|trans({}, 'treso') }}</h3></td>
         </tr>
         <tr>
-            <th>Date</th>
-            <th>Libellé</th>
-            <th>Montant HT</th>
+            <th>{{ 'treso.date'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.libelle'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_ht'|trans({}, 'treso') }}</th>
             {% for tva in tvas %}
                 <th>{{ tva }} %</th>
             {% endfor %}
-            <th>TVA</th>
-            <th>Montant TTC</th>
+            <th>{{ 'treso.tva'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_ttc'|trans({}, 'treso') }}</th>
         </tr>
         {% for line in tvaCollectee %}
             <tr style="text-align: right;">
@@ -77,17 +77,17 @@
             <td colspan="{{ tvas | length +5 }}" style="visibility: hidden;"></td>
         </tr>
         <tr>
-            <td colspan="{{ tvas | length +5 }}"><h3>TVA Deductible</h3></td>
+            <td colspan="{{ tvas | length +5 }}"><h3>{{ 'treso.tva_deductible'|trans({}, 'treso') }}</h3></td>
         </tr>
         <tr>
-            <th>Date</th>
-            <th>Libellé</th>
-            <th>Montant HT</th>
+            <th>{{ 'treso.date'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.libelle'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_ht'|trans({}, 'treso') }}</th>
             {% for tva in tvas %}
                 <th>{{ tva }} %</th>
             {% endfor %}
-            <th>TVA</th>
-            <th>Montant TTC</th>
+            <th>{{ 'treso.tva'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_ttc'|trans({}, 'treso') }}</th>
         </tr>
         {% for line in tvaDeductible %}
             <tr style="text-align: right;">
@@ -108,7 +108,7 @@
             </tr>
         {% endfor %}
         <tr style="text-align: right;">
-            <th colspan="2">Total</th>
+            <th colspan="2">{{ 'treso.total'|trans({}, 'treso') }}</th>
             <td>{{ totalTvaDeductible['HT'] |number_format(2, ',', ' ') }} €</td>
             {% for tva in tvas %}
                 <td>

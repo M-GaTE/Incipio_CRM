@@ -1,29 +1,29 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Facture {{ facture.reference }} - {{ parent() }}
+    {{ 'treso.facture'|trans({}, 'treso') }} {{ facture.reference }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Facture {{ facture.reference }}
+    {{ 'treso.facture'|trans({}, 'treso') }} {{ facture.reference }}
 {% endblock %}
 
 {% block content_bundle %}
     <table class="table table-bordered table-striped">
         <tr>
-            <th>Date d'émission</th>
+            <th>{{ 'treso.date_emission'|trans({}, 'treso') }}</th>
             <td>{{ facture.dateEmission | date('d/m/Y') }}</td>
         </tr>
         <tr>
-            <th>Facture émise {{ facture.type > 1 ? 'pour' : 'par' }}</th>
+            <th>{{ 'treso.facture_émise'|trans({}, 'treso') }} {{ facture.type > 1 ? 'pour' : 'par' }}</th>
             <td>{{ facture.beneficiaire.nom }}</td>
         </tr>
         <tr>
-            <th>Réglée le</th>
+            <th>{{ 'treso.reglee_le'|trans({}, 'treso') }}</th>
             <td>{{ facture.dateVersement ? facture.dateVersement |date('d/m/Y') : 'Impayée' }}</td>
         </tr>
         <tr>
-            <th>Objet</th>
+            <th>{{ 'treso.objet'|trans({}, 'treso') }}</th>
             <td>{{ facture.objet | nl2br }}</td>
         </tr>
     </table>
@@ -31,14 +31,14 @@
 
     <table class="table table-bordered table-striped" style="text-align: right;">
         <tr>
-            <th colspan="5" class="success">Détails des dépenses</th>
+            <th colspan="5" class="success">{{ 'treso.depenses_details'|trans({}, 'treso') }}</th>
         </tr>
         <tr>
-            <th>Description</th>
-            <th>Prix HT</th>
-            <th>Taux TVA</th>
-            <th>TVA</th>
-            <th>Prix TTC</th>
+            <th>{{ 'treso.description'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.prix_ht'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.taux_tva'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.tva'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.prix_ttc'|trans({}, 'treso') }}</th>
         </tr>
         {% set totalHT = 0 %}
         {% set totalTVA = 0 %}
@@ -75,12 +75,12 @@
             </tr>
         {% endif %}
         <tr>
-            <th colspan="5" class="danger">Total</th>
+            <th colspan="5" class="danger">{{ 'treso.total'|trans({}, 'treso') }}</th>
         </tr>
         <tr>
-            <td colspan="2">{{ totalHT |number_format(2, ',', ' ') }} € HT</td>
-            <td colspan="2">{{ totalTVA |number_format(2, ',', ' ') }} € de TVA</td>
-            <td>{{ totalTTC |number_format(2, ',', ' ') }} € TTC</td>
+            <td colspan="2">{{ totalHT |number_format(2, ',', ' ') }} € {{ 'treso.ht'|trans({}, 'treso') }}</td>
+            <td colspan="2">{{ totalTVA |number_format(2, ',', ' ') }} € {{ 'treso.de_tva'|trans({}, 'treso') }}</td>
+            <td>{{ totalTTC |number_format(2, ',', ' ') }} € {{ 'treso.ttc'|trans({}, 'treso') }}</td>
         </tr>
     </table>
     <div class="row">
@@ -88,21 +88,20 @@
             {#Lien de retour vers l'étude liée à cette facture#}
             <div class="col-md-3 col-xs-6">
 
-                <a href="{{ path('mgateSuivi_etude_voir', {'nom': facture.etude.nom }) }}" class="btn btn-default">Retour
-                    à l'étude</a>
+                <a href="{{ path('mgateSuivi_etude_voir', {'nom': facture.etude.nom }) }}" class="btn btn-default">{{ 'treso.retour_etude'|trans({}, 'treso') }}</a>
             </div>
         {% endif %}
         <div class="col-md-3 col-xs-6">
             <a type="button" class="btn btn-success"
                href="{{ path('mgate_publi_publiposter', { 'templateName' : facture.typeAbbrToString , 'rootName' : constant('\\mgate\\PubliBundle\\Controller\\TraitementController::ROOTNAME_FACTURE'), 'rootObject_id' : facture.id}) }}">
-                Générer la Facture
+                {{ 'treso.facture_generer'|trans({}, 'treso') }}
             </a>
         </div>
         {% if is_granted('ROLE_TRESO') %}
             <div class="col-md-3 col-xs-6">
                 <button type="button" class="btn btn-primary"
                         onclick="location.href='{{ path('mgateTreso_Facture_modifier', {'id': facture.id}) }}';">
-                    Modifier la Facture
+                    {{ 'treso.facture_modifier'|trans({}, 'treso') }}
                 </button>
             </div>
         {% endif %}
@@ -111,7 +110,7 @@
             <div class="col-md-3 col-xs-6">
                 <button type="button" class="btn btn-danger"
                         onclick="location.href='{{ path('mgateTreso_Facture_supprimer', {'id': facture.id}) }}';">
-                    Supprimer la Facture
+                    {{ 'treso.facture_supprimer'|trans({}, 'treso') }}
                 </button>
             </div>
         {% endif %}

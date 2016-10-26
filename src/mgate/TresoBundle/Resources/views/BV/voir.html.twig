@@ -10,34 +10,34 @@
 {% endblock %}
 
 {% block title %}
-    Gestion des BV - {{ parent() }}
+    {{ 'treso.bv_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Bulletin de versement {{ bv.reference }} &thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp; {{ bv.dateDemission | date('d/m/Y') }}
+    {{ 'treso.bv'|trans({}, 'treso') }} {{ bv.reference }} &thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp; {{ bv.dateDemission | date('d/m/Y') }}
 {% endblock %}
 
 {% block content_bundle %}
 
     <table class="table table-bordered table-condensed">
         <tr>
-            <th>Rémunération brute :</th>
+            <th>{{ 'treso.remuneration_brute'|trans({}, 'treso') }} :</th>
             <td class="money">{{ bv.remunerationBrute | money }}&nbsp;€</td>
         </tr>
         <tr>
-            <th>Nombre de jours-étude homme :</th>
+            <th>{{ 'treso.nombre_jeh'|trans({}, 'treso') }} :</th>
             <td class="money">{{ bv.nombreJEH }}</td>
         </tr>
         <tr>
-            <th>Rémunération brute par JEH :</th>
+            <th>{{ 'treso.remuneration_brute_jeh'|trans({}, 'treso') }} :</th>
             <td class="money">{{ bv.remunerationBruteParJEH | money }}&nbsp;€</td>
         </tr>
         <tr>
-            <th>Base U.R.S.S.A.F. :</th>
+            <th>{{ 'treso.base_urssaf'|trans({}, 'treso') }}. :</th>
             <td class="money">{{ bv.baseURSSAF ? bv.baseURSSAF.baseURSSAF | money }}&nbsp;€</td>
         </tr>
         <tr>
-            <th>Assiette des cotisations :</th>
+            <th>{{ 'treso.assiette_cotisations'|trans({}, 'treso') }} :</th>
             <td class="money">{{ bv.assietteDesCotisations | money }}&nbsp;€</td>
         </tr>
 
@@ -47,15 +47,15 @@
 
         <tr style="text-align: center;" class="active">
             <th rowspan="2">COTISATIONS SOCIALES</th>
-            <th rowspan="2">BASE</th>
-            <th colspan="2">Part Junior-Entreprise</th>
-            <th colspan="2">Part étudiant</th>
+            <th rowspan="2">{{ 'treso.base' | trans({}, 'treso') }}</th>
+            <th colspan="2">{{ 'treso.part_je'|trans({}, 'treso') }}</th>
+            <th colspan="2">{{ 'treso.part_etudiant'|trans({}, 'treso') }}</th>
         </tr>
         <tr style="text-align: center;" class="active">
-            <th>TAUX</th>
-            <th>MONTANT</th>
-            <th>TAUX</th>
-            <th>MONTANT</th>
+            <th>{{ 'treso.taux'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.taux'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant'|trans({}, 'treso') }}</th>
         </tr>
         {% for cotisation in bv.cotisationURSSAF %}
             <tr class="money">
@@ -68,7 +68,7 @@
             </tr>
         {% endfor %}
         <tr class="active money">
-            <th style="text-align: left;">TOTAL DES COTISATIONS DUES<br>(indexées sur l'assiette de cotisation)</th>
+            <th style="text-align: left;">{{ 'treso.total_cotisations_dues'|trans({}, 'treso') }}<br>(indexées sur l'assiette de cotisation)</th>
             <th>{{ bv.assietteDesCotisations | money }}&nbsp;€</th>
             <th>{{ (bv.tauxPartJunior['baseURSSAF'] * 100) | money }}&nbsp;%</th>
             <th>{{ bv.partJunior(true)['baseURSSAF'] | money }}&nbsp;€</th>
@@ -76,7 +76,7 @@
             <th>{{ bv.partEtudiant(true)['baseURSSAF'] | money }}&nbsp;€</th>
         </tr>
         <tr class="active money">
-            <th style="text-align: left;">TOTAL DES COTISATIONS DUES<br>(indexées sur la rémunération brute)</th>
+            <th style="text-align: left;">{{ 'treso.total_cotisations_dues'|trans({}, 'treso') }}<br>({{ 'treso.indexes_remunerations_brutes'|trans({}, 'treso') }})</th>
             <th>{{ bv.remunerationBrute  | money }}&nbsp;€</th>
             <th>{{ (bv.tauxPartJunior['baseBrute']*100) | money }}&nbsp;%</th>
             <th>{{ bv.partJunior(true)['baseBrute'] | money }}&nbsp;€</th>
@@ -89,17 +89,17 @@
         </tr>
 
         <tr>
-            <th>TOTAL DES COTISATIONS (part Junior)</th>
+            <th>{{ 'treso.total_cotisations_part_je'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.partJunior | money }}&nbsp;€</th>
         </tr>
 
         <tr>
-            <th>TOTAL DES COTISATIONS (part étudiant)</th>
+            <th>{{ 'treso.total_cotisations_part_etudiant'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.partEtudiant | money }}&nbsp;€</th>
         </tr>
 
         <tr>
-            <th>TOTAL DES COTISATIONS (part Junior + part étudiant)</th>
+            <th>{{ 'treso.total_cotisations_total'|trans({}, 'treso') }}</th>
             <th class="money">{{ (bv.partJunior + bv.partEtudiant) | money }}&nbsp;€</th>
         </tr>
 
@@ -108,27 +108,27 @@
         </tr>
 
         <tr>
-            <th>Rémunération Brute</th>
+            <th>{{ 'treso.remuneration_brute'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.remunerationBrute | money }}&nbsp;€</th>
         </tr>
 
         <tr>
-            <th>Total retenues étudiant</th>
+            <th>{{ 'treso.total_retenues_etudiant'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.partEtudiant | money }}&nbsp;€</th>
         </tr>
 
         <tr>
-            <th>Montant net</th>
+            <th>{{ 'treso.montant_net'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.remunerationNet | money }}&nbsp;€</th>
         </tr>
 
         <tr>
-            <th>Montant net imposable (net+C.S.G. Non déd +R.D.S.)</th>
+            <th>{{ 'treso.montant_net.imposable'|trans({}, 'treso') }} {{ 'treso.montant_net.taxes'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.remunerationNetImposable | money }}&nbsp;€</th>
         </tr>
 
         <tr class="active">
-            <th>TOTAL A PAYER :</th>
+            <th>{{ 'treso.total_payer'|trans({}, 'treso') }} :</th>
             <th class="money">{{ bv.remunerationNet | money }}&nbsp;€</th>
         </tr>
 
@@ -145,7 +145,7 @@
         {% if is_granted('ROLE_TRESO') %}
             <div class="col-md-3 col-xs-6">
                 <a class="btn btn-primary" href="{{ path('mgateTreso_BV_modifier', {'id' : bv.id }) }}">
-                    Modifier le BV
+                    {{ 'treso.bv_modifier'|trans({}, 'treso') }}
                 </a>
             </div>
         {% endif %}
@@ -153,7 +153,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <div class="col-md-3 col-xs-6">
                 <a href="{{ path('mgateTreso_BV_supprimer', {'id': bv.id}) }}" class="btn btn-danger">
-                    Supprimer le BV
+                    {{ 'treso.bv_supprimer'|trans({}, 'treso') }}
                 </a>
             </div>
         {% endif %}

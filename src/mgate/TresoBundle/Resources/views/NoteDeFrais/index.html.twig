@@ -1,7 +1,7 @@
 {% extends "mgateTresoBundle::layout.html.twig" %}
 
 {% block title %}
-    Gestion des notes de frais - {{ parent() }}
+    {{ 'treso.note_frais_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,21 +12,21 @@
 {% endblock %}
 
 {% block content_title %}
-    Gestion des notes de frais
+    {{ 'treso.note_frais_gestion'|trans({}, 'treso') }}
 {% endblock %}
 
 {% block content_bundle %}
-    <a href="{{ path('mgateTreso_NoteDeFrais_ajouter') }}" class="btn btn-success">Ajouter une note de frais</a>
+    <a href="{{ path('mgateTreso_NoteDeFrais_ajouter') }}" class="btn btn-success">{{ 'treso.note_frais_ajouter'|trans({}, 'treso') }}</a>
     <table class="table table-bordered table-striped dt-responsive" id="listeNotes">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Référence</th>
-            <th>Demandeur</th>
-            <th>Objet</th>
-            <th>Montant HT</th>
-            <th>Montant TVA</th>
-            <th>Montant TTC</th>
+            <th>{{ 'treso.date'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.reference'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.demandeur'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.objet'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_ht'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_tva'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_ttc'|trans({}, 'treso') }}</th>
         </tr>
         </thead>
         {% for nf in nfs %}

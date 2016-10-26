@@ -8,23 +8,23 @@
 {% endblock %}
 
 {% block title %}
-    Gestion des comptes - {{ parent() }}
+    {{ 'treso.comptes_gestion'|trans({}, 'treso') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Gestion des comptes comptables
+    {{ 'treso.gestion_comptable_gestion'|trans({}, 'treso') }}
 {% endblock %}
 
 
 {% block content_bundle %}
     <a href="{{ path('mgateTreso_Compte_ajouter') }}" class="btn btn-success">
-        Ajouter un compte
+        {{ 'treso.compte_ajouter'|trans({}, 'treso') }}
     </a>
     <table class="display dataTable table table-bordered table-striped" id="listeComptes">
         <thead>
         <tr>
-            <th>Numéro</th>
-            <th>Libellé</th>
+            <th>{{ 'treso.numero'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.libelle'|trans({}, 'treso') }}</th>
         </tr>
         </thead>
         {% for compte in comptes %}
