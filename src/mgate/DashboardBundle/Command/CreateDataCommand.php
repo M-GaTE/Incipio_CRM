@@ -190,7 +190,9 @@ class CreateDataCommand extends ContainerAwareCommand
             $e->setSourceDeProspection(rand(1,10));
             $em->persist($e);
             $c = $em->getRepository('n7consultingRhBundle:Competence')->find(rand(1,12));
-            $c->addEtude($e);
+            if($c !== null) {
+                $c->addEtude($e);
+            }
 
             /** Prospect management */
             $p = new Prospect();
@@ -251,7 +253,9 @@ class CreateDataCommand extends ContainerAwareCommand
             $m->setPersonne($pm);
             $m->setPromotion($mandat+2);
             $em->persist($m);
-            $c->addMembre($m);
+            if($c !== null) {
+                $c->addMembre($m);
+            }
             $e->setSuiveur($pm);
 
 
@@ -282,7 +286,9 @@ class CreateDataCommand extends ContainerAwareCommand
                 $mdev->setPersonne($dev);
                 $mdev->setPromotion($mandat+rand(1,2));
                 $em->persist($mdev);
-                $c->addMembre($mdev);
+                if($c !== null) {
+                    $c->addMembre($mdev);
+                }
 
                 $mi = new Mission();
                 $mi->setSignataire2($dev);
