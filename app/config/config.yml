@@ -6,7 +6,7 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: "%locale%" }
+    translator:      { fallback: fr }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -157,7 +157,7 @@ fos_rest:
 # necessaire pour faire marcher fos_rest
 sensio_framework_extra:
   view:
-    annotations: false
+    annotations: true
 
 # JMSSerializerBundle usefull for CommentBundle
 jms_serializer:
