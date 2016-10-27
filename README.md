@@ -1,16 +1,17 @@
-# Incipio - N7 Consulting
+# Jeyser CRM - N7 Consulting
 
-Incipio est un projet qui vise à bâtir un [ERP](http://fr.wikipedia.org/wiki/Progiciel_de_gestion_int%C3%A9gr%C3%A9) communautaire et libre pour l’ensemble des structures de type Junior-Entreprise, faisant partie ou non de la [CNJE](http://www.junior-entreprises.com/).
+Jeyser-CRM (also known as Incipio) is a project aiming at the creation an open-source [CRM](https://en.wikipedia.org/wiki/Customer_relationship_management) / [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning) for all Junior Entreprises belonging or not to [CNJE](http://www.junior-entreprises.com/) and [JADE](http://www.jadenet.org/).
 
-Ce dépôt GitHub est la version d'N7 Consulting, la Junior-Entreprise de l'ENSEEIHT. Il est issu du dépôt officiel [In6pio/incipio](https://github.com/in6pio/Incipio/). A ce jour (28/02/2016), il est le seul dépôt d'Incipio à être actif.
+This Github repository is hosting N7 Consulting, [ENSEEIHT](http://www.enseeiht.fr/fr/index.html)'s Junior-Entreprise, version of Jeyser. It is currently (27/10/2014) the only version of Incipio under active development. You can try a demo (resetted every hour) of Jeyser [Heroku](https://jeyser-demo.herokuapp.com/)
 
-Cette version corrige de nombreux bugs présent dans la version officielle d'Incipio. Elle apporte également de nouvelles fonctionnalités comme le mappage des compétences des intervenants dans le Bundle RH. Un soin particulier est porté à l'expérience utilisateur et l'ergonomie pour rendre Incipio le plus convivial possible.
+That version fixes numerous bugs, improves a lot code quality and existing modules and adds several functionnalities to original Incipio version. Namely skills mapping between projects and members in HR module, data import from external sources. A particular care is given to user interface and user experience to provide the most friendly use possible.
 
 #RoadMap
 
-- D'ici Juillet 2016 : release d'une version contenant les fonctionnalités actuelles + le verrouillage des phases (issue #20) + le module de suivi des appels de développement commercial
-- Ensuite : Développement de tests de comportement via Behat, objectif code coverage 75%.
-- Enfin : Amélioration de la qualité de code, objectif médaille d'argent sur SensioLabs Insights
+- Functionnalities : add phase lock when an invoice has been issued. Add some data visualization. Ease Jeyser installation. Reorganize doctype handling.
+- Translation : Move every hard coded text in views to translation files to enable i18n of Incipio.
+- Code Quality : Reach at Gold medal on Sensiolabs Insights. [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b2a395d1-acaa-4305-a30e-3a326fdb7c3a/small.png)](https://insight.sensiolabs.com/projects/b2a395d1-acaa-4305-a30e-3a326fdb7c3a)
+- Code coverage : introduce behavioural tests with Behat.
 
 
 # Licence
