@@ -51,7 +51,6 @@ class Phase
      * Gedmo\SortablePosition.
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
-     * todo enlever le nullable=true
      */
     private $position;
 

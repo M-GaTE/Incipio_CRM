@@ -133,7 +133,6 @@ class MembreController extends Controller
 
             if ($form->isValid()) {
 
-                // TODO TOREMOVE Specifique EMSE
                 if ($membre->getPersonne()) {
                     // Photo de l'étudiant
                     $path = $membre->getPromotion().'/'.
@@ -228,7 +227,6 @@ class MembreController extends Controller
                 $form = $this->createForm(new MembreType(), $membre);
             }
         }
-        // TODO A modifier, l'ajout de poste dois se faire en js cf formation membre
         //if ($this->get('request')->get('save'))
          //   return $this->redirect($this->generateUrl('mgatePersonne_membre_voir', array('id' => $membre->getId())));
 

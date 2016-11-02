@@ -146,7 +146,6 @@ class EtudeManager extends \Twig_Extension
      * Get référence du document
      * Params : Etude $etude, mixed $doc, string $type (the type of doc)
      */
-    //TODO if object == NULL
     public function getRefDoc(Etude $etude, $type, $key = -1)
     {
         $type = strtoupper($type);

@@ -25,7 +25,7 @@ use mgate\TresoBundle\Entity\CotisationURSSAF;
  */
 class BV
 {
-    // TODO Liée au répartition JEH laisser le choix d'ajouter des existantes (une fois que les avenants seront OK)
+    // Liée au répartition JEH laisser le choix d'ajouter des existantes (une fois que les avenants seront OK)
     // si plusieur repartition, moyenner
     /**
      * @var int

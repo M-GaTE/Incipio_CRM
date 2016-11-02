@@ -148,7 +148,6 @@ class TraitementController extends Controller
         }
 
         if ($rootName == 'etude' && $rootObject->getReference()) {
-            // TODO IMPLEMENT getref
             $refDocx = $rootObject->getReference().'-'.$templateName.'-';
         } elseif ($rootName == 'etudiant') {
             $refDocx = $templateName.'-'.$rootObject->getIdentifiant();

@@ -44,7 +44,6 @@ class MissionController extends Controller
     {
         if ($this->get('request')->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
-            // TODO : use a symfony form instead a simili php.
             $avancement = !empty($request->request->get('avancement')) ? intval($request->request->get('avancement')) : 0;
             $id = !empty($request->request->get('id')) ? $request->request->get('id') : 0;
             $intervenant = !empty($request->request->get('intervenant')) ? intval($request->request->get('intervenant')) : 0;
