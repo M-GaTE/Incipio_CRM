@@ -22,7 +22,6 @@
 namespace mgate\PubliBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -33,17 +32,17 @@ class DocumentManager extends BaseManager
 {
     protected $em;
     protected $securityContext;
-    protected $container;
+    protected $junior;
 
     /**
      * @param \Doctrine\ORM\EntityManager                      $em
-     * @param \Symfony\Component\DependencyInjection\Container $container
+     * @param array $junior
      * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
      */
-    public function __construct(EntityManager $em, Container $container, SecurityContext $securityContext)
+    public function __construct(EntityManager $em, $junior, SecurityContext $securityContext)
     {
         $this->em = $em;
-        $this->container = $container;
+        $this->junior = $junior;
         $this->securityContext = $securityContext;
     }
 
@@ -136,16 +135,15 @@ class DocumentManager extends BaseManager
         }
 
         // Store each Junior documents in a distinct subdirectory
-        $junior = $this->container->getParameter('junior');
-        if (!array_key_exists('id', $junior)) {
+        if (!array_key_exists('id', $this->junior)) {
             throw new \Exception('Votre version de Incipio est obsolète. Contactez dsi@n7consulting.fr (incorrect parameters junior : id)');
         }
-        $juniorId = $junior['id'];
+        $juniorId = $this->junior['id'];
         $document->setSubdirectory($juniorId);
 
         // Authorized Storage Size Overflow
         $totalSize = $document->getSize() + $this->getRepository()->getTotalSize();
-        if ($totalSize > $junior['authorizedStorageSize']) {
+        if ($totalSize > $this->junior['authorizedStorageSize']) {
             throw new UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à dsi@n7consulting.fr.');
         }
 

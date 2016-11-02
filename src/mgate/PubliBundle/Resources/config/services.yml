@@ -19,7 +19,7 @@ services:
         class: "%mgate.document_manager.class%"
         arguments:
             em : "@doctrine.orm.entity_manager"
-            container : "@service_container"
+            junior : "%junior%"
             securityContext : "@security.context"
 
     mgate.import.siaje_etude:
