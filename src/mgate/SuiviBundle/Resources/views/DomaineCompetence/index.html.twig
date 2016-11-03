@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block title %}
-    Affichage des domaines de compétences - {{ parent() }}
+    {{ 'suivi.domaines_competences_affichage'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Affichage des domaines de compétences
+    {{ 'suivi.domaines_competences_affichage'|trans({}, 'suivi') }}
 {% endblock %}
 
 {% block content_bundle %}
@@ -21,7 +21,7 @@
         <table>
             <tr>
                 <td>{{ form_widget(form) }}</td>
-                <td><input type="submit" value="Ajouter" class="btn btn-success"/></td>
+                <td><input type="submit" value="{{ 'suivi.ajouter'|trans({}, 'suivi') }}" class="btn btn-success"/></td>
             </tr>
         </table>
     </form>
@@ -29,8 +29,8 @@
     <table class="display dataTable table table-bordered table-striped" id="listeDomaines">
         <thead>
         <tr>
-            <th>Action</th>
-            <th>Domaine</th>
+            <th>{{ 'suivi.action'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.domaine'|trans({}, 'suivi') }}</th>
         </tr>
         </thead>
         <tbody>

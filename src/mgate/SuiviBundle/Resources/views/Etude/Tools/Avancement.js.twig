@@ -1,7 +1,7 @@
 $('body').click(function(e){
     var Elem = e.target;
     if (Elem.id == 'avancement'){
-        bootbox.prompt("Avancement du developpeur (%) ?", function(result) {
+        bootbox.prompt("{{ 'suivi.avancement_developpeur'|trans({}, 'suivi') }} (%) ?", function(result) {
         if (result !== null) {
             var requete = $.ajax({
                 url: "{{ path('mgateSuivi_mission_avancement') }}",

@@ -1,11 +1,11 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-    Modifier une étude - {{ parent() }}
+    {{ 'suivi.etude_modifier'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Modifier une étude
+    {{ 'suivi.etude_modifier'|trans({}, 'suivi') }}
 {% endblock %}
 
 
@@ -20,7 +20,7 @@
                 <td>{{ form_widget(form.knownProspect) }}</td>
             </tr>
             <tr>
-                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">Nouveau prospect</th>
+                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">{{ 'suivi.prospect_nouveau'|trans({}, 'suivi') }}</th>
             </tr>
             <tr>
                 <th>{{ form_label(form.newProspect.nom) }}</th>
@@ -47,7 +47,7 @@
                 <td>{{ form_widget(form.newProspect.pays) }}</td>
             </tr>
             <tr>
-                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">L'étude</th>
+                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">{{ 'suivi.etude_l'|trans({}, 'suivi') }}</th>
             </tr>
             <tr>
                 <th>{{ form_label(form.prospect) }}</th>
@@ -89,20 +89,20 @@
         {{ form_widget(form) }}
 
         <br>
-        <input type="submit" value="Enregistrer l'étude" class="btn btn-default"/>
-        <input type="submit" value="Enregistrer l'étude et passer à la PM" name="ap" id="ap" class="btn btn-default"/>
+        <input type="submit" value="{{ 'suivi.etude_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default"/>
+        <input type="submit" value="{{ 'suivi.etude_enregistrer_passer_ap'|trans({}, 'suivi') }}" name="ap" id="ap" class="btn btn-default"/>
     </form>
     <br>
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">Retour à l'étude</a>
+        <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
     </p>
 
 
-    <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cette étude ?"
+    <form class="bootbox-confirm" data-content="{{ 'suivi.etude_supprimer_confirm'|trans({}, 'suivi') }} ?"
           action="{{ path('mgateSuivi_etude_supprimer', { 'nom': etude.nom }) }}" method="post">
         {{ form_widget(delete_form) }}
-        <button class="btn btn-danger">Supprimer l'étude</button>
+        <button class="btn btn-danger">{{ 'suivi.etude_supprimer'|trans({}, 'suivi') }}</button>
     </form>
 
 {% endblock %}

@@ -16,23 +16,23 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
             <li>
-            <li><a href="{{ path('mgateSuivi_vu_ca', {'id': prevID}) }}"><i class="fa fa-arrow-left"></i> Précédent</a></li>
+            <li><a href="{{ path('mgateSuivi_vu_ca', {'id': prevID}) }}"><i class="fa fa-arrow-left"></i> {{ 'suivi.précédent'|trans({}, 'suivi') }}</a></li>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-th-list"></i> Accès Rapide <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-th-list"></i> {{ 'suivi.acces_rapide'|trans({}, 'suivi') }} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li class="nav-header"> <i class="fa fa-unchecked"></i> En négociation</li>
+                    <li class="nav-header"> <i class="fa fa-unchecked"></i> {{ 'suivi.en_negociation'|trans({}, 'suivi') }}</li>
                     {% for etude in etudesDisplayList if etude.stateID == STATE_ID_EN_NEGOCIATION %}
                     <li><a href="{{ path('mgateSuivi_vu_ca', {'id': etude.id}) }}"><i class="fa fa-minus"></i> {{etude.reference}}</a></li>
                     {% endfor %}
                     <li class="divider"></li>
-                    <li class="nav-header"> <i class="fa fa-check"></i> En cours</li>
+                    <li class="nav-header"> <i class="fa fa-check"></i> {{ 'suivi.en_cours'|trans({}, 'suivi') }}</li>
                     {% for etude in etudesDisplayList if etude.stateID == STATE_ID_EN_COURS %}
                     <li><a href="{{ path('mgateSuivi_vu_ca', {'id': etude.id}) }}"><i class="fa fa-minus"></i> {{etude.reference}}</a></li>
                     {% endfor %}
                 </ul>
             </li>
-            <li><a href="{{ path('mgateSuivi_vu_ca', {'id': nextID}) }}">Suivant <i class="fa fa-arrow-right"></i></a></li>
+            <li><a href="{{ path('mgateSuivi_vu_ca', {'id': nextID}) }}">{{ 'suivi.suivant'|trans({}, 'suivi') }} <i class="fa fa-arrow-right"></i></a></li>
         </ul>
 
 
@@ -45,9 +45,9 @@
         <td colspan="5"><strong>{{ etude.stateDescription }}</strong></td>
     </tr>
     <tr>
-        <td>Client</td>
+        <td>{{ 'suivi.client'|trans({}, 'suivi') }}</td>
         <td colspan="2">{% include "mgateSuiviBundle:Etude:Buttons/Prospect.html.twig" with  {'prospect':  etude.prospect} %}</td>
-        <td>Suiveur</td>
+        <td>{{ 'suivi.suiveur'|trans({}, 'suivi') }}</td>
         <td colspan="2">{% include "mgateSuiviBundle:Etude:Buttons/Suiveur.html.twig" with  {'suiveur':  etude.suiveur} %}</td>
     </tr>
                 {% if etude.missions is not empty%}
@@ -60,11 +60,11 @@
         </tr>
                     {% endif %}
         <tr>
-            <td>Crée le</td>
+            <td>{{ 'suivi.etude.cree_le'|trans({}, 'suivi') }}</td>
             <th>{{ etude.dateCreation|date("d/m/Y") }}</th>
-            <td>Fin le</td>
+            <td>{{ 'suivi.fin_le'|trans({}, 'suivi') }}</td>
             <th>{{ etude.dateFin|date("d/m/Y") }}</th>
-            <td>Dernier Contact</td>
+            <td>{{ 'suivi.dernier_contact'|trans({}, 'suivi') }}</td>
             <th>
                         {% set dernierContact = 0 %}
                         {% set derniercontactObject = null %}
@@ -79,22 +79,22 @@
                     </th>
                 </tr>
                 <tr>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.ap) == 1 ? "warning" : getEtatDoc(etude.ap) == 2 ? "success" : "important" }}">AP</span></td>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.cc) == 1 ? "warning" : getEtatDoc(etude.cc) == 2 ? "success" : "important" }}">CC</span></td>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatFacture(etude.fa) == 1 ? "warning" : getEtatFacture(etude.fa) == 2 ? "success" : "important" }}">FA</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.ap) == 1 ? "warning" : getEtatDoc(etude.ap) == 2 ? "success" : "important" }}">{{ 'suivi.ap'|trans({}, 'suivi') }}</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.cc) == 1 ? "warning" : getEtatDoc(etude.cc) == 2 ? "success" : "important" }}">{{ 'suivi.cc'|trans({}, 'suivi') }}</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatFacture(etude.fa) == 1 ? "warning" : getEtatFacture(etude.fa) == 2 ? "success" : "important" }}">{{ 'suivi.fa'|trans({}, 'suivi') }}</span></td>
                     <td style="text-align: center;">
                         {% for mission in etude.missions %}
-                        <span title="{{mission.intervenant.personne.prenomNom | default("")}}" class="label label-{{ getEtatDoc(mission) == 1 ? "warning" : getEtatDoc(mission) == 2 ? "success" : "important" }}">RM {{ loop.index }}</span>
+                        <span title="{{mission.intervenant.personne.prenomNom | default("")}}" class="label label-{{ getEtatDoc(mission) == 1 ? "warning" : getEtatDoc(mission) == 2 ? "success" : "important" }}">{{ 'suivi.rm'|trans({}, 'suivi') }} {{ loop.index }}</span>
                         {% endfor %}
                     </td>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.pvr) == 1 ? "warning" : getEtatDoc(etude.pvr) == 2 ? "success" : "important" }}">PVR</span></td>
-                    <td style="text-align: center;"><span class="label label-{{ getEtatFacture(etude.fs) == 1 ? "warning" : getEtatFacture(etude.fs) == 2 ? "success" : "important" }}">FS</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatDoc(etude.pvr) == 1 ? "warning" : getEtatDoc(etude.pvr) == 2 ? "success" : "important" }}">{{ 'suivi.pvr'|trans({}, 'suivi') }}</span></td>
+                    <td style="text-align: center;"><span class="label label-{{ getEtatFacture(etude.fs) == 1 ? "warning" : getEtatFacture(etude.fs) == 2 ? "success" : "important" }}">{{ 'suivi.fs'|trans({}, 'suivi') }}</span></td>
                 </tr>
                 <tr>
-                    <td>JEH</td>
-                    <th colspan="2">{{etude.NbrJEH | default('0') }} JEH</th>
-                    <td>Prix</td>
-                    <th colspan="2">{{ etude.montantHT | default('0') }} € HT</th>
+                    <td>{{ 'suivi.jeh'|trans({}, 'suivi') }}</td>
+                    <th colspan="2">{{etude.NbrJEH | default('0') }} {{ 'suivi.jeh'|trans({}, 'suivi') }}</th>
+                    <td>{{ 'suivi.prix'|trans({}, 'suivi') }}</td>
+                    <th colspan="2">{{ etude.montantHT | default('0') }} € {{ 'suivi.ht'|trans({}, 'suivi') }}</th>
                 </tr>
                 <tr>
                     <td colspan="6">{{etude.description }}</td>

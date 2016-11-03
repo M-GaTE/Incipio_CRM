@@ -1,7 +1,7 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Modifier un Avant-Projet - {{ parent() }}
+	{{ 'suivi.avenant_mission_modifier'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block javascript %}
@@ -12,13 +12,13 @@
 
 
 
-    <h2>Modifier un Avenant au Récapitulatif de Mission</h2>
+    <h2>{{ 'suivi.avenant_mission_modifier'|trans({}, 'suivi') }}</h2>
 
     {% include "mgateSuiviBundle:AvMission:formulaire.html.twig" %}
 
 
     <p>
-        <a href="{{ path('mgateSuivi_avmission_voir', {'id': avmission.id}) }}" >Retour</a>
+        <a href="{{ path('mgateSuivi_avmission_voir', {'id': avmission.id}) }}" >{{ 'suivi.retour'|trans({}, 'suivi') }}</a>
     </p>
 
 {% endblock %}

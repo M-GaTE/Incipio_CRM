@@ -1,16 +1,16 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-    Ajouter une étude - {{ parent() }}
+    {{ 'suivi.etude_ajouter'|trans({}, 'suivi') }}
 {% endblock %}
 
 {% block content_title %}
-    Ajouter une étude
+    {{ 'suivi.etude_ajouter'|trans({}, 'suivi') }}
 {% endblock %}
 
 {% block content_bundle %}
     <a href="{{ path('mgatePersonne_prospect_ajouter', {'format':'mini'}) }}?KeepThis=true&TB_iframe=true&height=400&width=600"
-       title="Ajouter un client" class="thickbox">Ajouter un Prospect</a>
+       title="Ajouter un client" class="thickbox">{{ 'suivi.prospect_ajouter'|trans({}, 'suivi') }}</a>
     {% for error in errors %}
         <div class="alert alert-warning">
             {{ error }}
@@ -26,7 +26,7 @@
                 <td>{{ form_widget(form.knownProspect) }}</td>
             </tr>
             <tr>
-                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">Nouveau prospect</th>
+                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">{{ 'suivi.prospect_nouveau'|trans({}, 'suivi') }}</th>
             </tr>
             <tr>
                 <th>{{ form_label(form.newProspect.nom) }}</th>
@@ -44,7 +44,7 @@
                 </td>
             </tr>
             <tr>
-                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">L'étude</th>
+                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">{{ 'suivi.etude_l'|trans({}, 'suivi') }}</th>
             </tr>
             <tr>
                 <th>{{ form_label(form.prospect) }}</th>
@@ -86,7 +86,7 @@
         {{ form_widget(form) }}
 
 
-        <input type="submit" value="Enregistrer l'étude" class="btn"/>
+        <input type="submit" value="{{ 'suivi.etude_enregistrer'|trans({}, 'suivi') }}" class="btn"/>
     </form>
 
 

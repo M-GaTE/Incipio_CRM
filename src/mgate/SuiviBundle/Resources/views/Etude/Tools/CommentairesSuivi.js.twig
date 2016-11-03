@@ -1,7 +1,7 @@
 $('body').click(function(e){
     var Elem = e.target;
     if (Elem.id == 'commentaire'){
-        bootbox.prompt("Commentaire :", function(result) {
+        bootbox.prompt("{{ 'suivi.commentaire'|trans({}, 'suivi') }} :", function(result) {
         if (result !== null) {
             var requete = $.ajax({
                 url: "{{ path('mgateSuivi_state') }}",

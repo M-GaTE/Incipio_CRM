@@ -6,14 +6,14 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<span class="navbar-brand">Suivi de l'étude</span>
+			<span class="navbar-brand">{{ 'suivi.etude_suivi'|trans({}, 'suivi') }}</span>
 		</div>
 		<div class="collapse navbar-collapse navbar-suivi">
             <ul class="nav  navbar-nav">
-                <li><a href="{{ path('mgateSuivi_suivi_ajouter', {'id': etude.id}) }}"><span class="fa fa-pencil"></span> Ajouter un suivi</a></li>
+                <li><a href="{{ path('mgateSuivi_suivi_ajouter', {'id': etude.id}) }}"><span class="fa fa-pencil"></span> {{ 'suivi.suivi_ajouter'|trans({}, 'suivi') }}</a></li>
             </ul>
             <ul class="nav  navbar-nav navbar-right">
-                <li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="fa fa-th-list"></span> Retour à la liste</a></li>
+                <li><a href="{{ path('mgateSuivi_etude_homepage') }}"><span class="fa fa-th-list"></span> {{ 'suivi.retour_liste'|trans({}, 'suivi') }}</a></li>
             </ul>
     </div>
 </nav>
@@ -24,9 +24,9 @@
 
                             <table class="table table-striped">
                                     <tr>
-                                        <th>Etat de l'Étude</th>
-                                        <th>Audité le</th>
-                                        <th>Type d'audit</th>
+                                        <th>{{ 'suivi.etude_etat'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.audité_le'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.type_audit'|trans({}, 'suivi') }}</th>
                                     </tr>
                                     <tr>
                                         <td>{{ form_widget(formSuivi.stateID) }}</td>
@@ -42,8 +42,8 @@
                                     {% if etude.suivis is not empty %}
                                     {% set lastSuivi = etude.suivis |last %}
                                     <tr>
-                                        <th colspan="2"><a href="{{ path('mgateSuivi_suivi_voir', {'id' : lastSuivi.id}) }}"><span class="label {{ date(lastSuivi.date) > date('-7days') ? 'label-success' : 'label-danger' }}">{{ lastSuivi.date | date("d/m/y") }}</span> Etat</a></th>
-                                        <th>TODO</th>
+                                        <th colspan="2"><a href="{{ path('mgateSuivi_suivi_voir', {'id' : lastSuivi.id}) }}"><span class="label {{ date(lastSuivi.date) > date('-7days') ? 'label-success' : 'label-danger' }}">{{ lastSuivi.date | date("d/m/y") }}</span> {{ 'suivi.etat'|trans({}, 'suivi') }}</a></th>
+                                        <th>{{ 'suivi.todo'|trans({}, 'suivi') }}</th>
                                     </tr>
                                     <tr>
                                         <td colspan="2">{{lastSuivi.etat | nl2br}}</td>
@@ -56,17 +56,17 @@
 
                                 <table class="table table-striped table-bordered"  onclick="docStateChange();">
                                     <tr>
-                                        <th>Document</th>
-                                        <th>Statut</th>
-                                        <th>Rédigé</th>
-                                        <th>Relu</th>
-                                        <th>Envoyé</th>
-                                        <th>Reçu / Encaissé</th>
+                                        <th>{{ 'suivi.document'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.statut'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.redige'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.relu'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.envoye'|trans({}, 'suivi') }}</th>
+                                        <th>{{ 'suivi.recu_encaisse'|trans({}, 'suivi') }}</th>
                                     </tr>
                                     <!-- AVANT PROJET -->
                                     <tr class="docTabRow">
-                                        <th>Avant-Projet</th>
-                                        <td class="state">Incomplet</td>
+                                        <th>{{ 'suivi.avant_projet'|trans({}, 'suivi') }}</th>
+                                        <td class="state">{{ 'suivi.incomplet'|trans({}, 'suivi') }}</td>
                                         <td>{{ form_widget(formSuivi.ap.redige) }}</td>
                                         <td>{{ form_widget(formSuivi.ap.relu) }}</td>
                                         <td>{{ form_widget(formSuivi.ap.envoye) }}</td>
@@ -75,8 +75,8 @@
                                     </tr>
                                     <!-- CONVENTION CLIENT-->
                                     <tr class="docTabRow">
-                                        <th>Convention Client</th>
-                                        <td class="state">Incomplet</td>
+                                        <th>{{ 'suivi.convention_client'|trans({}, 'suivi') }}</th>
+                                        <td class="state">{{ 'suivi.incomplet'|trans({}, 'suivi') }}</td>
                                         <td>{{ form_widget(formSuivi.cc.redige) }}</td>
                                         <td>{{ form_widget(formSuivi.cc.relu) }}</td>
                                         <td>{{ form_widget(formSuivi.cc.envoye) }}</td>
@@ -85,12 +85,12 @@
 
                         <!--RECAPITULATIFS DE MISSION-->
                                     <tr>
-                                        <th colspan="8">Récapitulatif de mission</th>
+                                        <th colspan="8">{{ 'suivi.recapitulatif_mission'|trans({}, 'suivi') }}</th>
                                     </tr>
                         {% for mission in formSuivi.missions %}
                                     <tr class="docTabRow">
-                                        <th>RM n° {{ loop.index }}</th>
-                                        <td class="state">Incomplet</td>
+                                        <th>{{ 'suivi.rm'|trans({}, 'suivi') }} n° {{ loop.index }}</th>
+                                        <td class="state">{{ 'suivi.incomplet'|trans({}, 'suivi') }}</td>
                                         <td>{{ form_widget(mission.redige) }}</td>
                                         <td>{{ form_widget(mission.relu) }}</td>
                                         <td>{{ form_widget(mission.envoye) }}</td>
@@ -99,12 +99,12 @@
                         {% endfor %}
                         <!--Avenants Clients-->
                                     <tr>
-                                        <th colspan="8">Avenants clients</th>
+                                        <th colspan="8">{{ 'suivi.avenants_clients'|trans({}, 'suivi') }}</th>
                                     </tr>
                         {% for av in formSuivi.avs %}
                                     <tr class="docTabRow">
-                                        <th>PVI n° {{ loop.index }}</th>
-                                        <td class="state">Incomplet</td>
+                                        <th>{{ 'suivi.pvi'|trans({}, 'suivi') }} n° {{ loop.index }}</th>
+                                        <td class="state">{{ 'suivi.incomplet'|trans({}, 'suivi') }}</td>
                                         <td>{{ form_widget(av.redige) }}</td>
                                         <td>{{ form_widget(av.relu) }}</td>
                                         <td>{{ form_widget(av.envoye) }}</td>
@@ -113,12 +113,12 @@
                         {% endfor %}
                         <!--PROCES VERBAUX-->
                                     <tr>
-                                        <th colspan="8">Procès-verbaux</th>
+                                        <th colspan="8">{{ 'suivi.proces_verbaux'|trans({}, 'suivi') }}</th>
                                     </tr>
                         {% for pvi in formSuivi.pvis %}
                                     <tr class="docTabRow">
-                                        <th>PVI n° {{ loop.index }}</th>
-                                        <td class="state">Incomplet</td>
+                                        <th>{{ 'suivi.pvi'|trans({}, 'suivi') }} n° {{ loop.index }}</th>
+                                        <td class="state">{{ 'suivi.incomplet'|trans({}, 'suivi') }}</td>
                                         <td>{{ form_widget(pvi.redige) }}</td>
                                         <td>{{ form_widget(pvi.relu) }}</td>
                                         <td>{{ form_widget(pvi.envoye) }}</td>
@@ -126,8 +126,8 @@
                                     </tr>
                         {% endfor %}
                                     <tr class="docTabRow">
-                                        <th>PVR</th>
-                                        <td class="state">Incomplet</td>
+                                        <th>{{ 'suivi.pvr'|trans({}, 'suivi') }}</th>
+                                        <td class="state">{{ 'suivi.incomplet'|trans({}, 'suivi') }}</td>
                                         <td>{{ form_widget(formSuivi.pvr.redige) }}</td>
                                         <td>{{ form_widget(formSuivi.pvr.relu) }}</td>
                                         <td>{{ form_widget(formSuivi.pvr.envoye) }}</td>

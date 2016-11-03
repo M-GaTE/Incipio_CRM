@@ -1,22 +1,22 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Affichage d'un Avant-Projet - {{ parent() }}
+	{{ 'suivi.ap_afficher'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Avant-Projet n°{{ ap.id }}</h2>
+    <h2>{{ 'suivi.ap'|trans({}, 'suivi') }} n°{{ ap.id }}</h2>
 
-    <i>Version {{ap.version}}</i>
+    <i>{{ 'suivi.version'|trans({}, 'suivi') }} {{ap.version}}</i>
 
     <div>
 
     </div>
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_homepage') }}">Retour à la liste des études</a>
-        <a href="{{ path('mgateSuivi_ap_rediger', {'id': etude.id}) }}">Modifier l'Avant-Projet</a>
+        <a href="{{ path('mgateSuivi_etude_homepage') }}">{{ 'suivi.etudes_list_retour'|trans({}, 'suivi') }}</a>
+        <a href="{{ path('mgateSuivi_ap_rediger', {'id': etude.id}) }}">{{ 'suivi.ap_modifier'|trans({}, 'suivi') }}</a>
 
     </p>
 

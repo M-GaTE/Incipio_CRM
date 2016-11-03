@@ -1,7 +1,7 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-Modifier un Avant-Projet - {{ parent() }}
+{{ 'suivi.ap_modifier_un'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 
@@ -27,10 +27,10 @@ Modifier un Avant-Projet - {{ parent() }}
     </style>
 
 
-    <h2>Modifier un Avenant</h2>
+    <h2>{{ 'suivi.ap_modifier_un'|trans({}, 'suivi') }}</h2>
 
     <form method="post" {{ form_enctype(form) }}>
-        <input type="submit" value="Enregistrer l'Avenant" class="btn btn-success"/>
+        <input type="submit" value="{{ 'suivi.ap_enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
 
         <table class="table table-bordered table-striped" style="max-width: 800px">
             <tr>
@@ -55,9 +55,9 @@ Modifier un Avant-Projet - {{ parent() }}
             </tr>
         </table>
         <span style="display:none;">
-        <h3>Gestion des Répartions JEH (à venir)</h3>
-        <h3>Gestion des Phases (à venir)</h3>
-        <h5><i class="icon-plus"></i> Ajouter une phase (à venir)</h5>
+        <h3>{{ 'suivi.repartitions_jeh_gestion'|trans({}, 'suivi') }}</h3>
+        <h3>{{ 'suivi.phases_gestion'|trans({}, 'suivi') }}</h3>
+        <h5><i class="icon-plus"></i> {{ 'suivi.phase_ajouter'|trans({}, 'suivi') }}</h5>
         <div class="row">
         {% for phase in form.phases %}
         {% set change = changes[loop.index0] | default(0) %}
@@ -67,35 +67,35 @@ Modifier un Avant-Projet - {{ parent() }}
                             <th colspan="2"><div class="btn-group"></div>       <span class="titrePhase"></span> {{  form_widget(phase.position)}}</th>
                         </tr>
                         <tr class="{{ change and change.titre ? "warning" }}">
-                            <th>Titre</th>
+                            <th>{{ 'suivi.titre'|trans({}, 'suivi') }}</th>
                             <td>{{  form_widget(phase.titre)}}</td>
                         </tr>
                         <tr class="{{ change and change.objectif ? "warning" }}">
-                            <th>Objectifs</th>
+                            <th>{{ 'suivi.objectifs'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.objectif)}}</td>
                         </tr>
                         <tr class="{{ change and change.methodo ? "warning" }}">
-                            <th>Méthodologie</th>
+                            <th>{{ 'suivi.methodologie'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.methodo)}}</td>
                         </tr>
                         <tr class="{{ change and change.nbrJEH ? "warning" }}">
-                            <th>Nombre JEH</th>
+                            <th>{{ 'suivi.jeh_nombre'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.nbrJEH)}}</td>
                         </tr>
                         <tr class="{{ change and change.prixJEH ? "warning" }}">
-                            <th>Prix JEH HT Facturé (€)</th>
+                            <th>{{ 'suivi.prix_jeh_ht'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.prixJEH)}}</td>
                         </tr>
                         <tr class="{{ change and change.dateDebut ? "warning" }}">
-                            <th>Date de Debut</th>
+                            <th>{{ 'suivi.date_debut'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.dateDebut)}}</td>
                         </tr>
                         <tr class="{{ change and change.delai ? "warning" }}">
-                            <th>Delai (Jours)</th>
+                            <th>{{ 'suivi.dejai_jours'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.delai)}}</td>
                         </tr>
                         <tr>
-                            <th>Etat Sur avenant</th>
+                            <th>{{ 'suivi.etat_avenant'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(phase.etatSurAvenant)}}</td>
                         </tr>
                     </table>
@@ -104,13 +104,13 @@ Modifier un Avant-Projet - {{ parent() }}
             </div>
         </span>
             {{ form_widget(form) }}
-                <input type="submit" value="Enregistrer l'Avenant"/>
+                <input type="submit" value="{{ 'suivi.avenant_enregistrer'|trans({}, 'suivi') }}"/>
         </form>
 
 
 
         <p>
-            <a href="{{ path('mgateSuivi_av_voir', {'id': av.id}) }}" >Retour</a>
+            <a href="{{ path('mgateSuivi_av_voir', {'id': av.id}) }}" >{{ 'suivi.retour'|trans({}, 'suivi') }}</a>
         </p>
 
 {% endblock %}

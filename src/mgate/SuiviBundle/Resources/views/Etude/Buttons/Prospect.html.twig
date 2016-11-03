@@ -6,11 +6,11 @@
     <a title="{{ prospect.nom }}" class="btn btn-warning" href="{{ path('mgatePersonne_prospect_voir', {'id': prospect.id}) }}" style="width : 60%; text-align: left; overflow: hidden;"><i class="icon-user icon-white"></i> {{ prospect.nom }}</a>
     <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
     <ul class="dropdown-menu">
-        <li><a href="{{ path('mgatePersonne_prospect_voir', {'id': prospect.id}) }}"><i class="fa fa-info-sign" ></i> Voir</a></li>
-        <li><a href="#"><i class="fa fa-envelope" ></i> Contacter</a></li>
-        <li><a href="#"><i class="fa fa-comment" ></i> Commenter</a></li>
+        <li><a href="{{ path('mgatePersonne_prospect_voir', {'id': prospect.id}) }}"><i class="fa fa-info-sign" ></i> {{ 'suivi.voir'|trans({}, 'suivi') }}</a></li>
+        <li><a href="#"><i class="fa fa-envelope" ></i> {{ 'suivi.contacter'|trans({}, 'suivi') }}</a></li>
+        <li><a href="#"><i class="fa fa-comment" ></i> {{ 'suivi.commenter'|trans({}, 'suivi') }}</a></li>
         <li class="divider"></li>
-        <li><a href="{{ path('mgatePersonne_employe_ajouter', {'prospect_id': prospect.id}) }}"><i class="fa fa-plus" ></i> Ajouter un employé</a></li>
-        <li><a href="{{ path('mgatePersonne_prospect_modifier', {'id': prospect.id}) }}"><i class="fa fa-pencil" ></i> Modifier</a></li>
+        <li><a href="{{ path('mgatePersonne_employe_ajouter', {'prospect_id': prospect.id}) }}"><i class="fa fa-plus" ></i> {{ 'suivi.employe_ajouter'|trans({}, 'suivi') }}</a></li>
+        <li><a href="{{ path('mgatePersonne_prospect_modifier', {'id': prospect.id}) }}"><i class="fa fa-pencil" ></i> {{ 'suivi.modifier'|trans({}, 'suivi') }}</a></li>
     </ul>
 </div>

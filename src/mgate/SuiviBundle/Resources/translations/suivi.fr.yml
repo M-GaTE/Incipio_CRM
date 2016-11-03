@@ -1,0 +1,231 @@
+# le sujet et le verbe (ou son adjectif) sont inversé dans la clé de description du texte lorsque le verbe ou l'adjectif est attribut du sujet.
+# on a donc jeh_nombre pour Nombre de JEH, mais date_lancement pour date_de_lancement. Car lancement qualifie date.
+suivi:
+    ap_enregistrer: Enregistrer l'AP
+    ap_enregistrer_cc_passer: Enregistrer l'AP et passer à la CC
+    ap_liste: Liste des Avants-Projet
+    ap: AP
+    etude:
+        faite_par: faite par le mandat
+        cree_le: créée le
+        pas_encore: Pas (encore !) d'études
+        numero: etude numéro
+        etude: Etude
+    accueil: Accueil
+    ap_rediger: Rédiger l'Avant-Projet
+    signataire_client_ajouter: Nouveau signataire client
+    avant_projet: Avant-Projet
+    ap_enregistrer_phases_passer: Enregistrer l'AP et passer aux Phases
+    ap_afficher: Affichage d'un Avant-Projet
+    version: Version
+    etudes_list_retour: Retour à la liste des études
+    ap_modifier: Modifier l'Avant-Projet
+    avenant_ajouter: Ajouter un Avenant
+    avenant_liste: Liste des Avenants
+    ap_modifier_un: Modifier un Avant-Projet
+    repartitions_jeh_gestion: Gestion des Répartions JEH (à venir)
+    phases_gestion: Gestion des Phases (à venir)
+    phase_ajouter: Ajouter une phase (à venir)
+    titre: Titre
+    objectifs: Objectifs
+    methodologie: Méthodologie
+    jeh_nombre: Nombre JEH
+    jeh: JEH
+    prix_jeh_ht: Prix JEH HT Facturé (€)
+    date_debut: Date de Debut
+    dejai_jours: Delai (Jours)
+    etat_avenant: Etat Sur avenant
+    avenant_enregistrer: Enregistrer l'Avenant
+    retour: Retour
+    avenant_affichage: Affichage d'un Avenant
+    avenant: Avenant
+    avenant_modifier: Modifier l'Avenant
+    avenant_mission_enregistrer: Enregistrer l'Avenant au Récapitulatif de Mission
+    avenant_mission_liste: Liste des Avenants au Récapitulatif de Mission
+    avenant_mission_modifier: Modifier un Avenant au Récapitulatif de Mission
+    cc: CC
+    convention_client: Convention client
+    cc_enregistrer: Enregistrer la CC
+    cc_enregistrer_pvi_passer: Enregistrer la CC et passer au PVI
+    cc_liste: Liste des Convention Client
+    cc_modifier: Modifier une Convention Client
+    cc_rediger: Rediger la Convention Client
+    etude_retour: Retour à l'Etude
+    cc_affichage: Affichage d'une Convention Client
+    cc_modifier_la: Modifier la Convention Client
+    client_contact_ajouter: Ajouter un nouveau contact du client
+    contact_client_nouveau_enregistrer: Enregistrer le nouveau contact client
+    avenant_mission_ajouter: Ajouter un Avenant au Récapitulatif de Mission
+    contacts_clients_affichage: Affichage des contacts client
+    date: Date
+    raison: Raison
+    a_recontacter: A recontacter
+    prix_ht: Prix H.T
+    fait_par: Fait Par
+    objet: Objet
+    contenu: Contenu
+    contacts: Contacts
+    contact_client_modifier: Modifier un contact client
+    contact_client_affichage: Affichage d'un contact client
+    modifier: Modifier
+    contact_client_ajouter: Ajouter Contact Client
+    resume: Résumé
+    contacts_clients_resume: Résumé des autres contacts clients
+    contact: Contact
+    domaines_competences_affichage: Affichage des domaines de compétences
+    ajouter: Ajouter
+    action: Action
+    domaine: Domaine
+    contacter: Contacter
+    commenter: Commenter
+    employe_ajouter: Ajouter un employé
+    status: Status
+    etude_nom: Nom de l'étude
+    reference: Référence
+    client: Client
+    suiveur: Suiveur
+    générer: Générer
+    avancement_modifier: Modifier l'avancement
+    autre: autre
+    voir: Voir
+    date_lancement: Date de Lancement
+    date_fin: Date de Fin
+    intervenants: Intervenants
+    fa: FA
+    rm: RM
+    avenants_clients: Avenants clients
+    pvi: PVI
+    avancement: Avancement
+    pvr: PVR
+    fs: FS
+    prix: Prix
+    ht: HT
+    fs: FS
+    rp: RP
+    bv: BV
+    dernier_contact: Dernier Contact
+    etat: Etat
+    contacts_client: Contacts client
+    a_recontacter_le: A recontacter le
+    rien_entre: Rien entre
+    mandat: Mandat
+    archivee: Archivée
+    auditee: Auditée
+    developpeurs: Developpeurs
+    documents_etude: Document relatif à l'étude
+    document_ajouter: Ajouter un document
+    date_upload: Date d'upload
+    mis_en_ligne_par: Mis en ligne par
+    phases: Phases
+    delai: Délai
+    budget: Budget
+    retour_liste: Retour à la liste
+    groupes_modifier: Modifier les groupes
+    phases_modifier: Modifier les phases
+    groupes_phases_aucun_etude: Il n'y a pas de Groupe de Phase pour cette étude...
+    phase: Phase
+    incomplet: Incomplet
+    duree: Durée
+    sous_total: SOUS-TOTAL
+    phases_non_groupees: Phases non groupées
+    total: TOTAL
+    information_suiveur: Information Suiveur
+    description: Description
+    domaine_competence: Domaine de compétence
+    source_prospection: Source de Prospection
+    creation: Création
+    fin: Fin
+    prix: Prix
+    ht: HT
+    dont_frais: dont frais
+    gantt_exporter: Exporter le Gantt
+    type: Type
+    etude_suivi: Suivi de l'étude
+    suivi_ajouter: Ajouter un suivi
+    etude_etat: Etat de l'Étude
+    audité_le: Audité le
+    type_audit: Type d'audit
+    todo: TODO
+    document: Document
+    statut: Statut
+    redige: Rédigé
+    relu: Relu
+    envoye: Envoyé
+    recu_encaisse: Reçu / Encaissé
+    recapitulatif_mission: Récapitulatif de mission
+    proces_verbaux: Procès-verbaux
+    rediger: Rediger
+    generer: Generer
+    date_signature: Date de signature
+    nombre_dev_estime: Nombre de dev. estimé
+    presentation_projet: Présentation du projet
+    type_prestation: Type de prestation
+    capacite_intervenants: Capacité des intervenants
+    realisateurs_capable_de: Les réalisateurs de cette étude devront donc être capables de
+    signataire_client: Signataire Client
+    acompte: Acompte
+    pourcentage_acompte: Pourcentage Acompte
+    dm: DM
+    rm_date: Date du RM
+    du: Du
+    au: Au
+    montant_brut: Montant Brut
+    factures: Factures
+    facture_ajouter: Ajouter une facture
+    montant_ht: Montant H.T.
+    telecharger: Télécharger
+    supprimer: Supprimer
+    montant_total_ht: Montant Total H.T.
+    reste_a_payer: Reste à payer
+    pvr_rediger: Rediger le PVR
+    pvi_ajouter_un: Ajouter un PVI
+    proces_verbal: Procès verbal
+    phases_concernees: Phases concernées
+    aucune: Aucune
+    toutes: Toutes
+    avenants: Avenants
+    avenants_mission: Avenants de Mission
+    avenant_mission_ajouter_un: Ajouter un Avenant de mission
+    jours_en_plus: Jours en plus
+    jeh_nombre_nouveau: Nouveau nombre JEH
+    avancement_developpeur: Avancement du développeur
+    commentaire: Commentaire
+    etude_ajouter: Ajouter une étude
+    prospect_ajouter: Ajouter un Prospect
+    prospect_nouveau: Nouveau prospect
+    etude_l: L'étude
+    etude_enregistrer: Enregistrer l'étude
+    etude_enregistrer_passer_ap: Enregistrer l'étude et passer à l'AP
+    etudes_negociations: Etudes en Négociation
+    etudes_pause: Etudes en Pause
+    etudes_terminees: Etudes Terminées
+    etudes_avortees: Etudes Avortées
+    propales_non_abouties_texte: Propales n'ayant pas abouti à la signature d'une CC
+    etude_modifier: Modifier une étude
+    etudes_en_cours: Etudes en Cours
+    etude_supprimer_confirm: Êtes-vous sûr de vouloir supprimer définitivement cette étude
+    etude_supprimer: Supprimer l'étude
+    sujet: Sujet
+    suiveur_projet: Suiveur de projet
+    signe: Signé
+    recapitulatif_suivi: Récapitulatif - Suivi d'étude
+    commentaires_enregistrer: Enregistrer les commentaires
+    oui: Oui
+    non: Non
+    suivi_qualite_etudes: Suivi Qualité des études
+    panneau_controle: Panneau de controle
+    gantt: Gantt
+    informations_qualites: Informations Qualités
+    warnings: Warnings
+    errors: Errors
+    controle_qualite: Contrôle qualité
+    etude_affichage: Affichage d'une étude
+    recapitulatif: Récapitulatif
+    redaction_generation: Rédaction et Génération
+    suivi: Suivi
+    précédent: Précédent
+    acces_rapide: Accès Rapide
+    en_negociation: En négociation
+    en_cours: En cours
+    suivant: Suivant
+    fin_le: Fin le

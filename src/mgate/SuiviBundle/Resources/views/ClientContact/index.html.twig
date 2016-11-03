@@ -8,23 +8,23 @@
 {% endblock %}
 
 {% block title %}
-    Affichage des contacts client - {{ parent() }}
+    {{ 'suivi.contacts_clients_affichage'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Affichage des contacts client
+    {{ 'suivi.contacts_clients_affichage'|trans({}, 'suivi') }}
 {% endblock %}
 
 {% block content_bundle %}
     <table class="table table-bordered table-striped dataTable dt-responsive" id="contactsClients" role="grid">
         <thead>
         <tr>
-            <th>Contacts</th>
-            <th>Date</th>
-            <th>Fait Par</th>
-            <th>Etude</th>
-            <th>Objet</th>
-            <th>Contenu</th>
+            <th>{{ 'suivi.contacts'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.date'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.fait_par'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.etude.etude'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.objet'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.contenu'|trans({}, 'suivi') }}</th>
         </tr>
         </thead>
         <tbody>

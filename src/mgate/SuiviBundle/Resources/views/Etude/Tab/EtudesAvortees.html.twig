@@ -2,28 +2,28 @@
     <thead>
     <tr>
         <th>
-            Status
+            {{ 'suivi.status'|trans({}, 'suivi') }}
         </th>
         <th>
-            <div>Nom de l'étude</div>
-            <div>Référence</div>
+            <div>{{ 'suivi.etude_nom'|trans({}, 'suivi') }}</div>
+            <div>{{ 'suivi.reference'|trans({}, 'suivi') }}</div>
         </th>
         <th>
-            <div>Client</div>
-            <div>Suiveur</div>
+            <div>{{ 'suivi.client'|trans({}, 'suivi') }}</div>
+            <div>{{ 'suivi.suiveur'|trans({}, 'suivi') }}</div>
         </th>
         <th>
-            <div>Date</div>
+            <div>{{ 'suivi.date'|trans({}, 'suivi') }}</div>
         </th>
         <th>
-            Raison
+            {{ 'suivi.raison'|trans({}, 'suivi') }}
         </th>
         <th>
-            A recontacter ?
+            {{ 'suivi.a_recontacter'|trans({}, 'suivi') }} ?
         </th>
         <th>
-            <div>Prix H.T</div>
-            <div>Nbre J.E.H.</div>
+            <div>{{ 'suivi.prix_ht'|trans({}, 'suivi') }}</div>
+            <div>{{ 'suivi.jeh_nombre'|trans({}, 'suivi') }}</div>
         </th>
     </tr>
     </thead>
@@ -51,7 +51,7 @@
             </td>
             <td>
                 <div>{{ etude.confidentiel ? '*' : etude.montantHT|default('') }} €</div>
-                <div>{{ etude.confidentiel ? '*' : etude.nbrJEH|default('') }} JEH</div>
+                <div>{{ etude.confidentiel ? '*' : etude.nbrJEH|default('') }} {{ 'suivi.jeh'|trans({}, 'suivi') }}</div>
             </td>
         </tr>
     {% endfor %}
