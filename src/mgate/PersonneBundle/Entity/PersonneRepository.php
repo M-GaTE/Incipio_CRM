@@ -135,4 +135,22 @@ class PersonneRepository extends EntityRepository
 
         return $query;
     }
+
+    /**
+     * @param $search string a pattern we'd like to search in personnes' name or firstname
+     * @param int $limit the number of personne that research should return
+     * @return array
+     */
+    public function searchByNom($search,$limit = 10){
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('p')
+            ->from('mgatePersonneBundle:Personne', 'p')
+            ->where('p.nom LIKE :nom')
+            ->orWhere('p.prenom LIKE :prenom')
+            ->setParameter('nom', '%'.$search.'%')
+            ->setParameter('prenom', '%'.$search.'%')
+            ->setMaxResults($limit);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
 }

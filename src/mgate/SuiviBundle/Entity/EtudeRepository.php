@@ -42,7 +42,7 @@ class EtudeRepository extends EntityRepository
      * @return mixed
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
-     *                                                Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure
+     * Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure
      */
     public function getByNom($nom)
     {
@@ -88,8 +88,8 @@ class EtudeRepository extends EntityRepository
     }
 
     /**
-     * @param $etat variable pour récuperer les études selon leurs etats d'avancement
-     * @param $order tableau des champs sur lesquels ordonnés les études.
+     * @param $etat array variable pour récuperer les études selon leurs etats d'avancement
+     * @param $order array tableau des champs sur lesquels ordonnés les études.
      * Requete spéciale pour afficher le pipeline des études.
      * A permis de réduire le nombre de requetes de 109 à 34. Il est possible de réduire encore plus le nombre de requetes, mais la page se met alors à diverger en temps, car les reuqtes sont de plus en plus longues
      */
@@ -161,4 +161,22 @@ class EtudeRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param $search string a pattern we'd like to search in etudes' name
+     * @param int $limit the number of etudes that research should return
+     * @return array
+     */
+    public function searchByNom($search,$limit = 10){
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('e')
+            ->from('mgateSuiviBundle:Etude', 'e')
+            ->where('e.nom LIKE :nom')
+            ->setParameter('nom', '%'.$search.'%')
+            ->setMaxResults($limit);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+
 }

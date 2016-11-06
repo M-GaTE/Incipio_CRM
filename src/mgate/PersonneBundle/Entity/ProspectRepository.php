@@ -48,4 +48,20 @@ class ProspectRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param $search string a pattern we'd like to search in prospects' name
+     * @param int $limit the number of prospect that research should return
+     * @return array
+     */
+    public function searchByNom($search,$limit = 10){
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('p')
+            ->from('mgatePersonneBundle:Prospect', 'p')
+            ->where('p.nom LIKE :nom')
+            ->setParameter('nom', '%'.$search.'%')
+            ->setMaxResults($limit);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
 }
