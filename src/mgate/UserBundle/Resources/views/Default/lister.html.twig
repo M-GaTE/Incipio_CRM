@@ -22,6 +22,7 @@
             <th>Liée à</th>
             <th>Email du compte</th>
             <th>Droit</th>
+            <th>Dernière connexion</th>
             {% if is_granted('ROLE_ADMIN') %}
                 <th>Action</th>
             {% endif %}
@@ -44,6 +45,7 @@
                 </td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.rolesDisplay }}</td>
+                <td>{{ user.lastLogin | date('Y/m/d H:i')}}</td>
                 {% if is_granted('ROLE_ADMIN') %}
                     <td><a href="{{ path('mgate_user_modifier', {'id': user.id}) }}">modifier</a></td>
                 {% endif %}
