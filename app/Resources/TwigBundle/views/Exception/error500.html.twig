@@ -1,6 +1,6 @@
 {% extends "::layout.html.twig" %}
 
-{% block title %}Page Introuvable{% endblock %}
+{% block title %}Erreur interne du serveur{% endblock %}
 
 {% block content %}
     <section class="content">
@@ -20,7 +20,7 @@
     <div>
         Si tu n'as pas peur du code : <br>
         <code>{{ status_code }} {{ status_text }}</code>
-        <p>{{ exception.message[:200] }}</p>
+        <p>{{ exception.message }}</p>
     </div>
 {% endblock %}
 
