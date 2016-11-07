@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PubliBundle\Entity\Document;
 use mgate\PubliBundle\Form\Type\DocumentType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DocumentController extends Controller
@@ -111,13 +112,14 @@ class DocumentController extends Controller
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function deleteAction($id)
+    public function deleteAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         if (!$doc = $em->getRepository('mgatePubliBundle:Document')->find($id)) {
             throw $this->createNotFoundException('Le Document n\'existe pas !');
         }
+        $doc->setRootDir($this->get('kernel')->getRootDir());
 
         if ($doc->getRelation()) { // Cascade sucks
             $relation = $doc->getRelation()->setDocument();
@@ -125,7 +127,7 @@ class DocumentController extends Controller
             $em->remove($relation);
             $em->flush();
         }
-
+        $request->getSession()->getFlashBag()->add('success', 'Document supprimé');
         $em->remove($doc);
         $em->flush();
 

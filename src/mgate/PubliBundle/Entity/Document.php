@@ -78,6 +78,13 @@ class Document
      */
     private $subdirectory;
 
+    /**
+     * @var string
+     * @Assert\NotBlank
+     * Folder where all uploaded documents will be stored, without trailing slash.
+     */
+    private $rootDir;
+
     public function getAbsolutePath()
     {
         return null === $this->path
@@ -92,12 +99,24 @@ class Document
             : $this->getUploadDir().'/'.$this->path;
     }
 
+    protected function getRootDir()
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return $this->rootDir;
+    }
+
     protected function getUploadRootDir()
     {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        // store in /data/incipio as it's the place with disk free
-        return '/data/incipio/'.$this->subdirectory.'/'.$this->getUploadDir();
+        // the absolute directory path where uploaded documents should be saved
+        return $this->rootDir.'/uploads';
+    }
+
+
+    /**
+     * @param $rootDir string folder where documents should be stored without trailing slash.
+     */
+    public function setRootDir($rootDir){
+        $this->rootDir = $rootDir.'/..';
     }
 
     protected function getUploadDir()
@@ -146,12 +165,18 @@ class Document
      */
     public function removeUpload()
     {
-        if ($file = $this->getWebPath()) {
-            unlink($file);
+        if($this->rootDir !== null) {
+            if ($file = $this->getWebPath()) {
+                unlink($file);
+            }
+            if ($file = $this->getAbsolutePath()) {
+                unlink($file);
+            }
         }
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
+        else{
+            throw  new \Exception('rootDir non défini lors de la suppression du document. Définissez le via setRootDir avant toute manipulation.');
         }
+
     }
 
     /**

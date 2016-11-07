@@ -23,6 +23,7 @@ namespace mgate\PubliBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use mgate\PubliBundle\Entity\Document;
@@ -33,17 +34,20 @@ class DocumentManager extends BaseManager
     protected $em;
     protected $securityContext;
     protected $junior;
+    protected $kernel;
 
     /**
-     * @param \Doctrine\ORM\EntityManager                      $em
+     * @param \Doctrine\ORM\EntityManager $em
      * @param array $junior
      * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
+     * @param Kernel $kernel
      */
-    public function __construct(EntityManager $em, $junior, SecurityContext $securityContext)
+    public function __construct(EntityManager $em, $junior, SecurityContext $securityContext, Kernel $kernel)
     {
         $this->em = $em;
         $this->junior = $junior;
         $this->securityContext = $securityContext;
+        $this->kernel = $kernel;
     }
 
     /**
@@ -140,6 +144,7 @@ class DocumentManager extends BaseManager
         }
         $juniorId = $this->junior['id'];
         $document->setSubdirectory($juniorId);
+        $document->setRootDir($this->kernel->getRootDir());
 
         // Authorized Storage Size Overflow
         $totalSize = $document->getSize() + $this->getRepository()->getTotalSize();

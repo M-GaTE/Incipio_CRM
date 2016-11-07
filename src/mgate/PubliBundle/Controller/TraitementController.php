@@ -553,9 +553,12 @@ class TraitementController extends Controller
                 $doc->setAuthor($personne)
                     ->setName($data['name'])
                     ->setFile($file);
+                $kernel = $this->get('kernel');
+                $doc->setRootDir($kernel->getRootDir());
                 $em->persist($doc);
                 $docs = $em->getRepository('mgatePubliBundle:Document')->findBy(array('name' => $doc->getName()));
                 foreach ($docs as $doc) {
+                    $doc->setRootDir($kernel->getRootDir());
                     $em->remove($doc);
                 }
                 $em->flush();
