@@ -60,11 +60,11 @@
         {% for cotisation in bv.cotisationURSSAF %}
             <tr class="money">
                 <td>{{ cotisation.libelle }}</td>
-                <td>{{ (cotisation.isSurBaseURSSAF ? bv.assietteDesCotisations : bv.remunerationBrute ) | money }}</td>
+                <td>{{ (cotisation.surBaseURSSAF ? bv.assietteDesCotisations : bv.remunerationBrute ) | money }}</td>
                 <td>{{ cotisation.tauxPartJE != 0 ? (cotisation.tauxPartJE * 100) | money(false) ~ ' %' }}</td>
-                <td>{{ ((cotisation.isSurBaseURSSAF ? bv.assietteDesCotisations : bv.remunerationBrute) * cotisation.tauxPartJE) | money(false) }}</td>
+                <td>{{ ((cotisation.surBaseURSSAF ? bv.assietteDesCotisations : bv.remunerationBrute) * cotisation.tauxPartJE) | money(false) }}</td>
                 <td>{{ cotisation.tauxPartEtu != 0 ? (cotisation.tauxPartEtu * 100) | money(false) ~ ' %' }}</td>
-                <td>{{ ((cotisation.isSurBaseURSSAF ? bv.assietteDesCotisations : bv.remunerationBrute) * cotisation.tauxPartEtu) | money(false) }}</td>
+                <td>{{ ((cotisation.surBaseURSSAF ? bv.assietteDesCotisations : bv.remunerationBrute) * cotisation.tauxPartEtu) | money(false) }}</td>
             </tr>
         {% endfor %}
         <tr class="active money">
@@ -123,7 +123,7 @@
         </tr>
 
         <tr>
-            <th>{{ 'treso.montant_net.imposable'|trans({}, 'treso') }} {{ 'treso.montant_net.taxes'|trans({}, 'treso') }}</th>
+            <th>{{ 'treso.montant_net_imposable'|trans({}, 'treso') }} {{ 'treso.montant_net_taxes'|trans({}, 'treso') }}</th>
             <th class="money">{{ bv.remunerationNetImposable | money }}&nbsp;€</th>
         </tr>
 

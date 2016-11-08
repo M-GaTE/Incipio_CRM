@@ -20,9 +20,8 @@ treso:
     montant_net: Montant net
     total_payer: TOTAL A PAYER
     bv_modifier: Modifier le BV
-    montant_net:
-        taxes: (net+C.S.G. Non déd +R.D.S.)
-        imposable: Montant net imposable
+    montant_net_taxes: (net+C.S.G. Non déd +R.D.S.)
+    montant_net_imposable: Montant net imposable
     remuneration_brute: Rémunération brute
     part_junior: Part Junior
     part_etudiant: Part Etudiant

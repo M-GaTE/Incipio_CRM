@@ -41,8 +41,9 @@ class CotisationURSSAF
      * @var bool
      *
      * @ORM\Column(name="isSurBaseURSSAF", type="boolean")
+     * keep compatibility with former name of that property.
      */
-    private $isSurBaseURSSAF;
+    private $surBaseURSSAF;
 
     /**
      * @var string
@@ -121,27 +122,27 @@ class CotisationURSSAF
     }
 
     /**
-     * Set isSurBaseURSSAF.
+     * Set SurBaseURSSAF.
      *
-     * @param bool $isSurBaseURSSAF
+     * @param bool $SurBaseURSSAF
      *
      * @return CotisationURSSAF
      */
-    public function setIsSurBaseURSSAF($isSurBaseURSSAF)
+    public function setSurBaseURSSAF($surBaseURSSAF)
     {
-        $this->isSurBaseURSSAF = $isSurBaseURSSAF;
+        $this->surBaseURSSAF = $surBaseURSSAF;
 
         return $this;
     }
 
     /**
-     * Get isSurBaseURSSAF.
+     * Get SurBaseURSSAF.
      *
      * @return bool
      */
-    public function getIsSurBaseURSSAF()
+    public function getSurBaseURSSAF()
     {
-        return $this->isSurBaseURSSAF;
+        return $this->surBaseURSSAF;
     }
 
     /**

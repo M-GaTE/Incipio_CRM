@@ -141,7 +141,7 @@ class LoadCotisationURSSAFData implements FixtureInterface
             $cotisationURSSAF
                 ->setDateDebut($cotisation['dateDebut'])
                 ->setDateFin($cotisation['dateFin'])
-                ->setIsSurBaseURSSAF($cotisation['isBaseUrssaf'])
+                ->setSurBaseURSSAF($cotisation['isBaseUrssaf'])
                 ->setLibelle($cotisation['libelle'])
                 ->setTauxPartEtu($cotisation['tauxEtu'])
                 ->setTauxPartJE($cotisation['tauxJE']);
