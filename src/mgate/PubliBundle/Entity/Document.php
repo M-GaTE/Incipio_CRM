@@ -75,12 +75,6 @@ class Document
     /**
      * @var string
      * @Assert\NotBlank
-     */
-    private $subdirectory;
-
-    /**
-     * @var string
-     * @Assert\NotBlank
      * Folder where all uploaded documents will be stored, without trailing slash.
      */
     private $rootDir;
