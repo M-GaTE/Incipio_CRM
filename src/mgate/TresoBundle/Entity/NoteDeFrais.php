@@ -14,7 +14,7 @@ namespace mgate\TresoBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use mgate\PersonneBundle\Entity\Personne;
-use mgate\TresoBundle\Entity\NoteDeFraisDetail;
+
 
 /**
  * NoteDeFrais.

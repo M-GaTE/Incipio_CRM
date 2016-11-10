@@ -13,9 +13,9 @@ namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use mgate\SuiviBundle\Entity\AvMission;
-use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Entity\Phase;
+
+
+
 
 /**
  * mgate\SuiviBundle\Entity\Av.

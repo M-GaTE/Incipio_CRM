@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PubliBundle\Controller\TraitementController;
 use mgate\SuiviBundle\Entity\Etude;
-use mgate\TresoBundle\Entity\FactureDetail;
+
 
 /**
  * FV.

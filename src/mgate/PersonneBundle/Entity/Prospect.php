@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use mgate\CommentBundle\Entity\Thread;
-use mgate\PersonneBundle\Entity\Employe;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

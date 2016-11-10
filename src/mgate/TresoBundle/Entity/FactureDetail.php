@@ -12,8 +12,8 @@
 namespace mgate\TresoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use mgate\TresoBundle\Entity\Compte;
-use mgate\TresoBundle\Entity\Facture;
+
+
 
 /**
  * FactureDetail.

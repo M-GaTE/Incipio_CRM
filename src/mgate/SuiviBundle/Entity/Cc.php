@@ -12,7 +12,7 @@
 namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use mgate\SuiviBundle\Entity\Etude;
+
 
 /**
  * mgate\SuiviBundle\Entity\Cc.

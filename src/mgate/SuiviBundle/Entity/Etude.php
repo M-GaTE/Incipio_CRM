@@ -20,7 +20,7 @@ use mgate\CommentBundle\Entity\Thread;
 use mgate\PersonneBundle\Entity\Personne;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PubliBundle\Entity\RelatedDocument;
-use mgate\SuiviBundle\Entity\ClientContact;
+
 use mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\DependencyInjection\ContainerAware;
