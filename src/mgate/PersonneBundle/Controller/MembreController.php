@@ -14,7 +14,6 @@ namespace mgate\PersonneBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Membre;
-use mgate\PersonneBundle\Entity\Personne;
 use mgate\PersonneBundle\Entity\Mandat;
 use mgate\PersonneBundle\Form\Type\MembreType;
 use mgate\PubliBundle\Entity\RelatedDocument;

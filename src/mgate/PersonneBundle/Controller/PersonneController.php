@@ -13,8 +13,6 @@ namespace mgate\PersonneBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\PersonneBundle\Entity\Membre;
-use mgate\PersonneBundle\Entity\Personne;
 
 class PersonneController extends Controller
 {

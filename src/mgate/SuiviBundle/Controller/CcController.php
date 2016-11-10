@@ -13,7 +13,6 @@ namespace mgate\SuiviBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Entity\Cc;
 use mgate\SuiviBundle\Form\Type\CcType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

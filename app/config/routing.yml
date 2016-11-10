@@ -88,4 +88,3 @@ fos_js_routing:
 prospect:
     resource: "@mgatePersonneBundle/Controller/ProspectController.php"
     type:     annotation
-    
