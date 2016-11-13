@@ -13,7 +13,6 @@ namespace mgate\UserBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use mgate\PersonneBundle\Entity\PersonneRepository;
 use mgate\PersonneBundle\Entity\Personne;

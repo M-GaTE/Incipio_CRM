@@ -13,19 +13,17 @@ namespace mgate\PersonneBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use mgate\UserBundle\Entity\UserRepository;
-use mgate\UserBundle\Entity\User;
 
+/**
+ * Class AddUserFieldSubscriber
+ * @package mgate\PersonneBundle\Form\EventListener
+ * Where is that stuff used ? Doesn't seem to be.
+ */
 class AddUserFieldSubscriber implements EventSubscriberInterface
 {
-    private $factory;
 
-    public function __construct(FormFactoryInterface $factory)
-    {
-        $this->factory = $factory;
-    }
 
     public static function getSubscribedEvents()
     {
