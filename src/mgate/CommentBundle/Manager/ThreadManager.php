@@ -13,7 +13,6 @@ namespace mgate\CommentBundle\Manager;
 
 use FOS\CommentBundle\Acl\AclThreadManager as FOSthread;
 use Doctrine\ORM\EntityManager;
-use mgate\CommentBundle\Entity\Thread as mgateThread;
 use mgate\SuiviBundle\Entity\Etude;
 
 class ThreadManager

@@ -16,7 +16,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\PersonneBundle\Entity\PersonneRepository;
 use mgate\PersonneBundle\Form\Type\EmployeType;
-use mgate\PersonneBundle\Entity\Prospect;
 
 class DocTypeType extends AbstractType
 {

@@ -14,7 +14,6 @@ namespace mgate\SuiviBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use mgate\CommentBundle\Form\Type\ThreadType;
 
 class ClientContactType extends AbstractType
 {

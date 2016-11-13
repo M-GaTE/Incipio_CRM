@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use mgate\SuiviBundle\Entity\RepartitionJEH;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\Type\MissionsType;
 use mgate\SuiviBundle\Entity\Mission;
 use Symfony\Component\HttpFoundation\RedirectResponse;

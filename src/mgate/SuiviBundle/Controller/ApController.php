@@ -14,7 +14,6 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Ap;
-use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\Type\ApType;
 use mgate\SuiviBundle\Form\Type\DocTypeSuiviType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
