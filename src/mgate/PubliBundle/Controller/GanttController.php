@@ -32,14 +32,7 @@ class GanttController extends Controller
         //Gantt
         $chartManager = $this->get('mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'gantt');
-        if ($chartManager->exportGantt($ob, 'gantt'.$etude->getReference(), $width)) {
-            $repertoire = 'tmp';
-            $image = array();
-            $image['fileLocation'] = $repertoire.'/'.$etude->getReference().'.png';
-            $info = getimagesize($repertoire.'/'.$etude->getReference().'.png');
-            $image['width'] = $info[0];
-            $image['height'] = $info[1];
-        }
+        $chartManager->exportGantt($ob, 'gantt'.$etude->getReference(), $width);
 
         $response = new Response();
         $response->headers->set('Content-Type', 'image/png');

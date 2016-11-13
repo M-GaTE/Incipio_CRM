@@ -348,7 +348,6 @@ class IndicateursController extends Controller
      */
     private function getPartClientFidel()
     {
-        $etudeManager = $this->get('mgate.etude_manager');
         $em = $this->getDoctrine()->getManager();
         $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
 
@@ -389,7 +388,6 @@ class IndicateursController extends Controller
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
 
         $ob->series($series);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
         $ob->title->text('Taux de fidélisation (% de clients ayant demandé plusieurs études)');
