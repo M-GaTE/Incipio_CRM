@@ -609,7 +609,7 @@ class IndicateursController extends Controller
         $data = array();
         $categories = array();
         foreach ($repartitions as $type => $CA) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($CA / $chiffreDAffairesTotal * 100, 2));
@@ -654,7 +654,7 @@ class IndicateursController extends Controller
         $data = array();
         $categories = array();
         foreach ($repartitions as $type => $nombre) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($nombre / $nombreClient * 100, 2));
@@ -849,10 +849,9 @@ class IndicateursController extends Controller
         $etudeManager = $this->get('mgate.etude_manager');
         $em = $this->getDoctrine()->getManager();
 
-        $Ccs = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
+        $Ccs = $em->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
 
         /* Initialisation */
-        $mandats = array();
         $cumuls = array();
         $cumulsJEH = array();
         $cumulsFrais = array();
@@ -942,7 +941,6 @@ class IndicateursController extends Controller
         $etudeManager = $this->get('mgate.etude_manager');
         $Ccs = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
 
-        //$data = array();
         $mandats = array();
         $maxMandat = $etudeManager->getMaxMandatCc();
 
@@ -1030,7 +1028,6 @@ class IndicateursController extends Controller
         $etudeManager = $this->get('mgate.etude_manager');
         $missions = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Mission')->findBy(array(), array('debutOm' => 'asc'));
 
-        //$data = array();
         $mandats = array();
         $maxMandat = $etudeManager->getMaxMandatCc();
 
@@ -1052,11 +1049,8 @@ class IndicateursController extends Controller
 
                 ++$cumuls[0];
 
-                //$interval = new \DateInterval('P' . ($maxMandat - $idMandat) . 'Y');
                 $dateDebutDecale = clone $dateDebut;
-                //$dateDebutDecale->add($interval);
                 $dateFinDecale = clone $dateFin;
-                //$dateFinDecale->add($interval);
 
                 $addDebut = true;
                 $addFin = true;
@@ -1103,13 +1097,8 @@ class IndicateursController extends Controller
             $dateDebut = $mission->getdebutOm();
 
             if ($dateDebut && $dateFin) {
-                $idMandat = $etudeManager->dateToMandat($dateFin);
-
-                //$interval2 = new \DateInterval('P'.($maxMandat-$idMandat).'Y');
                 $dateDebutDecale = clone $dateDebut;
-                //$dateDebutDecale->add($interval2);
                 $dateFinDecale = clone $dateFin;
-                //$dateFinDecale->add($interval2);
 
                 foreach ($mandats[2] as &$entree) {
                     if ($entree['x'] >= $dateDebutDecale->getTimestamp() * 1000 && $entree['x'] < $dateFinDecale->getTimestamp() * 1000) {
@@ -1184,9 +1173,8 @@ class IndicateursController extends Controller
         }
 
         $data = array();
-        $categories = array();
         foreach ($repartitions as $type => $nombre) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($nombre / $nombreClient * 100, 2));
@@ -1232,7 +1220,7 @@ class IndicateursController extends Controller
 
         $data = array();
         foreach ($repartitions as $type => $CA) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($CA / $chiffreDAffairesTotal * 100, 2));

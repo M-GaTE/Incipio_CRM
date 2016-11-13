@@ -212,7 +212,6 @@ class TraitementController extends Controller
      */
     public function telechargerAction($templateName)
     {
-        $junior = $this->container->getParameter('junior');
         $this->purge();
         if (isset($this->idDocx) && isset($this->refDocx)) {
             $idDocx = $this->idDocx;
@@ -231,23 +230,18 @@ class TraitementController extends Controller
             $response->setContent(file_get_contents($templateName));
 
             return $response;
-
-    //$response->send();
-         //   readfile($templateName);
-          //  exit();
         }
 
         return $this->redirect($this->generateUrl('mgateSuivi_etude_homepage', array('page' => 1)));
     }
 
-    private function array_push_assoc(&$array, $key, $value)
+    private function arrayPushAssoc(&$array, $key, $value)
     {
         $array[$key] = $value;
 
         return $array;
     }
 
-    //TODO
     private function getDoctypeAbsolutePathFromName($doc, $debug = false)
     {
         $em = $this->getDoctrine()->getManager();
@@ -275,7 +269,7 @@ class TraitementController extends Controller
             for ($i = 0; $i < $zip->numFiles; ++$i) {
                 $name = $zip->getNameIndex($i);
                 if ((strstr($name, 'document') || strstr($name, 'header') || strstr($name, 'footer')) && !strstr($name, 'rels')) {
-                    $this->array_push_assoc($templateXML, str_replace('word/', '', $name), $zip->getFromIndex($i));
+                    $this->arrayPushAssoc($templateXML, str_replace('word/', '', $name), $zip->getFromIndex($i));
                 }
             }
             $zip->close();
@@ -309,7 +303,7 @@ class TraitementController extends Controller
 
         foreach ($templatesXML as $templateName => $templateXML) {
             $templateXML = $this->get('twig')->render($templateXML, array($rootName => $rootObject));
-            $this->array_push_assoc($templatesXMLTraite, $templateName, $templateXML);
+            $this->arrayPushAssoc($templatesXMLTraite, $templateName, $templateXML);
         }
 
         return $templatesXMLTraite;
@@ -501,7 +495,7 @@ class TraitementController extends Controller
                     $this->cleanDocxTableRow($templateXML);
                     $this->cleanDocxParagraph($templateXML);
                     $this->linkDocxImages($templateXML, $relationship);
-                    $this->array_push_assoc($templatesXMLTraite, $templateName, $templateXML);
+                    $this->arrayPushAssoc($templatesXMLTraite, $templateName, $templateXML);
                 }
 
                 // Enregistrement dans le fichier temporaire
