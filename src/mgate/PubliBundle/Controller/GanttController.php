@@ -39,7 +39,6 @@ class GanttController extends Controller
             $info = getimagesize($repertoire.'/'.$etude->getReference().'.png');
             $image['width'] = $info[0];
             $image['height'] = $info[1];
-            $images['imageVARganttAP'] = $image;
         }
 
         $response = new Response();
