@@ -14,6 +14,7 @@ namespace mgate\CommentBundle\Manager;
 use FOS\CommentBundle\Acl\AclThreadManager as FOSthread;
 use Doctrine\ORM\EntityManager;
 use mgate\CommentBundle\Entity\Thread as mgateThread;
+use mgate\SuiviBundle\Entity\Etude;
 
 class ThreadManager
 {
@@ -26,7 +27,13 @@ class ThreadManager
         $this->em = $entitymanager;
     }
 
-    public function creerThread($name, $permaLink, $entity)
+    /**
+     * @param $name
+     * @param $permaLink
+     * @param Etude $entity
+     * Used  only in mgate\CommentBundle\Controller\DefaultController for undocumented purpose (maintenance ??)
+     */
+    public function creerThread($name, $permaLink, Etude $entity)
     {
         if (!$entity->getThread()) {
 
