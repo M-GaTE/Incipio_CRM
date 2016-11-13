@@ -161,20 +161,17 @@ class IndicateursController extends Controller
         for ($i = 0; $i <= $maxMandat; ++$i) {
             $nombreEtudesParMandat[$i] = 0;
         }
-        /*         * *************** */
 
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
             $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
                 || $etude->getStateID() == STATE_ID_TERMINEE_X;
-
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
-                ++$nombreEtudesParMandat[$idMandat];
+                $nombreEtudesParMandat[$idMandat] += 1;
             }
         }
-
         $data = array();
         $categories = array();
         foreach ($nombreEtudesParMandat as $idMandat => $datas) {
@@ -247,17 +244,11 @@ class IndicateursController extends Controller
             $data[] = array($compte, 100 * $montantHT / $montantTotal);
         }
 
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
         $series = array(array('type' => 'pie', 'name' => 'Répartition des dépenses', 'data' => $data, 'Dépenses totale' => $montantTotal));
-
-        $ob = new Highchart();
+        $ob = $chartFactory->newPieChart($series);
         $ob->chart->renderTo(__FUNCTION__);
-        // Plot Options
-        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-        $ob->series($series);
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->credits->enabled(false);
         $ob->title->text('Répartition des dépenses selon les comptes comptables (Mandat en cours)');
-        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
@@ -607,7 +598,6 @@ class IndicateursController extends Controller
         }
 
         $data = array();
-        $categories = array();
         foreach ($repartitions as $type => $CA) {
             if ($type === null) {
                 $type = 'Autre';
@@ -617,15 +607,10 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Provenance de nos études par type de Client (tous mandats)', 'data' => $data, 'CA Total' => $chiffreDAffairesTotal));
 
-        $ob = new Highchart();
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newPieChart($series);
         $ob->chart->renderTo(__FUNCTION__);
-        // Plot Options
-        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-        $ob->series($series);
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->credits->enabled(false);
         $ob->title->text("Répartition du CA selon le type de Client ($chiffreDAffairesTotal € CA)");
-        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
