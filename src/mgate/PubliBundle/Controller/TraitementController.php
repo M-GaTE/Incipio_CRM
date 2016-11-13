@@ -341,13 +341,14 @@ class TraitementController extends Controller
     //Nettoie le dossier tmp : efface les fichiers temporaires vieux de plus de 1 jours
     private function purge()
     {
-        $Patern = '*';
         $oldSec = 86400; // = 1 Jours
-        $path = 'tmp/';
         clearstatcache();
-        foreach (@glob($path.$Patern) as $filename) {
-            if (filemtime($filename) + $oldSec < time()) {
-                @unlink($filename);
+        $glob = glob('tmp/*');
+        if($glob !== false) {
+            foreach ($glob as $filename) {
+                if (filemtime($filename) + $oldSec < time()) {
+                    unlink($filename);
+                }
             }
         }
     }
