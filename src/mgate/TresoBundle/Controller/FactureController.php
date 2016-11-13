@@ -122,7 +122,7 @@ class FactureController extends Controller
                     $factured->setFacture($facture);
                 }
 
-                if ($facture->getType() <= Facture::$TYPE_VENTE_ACCOMPTE || $facture->getMontantADeduire() == null || $facture->getMontantADeduire()->getMontantHT() == 0) {
+                if ($facture->getType() <= Facture::$TYPE_VENTE_ACCOMPTE || $facture->getMontantADeduire() === null || $facture->getMontantADeduire()->getMontantHT() == 0) {
                     $facture->setMontantADeduire(null);
                 }
 

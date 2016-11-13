@@ -77,7 +77,7 @@ class Prospect extends Adressable
      * @ORM\PostPersist
      */
     public function createThread(LifecycleEventArgs $args){
-        if($this->getThread() == null) {
+        if($this->getThread() === null) {
             $em = $args->getEntityManager();
             $t = new Thread();
             $t->setId('prospect_'.$this->getId());

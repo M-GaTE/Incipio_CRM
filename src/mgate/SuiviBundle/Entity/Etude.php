@@ -297,7 +297,7 @@ class Etude extends ContainerAware
      * @ORM\PostPersist
      */
     public function createThread(LifecycleEventArgs $args){
-        if($this->getThread() == null) {
+        if($this->getThread() === null) {
             $em = $args->getEntityManager();
             $t = new Thread();
             $this->setThread($t);

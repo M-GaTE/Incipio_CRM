@@ -220,7 +220,7 @@ class DeclaratifController extends Controller
                 )));
         }
 
-        if ($year == null || $month === null) {
+        if ($year === null || $month === null) {
             $date = new \DateTime('now');
             $month = $date->format('m');
             $year = $date->format('Y');

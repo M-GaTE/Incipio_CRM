@@ -377,7 +377,7 @@ class EtudeManager extends \Twig_Extension
                 $error = array('titre' => 'CE - RM : '.$intervenant->getPersonne()->getPrenomNom(), 'message' => 'La date de signature de la Convention Eleve de '.$intervenant->getPersonne()->getPrenomNom().' doit être antérieure à la date de signature du récapitulatifs de mission.');
                 $errorAbs = array('titre' => 'CE - RM : '.$intervenant->getPersonne()->getPrenomNom(), 'message' => 'La Convention Eleve de '.$intervenant->getPersonne()->getPrenomNom().' n\'est pas signée.');
 
-                if ($intervenant->getDateConventionEleve() == null) {
+                if ($intervenant->getDateConventionEleve() === null) {
                     array_push($errors, $errorAbs);
                 } elseif ($intervenant->getDateConventionEleve() >= $dateSignature ||
                         $intervenant->getDateConventionEleve() >= $dateDebutOm) {
