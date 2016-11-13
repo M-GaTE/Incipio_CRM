@@ -207,7 +207,7 @@ class IndicateursController extends Controller
     private function getRepartitionSorties()
     {
         $em = $this->getDoctrine()->getManager();
-        $mandat = $etudeManager = $this->get('mgate.etude_manager')->getMaxMandatCc();
+        $mandat = $this->get('mgate.etude_manager')->getMaxMandatCc();
 
         $nfs = $em->getRepository('mgateTresoBundle:NoteDeFrais')->findBy(array('mandat' => $mandat));
         $bvs = $em->getRepository('mgateTresoBundle:BV')->findBy(array('mandat' => $mandat));

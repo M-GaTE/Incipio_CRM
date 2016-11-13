@@ -105,7 +105,6 @@ class FactureController extends Controller
 
                     $totalTTC += $etude->getFraisDossier();
                     $totalTTC *= (1 + $tauxTVA / 100);
-                    $totalTTCLettre = $formater->ConvNumberLetter($totalTTC, 1);
 
                     $facture->setObjet('Facture de Solde sur l\'étude '.$etude->getReference().'.');
                 }
@@ -115,7 +114,7 @@ class FactureController extends Controller
         $form = $this->createForm(new FactureType(), $facture);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 foreach ($facture->getDetails() as $factured) {
