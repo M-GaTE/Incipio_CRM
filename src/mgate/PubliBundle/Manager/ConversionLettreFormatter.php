@@ -37,11 +37,9 @@ class ConversionLettreFormatter
      */
     public function ConvNumberLetter($Nombre, $Devise = 0, $Langue = 0)
     {
-        $dblEnt = '';
-        $byDec = '';
-        $bNegatif = '';
         $strDev = '';
         $strCentimes = '';
+        $bNegatif = false;
 
         if ($Nombre < 0) {
             $bNegatif = true;
@@ -88,14 +86,15 @@ class ConversionLettreFormatter
             $NumberLetter .= ' '.$this->ConvNumDizaine($byDec, $Langue).$strCentimes;
         }
 
+        if($bNegatif){
+            $NumberLetter = 'moins '.$NumberLetter;
+        }
+
         return $NumberLetter;
     }
 
     private function ConvNumEnt($Nombre, $Langue)
     {
-        $byNum = $iTmp = $dblReste = '';
-        $StrTmp = '';
-        $NumEnt = '';
         $iTmp = $Nombre - (intval($Nombre / 1000) * 1000);
         $NumEnt = $this->ConvNumCent(intval($iTmp), $Langue);
         $dblReste = intval($Nombre / 1000);
@@ -156,10 +155,6 @@ class ConversionLettreFormatter
 
     private function ConvNumDizaine($Nombre, $Langue)
     {
-        $TabUnit = $TabDiz = '';
-        $byUnit = $byDiz = '';
-        $strLiaison = '';
-
         $TabUnit = array('', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept',
             'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze',
             'seize', 'dix-sept', 'dix-huit', 'dix-neuf', );
@@ -219,10 +214,6 @@ class ConversionLettreFormatter
 
     private function ConvNumCent($Nombre, $Langue)
     {
-        $TabUnit = '';
-        $byCent = $byReste = '';
-        $strReste = '';
-        $NumCent = '';
         $TabUnit = array('', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix');
 
         $byCent = intval($Nombre / 100);
