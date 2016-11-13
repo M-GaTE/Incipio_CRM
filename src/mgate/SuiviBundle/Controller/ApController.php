@@ -55,11 +55,9 @@ class ApController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('mgateSuiviBundle:Ap:voir.html.twig', array(
                     'ap' => $entity,
-                /* 'delete_form' => $deleteForm->createView(),  */));
+                ));
     }
 
     /**
@@ -85,7 +83,7 @@ class ApController extends Controller
         $form = $this->createForm(new ApType(), $etude, array('prospect' => $etude->getProspect()));
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $this->get('mgate.doctype_manager')->checkSaveNewEmploye($etude->getAp());

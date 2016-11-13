@@ -19,7 +19,7 @@ class CommentaireSuiviType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //$builder->add('stateDescription', 'textarea', array( 'label'=>'Objectif', 'required'=>false));
+        // builder add('stateDescription', 'textarea', array( 'label'=>'Objectif', 'required'=>false));
     }
 
     public function getName()

@@ -52,11 +52,9 @@ class CcController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('mgateSuiviBundle:Cc:voir.html.twig', array(
             'cc' => $entity,
-            /*'delete_form' => $deleteForm->createView(),  */));
+        ));
     }
 
     /**

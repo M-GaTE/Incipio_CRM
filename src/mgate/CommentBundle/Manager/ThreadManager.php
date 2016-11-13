@@ -36,14 +36,11 @@ class ThreadManager
     {
         if (!$entity->getThread()) {
 
-            //get('fos_comment.manager.thread')
-            //$thread = new mgateThread;
 
             $thread = $this->tm->createThread($name.$entity->getId());
-            //$thread->setId($name.$entity->getId());
-            //$thread->setPermalink( $permaLink );
+            $thread->setPermalink($permaLink);//non exploité dans notre cas. Commentable.
             $entity->setThread($thread);
-            //$this->em->persist($thread);
+            //persist thread inutile, car cascade sur $entity.
 
             $this->em->flush();
         }

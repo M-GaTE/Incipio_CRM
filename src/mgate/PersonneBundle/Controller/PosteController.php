@@ -30,7 +30,7 @@ class PosteController extends Controller
         $form = $this->createForm(new PosteType(), $poste);
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($poste);
@@ -72,11 +72,9 @@ class PosteController extends Controller
             throw $this->createNotFoundException('Le poste demandé n\'existe pas !');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('mgatePersonneBundle:Poste:voir.html.twig', array(
             'poste' => $entity,
-            /*'delete_form' => $deleteForm->createView(),        */));
+        ));
     }
 
     /**
@@ -118,7 +116,7 @@ class PosteController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -130,8 +128,6 @@ class PosteController extends Controller
             foreach ($entity->getMembres() as $membre) {
                 $membre->setPoste(null);
             }
-
-            //$entity->setMembres(null);
 
             $em->remove($entity);
             $em->flush();

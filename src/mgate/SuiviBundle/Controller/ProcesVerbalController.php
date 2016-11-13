@@ -53,11 +53,9 @@ class ProcesVerbalController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('mgateSuiviBundle:ProcesVerbal:voir.html.twig', array(
             'procesverbal' => $entity,
-            /*'delete_form' => $deleteForm->createView(),  */));
+        ));
     }
 
     /**
@@ -211,7 +209,6 @@ class ProcesVerbalController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id_pv))
             ->add('id', 'hidden')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

@@ -83,11 +83,9 @@ class EmployeController extends Controller
             throw $this->createNotFoundException('L\'employé demandé n\'existe pas');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('mgatePersonneBundle:Employe:voir.html.twig', array(
             'employe' => $entity,
-            /*'delete_form' => $deleteForm->createView(),        */));
+            ));
     }
 
     /**

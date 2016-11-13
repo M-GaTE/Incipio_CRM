@@ -314,7 +314,6 @@ class Etude extends ContainerAware
      */
     public function getReference()
     {
-        // return (string) ($this->getMandat() * 100 + $this->getNum());
         return $this->getNom();
     }
 
