@@ -11,9 +11,9 @@
 
 namespace mgate\UserBundle\Form\Type;
 
+use mgate\UserBundle\Form\EventListener\AddMembreFieldSubscriber;
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
-use mgate\UserBundle\Form\Type\EventListener\AddMembreFieldSubscriber;
 
 class UserAdminType extends BaseType
 {
@@ -27,7 +27,7 @@ class UserAdminType extends BaseType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $subscriber = new AddMembreFieldSubscriber($builder->getFormFactory());
+        $subscriber = new AddMembreFieldSubscriber();
         $builder->addEventSubscriber($subscriber);
 
         $builder->add('enabled', 'checkbox', array(

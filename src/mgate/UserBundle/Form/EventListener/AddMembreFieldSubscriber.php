@@ -20,12 +20,6 @@ use mgate\PersonneBundle\Entity\Personne;
 
 class AddMembreFieldSubscriber implements EventSubscriberInterface
 {
-    private $factory;
-
-    public function __construct(FormFactoryInterface $factory)
-    {
-        $this->factory = $factory;
-    }
 
     public static function getSubscribedEvents()
     {
