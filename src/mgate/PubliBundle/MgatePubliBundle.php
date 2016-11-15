@@ -9,10 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\TresoBundle;
+namespace mgate\PubliBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateTresoBundle extends Bundle
+class MgatePubliBundle extends Bundle
 {
+
+    public function __construct()
+    {
+        $this->name = 'mgatePubliBundle';
+    }
+
 }

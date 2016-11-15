@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\FormationBundle\DependencyInjection;
+namespace mgate\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class mgateFormationExtension extends Extension
+class MgateDashboardExtension extends Extension
 {
     /**
      * {@inheritdoc}

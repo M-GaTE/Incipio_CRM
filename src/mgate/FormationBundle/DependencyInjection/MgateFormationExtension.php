@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\SuiviBundle\DependencyInjection;
+namespace mgate\FormationBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class mgateSuiviExtension extends Extension
+class MgateFormationExtension extends Extension
 {
     /**
      * {@inheritdoc}

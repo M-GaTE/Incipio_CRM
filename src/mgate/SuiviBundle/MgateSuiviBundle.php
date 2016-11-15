@@ -25,6 +25,12 @@ namespace mgate\SuiviBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateSuiviBundle extends Bundle
+class MgateSuiviBundle extends Bundle
 {
+
+    public function __construct()
+    {
+        $this->name = 'mgateSuiviBundle';
+    }
+
 }

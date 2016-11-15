@@ -9,10 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\PersonneBundle;
+namespace mgate\CommentBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgatePersonneBundle extends Bundle
+class MgateCommentBundle extends Bundle
 {
+
+    public function __construct()
+    {
+        $this->name = 'mgateCommentBundle';
+    }
+
 }

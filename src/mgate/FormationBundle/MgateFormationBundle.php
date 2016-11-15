@@ -9,10 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\DashboardBundle;
+namespace mgate\FormationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateDashboardBundle extends Bundle
+class MgateFormationBundle extends Bundle
 {
+
+    public function __construct()
+    {
+        $this->name = 'mgateFormationBundle';
+    }
+
 }
