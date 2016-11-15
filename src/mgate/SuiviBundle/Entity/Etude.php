@@ -22,8 +22,6 @@ use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PubliBundle\Entity\RelatedDocument;
 
 use mgate\TresoBundle\Entity\Facture;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\DependencyInjection\ContainerAware;
 use n7consulting\RhBundle\Entity\Competence;
 
 /**
@@ -1563,7 +1561,7 @@ class Etude
         $this->procesVerbaux->removeElement($procesVerbaux);
     }
 
-    private function trieDateSignature($a, $b)
+    private function trieDateSignature(DocType $a,DocType $b)
     {
         if ($a->getDateSignature() == $b->getDateSignature()) {
             return 0;
