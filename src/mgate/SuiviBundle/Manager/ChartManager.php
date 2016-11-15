@@ -20,14 +20,12 @@ use Zend\Json\Expr;
 class ChartManager /*extends \Twig_Extension*/
 {
     protected $em;
-    protected $tva;
     protected $etudeManager;
     protected $logger;
 
-    public function __construct(EntityManager $em, $tva, EtudeManager $etudeManager, Logger $logger)
+    public function __construct(EntityManager $em, EtudeManager $etudeManager, Logger $logger)
     {
         $this->em = $em;
-        $this->tva = $tva;
         $this->etudeManager = $etudeManager;
         $this->logger = $logger;
     }

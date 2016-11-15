@@ -2,7 +2,6 @@ parameters:
     mgate.etude_manager.class: mgate\SuiviBundle\Manager\EtudeManager
     mgate.doctype_manager.class: mgate\SuiviBundle\Manager\DocTypeManager
     mgate.chart_manager.class: mgate\SuiviBundle\Manager\ChartManager
-    tva: 0.20
 
 services:
     mgate.etude_manager:
@@ -20,7 +19,6 @@ services:
         class: "%mgate.chart_manager.class%"
         arguments:
           - "@doctrine.orm.entity_manager"
-          - "%tva%"
           - "@mgate.etude_manager"
           - "@logger"
 
