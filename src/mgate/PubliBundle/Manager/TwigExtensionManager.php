@@ -62,7 +62,7 @@ class TwigExtensionManager extends \Twig_Extension
     {
         $cv = new ConversionLettreFormatter();
 
-        return $cv->ConvNumberLetter($nbr, $devise, $langue);
+        return $cv->convNumberLetter($nbr, $devise, $langue);
     }
 
     public function liaison($mot, $entiere = 'de', $contractee = null)

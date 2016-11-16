@@ -21,7 +21,7 @@ namespace mgate\PubliBundle\Manager;
  */
 class ConversionLettreFormatter
 {
-    public function money_format($number)
+    public function moneyFormat($number)
     {
         return number_format($number, 2, ',', ' ');
     }
@@ -35,7 +35,7 @@ class ConversionLettreFormatter
      *
      * @return string la chaine
      */
-    public function ConvNumberLetter($Nombre, $Devise = 0, $Langue = 0)
+    public function convNumberLetter($Nombre, $Devise = 0, $Langue = 0)
     {
         $strDev = '';
         $strCentimes = '';
@@ -81,9 +81,9 @@ class ConversionLettreFormatter
         if (($byDec > 0) && ($Devise != 0)) {
             $strDev .= ' et';
         }
-        $NumberLetter = $this->ConvNumEnt(floatval($dblEnt), $Langue).$strDev;
+        $NumberLetter = $this->convNumEnt(floatval($dblEnt), $Langue).$strDev;
         if (($byDec > 0) && ($Devise != 0)) {
-            $NumberLetter .= ' '.$this->ConvNumDizaine($byDec, $Langue).$strCentimes;
+            $NumberLetter .= ' '.$this->convNumDizaine($byDec, $Langue).$strCentimes;
         }
 
         if($bNegatif){
@@ -93,13 +93,13 @@ class ConversionLettreFormatter
         return $NumberLetter;
     }
 
-    private function ConvNumEnt($Nombre, $Langue)
+    private function convNumEnt($Nombre, $Langue)
     {
         $iTmp = $Nombre - (intval($Nombre / 1000) * 1000);
-        $NumEnt = $this->ConvNumCent(intval($iTmp), $Langue);
+        $NumEnt = $this->convNumCent(intval($iTmp), $Langue);
         $dblReste = intval($Nombre / 1000);
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
-        $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
+        $StrTmp = $this->convNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
             case 0:
                 break;
@@ -112,7 +112,7 @@ class ConversionLettreFormatter
         $NumEnt = $StrTmp.$NumEnt;
         $dblReste = intval($dblReste / 1000);
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
-        $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
+        $StrTmp = $this->convNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
             case 0:
                 break;
@@ -125,7 +125,7 @@ class ConversionLettreFormatter
         $NumEnt = $StrTmp.$NumEnt;
         $dblReste = intval($dblReste / 1000);
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
-        $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
+        $StrTmp = $this->convNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
             case 0:
                 break;
@@ -138,7 +138,7 @@ class ConversionLettreFormatter
         $NumEnt = $StrTmp.$NumEnt;
         $dblReste = intval($dblReste / 1000);
         $iTmp = $dblReste - (intval($dblReste / 1000) * 1000);
-        $StrTmp = $this->ConvNumCent(intval($iTmp), $Langue);
+        $StrTmp = $this->convNumCent(intval($iTmp), $Langue);
         switch ($iTmp) {
             case 0:
                 break;
@@ -153,7 +153,7 @@ class ConversionLettreFormatter
         return $NumEnt;
     }
 
-    private function ConvNumDizaine($Nombre, $Langue)
+    private function convNumDizaine($Nombre, $Langue)
     {
         $TabUnit = array('', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept',
             'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze',
@@ -212,13 +212,13 @@ class ConversionLettreFormatter
         return $NumDizaine;
     }
 
-    private function ConvNumCent($Nombre, $Langue)
+    private function convNumCent($Nombre, $Langue)
     {
         $TabUnit = array('', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix');
 
         $byCent = intval($Nombre / 100);
         $byReste = $Nombre - ($byCent * 100);
-        $strReste = $this->ConvNumDizaine($byReste, $Langue);
+        $strReste = $this->convNumDizaine($byReste, $Langue);
         switch ($byCent) {
             case 0:
                 $NumCent = $strReste;
