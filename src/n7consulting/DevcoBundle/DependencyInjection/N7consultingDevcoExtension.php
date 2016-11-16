@@ -1,6 +1,6 @@
 <?php
 
-namespace n7consulting\RhBundle\DependencyInjection;
+namespace n7consulting\DevcoBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class n7consultingRhExtension extends Extension
+class N7consultingDevcoExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -26,3 +26,4 @@ class n7consultingRhExtension extends Extension
         $loader->load('services.yml');
     }
 }
+
