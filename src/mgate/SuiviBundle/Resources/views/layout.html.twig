@@ -1,6 +1,6 @@
 {% extends "::layout.html.twig" %}
 
-{% block title %}Suivi:{% endblock %}
+{% block title %}{{ 'suivi.suivi'|trans({}, 'suivi') }}:{% endblock %}
 
 {% block content %}
 
@@ -8,13 +8,13 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 {% block content_title %}
-                    Suivi d'Étude
+                    {{ 'suivi.suivi_etude'|trans({}, 'suivi') }}
                 {% endblock %}
             </h3>
 
             {% block breadcrumb %}
                 <ul class="breadcrumb no-margin pull-right">
-                    <li><a href="{{ path('mgateSuivi_etude_homepage') }}">Suivi d'Étude</a></li>
+                    <li><a href="{{ path('mgateSuivi_etude_homepage') }}">{{ 'suivi.suivi_etude'|trans({}, 'suivi') }}</a></li>
                     {% if etude is defined %}
                         <li><a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ etude.reference }}</a></li>
                         <li class="active">-</li>

@@ -25,7 +25,7 @@ suivi:
     ap_modifier_un: Modifier un Avant-Projet
     repartitions_jeh_gestion: Gestion des Répartions JEH (à venir)
     phases_gestion: Gestion des Phases (à venir)
-    phase_ajouter: Ajouter une phase (à venir)
+    phase_ajouter: Ajouter une phase
     titre: Titre
     objectifs: Objectifs
     methodologie: Méthodologie
@@ -229,3 +229,39 @@ suivi:
     en_cours: En cours
     suivant: Suivant
     fin_le: Fin le
+    modifier_les: Modifier les
+    groupes: groupes
+    groupe_ajouter: Ajouter un groupe
+    groupes_enregistrer: Enregistrer les groupes
+    jeh_repartition: Répartition des JEH
+    jeh_ajouter: Ajouter des JEH
+    mission_ajouter: Ajouter une mission
+    missions_enregistrer: Enregistrer les missions
+    rm_enregistrer: Enregistrer le Récapitulatif de Mission
+    phase_pas_encore: Pas (encore !) de phase
+    phases_enregistrer: Enregistrer les phases
+    groupe: Groupe
+    objectif: Objectif
+    details: Détails
+    prix_jeh: Prix JEH
+    delai_jour: Délai (Jours)
+    proces_verbal_rediger: Rédiger un Procès-Verbal
+    proces_verbal_ajouter: Ajouter un Procès-Verbal
+    proces_verbal_enregistrer: Enregistrer le Procès-Verbal
+    proces_verbal_modifier: Modifier un Procès-Verbal
+    proces_verbal_supprimer_confirmation: Êtes-vous sûr de vouloir supprimer définitivement ce PV ?
+    proces_verbal_supprimer: Supprimer le Procès-Verbal
+    intermediaire: Intermédiaire
+    de_recette: de Recette #used for PV de recette
+    enregistrer: Enregistrer
+    proces_verbal_afficher: Affichage d'un PV
+    suivi_etude: Suivi d'Étude
+    suivi_nouveau_enregistrer: Enregistrer le nouveau suivi
+    suivi_nouveau_ajouter: Ajouter un nouveau suivi
+    suivi_etudes: Suivi des études
+    suivis_liste: Liste des Suivis
+    suivi_modifier: Modifier un Suivi
+    suivi_modifier_le: Modifier un Suivi
+    suivi_affichage: Affichage du suivi
+    historique: Historique
+

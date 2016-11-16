@@ -1,12 +1,12 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Accueil - {{ parent() }}
+    {{ 'suivi.accueil'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Liste des Avants-Projet</h2>
+    <h2>{{ 'suivi.ap_liste'|trans({}, 'suivi') }}</h2>
 
     <ul>
 
@@ -15,7 +15,7 @@
                 <a href="{{ path('mgateSuivi_etude_voir', {'id': phase.id}) }}"> </a>
             </li>
         {% else %}
-            <li>Pas (encore !) de phase</li>
+            <li>{{ 'suivi.phase_pas_encore'|trans({}, 'suivi') }}</li>
         {% endfor %}
 
     </ul>

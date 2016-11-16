@@ -1,28 +1,25 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Rédiger un Procès-Verbal - {{ parent() }}
+    {{ 'suivi.proces_verbal_rediger'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Ajouter un Procès-Verbal</h2>
+    <h2>{{ 'suivi.proces_verbal_ajouter'|trans({}, 'suivi') }}</h2>
 
-<form method="post" {{ form_enctype(form) }}>
+    <form method="post" {{ form_enctype(form) }}>
 
-	{{ form_widget(form) }}
+        {{ form_widget(form) }}
 
-	<input type="submit" value="Enregistrer le Procès-Verbal" class="btn btn-success"/>
-</form>
-
-
-    <p>---  </p>
-
+        <input type="submit" value="{{ 'suivi.proces_verbal_enregistrer'|trans({}, 'suivi') }}"
+               class="btn btn-success"/>
+    </form>
 {% endblock %}
 
 
 {% block javascript %}
     {{ parent() }}
     {{ form_javascript(form) }}
-    {% include "mgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.knownSignataire2, knowned: form.signataire2, newed: form.newSignataire2 }%}
+    {% include "mgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.knownSignataire2, knowned: form.signataire2, newed: form.newSignataire2 } %}
 {% endblock %}

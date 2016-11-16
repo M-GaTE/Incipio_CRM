@@ -12,10 +12,10 @@
 
 </style>
 
-<h2>Modifier les {{ form.groupes | length  }} groupes</h2>
+<h2>{{ 'suivi.modifier_les'|trans({}, 'suivi') }} {{ form.groupes | length  }} {{ 'suivi.groupes'|trans({}, 'suivi') }}</h2>
 <form method="POST" {{ form_enctype(form) }}>
-<p><input type="submit" value="Ajouter un groupe" name="add" class="btn btn-default"/>
- - <input type="submit" value="Enregistrer les groupes" class="btn btn-default" /></p>
+<p><input type="submit" value="{{ 'suivi.groupe_ajouter'|trans({}, 'suivi') }}" name="add" class="btn btn-default"/>
+ - <input type="submit" value="{{ 'suivi.groupes_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default" /></p>
 
         {# itere sur chaque tag existant et affiche son unique champ : name #}
             <div class="row groupes" id="groupes" data-prototype="{{ form_widget(form.groupes.vars.prototype) | e }}">
@@ -28,11 +28,11 @@
                             <th colspan="2"><div class="btn-group"></div>       <span class="titregroupe"></span> {{  form_widget(groupe.numero)}}</th>
                         </tr>
                         <tr>
-                            <th>Titre</th>
+                            <th>{{ 'suivi.titre'|trans({}, 'suivi') }}</th>
                             <td>{{  form_widget(groupe.titre)}}</td>
                         </tr>
                         <tr>
-                            <th>Description</th>
+                            <th>{{ 'suivi.description'|trans({}, 'suivi') }}</th>
                             <td>{{ form_widget(groupe.description)}}</td>
                         </tr>
                     </table>
@@ -43,12 +43,12 @@
     <br />
       {{ form_rest(form) }}
 
-<p><input type="submit" value="Ajouter un groupe" name="add" class="btn btn-default"/>
- - <input type="submit" value="Enregistrer les groupes" class="btn btn-default"/></p>
+<p><input type="submit" value="{{ 'suivi.groupe_ajouter'|trans({}, 'suivi') }}" name="add" class="btn btn-default"/>
+ - <input type="submit" value="{{ 'suivi.groupes_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default"/></p>
 
 </form>
 
-<a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">Retour à l'étude</a>
+<a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
 
 {% endblock %}
 

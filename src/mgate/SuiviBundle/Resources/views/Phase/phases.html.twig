@@ -16,13 +16,13 @@
 
     </style>
 
-    <h2>Modifier les {{ form.phases | length }} phases</h2>
+    <h2>{{ 'suivi.modifier_les'|trans({}, 'suivi') }} {{ form.phases | length }} {{ 'suivi.phases'|trans({}, 'suivi') }}</h2>
     <form method="POST" {{ form_enctype(form) }} id="form">
         {# affiche l'unique champ de la tache : description #}
         {#{ form_row(form.description) }#}
 
-        <p><input type="submit" value="Ajouter une phase" name="add" class="btn btn-info"/>
-            - <input type="submit" value="Enregistrer les phases" class="btn btn-default"/></p>
+        <p><input type="submit" value="{{ 'suivi.phase_ajouter'|trans({}, 'suivi') }}" name="add" class="btn btn-info"/>
+            - <input type="submit" value="{{ 'suivi.phases_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default"/></p>
 
         {# itere sur chaque tag existant et affiche son unique champ : name #}
         <div class="row table-responsive" data-prototype="{{ form_widget(form.phases.vars.prototype) | e }}">
@@ -32,15 +32,15 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th class="phase-plus-titre">Groupe</th>
-                    <th class="details-titre" style="display: none">Objectif</th>
-                    <th>Détails</th>
-                    <th>Titre</th>
-                    <th>nombre JEH</th>
-                    <th>Prix JEH</th>
-                    <th class="details-titre" style="display: none" colspan="2">Methodologie</th>
-                    <th class="phase-plus-titre">Date début</th>
-                    <th class="phase-plus-titre">Délai (Jours)</th>
+                    <th class="phase-plus-titre">{{ 'suivi.groupe'|trans({}, 'suivi') }}</th>
+                    <th class="details-titre" style="display: none">{{ 'suivi.objectif'|trans({}, 'suivi') }}</th>
+                    <th>{{ 'suivi.details'|trans({}, 'suivi') }}</th>
+                    <th>{{ 'suivi.titre'|trans({}, 'suivi') }}</th>
+                    <th>{{ 'suivi.jeh_nombre'|trans({}, 'suivi') }}</th>
+                    <th>{{ 'suivi.prix_jeh'|trans({}, 'suivi') }}</th>
+                    <th class="details-titre" style="display: none" colspan="2">{{ 'suivi.methodologie'|trans({}, 'suivi') }}</th>
+                    <th class="phase-plus-titre">{{ 'suivi.date_debut'|trans({}, 'suivi') }}</th>
+                    <th class="phase-plus-titre">{{ 'suivi.delai_jour'|trans({}, 'suivi') }}</th>
                 </tr>
                 </thead>
                 <tbody id="phases">
@@ -80,12 +80,12 @@
             <br/>
             {{ form_rest(form) }}
             </div>
-            <p><input type="submit" value="Ajouter une phase" name="add" class="btn btn-info"/>
-                - <input type="submit" value="Enregistrer les phases" class="btn btn-default"/></p>
+            <p><input type="submit" value="{{ 'suivi.phase_ajouter'|trans({}, 'suivi') }}" name="add" class="btn btn-info"/>
+                - <input type="submit" value="{{ 'suivi.phases_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default"/></p>
 
     </form>
 
-    <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">Retour à l'étude</a>
+    <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
 
 
 
@@ -154,7 +154,7 @@
             //ajout d'une ligne contenant les totaux.
             $("#totalNbrJEH").text(totalJEH+" JEH");
             $("#totalPrixJEH").html(totalPrix+" &euro;");
-        }
+        };
         $("#form").change(evaluateTotal);
 
 

@@ -5,8 +5,8 @@
     <h2>Modifier les {{ form.missions | length }} intervenants</h2>
     <form name="missionsForm" method="POST" {{ form_enctype(form) }}>
 
-        <p><br/><input type="submit" value="Ajouter une mission" name="add" class="btn"/> -
-            <input type="submit" value="Enregistrer les missions" class="btn"/></p>
+        <p><br/><input type="submit" value="{{ 'suivi.mission_ajouter'|trans({}, 'suivi') }}" name="add" class="btn"/> -
+            <input type="submit" value="{{ 'suivi.missions_enregistrer'|trans({}, 'suivi') }}" class="btn"/></p>
         <input type="hidden" value="" name="idMission" id="idMission"/>
 
 
@@ -31,7 +31,7 @@
 
     </form>
 
-    <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">Retour à l'étude</a>
+    <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
 
 {% endblock %}
 
