@@ -1,6 +1,7 @@
 n7consultingDevco_homepage:
     path:     /
     defaults: { _controller: n7consultingDevcoBundle:Appel:index }
+    methods: [GET, HEAD]
 
 
 n7consultingDevco_appel_voir:
