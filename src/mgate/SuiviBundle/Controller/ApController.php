@@ -107,7 +107,7 @@ class ApController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function SuiviAction($id)
+    public function suiviAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
