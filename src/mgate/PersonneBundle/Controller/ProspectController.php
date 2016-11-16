@@ -180,7 +180,6 @@ class ProspectController extends Controller
     /**
      * Point d'entré ajax retournant un json des prospect dont le nom contient une partie de $_GET['term'].
      *
-     * @Route("/ajax_prospect", name="ajax_prospect")
      * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajaxProspectAction(Request $request)

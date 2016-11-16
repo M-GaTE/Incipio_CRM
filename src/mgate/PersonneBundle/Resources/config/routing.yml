@@ -169,3 +169,8 @@ mgatePersonne_ajax_employes_de_prospect:
     requirements:
         id: \d+
     methods: [GET, HEAD]
+
+mgatePersonne_ajax_prospect:
+    path: /ajax/ajax_prospect/
+    defaults: { _controller: mgatePersonneBundle:Prospect:ajaxProspect}
+    methods: [GET, HEAD]
