@@ -70,9 +70,9 @@ doctrine:
                 auto_mapping: true
                 dql:
                     datetime_functions:
-                        day: mgate\DashboardBundle\DQL\Day
-                        year: mgate\DashboardBundle\DQL\Year
-                        month: mgate\DashboardBundle\DQL\Month
+                        day: Mgate\DashboardBundle\DQL\Day
+                        year: Mgate\DashboardBundle\DQL\Year
+                        month: Mgate\DashboardBundle\DQL\Month
                 mappings:
                     gedmo_translatable:
                         type: annotation
@@ -115,15 +115,15 @@ genemu_form:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main # Nom du firewall security.yml
-    user_class: mgate\UserBundle\Entity\User # La classe de l'entité User a modifier
+    user_class: Mgate\UserBundle\Entity\User # La classe de l'entité User a modifier
     service:
         mailer: fos_user.mailer.twig_swift
     registration:
       confirmation:
         enabled:    true
     from_email:
-        address:        no-reply@n7consulting.fr
-        sender_name:    Erp.n7consulting.fr
+        address:        no-reply@N7consulting.fr
+        sender_name:    Erp.N7consulting.fr
 
 
 #CommentBundle
@@ -141,8 +141,8 @@ fos_comment:
     db_driver: orm
     class:
         model:
-            comment: mgate\CommentBundle\Entity\Comment
-            thread:  mgate\CommentBundle\Entity\Thread
+            comment: Mgate\CommentBundle\Entity\Comment
+            thread:  Mgate\CommentBundle\Entity\Thread
 
 #RestBundle bundle supplémentaire pour le bon fonctionnement de Comment
 fos_rest:

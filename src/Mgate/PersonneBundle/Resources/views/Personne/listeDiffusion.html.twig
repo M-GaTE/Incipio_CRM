@@ -1,0 +1,57 @@
+{% extends "MgatePersonneBundle::layout.html.twig" %}
+{% block title %}Liste de diffusions{% endblock %}
+
+{% block content_title %}
+    Liste de diffusions
+{% endblock %}
+
+{% block content_bundle %}
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>Liste de diffusion client - Abonné Newsletter</td>
+        <td>Liste de diffusion membre Mail Externe - Newsletter</td>
+        <td>Liste de diffusion membre Mail étu - Newsletter</td>
+    </tr>
+    <tr>
+        <td>
+            {% for personne in personnes if personne.employe and personne.emailestvalide and personne.estabonnenewsletter and personne.email %}
+                {{personne.prenomNom }} &lt;{{ personne.email }}&gt;;<br />
+            {% endfor %}
+        </td>
+        <td>
+            {% for personne in personnes if personne.membre and personne.emailestvalide and personne.estabonnenewsletter and  personne.email %}
+                {{personne.prenomNom }} &lt;{{ personne.email }}&gt;;<br />
+            {% endfor %}
+        </td>
+        <td>
+            {% for personne in personnes if personne.membre and personne.emailestvalide and personne.estabonnenewsletter  %}
+                {{personne.prenomNom }} &lt;{{ personne.membre.emailEMSE }}&gt;;<br />
+            {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>Liste de diffusion client - Complète</td>
+        <td>Liste de diffusion membre Mail Externe - Complète</td>
+        <td>Liste de diffusion membre Mail étu - Complète</td>
+    </tr>
+    <tr>
+        <td>
+            {% for personne in personnes if personne.employe and personne.email and personne.emailestvalide %}{{personne.prenomNom }} &lt;{{ personne.email }}&gt;;<br />{% endfor %}
+        </td>
+        <td>
+            {% for personne in personnes if personne.membre and personne.email and personne.emailestvalide %}{{personne.prenomNom }} &lt;{{ personne.email }}&gt;;<br />{% endfor %}
+        </td>
+        <td>
+            {% for personne in personnes if personne.membre %}{{personne.prenomNom }} &lt;{{ personne.membre.emailEMSE }}&gt;;<br />{% endfor %}
+        </td>
+    </tr>
+</table>
+<h3>Liste de diffusion cotisant ({{ nbrCotisantsEtu}})(mails école)</h3>
+<pre>
+{{ cotisantsEtu }}
+</pre>
+<h3>Liste de diffusion cotisant ({{ nbrCotisants }}) (hors mails école)</h3>
+<pre>
+{{ cotisants }}
+</pre>
+{% endblock %}

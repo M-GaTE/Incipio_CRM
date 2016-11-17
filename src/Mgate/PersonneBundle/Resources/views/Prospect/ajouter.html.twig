@@ -1,0 +1,15 @@
+{% extends "MgatePersonneBundle::layout.html.twig" %}
+
+
+{% block title %}
+    Ajouter un Prospect
+{% endblock %}
+
+{% block content_title %}
+    Ajouter un Prospect
+{% endblock %}
+
+{% block content_bundle %}
+    {% include "MgatePersonneBundle:Prospect:formulaire.html.twig" %}
+    {{ format }}
+{% endblock %}

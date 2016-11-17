@@ -1,0 +1,72 @@
+{# Page de liste des impayés : les personnes s'étant inscrites à la Junior mais dont le format de paiement n'est pas défini. #}
+{% extends "MgatePersonneBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">     <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block title %}Liste des Impayés - {{ parent() }}{% endblock %}
+
+{% block content_title %}
+    Liste des Impayés
+{% endblock %}
+
+{% block content_bundle %}
+    <p>Membres n'ayant pas payés leur cotisation à l'inscription ou dont le moyen de paiement n'est pas renseigné.</p>
+    <table class="table table-bordered table-striped dataTable dt-responsive" id="listeImpayes" role="grid">
+        <thead>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Promotion</th>
+            <th>Mobile</th>
+            <th>Adresse</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for membre in membres %}
+            <tr>
+                <td>
+                    <a href="{{ path('MgatePersonne_membre_voir', {'id': membre.id}) }}">{{ membre.personne ? membre.personne.prenom }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('MgatePersonne_membre_voir', {'id': membre.id}) }}">{{ membre.personne ? membre.personne.nom }}</a>
+                </td>
+                <td>{{ membre.personne ? membre.personne.email }}</td>
+                <td style="text-align: center;"><h4><span
+                                class="label label-default">{{ membre.promotion ? "P" ~ membre.promotion }}</span>
+                </td>
+                <td>{{ membre.personne ? membre.personne.mobile }}</td>
+                <td>{{ membre.personne ? membre.personne.adresse }} {{ membre.personne ? membre.personne.codepostal }} {{ membre.personne ? membre.personne.ville }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#listeImpayes').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "iDisplayLength": 50,
+                "aaSorting": [[3, 'desc']]
+            });
+        });
+    </script>
+{% endblock %}

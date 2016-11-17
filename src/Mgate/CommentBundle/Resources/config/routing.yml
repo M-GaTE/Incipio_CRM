@@ -1,0 +1,4 @@
+MgateCommentBundle_maintenance:
+    path:  /comment/maintenance
+    defaults: { _controller: MgateCommentBundle:Default:maintenance }
+    methods: [GET, HEAD]

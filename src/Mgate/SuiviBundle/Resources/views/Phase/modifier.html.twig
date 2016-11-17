@@ -1,0 +1,20 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'suivi.etude_modifier'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+{% block content_bundle %}
+
+    <h2>{{ 'suivi.ap_modifier'|trans({}, 'suivi') }}</h2>
+
+    {% include "MgateSuiviBundle:Etude:formulaire.html.twig" %}
+
+    <p>Modification d'un Avant-Projet</p>
+
+    <p>
+        <a href="{{ path('MgateSuivi_ap_voir', {'id': etude.id}) }}" >{{ 'suivi.retour'|trans({}, 'suivi') }}</a>
+    </p>
+
+{% endblock %}
+

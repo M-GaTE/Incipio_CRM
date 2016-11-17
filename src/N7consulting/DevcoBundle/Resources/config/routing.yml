@@ -1,0 +1,31 @@
+N7consultingDevco_homepage:
+    path:     /
+    defaults: { _controller: N7consultingDevcoBundle:Appel:index }
+    methods: [GET, HEAD]
+
+
+N7consultingDevco_appel_voir:
+    path:   /appel/{id}
+    defaults:  { _controller: N7consultingDevcoBundle:Appel:voir}
+    requirements:
+        id:  \d+
+    methods:  [GET, HEAD]
+
+N7consultingDevco_appel_ajouter:
+    path: /appel/add
+    defaults: {_controller: N7consultingDevcoBundle:Appel:ajouter}
+    methods:  [GET, HEAD, POST]
+
+N7consultingDevco_appel_modifier:
+    path: /appel/modifier/{id}
+    defaults: {_controller: N7consultingDevcoBundle:Appel:modifier}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]
+
+N7consultingDevco_appel_supprimer:
+    path: /appel/supprimer/{id}
+    defaults: {_controller: N7consultingDevcoBundle:Appel:delete}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]

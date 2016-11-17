@@ -1,0 +1,24 @@
+{% extends "MgatePersonneBundle::layout.html.twig" %}
+
+{#
+{% if format=='mini' %}
+    {% block menu %}
+    {% endblock %}
+    {% block submenu %}
+    {% endblock %}
+{% else %}
+
+
+{% endif %}
+    #}
+
+
+{% block content_bundle %}
+
+  <h2>Ajouter un Employé à "{{ prospect.nom }}"</h2>
+
+  {% include "MgatePersonneBundle:Employe:formulaire.html.twig" %}
+
+
+
+{% endblock %}

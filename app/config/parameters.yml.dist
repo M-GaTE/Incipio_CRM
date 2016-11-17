@@ -12,7 +12,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
     
-    su_mail:      contact@n7consulting.fr
+    su_mail:      contact@N7consulting.fr
     su_username:  admin
     su_password:  admin
     
@@ -28,10 +28,10 @@ parameters:
         nom:          N7 Consulting
         abbr:         N7C
         id:           ~
-        email:        contact@n7consulting.fr
-        logo:         https://n7consulting.fr/themes/IOTH-bootstrap-basic/assets/images/logo_n7consulting.png
+        email:        contact@N7consulting.fr
+        logo:         https://N7consulting.fr/themes/IOTH-bootstrap-basic/assets/images/logo_N7consulting.png
         adresse:      2 Rue Charles Camichel
-        url:          https://n7consulting.fr
+        url:          https://N7consulting.fr
         ga_tracking:  ~
         authorizedStorageSize : 104857600
         domaineEmailEtu:    etu.enseeiht.fr

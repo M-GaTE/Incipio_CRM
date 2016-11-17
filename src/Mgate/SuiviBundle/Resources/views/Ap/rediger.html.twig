@@ -1,0 +1,123 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ 'suivi.ap_rediger'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+
+{% block content_bundle %}
+
+    <h2>{{ 'suivi.ap_rediger'|trans({}, 'suivi') }}</h2>
+<!--<a href="{{ path('MgatePersonne_employe_ajouter', {'prospect_id':etude.prospect.id, 'format':'mini'}) }}?KeepThis=true&TB_iframe=true&height=400&width=600" title="Ajouter un signataire" class="thickbox">Ajouter un signataire</a>-->
+
+
+<form method="post" {{ form_enctype(form) }}>
+    {% form_theme form 'MgateSuiviBundle:Form:fields.html.twig' %}
+	<table class="table table-bordered table-striped standard">
+	<tr>
+		<th>
+			{{ form_label(form.suiveur) }}
+            <div class="badge" title="Liste des personnes ayant exercées au moins 1 mandat" data-toggle="tooltip">?</div>
+        </th>
+        <td>{{ form_widget(form.suiveur) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.contactMgate) }}</th>
+        <td>{{ form_widget(form.ap.contactMgate) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.version) }}</th>
+        <td>{{ form_widget(form.ap.version) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.signataire1) }}</th>
+        <td>{{ form_widget(form.ap.signataire1) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.knownSignataire2) }}</th>
+        <td>{{ form_widget(form.ap.knownSignataire2) }}</td>
+	</tr>
+	<tr>
+		<th id="{{ form.ap.newSignataire2.vars.id }}_block" colspan="2" class="success">{{ 'suivi.signataire_client_ajouter'|trans({}, 'suivi') }}</th>
+    </tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.prenom) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.prenom) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.nom) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.nom) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.sexe) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.sexe) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.mobile) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.mobile) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.email) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.email) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.estAbonneNewsletter) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.estAbonneNewsletter) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.personne.emailEstValide) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.personne.emailEstValide) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.newSignataire2.poste) }}</th>
+		<td>{{ form_widget(form.ap.newSignataire2.poste) }}</td>
+	</tr>
+	<tr>
+		<th id="{{ form.ap.newSignataire2.vars.id }}_block" colspan="2" class="success">{{ 'suivi.avant_projet'|trans({}, 'suivi') }}</th>
+    </tr>
+	<tr>
+		<th>{{ form_label(form.ap.signataire2) }}</th>
+        <td>{{ form_widget(form.ap.signataire2) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.dateSignature) }}</th>
+        <td>{{ form_widget(form.ap.dateSignature) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.ap.nbrDev) }}</th>
+        <td>{{ form_widget(form.ap.nbrDev) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.fraisDossier) }}</th>
+        <td>{{ form_widget(form.fraisDossier) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.presentationProjet) }}</th>
+        <td>{{ form_widget(form.presentationProjet) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.descriptionPrestation) }}</th>
+        <td>{{ form_widget(form.descriptionPrestation) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.typePrestation) }}</th>
+        <td>{{ form_widget(form.typePrestation) }}</td>
+	</tr>
+	<tr>
+		<th>{{ form_label(form.competences) }}</th>
+        <td>{{ form_widget(form.competences) }}</td>
+	</tr>
+	</table>
+	{{ form_widget(form) }}
+
+    <input type="submit" value="{{ 'suivi.ap_enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
+    <input type="submit" value="{{ 'suivi.ap_enregistrer_phases_passer'|trans({}, 'suivi') }}" name="phases" class="btn btn-success"/>
+</form>
+
+{% endblock %}
+
+ {% block javascript %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+    {% include "MgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.ap.knownSignataire2, knowned: form.ap.signataire2, newed: form.ap.newSignataire2 }%}
+{% endblock %}

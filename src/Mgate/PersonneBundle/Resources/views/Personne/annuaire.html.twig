@@ -1,0 +1,77 @@
+{# page de visualisation de l'ensemble des personnes inscrites dans l'erp.#}
+
+{% extends "MgatePersonneBundle::layout.html.twig" %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.fontAwesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block title %}Annuaire - {{ parent() }}{% endblock %}
+
+{% block content_title %}
+    Annuaire
+{% endblock %}
+
+{% block content_bundle %}
+
+    <table class="table table-bordered table-striped dataTable dt-responsive" id="annuaire" role="grid">
+        <thead>
+        <tr>
+            <th>Liste</th>
+            <th>Prénom Nom</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Adresse</th>
+            {% if is_granted('ROLE_CA') %}
+                <th>Action</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for personne in personnes if personne.prenom != "Admin" %}
+            <tr>
+                <td>{{ personne.membre ? junior['abbr'] : personne.employe ? "Client" : "Autre" }}</td>
+                <td>{{ personne.prenomNom }}</td>
+                <td>{{ personne.email }}</td>
+                <td>{{ personne.mobile }}</td>
+                <td>{{ personne.adresse }}</td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') and  personne.membre == null and personne.employe == null %}
+                        <form id="confirm"
+                              action="{{ path('MgatePersonne_personne_supprimer', { 'id': personne.id }) }}"
+                              method="post">
+                            <button>Supprimer</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#annuaire').DataTable({
+                "paging": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "aaSorting": [[1, 'asc']]
+            });
+        });
+    </script>
+{% endblock %}

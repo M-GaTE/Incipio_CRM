@@ -1,0 +1,25 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ 'suivi.avenant_mission_modifier'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+{% block javascript %}
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block content_bundle %}
+
+
+
+    <h2>{{ 'suivi.avenant_mission_modifier'|trans({}, 'suivi') }}</h2>
+
+    {% include "MgateSuiviBundle:AvMission:formulaire.html.twig" %}
+
+
+    <p>
+        <a href="{{ path('MgateSuivi_avmission_voir', {'id': avmission.id}) }}" >{{ 'suivi.retour'|trans({}, 'suivi') }}</a>
+    </p>
+
+{% endblock %}
+

@@ -1,0 +1,4 @@
+services:
+#    N7consulting_rh.example:
+#        class: N7consulting\RhBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

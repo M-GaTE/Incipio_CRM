@@ -1,0 +1,23 @@
+{% extends "MgatePersonneBundle::layout.html.twig" %}
+
+{% block title %}Modifier un user - {{ parent() }}{% endblock %}
+
+{% block content_bundle %}
+
+	<h2>Modifier un user</h2>
+
+	{% include "MgatePersonneBundle:User:formulaire.html.twig" %}
+
+	<p>
+		Modification d'un user
+	</p>
+
+	<p>
+		<a href="{{ path('MgatePersonne_user_voir', {'id': user.id}) }}" >
+
+			Retour ?
+		</a>
+	</p>
+
+{% endblock %}
+

@@ -1,0 +1,33 @@
+parameters:
+    Mgate.etude_manager.class: Mgate\SuiviBundle\Manager\EtudeManager
+    Mgate.doctype_manager.class: Mgate\SuiviBundle\Manager\DocTypeManager
+    Mgate.chart_manager.class: Mgate\SuiviBundle\Manager\ChartManager
+
+services:
+    Mgate.etude_manager:
+        class: "%Mgate.etude_manager.class%"
+        arguments:
+          - "@doctrine.orm.entity_manager"
+          - "%tva%"
+        tags:
+            - { name: twig.extension }
+    Mgate.doctype_manager:
+        class: "%Mgate.doctype_manager.class%"
+        arguments:
+          - "@doctrine.orm.entity_manager"
+    Mgate.chart_manager:
+        class: "%Mgate.chart_manager.class%"
+        arguments:
+          - "@doctrine.orm.entity_manager"
+          - "@Mgate.etude_manager"
+          - "@logger"
+
+    form.type_extension.help_message:
+        class: Mgate\SuiviBundle\Form\Extension\HelpMessageTypeExtension
+        tags:
+          - { name: "form.type_extension", alias: "form" }
+
+    Mgate.email_etu:
+            class: Mgate\SuiviBundle\Manager\EmailEtuManager
+            arguments:
+              - "%junior%"
