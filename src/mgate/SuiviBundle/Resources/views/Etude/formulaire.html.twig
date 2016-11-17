@@ -1,9 +1,0 @@
-<form method="post" {{ form_enctype(form) }}>
-
-    {% form_theme form 'mgateSuiviBundle:Form:fields.html.twig' %}
-    {{ form_widget(form) }}
-
-
-	<input type="submit" value="{{ 'suivi.etude_enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
-        <input type="submit" value="{{ 'suivi.etude_enregistrer_passer_ap'|trans({}, 'suivi') }}" name="ap" id="ap" class="btn btn-default"/>
-</form>

@@ -3,7 +3,7 @@
 easy_admin:
     entities:
         Etude:
-            class: mgate\SuiviBundle\Entity\Etude
+            class: Mgate\SuiviBundle\Entity\Etude
             list :
                 fields:
                   - 'id'
@@ -14,32 +14,32 @@ easy_admin:
                   - 'stateDescription'
                   - 'confidentiel'
         Prospect:
-            class: mgate\PersonneBundle\Entity\Prospect
+            class: Mgate\PersonneBundle\Entity\Prospect
         Employe:
-            class: mgate\PersonneBundle\Entity\Employe
+            class: Mgate\PersonneBundle\Entity\Employe
         Personne:
-            class: mgate\PersonneBundle\Entity\Personne
+            class: Mgate\PersonneBundle\Entity\Personne
         Mandat:
-            class: mgate\PersonneBundle\Entity\Mandat
+            class: Mgate\PersonneBundle\Entity\Mandat
         Membre:
-            class: mgate\PersonneBundle\Entity\Membre
+            class: Mgate\PersonneBundle\Entity\Membre
         Poste:
-          class: mgate\PersonneBundle\Entity\Poste
+          class: Mgate\PersonneBundle\Entity\Poste
         User:
-            class: mgate\UserBundle\Entity\User
+            class: Mgate\UserBundle\Entity\User
         Competence:
-            class: n7consulting\RhBundle\Entity\Competence
+            class: N7consulting\RhBundle\Entity\Competence
         Appel:
-            class: n7consulting\DevcoBundle\Entity\Appel
+            class: N7consulting\DevcoBundle\Entity\Appel
         Avenant:
-            class: mgate\SuiviBundle\Entity\Av
+            class: Mgate\SuiviBundle\Entity\Av
             list :
                 fields:
                   - 'id'
                   - 'etude'
                   - 'objet'
         Mission:
-            class: mgate\SuiviBundle\Entity\Mission
+            class: Mgate\SuiviBundle\Entity\Mission
             list :
               fields:
                 - 'id'

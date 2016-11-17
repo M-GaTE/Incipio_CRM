@@ -1,0 +1,19 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+
+{% block content_bundle %}
+
+
+    <h2>{{ 'suivi.avenant_ajouter'|trans({}, 'suivi') }}</h2>
+
+    {% include "MgateSuiviBundle:Av:formulaire.html.twig" %}
+
+    <p>---  </p>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+    {% include "MgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.knownSignataire2, knowned: form.signataire2, newed: form.newSignataire2 }%}
+{% endblock %}

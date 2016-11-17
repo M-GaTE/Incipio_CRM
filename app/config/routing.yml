@@ -1,9 +1,9 @@
-n7consulting_devco:
-    resource: "@n7consultingDevcoBundle/Resources/config/routing.yml"
+N7consulting_devco:
+    resource: "@N7consultingDevcoBundle/Resources/config/routing.yml"
     prefix:   /devco
 
-n7consulting_rh:
-    resource: "@n7consultingRhBundle/Resources/config/routing.yml"
+N7consulting_rh:
+    resource: "@N7consultingRhBundle/Resources/config/routing.yml"
     prefix:   /rh
 
 ### Espace admin
@@ -12,40 +12,40 @@ easy_admin_bundle:
     type:     annotation
     prefix:   /over
 
-mgate_formation:
-    resource: "@mgateFormationBundle/Resources/config/routing.yml"
+Mgate_formation:
+    resource: "@MgateFormationBundle/Resources/config/routing.yml"
     prefix:   /
 
-mgateTresoBundle:
-    resource: "@mgateTresoBundle/Resources/config/routing.yml"
+MgateTresoBundle:
+    resource: "@MgateTresoBundle/Resources/config/routing.yml"
     prefix:   /Tresorerie
 
-mgate_stat:
-    resource: "@mgateStatBundle/Resources/config/routing.yml"
+Mgate_stat:
+    resource: "@MgateStatBundle/Resources/config/routing.yml"
     prefix:   /
 
-mgate_dashboard:
-    resource: "@mgateDashboardBundle/Resources/config/routing.yml"
+Mgate_dashboard:
+    resource: "@MgateDashboardBundle/Resources/config/routing.yml"
     prefix:   /
 
-mgate_publi:
-    resource: "@mgatePubliBundle/Resources/config/routing.yml"
+Mgate_publi:
+    resource: "@MgatePubliBundle/Resources/config/routing.yml"
     prefix:   /
 
-mgate_user:
-    resource: "@mgateUserBundle/Resources/config/routing.yml"
+Mgate_user:
+    resource: "@MgateUserBundle/Resources/config/routing.yml"
     prefix:   /
 
-mgateSuiviBundle:
-    resource: "@mgateSuiviBundle/Resources/config/routing.yml"
+MgateSuiviBundle:
+    resource: "@MgateSuiviBundle/Resources/config/routing.yml"
     prefix:   /suivi
 
-mgateCommentBundle:
-    resource: "@mgateCommentBundle/Resources/config/routing.yml"
+MgateCommentBundle:
+    resource: "@MgateCommentBundle/Resources/config/routing.yml"
     prefix:   /
 
-mgatePersonneBundle:
-    resource: "@mgatePersonneBundle/Resources/config/routing.yml"
+MgatePersonneBundle:
+    resource: "@MgatePersonneBundle/Resources/config/routing.yml"
     prefix:   /personne
 
 # Internal routing configuration to handle ESI

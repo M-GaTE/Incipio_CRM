@@ -51,18 +51,18 @@ class AppKernel extends Kernel
 			/****************************************
 			*				M-GaTE					*
 			*****************************************/
-			new mgate\UserBundle\MgateUserBundle(),
-			new mgate\PubliBundle\MgatePubliBundle(),
-            new mgate\DashboardBundle\MgateDashboardBundle(),
-            new mgate\StatBundle\MgateStatBundle(),
-            new mgate\TresoBundle\MgateTresoBundle(),
-            new mgate\FormationBundle\MgateFormationBundle(),
-			new mgate\PersonneBundle\MgatePersonneBundle(),
-            new mgate\CommentBundle\MgateCommentBundle(),
-			new mgate\SuiviBundle\MgateSuiviBundle(),
+			new Mgate\UserBundle\MgateUserBundle(),
+			new Mgate\PubliBundle\MgatePubliBundle(),
+            new Mgate\DashboardBundle\MgateDashboardBundle(),
+            new Mgate\StatBundle\MgateStatBundle(),
+            new Mgate\TresoBundle\MgateTresoBundle(),
+            new Mgate\FormationBundle\MgateFormationBundle(),
+			new Mgate\PersonneBundle\MgatePersonneBundle(),
+            new Mgate\CommentBundle\MgateCommentBundle(),
+			new Mgate\SuiviBundle\MgateSuiviBundle(),
 			new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
-            new n7consulting\RhBundle\N7consultingRhBundle(),
-            new n7consulting\DevcoBundle\N7consultingDevcoBundle(),
+            new N7consulting\RhBundle\N7consultingRhBundle(),
+            new N7consulting\DevcoBundle\N7consultingDevcoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

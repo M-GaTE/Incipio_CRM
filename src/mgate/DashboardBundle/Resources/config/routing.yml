@@ -1,9 +1,0 @@
-mgate_dashboard_homepage:
-    path:  /
-    defaults: { _controller: mgateDashboardBundle:Default:index }
-    methods:  [GET, HEAD]
-
-mgate_dashboard_search:
-    path: /search
-    defaults: { _controller: mgateDashboardBundle:Default:search }
-    methods:  [GET, HEAD]

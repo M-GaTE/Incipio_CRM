@@ -1,0 +1,22 @@
+{% extends "MgatePubliBundle::layout.html.twig" %}
+
+{% block title %}
+    Uploader un document - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+   Uploader un document type
+{% endblock %}
+
+{% block content_bundle %}
+    <form action="" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <input type="submit" value="Uploader" class="btn btn-warning"/>
+    </form>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+{% endblock %}

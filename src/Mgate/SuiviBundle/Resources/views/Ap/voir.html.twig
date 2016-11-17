@@ -1,0 +1,23 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ 'suivi.ap_afficher'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+{% block content_bundle %}
+
+    <h2>{{ 'suivi.ap'|trans({}, 'suivi') }} n°{{ ap.id }}</h2>
+
+    <i>{{ 'suivi.version'|trans({}, 'suivi') }} {{ap.version}}</i>
+
+    <div>
+
+    </div>
+
+    <p>
+        <a href="{{ path('MgateSuivi_etude_homepage') }}">{{ 'suivi.etudes_list_retour'|trans({}, 'suivi') }}</a>
+        <a href="{{ path('MgateSuivi_ap_rediger', {'id': etude.id}) }}">{{ 'suivi.ap_modifier'|trans({}, 'suivi') }}</a>
+
+    </p>
+
+{% endblock %}

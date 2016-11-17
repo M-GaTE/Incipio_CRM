@@ -1,0 +1,100 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'suivi.etude_ajouter'|trans({}, 'suivi') }}
+{% endblock %}
+
+{% block content_title %}
+    {{ 'suivi.etude_ajouter'|trans({}, 'suivi') }}
+{% endblock %}
+
+{% block content_bundle %}
+    <a href="{{ path('MgatePersonne_prospect_ajouter', {'format':'mini'}) }}?KeepThis=true&TB_iframe=true&height=400&width=600"
+       title="Ajouter un client" class="thickbox">{{ 'suivi.prospect_ajouter'|trans({}, 'suivi') }}</a>
+    {% for error in errors %}
+        <div class="alert alert-warning">
+            {{ error }}
+        </div>
+    {% endfor %}
+    <form method="post" {{ form_enctype(form) }}>
+
+        {% form_theme form 'MgateSuiviBundle:Form:fields.html.twig' %}
+        <br>
+        <table class="table table-bordered table-striped standard">
+            <tr>
+                <th>{{ form_label(form.knownProspect) }}</th>
+                <td>{{ form_widget(form.knownProspect) }}</td>
+            </tr>
+            <tr>
+                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">{{ 'suivi.prospect_nouveau'|trans({}, 'suivi') }}</th>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.newProspect.nom) }}</th>
+                <td>{{ form_widget(form.newProspect.nom) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.newProspect.entite) }}</th>
+                <td>{{ form_widget(form.newProspect.entite) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.newProspect.adresse) }}</th>
+                <td>{{ form_widget(form.newProspect.adresse) }}
+                    <br>{{ form_widget(form.newProspect.codepostal) }}
+                    {{ form_widget(form.newProspect.ville) }} {{ form_widget(form.newProspect.pays) }}
+                </td>
+            </tr>
+            <tr>
+                <th id="{{ form.newProspect.vars.id }}_block" colspan="2" class="success">{{ 'suivi.etude_l'|trans({}, 'suivi') }}</th>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.prospect) }}</th>
+                <td>{{ form_widget(form.prospect) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.nom) }}</th>
+                <td>{{ form_widget(form.nom) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.description) }}</th>
+                <td>{{ form_widget(form.description) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.mandat) }}</th>
+                <td>{{ form_widget(form.mandat) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.num) }}</th>
+                <td>{{ form_widget(form.num) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.confidentiel) }}</th>
+                <td>{{ form_widget(form.confidentiel) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.suiveur) }}</th>
+                <td>{{ form_widget(form.suiveur) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.domaineCompetence) }}</th>
+                <td>{{ form_widget(form.domaineCompetence) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.sourceDeProspection) }}</th>
+                <td>{{ form_widget(form.sourceDeProspection) }}</td>
+            </tr>
+        </table>
+        {{ form_widget(form) }}
+
+
+        <input type="submit" value="{{ 'suivi.etude_enregistrer'|trans({}, 'suivi') }}" class="btn"/>
+    </form>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+    {% include "MgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.knownProspect, knowned: form.prospect, newed: form.newProspect } %}
+{% endblock %}

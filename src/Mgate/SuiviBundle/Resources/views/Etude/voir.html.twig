@@ -1,0 +1,136 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+{{ 'suivi.etude_affichage'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+{% block content_bundle %}
+<div class="tabs-container no-margin">
+    <ul class="nav nav-tabs no-margin" style="font-weight: bold;">
+        <li class="active"><a href="#tab1" data-toggle="tab">{{ 'suivi.recapitulatif'|trans({}, 'suivi') }}</a></li>
+        <li><a href="#tab2" data-toggle="tab">{{ 'suivi.phases'|trans({}, 'suivi') }}</a></li>
+        <li><a href="#tab3" data-toggle="tab">{{ 'suivi.redaction_generation'|trans({}, 'suivi') }}</a></li>
+        {% if is_granted('ROLE_CA') %}
+        <li><a href="#tab4" data-toggle="tab">{{ 'suivi.suivi'|trans({}, 'suivi') }}</a></li>
+        {%endif%}
+        <li><a href="#tab5" data-toggle="tab">{{ 'suivi.document'|trans({}, 'suivi') }}</a></li>
+    </ul>
+    <div class="tab-content">
+    <!-- ERRORS -->
+    {% if etude.stateID | default(1) < 3 %}
+        {% include "MgateSuiviBundle:Etude:Infos/error.html.twig" with  {'etude':  etude} %}
+    {% endif %}
+    <!--        -->
+    <!-- RECAPITULATIF -->
+        <div class="tab-pane active" id="tab1">
+            {% include "MgateSuiviBundle:Etude:TabVoir/Recapitulatif.html.twig" with  {'etude':  etude} %}
+        </div>
+    <!-- PHASES -->
+        <div class="tab-pane" id="tab2" style="min-height:200px;">
+            {% include "MgateSuiviBundle:Etude:TabVoir/Phases.html.twig" with  {'etude':  etude} %}
+        </div>
+    <!-- SUIVI -->
+        <div class="tab-pane" id="tab3">
+            {% include "MgateSuiviBundle:Etude:TabVoir/Suivi.html.twig" with  {'etude':  etude} %}
+        </div>
+    <!-- SUIVI DOCUMENTS TYPES AUDIT -->
+    {% if is_granted('ROLE_CA') %}
+        <div class="tab-pane" id="tab4">
+        {% include "MgateSuiviBundle:Etude:TabVoir/Redaction.html.twig" with  {'etude':  etude} %}
+        </div>
+    {% endif %}
+     <!-- SUIVI DOCUMENTS TYPES AUDIT -->
+        <div class="tab-pane" id="tab5">
+        {% include "MgateSuiviBundle:Etude:TabVoir/Documents.html.twig" with  {'etude':  etude} %}
+        </div>
+    </div>
+</div>
+
+{#% if etude.thread|default('0') %#}
+    {#% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': etude.thread.id} %#}
+{#% endif %#}
+{% endblock %}
+
+{% block javascript_quick %}
+{{ parent() }}
+<script>
+//Egalisation de la hauteur des lignes des phases
+function equalHeight(group) {
+    var tallest = 0;
+    group.each(function() {
+        thisHeight = $(this).height();
+        if(thisHeight > tallest) {
+            tallest = thisHeight;
+        }
+    });
+    group.css("height" , tallest);
+}
+
+$(window).load(function(){
+    $("#tab2").addClass("active");
+    $("#methodo").addClass("active");
+    var nombreDeLigneParPhase = $(".egalize tr").length / $(".egalize").length;
+        for( var i = 1; i <= nombreDeLigneParPhase; i++){
+            equalHeight($(".egalize tr:nth-child("+i+") th"));
+        }
+    $("#methodo").removeClass("active");
+    $("#tab2").removeClass("active");
+});
+</script>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+{{ form_javascript(formSuivi) }}
+    <script src="{{ asset('js/highcharts.js') }}"></script>
+    <script src="{{ asset('js/highcharts-fr.js') }}"></script>
+    <script src="{{ asset('js/exporting.js') }}"></script>
+
+    <script type="text/javascript">
+        {{ chart(chart) }}
+    </script>
+
+    <script>
+    function docStateChange(){
+    $('.docTabRow').each(
+        function(i, e){
+            var ok = true;
+            $(e).children().children('input[type=checkbox]').each(
+                function(index, elem){
+                    ok = ok && elem.checked;
+                }
+            );
+            if(!ok)
+                $(e).children(':nth-child(2)').html('<span class="label label-important">Incomplet</span>');
+            else
+                $(e).children(':nth-child(2)').html('<span class="label label-success">Complet</span>');
+            ok = true;
+        }
+    );
+    }
+    $(document).ready(function() {
+        docStateChange();
+        //listen for the form beeing submitted
+        $("#myForm :input").change(function(){
+            $(".loading").show();
+            var $form = $(this).closest("form");
+            $.post($form.attr("action"), $form.serialize(),
+            function(data){
+                $(".loading").hide();
+
+                if(data.responseCode!=100 ){
+                   alert("An unexpeded error occured.");
+                   bootbox.alert(data, function() { });
+                   $('#output').html(data.msg);
+                }
+            });
+
+            //we dont what the browser to submit the form
+            return false;
+        });
+
+
+    });
+
+    </script>
+{% endblock %}

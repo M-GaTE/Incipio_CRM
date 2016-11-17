@@ -1,0 +1,16 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block javascript %}
+    {{ form_javascript(form) }}
+{% endblock %}
+
+{% block content_bundle %}
+
+
+    <h2>{{ 'suivi.avenant_mission_ajouter'|trans }}</h2>
+
+    {% include "MgateSuiviBundle:AvMission:formulaire.html.twig" %}
+
+    <p>---  </p>
+
+{% endblock %}

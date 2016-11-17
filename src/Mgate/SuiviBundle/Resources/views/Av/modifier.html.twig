@@ -1,0 +1,132 @@
+{% extends "MgateSuiviBundle::layout.html.twig" %}
+
+{% block title %}
+{{ 'suivi.ap_modifier_un'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+
+{% block content_bundle %}
+<style>
+        textarea{
+            width: 95%;
+            height: 100%;
+            resize:vertical;
+        }
+        select{
+            width: 98%;
+        }
+        input{
+            width: 95%;
+            height: 100%;
+        }
+
+        .warning *{
+            color: #FF6600;
+            background-color: #fcf8e3 !important;
+        }
+    </style>
+
+
+    <h2>{{ 'suivi.ap_modifier_un'|trans({}, 'suivi') }}</h2>
+
+    <form method="post" {{ form_enctype(form) }}>
+        <input type="submit" value="{{ 'suivi.ap_enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
+
+        <table class="table table-bordered table-striped" style="max-width: 800px">
+            <tr>
+                <td width="400px">{{  form_row(form.signataire1) }}</td>
+                <td>{{  form_row(form.signataire2) }}</td>
+            </tr>
+            <tr>
+                <td>{{  form_row(form.version) }}</td>
+                <td>{{  form_row(form.dateSignature) }}</td>
+            </tr>
+            <tr>
+                <td>{{  form_label(form.objet) }}</span></td>
+                <td>{{  form_widget(form.objet) }}</td>
+            </tr>
+            <tr>
+                <td>{{  form_label(form.clauses) }}</td>
+                <td>{{  form_widget(form.clauses) }}</td>
+            </tr>
+            <tr>
+                <td>{{  form_label(form.differentielDelai) }}</td>
+                <td>{{  form_widget(form.differentielDelai) }}</td>
+            </tr>
+        </table>
+        <span style="display:none;">
+        <h3>{{ 'suivi.repartitions_jeh_gestion'|trans({}, 'suivi') }}</h3>
+        <h3>{{ 'suivi.phases_gestion'|trans({}, 'suivi') }}</h3>
+        <h5><i class="icon-plus"></i> {{ 'suivi.phase_ajouter'|trans({}, 'suivi') }}</h5>
+        <div class="row">
+        {% for phase in form.phases %}
+        {% set change = changes[loop.index0] | default(0) %}
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th colspan="2"><div class="btn-group"></div>       <span class="titrePhase"></span> {{  form_widget(phase.position)}}</th>
+                        </tr>
+                        <tr class="{{ change and change.titre ? "warning" }}">
+                            <th>{{ 'suivi.titre'|trans({}, 'suivi') }}</th>
+                            <td>{{  form_widget(phase.titre)}}</td>
+                        </tr>
+                        <tr class="{{ change and change.objectif ? "warning" }}">
+                            <th>{{ 'suivi.objectifs'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.objectif)}}</td>
+                        </tr>
+                        <tr class="{{ change and change.methodo ? "warning" }}">
+                            <th>{{ 'suivi.methodologie'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.methodo)}}</td>
+                        </tr>
+                        <tr class="{{ change and change.nbrJEH ? "warning" }}">
+                            <th>{{ 'suivi.jeh_nombre'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.nbrJEH)}}</td>
+                        </tr>
+                        <tr class="{{ change and change.prixJEH ? "warning" }}">
+                            <th>{{ 'suivi.prix_jeh_ht'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.prixJEH)}}</td>
+                        </tr>
+                        <tr class="{{ change and change.dateDebut ? "warning" }}">
+                            <th>{{ 'suivi.date_debut'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.dateDebut)}}</td>
+                        </tr>
+                        <tr class="{{ change and change.delai ? "warning" }}">
+                            <th>{{ 'suivi.dejai_jours'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.delai)}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'suivi.etat_avenant'|trans({}, 'suivi') }}</th>
+                            <td>{{ form_widget(phase.etatSurAvenant)}}</td>
+                        </tr>
+                    </table>
+                </div>
+        {% endfor %}
+            </div>
+        </span>
+            {{ form_widget(form) }}
+                <input type="submit" value="{{ 'suivi.avenant_enregistrer'|trans({}, 'suivi') }}"/>
+        </form>
+
+
+
+        <p>
+            <a href="{{ path('MgateSuivi_av_voir', {'id': av.id}) }}" >{{ 'suivi.retour'|trans({}, 'suivi') }}</a>
+        </p>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+        <script>
+        $( document ).ready(function(){
+                $('input.position').each(function(i) {
+                    $(this).val( i );
+                });
+                $('.titrePhase').each(function(i) {
+                    $(this).text( 'Phase n°'+(i+1) );
+                });
+            });
+
+            </script>
+{% endblock %}

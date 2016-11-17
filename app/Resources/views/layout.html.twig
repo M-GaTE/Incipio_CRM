@@ -58,7 +58,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
     {% block main_header %}
         <header class="main-header hidden-print">
         {% if app.user is not empty and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <a href="{{ path('mgate_dashboard_homepage') }}" class="logo">
+            <a href="{{ path('Mgate_dashboard_homepage') }}" class="logo">
                 <span class="logo-mini"><b>{{ junior['abbr'] }}</b></span>
                 <span class="logo-lg">My {{ junior['abbr'] }}</span>
             </a>
@@ -67,7 +67,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
                     <span class="sr-only">Toggle navigation</span>
                 </a>
                 <div class="navbar-custom-menu">
-                    {% include "mgateDashboardBundle:Navbar:compte.html.twig" %}
+                    {% include "MgateDashboardBundle:Navbar:compte.html.twig" %}
                 </div>
             </nav>
         {% else %}
@@ -82,7 +82,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
                 {# L'utilisateur est connecté ! #}
                 <aside class="main-sidebar">
                     <section class="sidebar">
-                        {% include "mgateDashboardBundle:Navbar:staff.html.twig" %}
+                        {% include "MgateDashboardBundle:Navbar:staff.html.twig" %}
                     </section>
                 </aside>
             {% else %}
