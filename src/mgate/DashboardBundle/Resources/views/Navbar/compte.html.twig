@@ -2,14 +2,14 @@
     <li>
     <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="true"><i class="fa fa-cog"></i></a>
     <ul class="dropdown-menu" id="dropdown-notification-container">
-        <li class="header">Manuel d'utilisation</li>
+        <li class="header">{{ 'dashboard.manuel'|trans({}, 'dashboard') }}</li>
         <li class="divider"></li>
-        <li><a href="{{ asset('documents/guide.pdf') }}"><span class="fa fa-tags"></span> Guide utilisateur</a></li>
+        <li><a href="{{ asset('documents/guide.pdf') }}"><span class="fa fa-tags"></span> {{ 'dashboard.guide_utilisateur'|trans({}, 'dashboard') }}</a></li>
         <li class="header">{{ app.user.username }}</li>
-        <li><a href="{{ path('fos_user_profile_edit') }}"><span class="fa fa-pencil"></span> Modifier mon pseudo</a></li>
-        <li><a href="{{ path('fos_user_change_password') }}"><span class="fa fa-pencil"></span> Modifier mon mot de passe</a></li>
+        <li><a href="{{ path('fos_user_profile_edit') }}"><span class="fa fa-pencil"></span> {{ 'dashboard.pseudo_modifier'|trans({}, 'dashboard') }}</a></li>
+        <li><a href="{{ path('fos_user_change_password') }}"><span class="fa fa-pencil"></span> {{ 'dashboard.motdepasse_modifier'|trans({}, 'dashboard') }}se</a></li>
         <li class="divider"></li>
-        <li><a href="{{ path('fos_user_security_logout') }}"><span class="fa fa-times"></span> Déconnexion</a></li>
+        <li><a href="{{ path('fos_user_security_logout') }}"><span class="fa fa-times"></span> {{ 'dashboard.deconnexion'|trans({}, 'dashboard') }}</a></li>
     </ul>
     </li>
 	<li><div style="min-height: 32px; min-width: 32px;"><div class="loading"><img src="{{ asset('img/ajax-loader.gif') }}" /></div></div></li>

@@ -13,7 +13,7 @@ namespace mgate\CommentBundle\Manager;
 
 use FOS\CommentBundle\Acl\AclThreadManager as FOSthread;
 use Doctrine\ORM\EntityManager;
-use mgate\CommentBundle\Entity\Thread as mgateThread;
+use mgate\SuiviBundle\Entity\Etude;
 
 class ThreadManager
 {
@@ -26,18 +26,21 @@ class ThreadManager
         $this->em = $entitymanager;
     }
 
-    public function creerThread($name, $permaLink, $entity)
+    /**
+     * @param $name
+     * @param $permaLink
+     * @param Etude $entity
+     * Used  only in mgate\CommentBundle\Controller\DefaultController for undocumented purpose (maintenance ??)
+     */
+    public function creerThread($name, $permaLink, Etude $entity)
     {
         if (!$entity->getThread()) {
 
-            //get('fos_comment.manager.thread')
-            //$thread = new mgateThread;
 
             $thread = $this->tm->createThread($name.$entity->getId());
-            //$thread->setId($name.$entity->getId());
-            //$thread->setPermalink( $permaLink );
+            $thread->setPermalink($permaLink);//non exploité dans notre cas. Commentable.
             $entity->setThread($thread);
-            //$this->em->persist($thread);
+            //persist thread inutile, car cascade sur $entity.
 
             $this->em->flush();
         }

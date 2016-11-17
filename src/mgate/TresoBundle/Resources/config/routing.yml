@@ -18,13 +18,13 @@ mgateTreso_Declaratif_index:
 
 mgateTreso_Declaratif_TVA:
     path:  /Declaratifs/TVA
-    defaults: { _controller: mgateTresoBundle:Declaratif:TVA }
+    defaults: { _controller: mgateTresoBundle:Declaratif:tva }
     methods:  [GET, HEAD]
 
 
 mgateTreso_Declaratif_BRC:
     path:  /Declaratifs/BRC/{year}/{month}
-    defaults: { _controller: mgateTresoBundle:Declaratif:BRC, year: null, month: null }
+    defaults: { _controller: mgateTresoBundle:Declaratif:brc, year: null, month: null }
     methods:  [GET, HEAD, POST]
 
 ################################################################################

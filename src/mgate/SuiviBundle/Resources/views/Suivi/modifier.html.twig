@@ -1,7 +1,7 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Modifier un Suivi - {{ parent() }}
+	{{ 'suivi.suivi_modifier'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block javascript %}
@@ -11,13 +11,13 @@
 {% block content_bundle %}
 
 
-    <h2>Modifier le Suivi</h2>
+    <h2>{{ 'suivi.suivi_modifier'|trans({}, 'suivi') }}</h2>
 
     {% include "mgateSuiviBundle:Suivi:formulaire.html.twig" %}
 
 
     <p>
-        <a href="{{ path('mgateSuivi_clientcontact_voir', {'id': clientcontact.id}) }}" >Retour</a>
+        <a href="{{ path('mgateSuivi_clientcontact_voir', {'id': clientcontact.id}) }}" >{{ 'suivi.retour'|trans({}, 'suivi') }}</a>
     </p>
 
 {% endblock %}

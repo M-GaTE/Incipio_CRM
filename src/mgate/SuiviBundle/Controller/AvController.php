@@ -12,132 +12,12 @@
 namespace mgate\SuiviBundle\Controller;
 
 use mgate\SuiviBundle\Entity\Phase;
+use mgate\SuiviBundle\Entity\PhaseChange;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Av;
 use mgate\SuiviBundle\Form\Type\AvType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
-class PhaseChange
-{
-    private $position = false;
-    private $nbrJEH = false;
-    private $prixJEH = false;
-    private $titre = false;
-    private $objectif = false;
-    private $methodo = false;
-    private $dateDebut = false;
-    private $validation = false;
-    private $delai = false;
-
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    public function setPosition($x)
-    {
-        $this->position = $x;
-
-        return $this;
-    }
-
-    public function getNbrJEH()
-    {
-        return $this->nbrJEH;
-    }
-
-    public function getPrixJEH()
-    {
-        return $this->prixJEH;
-    }
-
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    public function getObjectif()
-    {
-        return $this->objectif;
-    }
-
-    public function getMethodo()
-    {
-        return $this->methodo;
-    }
-
-    public function getDateDebut()
-    {
-        return $this->dateDebut;
-    }
-
-    public function getValidation()
-    {
-        return $this->validation;
-    }
-
-    public function getDelai()
-    {
-        return $this->delai;
-    }
-
-    public function setNbrJEH($x)
-    {
-        $this->nbrJEH = $x;
-
-        return $this;
-    }
-
-    public function setPrixJEH($x)
-    {
-        $this->prixJEH = $x;
-
-        return $this;
-    }
-
-    public function setTitre($x)
-    {
-        $this->titre = $x;
-
-        return $this;
-    }
-
-    public function setObjectif($x)
-    {
-        $this->objectif = $x;
-
-        return $this;
-    }
-
-    public function setMethodo($x)
-    {
-        $this->methodo = $x;
-
-        return $this;
-    }
-
-    public function setDateDebut($x)
-    {
-        $this->dateDebut = $x;
-
-        return $this;
-    }
-
-    public function setValidation($x)
-    {
-        $this->validation = $x;
-
-        return $this;
-    }
-
-    public function setDelai($x)
-    {
-        $this->delai = $x;
-
-        return $this;
-    }
-}
 
 class AvController extends Controller
 {
@@ -151,8 +31,8 @@ class AvController extends Controller
         $entities = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
 
         return $this->render('mgateSuiviBundle:Av:index.html.twig', array(
-                    'etudes' => $entities,
-                ));
+            'etudes' => $entities,
+        ));
     }
 
     /**
@@ -182,11 +62,10 @@ class AvController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
 
         return $this->render('mgateSuiviBundle:Av:voir.html.twig', array(
-                    'av' => $entity,
-                /* 'delete_form' => $deleteForm->createView(),  */));
+            'av' => $entity,
+        ));
     }
 
     private function getPhaseByPosition($position, $array)
@@ -205,8 +84,8 @@ class AvController extends Controller
     private function mergePhaseIfNotNull($phaseReceptor, $phaseToMerge, $changes)
     {
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get'.$methode;
-            $setMethode = 'set'.$methode;
+            $getMethode = 'get' . $methode;
+            $setMethode = 'set' . $methode;
             if ($phaseToMerge->$getMethode() !== null) {
                 $changes->$setMethode(true);
                 $phaseReceptor->$setMethode($phaseToMerge->$getMethode());
@@ -217,8 +96,8 @@ class AvController extends Controller
     private function copyPhase($source, $destination)
     {
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get'.$methode;
-            $setMethode = 'set'.$methode;
+            $getMethode = 'get' . $methode;
+            $setMethode = 'set' . $methode;
             $destination->$setMethode($source->$getMethode());
         }
     }
@@ -227,7 +106,7 @@ class AvController extends Controller
     {
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get'.$methode;
+            $getMethode = 'get' . $methode;
             $isNotNull = $isNotNull || ($phase->$getMethode() !== null && $methode != 'Position');
         }
 
@@ -238,8 +117,8 @@ class AvController extends Controller
     {
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get'.$methode;
-            $setMethode = 'set'.$methode;
+            $getMethode = 'get' . $methode;
+            $setMethode = 'set' . $methode;
             if ($phaseReceptor->$getMethode() == $phaseToCompare->$getMethode() && $methode != 'Position') {
                 $phaseReceptor->$setMethode(null);
             } else {
@@ -349,9 +228,9 @@ class AvController extends Controller
         }
 
         return $this->render('mgateSuiviBundle:Av:modifier.html.twig', array(
-                    'form' => $form->createView(),
-                    'av' => $av,
-                    'changes' => $phasesChanges,
-                ));
+            'form' => $form->createView(),
+            'av' => $av,
+            'changes' => $phasesChanges,
+        ));
     }
 }

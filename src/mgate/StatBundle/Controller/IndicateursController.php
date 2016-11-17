@@ -161,20 +161,17 @@ class IndicateursController extends Controller
         for ($i = 0; $i <= $maxMandat; ++$i) {
             $nombreEtudesParMandat[$i] = 0;
         }
-        /*         * *************** */
 
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
             $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
                 || $etude->getStateID() == STATE_ID_TERMINEE_X;
-
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
-                ++$nombreEtudesParMandat[$idMandat];
+                $nombreEtudesParMandat[$idMandat] += 1;
             }
         }
-
         $data = array();
         $categories = array();
         foreach ($nombreEtudesParMandat as $idMandat => $datas) {
@@ -210,7 +207,7 @@ class IndicateursController extends Controller
     private function getRepartitionSorties()
     {
         $em = $this->getDoctrine()->getManager();
-        $mandat = $etudeManager = $this->get('mgate.etude_manager')->getMaxMandatCc();
+        $mandat = $this->get('mgate.etude_manager')->getMaxMandatCc();
 
         $nfs = $em->getRepository('mgateTresoBundle:NoteDeFrais')->findBy(array('mandat' => $mandat));
         $bvs = $em->getRepository('mgateTresoBundle:BV')->findBy(array('mandat' => $mandat));
@@ -247,17 +244,11 @@ class IndicateursController extends Controller
             $data[] = array($compte, 100 * $montantHT / $montantTotal);
         }
 
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
         $series = array(array('type' => 'pie', 'name' => 'Répartition des dépenses', 'data' => $data, 'Dépenses totale' => $montantTotal));
-
-        $ob = new Highchart();
+        $ob = $chartFactory->newPieChart($series);
         $ob->chart->renderTo(__FUNCTION__);
-        // Plot Options
-        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-        $ob->series($series);
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->credits->enabled(false);
         $ob->title->text('Répartition des dépenses selon les comptes comptables (Mandat en cours)');
-        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
@@ -357,7 +348,6 @@ class IndicateursController extends Controller
      */
     private function getPartClientFidel()
     {
-        $etudeManager = $this->get('mgate.etude_manager');
         $em = $this->getDoctrine()->getManager();
         $etudes = $em->getRepository('mgateSuiviBundle:Etude')->findAll();
 
@@ -398,7 +388,6 @@ class IndicateursController extends Controller
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
 
         $ob->series($series);
-        $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->credits->enabled(false);
         $ob->title->text('Taux de fidélisation (% de clients ayant demandé plusieurs études)');
@@ -607,9 +596,8 @@ class IndicateursController extends Controller
         }
 
         $data = array();
-        $categories = array();
         foreach ($repartitions as $type => $CA) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($CA / $chiffreDAffairesTotal * 100, 2));
@@ -617,15 +605,10 @@ class IndicateursController extends Controller
 
         $series = array(array('type' => 'pie', 'name' => 'Provenance de nos études par type de Client (tous mandats)', 'data' => $data, 'CA Total' => $chiffreDAffairesTotal));
 
-        $ob = new Highchart();
+        $chartFactory = $this->container->get('mgate_stat.chart_factory');
+        $ob = $chartFactory->newPieChart($series);
         $ob->chart->renderTo(__FUNCTION__);
-        // Plot Options
-        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
-        $ob->series($series);
-        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->credits->enabled(false);
         $ob->title->text("Répartition du CA selon le type de Client ($chiffreDAffairesTotal € CA)");
-        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
 
         return $this->render('mgateStatBundle:Indicateurs:Indicateur.html.twig', array(
             'chart' => $ob,
@@ -654,7 +637,7 @@ class IndicateursController extends Controller
         $data = array();
         $categories = array();
         foreach ($repartitions as $type => $nombre) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($nombre / $nombreClient * 100, 2));
@@ -849,10 +832,9 @@ class IndicateursController extends Controller
         $etudeManager = $this->get('mgate.etude_manager');
         $em = $this->getDoctrine()->getManager();
 
-        $Ccs = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
+        $Ccs = $em->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
 
         /* Initialisation */
-        $mandats = array();
         $cumuls = array();
         $cumulsJEH = array();
         $cumulsFrais = array();
@@ -942,7 +924,6 @@ class IndicateursController extends Controller
         $etudeManager = $this->get('mgate.etude_manager');
         $Ccs = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Cc')->findBy(array(), array('dateSignature' => 'asc'));
 
-        //$data = array();
         $mandats = array();
         $maxMandat = $etudeManager->getMaxMandatCc();
 
@@ -1030,7 +1011,6 @@ class IndicateursController extends Controller
         $etudeManager = $this->get('mgate.etude_manager');
         $missions = $this->getDoctrine()->getManager()->getRepository('mgateSuiviBundle:Mission')->findBy(array(), array('debutOm' => 'asc'));
 
-        //$data = array();
         $mandats = array();
         $maxMandat = $etudeManager->getMaxMandatCc();
 
@@ -1052,11 +1032,8 @@ class IndicateursController extends Controller
 
                 ++$cumuls[0];
 
-                //$interval = new \DateInterval('P' . ($maxMandat - $idMandat) . 'Y');
                 $dateDebutDecale = clone $dateDebut;
-                //$dateDebutDecale->add($interval);
                 $dateFinDecale = clone $dateFin;
-                //$dateFinDecale->add($interval);
 
                 $addDebut = true;
                 $addFin = true;
@@ -1103,13 +1080,8 @@ class IndicateursController extends Controller
             $dateDebut = $mission->getdebutOm();
 
             if ($dateDebut && $dateFin) {
-                $idMandat = $etudeManager->dateToMandat($dateFin);
-
-                //$interval2 = new \DateInterval('P'.($maxMandat-$idMandat).'Y');
                 $dateDebutDecale = clone $dateDebut;
-                //$dateDebutDecale->add($interval2);
                 $dateFinDecale = clone $dateFin;
-                //$dateFinDecale->add($interval2);
 
                 foreach ($mandats[2] as &$entree) {
                     if ($entree['x'] >= $dateDebutDecale->getTimestamp() * 1000 && $entree['x'] < $dateFinDecale->getTimestamp() * 1000) {
@@ -1184,9 +1156,8 @@ class IndicateursController extends Controller
         }
 
         $data = array();
-        $categories = array();
         foreach ($repartitions as $type => $nombre) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($nombre / $nombreClient * 100, 2));
@@ -1232,7 +1203,7 @@ class IndicateursController extends Controller
 
         $data = array();
         foreach ($repartitions as $type => $CA) {
-            if ($type == null) {
+            if ($type === null) {
                 $type = 'Autre';
             }
             $data[] = array($type, round($CA / $chiffreDAffairesTotal * 100, 2));

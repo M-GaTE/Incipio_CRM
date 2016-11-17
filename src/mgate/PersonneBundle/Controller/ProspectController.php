@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PersonneBundle\Form\Type\ProspectType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProspectController extends Controller
@@ -180,7 +179,6 @@ class ProspectController extends Controller
     /**
      * Point d'entré ajax retournant un json des prospect dont le nom contient une partie de $_GET['term'].
      *
-     * @Route("/ajax_prospect", name="ajax_prospect")
      * @Security("has_role('ROLE_SUIVEUR')")
      */
     public function ajaxProspectAction(Request $request)

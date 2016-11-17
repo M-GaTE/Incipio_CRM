@@ -32,7 +32,7 @@ class DeclaratifController extends Controller
     /**
      * @Security("has_role('ROLE_TRESO')")
      */
-    public function TVAAction(Request $request)
+    public function tvaAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -197,7 +197,7 @@ class DeclaratifController extends Controller
      * @param null    $year
      * @param null    $month
      */
-    public function BRCAction(Request $request, $year, $month)
+    public function brcAction(Request $request, $year, $month)
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder(array('message' => 'Date'))
@@ -220,7 +220,7 @@ class DeclaratifController extends Controller
                 )));
         }
 
-        if ($year == null || $month === null) {
+        if ($year === null || $month === null) {
             $date = new \DateTime('now');
             $month = $date->format('m');
             $year = $date->format('Y');

@@ -20,10 +20,8 @@ use mgate\CommentBundle\Entity\Thread;
 use mgate\PersonneBundle\Entity\Personne;
 use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PubliBundle\Entity\RelatedDocument;
-use mgate\SuiviBundle\Entity\ClientContact;
+
 use mgate\TresoBundle\Entity\Facture;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\DependencyInjection\ContainerAware;
 use n7consulting\RhBundle\Entity\Competence;
 
 /**
@@ -33,7 +31,7 @@ use n7consulting\RhBundle\Entity\Competence;
  * @ORM\Entity(repositoryClass="mgate\SuiviBundle\Entity\EtudeRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Etude extends ContainerAware
+class Etude
 {
     /************************
      *    ORM DEFINITIONS
@@ -52,9 +50,6 @@ class Etude extends ContainerAware
 
     /**
      * @var int
-     * @Assert\GreaterThan(value = 1966)
-     * Mandat > 1967 => mandat n'est pas utilisé pour compter les mandats depuis le début de la JE, mais comme l'année de prise de fonction.
-     * On n'utilise pas anneeCreation de parameters.yml pour limiter les effets de bords.
      * @ORM\Column(name="mandat", type="integer")
      */
     private $mandat;
@@ -297,7 +292,7 @@ class Etude extends ContainerAware
      * @ORM\PostPersist
      */
     public function createThread(LifecycleEventArgs $args){
-        if($this->getThread() == null) {
+        if($this->getThread() === null) {
             $em = $args->getEntityManager();
             $t = new Thread();
             $this->setThread($t);
@@ -314,7 +309,6 @@ class Etude extends ContainerAware
      */
     public function getReference()
     {
-        // return (string) ($this->getMandat() * 100 + $this->getNum());
         return $this->getNom();
     }
 
@@ -1567,7 +1561,7 @@ class Etude extends ContainerAware
         $this->procesVerbaux->removeElement($procesVerbaux);
     }
 
-    private function trieDateSignature($a, $b)
+    private function trieDateSignature(DocType $a,DocType $b)
     {
         if ($a->getDateSignature() == $b->getDateSignature()) {
             return 0;

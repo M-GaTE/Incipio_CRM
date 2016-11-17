@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block title %}
-    Suivi des études - {{ parent() }}
+    {{ 'suivi.suivi_etudes'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_title %}
-    Liste des Suivis
+    {{ 'suivi.suivis_liste'|trans({}, 'suivi') }}
 {% endblock %}
 
 
@@ -21,12 +21,12 @@
     <table class="table table-bordered table-striped dt-responsive" id="listeSuivi">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Etude</th>
-            <th>Suiveur</th>
-            <th>Client</th>
-            <th>Etat</th>
-            <th>Todo</th>
+            <th>{{ 'suivi.date'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.etude.etude'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.suiveur'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.client'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.etat'|trans({}, 'suivi') }}</th>
+            <th>{{ 'suivi.todo'|trans({}, 'suivi') }}</th>
         </tr>
         </thead>
         <tbody>

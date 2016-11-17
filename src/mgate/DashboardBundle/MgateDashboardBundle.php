@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\UserBundle;
+namespace mgate\DashboardBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateUserBundle extends Bundle
+class MgateDashboardBundle extends Bundle
 {
-    public function getParent()
+
+    public function __construct()
     {
-        return 'FOSUserBundle';
+        $this->name = 'mgateDashboardBundle';
     }
+
 }

@@ -1,23 +1,23 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Rédiger la Procès-Verbal - {{ parent() }}
+    {{ 'suivi.proces_verbal_rediger'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 
 {% block content_bundle %}
 
-    <h2>Rédiger le Procès-Verbal {% if type=="pvi" %}Intermédiaire{%elseif type=="pvr"%}de Recette{%endif%}</h2>
+    <h2>{{ 'suivi.proces_verbal_rediger'|trans({}, 'suivi') }} {% if type=="pvi" %}{{ 'suivi.intermediaire'|trans({}, 'suivi') }}{%elseif type=="pvr"%}{{ 'suivi.de_recette'|trans({}, 'suivi') }}{%endif%}</h2>
 
 <form method="post" {{ form_enctype(form) }}>
 	{{ form_widget(form) }}
-	<input type="submit" value="Enregistrer" class="btn btn-success"/>
+	<input type="submit" value="{{ 'suivi.enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
 </form>
 
 
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}" >Retour à l'Etude</a>
+        <a href="{{ path('mgateSuivi_etude_voir', {'nom': etude.nom}) }}" >{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
     </p>
 
 {% endblock %}

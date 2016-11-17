@@ -1,20 +1,20 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Affichage d'un Avant-Projet - {{ parent() }}
+    {{ 'suivi.phase'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Avant-Projet n°{{ etude.id }}</h2>
-    <i>Par le mandat {{ etude.mandat }}, créée le {{ etude.dateCreation|date("d/m/Y") }}</i>
-    <i>Client {{ etude.prospect.nom }} </i>
-    <i>Description de l'étude: {{etude.description }}</i>
+    <h2>{{ 'suivi.avant_projet'|trans({}, 'suivi') }} n°{{ etude.id }}</h2>
+    <i>{{ 'suivi.etude.faite_par'|trans({}, 'suivi') }} {{ etude.mandat }}, {{ 'suivi.etude.cree_le'|trans({}, 'suivi') }} {{ etude.dateCreation|date("d/m/Y") }}</i>
+    <i>{{ 'suivi.client'|trans({}, 'suivi') }} {{ etude.prospect.nom }} </i>
+    <i>{{ 'suivi.description'|trans({}, 'suivi') }}: {{etude.description }}</i>
     <br>
-    <h2>Avant-Projet</h2>
+    <h2>{{ 'suivi.avant_projet'|trans({}, 'suivi') }}</h2>
 
     {% for ap in etude.aps %}
-        <i>Version {{ap.id}}</i>
+        <i>{{ 'suivi.version'|trans({}, 'suivi') }} {{ap.id}}</i>
     {% endfor %}
 
     <div>
@@ -22,8 +22,8 @@
     </div>
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_homepage') }}">Retour à la liste</a>
-        <a href="{{ path('mgateSuivi_etude_modifier', {'nom': etude.nom}) }}">Modifier l'étude</a>
+        <a href="{{ path('mgateSuivi_etude_homepage') }}">{{ 'suivi.retour_liste'|trans({}, 'suivi') }}</a>
+        <a href="{{ path('mgateSuivi_etude_modifier', {'nom': etude.nom}) }}">{{ 'suivi.etude_modifier'|trans({}, 'suivi') }}</a>
 
     </p>
 

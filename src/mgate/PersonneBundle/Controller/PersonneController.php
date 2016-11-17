@@ -13,8 +13,6 @@ namespace mgate\PersonneBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use mgate\PersonneBundle\Entity\Membre;
-use mgate\PersonneBundle\Entity\Personne;
 
 class PersonneController extends Controller
 {
@@ -41,26 +39,9 @@ class PersonneController extends Controller
 
         $entities = $em->getRepository('mgatePersonneBundle:Personne')->getAllPersonne();
 
-        //$membres = $em->getRepository('mgatePersonneBundle:Membre')->getCotisants();
-
         $cotisants = array();
         $cotisantsEtu = array();
-        /* foreach ($membres as $cotisant) {
-         * $nom = $cotisant->getPersonne()->getNom().' '.$cotisant->getPersonne()->getPrenom();
-         *
-         * $mailEtu = $cotisant->getEmailEMSE();
-         * $mail = $cotisant->getPersonne()->getEmail();
-         * if ($mail !== null) {
-         * $cotisants[$nom] = $mail;
-         * }
-         * if ($mailEtu !== null) {
-         * $cotisantsEtu[$nom] = $mailEtu;
-         * }
-         * }
-         * ksort($cotisants);
-         * ksort($cotisantsEtu);
-         * **/
-
+        //Formely here (check git history if required) : membres mail management code commented.
         $nbrCotisants = count($cotisants);
         $nbrCotisantsEtu = count($cotisantsEtu);
 

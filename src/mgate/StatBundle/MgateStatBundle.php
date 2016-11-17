@@ -13,6 +13,12 @@ namespace mgate\StatBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateStatBundle extends Bundle
+class MgateStatBundle extends Bundle
 {
+
+    public function __construct()
+    {
+        $this->name = 'mgateStatBundle';
+    }
+
 }

@@ -1,15 +1,6 @@
 <?php
 
-/*
- * This file is part of the Incipio package.
- *
- * (c) Florian Lefevre
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace mgate\PubliBundle\DependencyInjection;
+namespace n7consulting\RhBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -21,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class mgatePubliExtension extends Extension
+class N7consultingRhExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -29,7 +20,7 @@ class mgatePubliExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

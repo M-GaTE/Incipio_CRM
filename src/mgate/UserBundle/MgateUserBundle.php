@@ -9,10 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\CommentBundle;
+namespace mgate\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateCommentBundle extends Bundle
+class MgateUserBundle extends Bundle
 {
+    public function getParent()
+    {
+        return 'FOSUserBundle';
+    }
+
+    public function __construct()
+    {
+        $this->name = 'mgateUserBundle';
+    }
+
 }

@@ -9,10 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace mgate\FormationBundle;
+namespace mgate\TresoBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class mgateFormationBundle extends Bundle
+class MgateTresoBundle extends Bundle
 {
+
+    public function __construct()
+    {
+        $this->name = 'mgateTresoBundle';
+    }
+
 }

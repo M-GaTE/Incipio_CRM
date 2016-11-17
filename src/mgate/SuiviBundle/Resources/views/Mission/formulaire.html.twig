@@ -46,12 +46,12 @@
 			<thead>
 			<tr>
 				<td colspan="4">
-					<button class="btn btn-sm" type="submit" value="Ajouter des JEH"
+					<button class="btn btn-sm" type="submit" value="{{ 'suivi.jeh_ajouter'|trans({}, 'suivi') }}"
 							name="addRepartition"
 							onclick="document.forms['missionsForm'].elements['idMission'].value = {{ loop.index0 }};"
-							title="Ajouter des JEH" data-toggle="tooltip">
+							title="{{ 'suivi.jeh_ajouter'|trans({}, 'suivi') }}" data-toggle="tooltip">
 						<i class="fa fa-plus"></i></button>
-					<h4 style="display: inline;">Répartition des JEH</h4>
+					<h4 style="display: inline;">{{ 'suivi.jeh_repartition'|trans({}, 'suivi') }}</h4>
 				</td>
 			</tr>
 			</thead>

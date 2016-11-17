@@ -18,7 +18,7 @@ class AvMissionType extends DocTypeType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //DocTypeType::buildForm($builder,$options);
+        // utiliser DocTypeType::buildForm($builder,$options) ?
     }
 
     public function getName()

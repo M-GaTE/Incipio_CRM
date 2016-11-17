@@ -14,7 +14,6 @@ namespace mgate\SuiviBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\SuiviBundle\Entity\Ap;
-use mgate\SuiviBundle\Entity\Etude;
 use mgate\SuiviBundle\Form\Type\ApType;
 use mgate\SuiviBundle\Form\Type\DocTypeSuiviType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -56,11 +55,9 @@ class ApController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('mgateSuiviBundle:Ap:voir.html.twig', array(
                     'ap' => $entity,
-                /* 'delete_form' => $deleteForm->createView(),  */));
+                ));
     }
 
     /**
@@ -86,7 +83,7 @@ class ApController extends Controller
         $form = $this->createForm(new ApType(), $etude, array('prospect' => $etude->getProspect()));
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $this->get('mgate.doctype_manager')->checkSaveNewEmploye($etude->getAp());
@@ -110,7 +107,7 @@ class ApController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function SuiviAction($id)
+    public function suiviAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 

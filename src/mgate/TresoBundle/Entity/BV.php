@@ -14,8 +14,8 @@ namespace mgate\TresoBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use mgate\SuiviBundle\Entity\Mission;
-use mgate\TresoBundle\Entity\BaseURSSAF;
-use mgate\TresoBundle\Entity\CotisationURSSAF;
+
+
 
 /**
  * BV.

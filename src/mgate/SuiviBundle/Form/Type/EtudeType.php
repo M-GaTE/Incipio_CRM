@@ -15,7 +15,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use mgate\PersonneBundle\Entity\PersonneRepository;
-use mgate\PersonneBundle\Entity\Prospect;
 use mgate\PersonneBundle\Form\Type\ProspectType;
 use mgate\SuiviBundle\Entity\Etude;
 

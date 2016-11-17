@@ -1,12 +1,12 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Accueil - {{ parent() }}
+    {{ 'suivi.accueil'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Liste des Avants-Projet</h2>
+    <h2>Liste des PV</h2>
 
     <ul>
 

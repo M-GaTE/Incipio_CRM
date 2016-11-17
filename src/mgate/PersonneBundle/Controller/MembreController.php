@@ -14,7 +14,6 @@ namespace mgate\PersonneBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use mgate\PersonneBundle\Entity\Membre;
-use mgate\PersonneBundle\Entity\Personne;
 use mgate\PersonneBundle\Entity\Mandat;
 use mgate\PersonneBundle\Form\Type\MembreType;
 use mgate\PubliBundle\Entity\RelatedDocument;
@@ -227,8 +226,7 @@ class MembreController extends Controller
                 $form = $this->createForm(new MembreType(), $membre);
             }
         }
-        //if ($this->get('request')->get('save'))
-         //   return $this->redirect($this->generateUrl('mgatePersonne_membre_voir', array('id' => $membre->getId())));
+
 
         return $this->render('mgatePersonneBundle:Membre:modifier.html.twig', array(
                     'form' => $form->createView(),
@@ -245,7 +243,7 @@ class MembreController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

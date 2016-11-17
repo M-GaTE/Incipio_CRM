@@ -13,10 +13,10 @@ namespace mgate\SuiviBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use mgate\SuiviBundle\Entity\Av;
-use mgate\SuiviBundle\Entity\Etude;
-use mgate\SuiviBundle\Entity\Mission;
-use mgate\SuiviBundle\Entity\RepartitionJEH;
+
+
+
+
 
 /**
  * mgate\SuiviBundle\Entity\AvMission.

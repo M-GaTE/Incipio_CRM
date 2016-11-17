@@ -1,18 +1,18 @@
 {% extends "mgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-	Affichage d'un PV - {{ parent() }}
+	{{ 'suivi.proces_verbal_afficher'|trans({}, 'suivi') }} - {{ parent() }}
 {% endblock %}
 
 {% block content_bundle %}
 
-    <h2>Procès-Verbal {% if procesverbal.type=="pvi" %}Intermédiaire{%elseif procesverbal.type=="pvr"%}de Recette{%endif%} (id:{{ procesverbal.id }})</h2>
+    <h2>{{ 'suivi.proces_verbal'|trans({}, 'suivi') }} {% if procesverbal.type=="pvi" %}{{ 'suivi.intermediaire'|trans({}, 'suivi') }}{%elseif procesverbal.type=="pvr"%}{{ 'suivi.de_recette'|trans({}, 'suivi') }}{%endif%} (id:{{ procesverbal.id }})</h2>
 
-    <i>Version {{procesverbal.version}}</i>
+    <i>{{ 'suivi.version'|trans({}, 'suivi') }} {{procesverbal.version}}</i>
 
     <p>
-        <a href="{{ path('mgateSuivi_etude_homepage') }}">Retour à la liste des études</a><br />
-        <a href="{{ path('mgateSuivi_procesverbal_modifier', {'id_pv': procesverbal.id}) }}">Modifier le Procès-Verbal</a>
+        <a href="{{ path('mgateSuivi_etude_homepage') }}">{{ 'suivi.etudes_list_retour'|trans({}, 'suivi') }}</a><br />
+        <a href="{{ path('mgateSuivi_procesverbal_modifier', {'id_pv': procesverbal.id}) }}">{{ 'suivi.proces_verbal_modifier'|trans({}, 'suivi') }}</a>
 
     </p>
 

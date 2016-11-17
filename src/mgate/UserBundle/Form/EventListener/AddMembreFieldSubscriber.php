@@ -13,19 +13,12 @@ namespace mgate\UserBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use mgate\PersonneBundle\Entity\PersonneRepository;
 use mgate\PersonneBundle\Entity\Personne;
 
 class AddMembreFieldSubscriber implements EventSubscriberInterface
 {
-    private $factory;
-
-    public function __construct(FormFactoryInterface $factory)
-    {
-        $this->factory = $factory;
-    }
 
     public static function getSubscribedEvents()
     {

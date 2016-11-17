@@ -15,8 +15,8 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use mgate\PersonneBundle\Entity\Membre;
-use mgate\PersonneBundle\Entity\Poste;
+
+
 
 /**
  * Mandat.

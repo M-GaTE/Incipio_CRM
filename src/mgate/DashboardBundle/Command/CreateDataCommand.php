@@ -3,9 +3,8 @@
 namespace mgate\DashboardBundle\Command;
 
 use mgate\SuiviBundle\Entity\Mission;
-use n7consulting\RhBundle\Entity\Competence;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
+
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use mgate\PersonneBundle\Entity\Employe;

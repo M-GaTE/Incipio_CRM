@@ -12,8 +12,8 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use mgate\PersonneBundle\Entity\Personne;
-use mgate\PersonneBundle\Entity\Prospect;
+
+
 
 /**
  * mgate\PersonneBundle\Entity\Employe.

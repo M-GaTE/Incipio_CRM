@@ -238,10 +238,6 @@ class SiajeEtudeImporter extends CsvImporter implements FileImporterInterface
                         }
                     }
                     $i++;
-//                    if ($i % 25 == 0 or true) {
-//                        $this->em->flush();
-//                        $this->em->clear();
-//                    }
 
                 }
                 fclose($handle);

@@ -35,4 +35,17 @@ class ChartFactory
 
         return $ob;
     }
+
+    public function newPieChart($series){
+        $ob = new Highchart();
+
+        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
+        $ob->series($series);
+        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
+        $ob->credits->enabled(false);
+        $ob->title->text('Répartition des dépenses selon les comptes comptables (Mandat en cours)');
+        $ob->tooltip->pointFormat('{point.percentage:.1f} %');
+
+        return $ob;
+    }
 }

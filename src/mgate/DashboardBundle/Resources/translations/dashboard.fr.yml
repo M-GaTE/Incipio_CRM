@@ -1,0 +1,61 @@
+dashboard:
+  manuel: Manuel d'utilisation
+  guide_utilisateur: Guide utilisateur
+  pseudo_modifier: Modifier mon pseudo
+  motdepasse_modifier: Modifier mon mot de pas
+  deconnexion: Déconnexion
+  rechercher: Search...
+  membres: Membres
+  membres_lister: Lister les membres
+  intervenants_lister: Lister les intervenants
+  impayes_lister: Lister les impayés
+  gestion_associative: Gestion Associative
+  membre_ajouter: Ajouter un membre
+  problemes_suivi: Suivi des problèmes
+  suivi_etudes: Suivi d'Étude
+  etudes_voir: Voir les études
+  etude_creer: Créer une étude
+  administration: Administration
+  contacts_clients: Contacts Client
+  vu_ca: Vu CA
+  prospection: Prospection
+  prospect_client: Prospect/Client
+  prospects_voir: Voir les prospects
+  prospect_ajouter: Ajouter un prospect
+  annuaire: Annuaire
+  annuaire_global: Annuaire global
+  liste_diffusion: Liste de diffusion
+  rh_competences: RH & compétences
+  tresorerie: Trésorerie
+  saisie_informations: Saisie des informations
+  factures: Factures
+  lister: Lister
+  ajouter: Ajouter
+  bvs: BVs
+  nfs: NFs
+  tableaux_suivi: Tableaux de Suivi
+  declaratif_tva: Déclaratif TVA
+  bordereau_cotisations: Bordereau Récapitulatif des Cotisations
+  intervenants: Intervenants
+  comptes: Comptes
+  Base_urssaf: B. URSSAF
+  charges: Charges
+  formations: Formations
+  formations_voir: Voir les formations
+  formations_gerer: Gérer les formations
+  formation_ajouter: Ajouter une formation
+  particpants_voir: Voir les participants
+  pilotage_je: Pilotage de la J.E.
+  indicateur: Indicateur
+  documents: Documents
+  documents_gestion: Gestion des Documents
+  doctype_ajouter: Ajouter un Doctype
+  donnes_externes_importer: Importer données externes
+  postes: Postes
+  postes_lister: Lister les postes
+  poste_ajouter: Ajouter un poste
+  compte_utilisateur: Compte d'Utilisateur
+  lister_modifier: Lister / Modifier
+  autres: Autres
+  domaine_competences: Domaines de compétence
+  administration_bdd: Administration BDD

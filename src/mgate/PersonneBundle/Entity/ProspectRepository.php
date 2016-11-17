@@ -12,7 +12,6 @@
 namespace mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use mgate\PersonneBundle\Employes;
 
 /**
  * ProspectRepository.
