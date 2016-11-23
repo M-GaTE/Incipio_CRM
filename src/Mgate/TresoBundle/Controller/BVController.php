@@ -65,6 +65,9 @@ class BVController extends Controller
                 foreach ($charges as $charge) {
                     $bv->addCotisationURSSAF($charge);
                 }
+                if ($charges === null) {
+                    throw new LogicException('Il n\'y a aucune cotisation Urssaf définie pour cette période.Pour ajouter des cotisations URSSAF : '.$this->get('router')->generate('MgateTreso_CotisationURSSAF_index').'.');
+                }
 
                 $baseURSSAF = $em->getRepository('MgateTresoBundle:BaseURSSAF')->findByDate($bv->getDateDemission());
                 if ($baseURSSAF === null) {

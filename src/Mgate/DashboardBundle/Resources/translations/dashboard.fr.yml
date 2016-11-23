@@ -40,6 +40,7 @@ dashboard:
   comptes: Comptes
   Base_urssaf: B. URSSAF
   charges: Charges
+  cotisations: Cotisations
   formations: Formations
   formations_voir: Voir les formations
   formations_gerer: Gérer les formations
