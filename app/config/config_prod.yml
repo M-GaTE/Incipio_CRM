@@ -19,7 +19,9 @@ monolog:
         nested:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
+            level: error
+            excluded_404s:
+                - ^/
         buffered:
             type:    buffer
             handler: swift
