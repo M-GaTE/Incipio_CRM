@@ -134,7 +134,15 @@ class BV
 
     public function getRemunerationNetImposable()
     {
-        return $this->getRemunerationBrute() - $this->getPartEtudiant(false, true);
+        $result =  $this->getRemunerationNet();
+
+        foreach ($this->cotisationURSSAF as $cotisation) {
+            if ($cotisation->getLibelle() == 'C.R.D.S. + CSG non déductible') {
+                $result += $this->getAssietteDesCotisations() * $cotisation->getTauxPartEtu();
+            }
+        }
+
+        return $result;
     }
 
     /**
