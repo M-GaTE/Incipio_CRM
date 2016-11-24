@@ -78,9 +78,9 @@
         <tr class="active money">
             <th style="text-align: left;">{{ 'treso.total_cotisations_dues'|trans({}, 'treso') }}<br>({{ 'treso.indexes_remunerations_brutes'|trans({}, 'treso') }})</th>
             <th>{{ bv.remunerationBrute  | money }}&nbsp;€</th>
-            <th>{{ (bv.tauxPartJunior['baseBrute']*100) | money }}&nbsp;%</th>
+            <th>{{ (bv.tauxPartJunior['baseBrute']*100) }}&nbsp;%</th>
             <th>{{ bv.partJunior(true)['baseBrute'] | money }}&nbsp;€</th>
-            <th>{{ (bv.tauxPartEtu['baseBrute']*100) | money }}&nbsp;%</th>
+            <th>{{ (bv.tauxPartEtu['baseBrute']*100) }}&nbsp;%</th>
             <th>{{ bv.partEtudiant(true)['baseBrute'] | money }}&nbsp;€</th>
         </tr>
 

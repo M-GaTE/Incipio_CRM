@@ -33,8 +33,8 @@
                 <td>{{ cotisation.dateDebut | date('d/m/Y') }}</td>
                 <td>{{ cotisation.dateFin | date('d/m/Y') }}</td>
                 <td>{{ cotisation.libelle }}</td>
-                <td>{{ (cotisation.tauxPartJE * 100) | money(false) }}</td>
-                <td>{{ (cotisation.tauxPartEtu * 100) | money(false) }}</td>
+                <td>{{ (cotisation.tauxPartJE * 100)  }}</td>
+                <td>{{ (cotisation.tauxPartEtu * 100) }}</td>
                 <td>
                     <span class="label label-{{ cotisation.surBaseURSSAF ? 'success' : 'warning' }}">{{ 'treso.base'|trans({}, 'treso') }} {{ cotisation.surBaseURSSAF ? "URSSAF" : "Brut" }}</span>
                 </td>
