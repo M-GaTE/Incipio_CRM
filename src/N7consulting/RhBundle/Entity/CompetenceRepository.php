@@ -24,4 +24,23 @@ class CompetenceRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Returns an array of etudes and phases with their associated competences.
+     * @return array
+     */
+    public function getAllEtudesByCompetences(){
+        $qb = $this->_em->createQueryBuilder();
+
+        $query = $qb->select('c')
+            ->from('N7consultingRhBundle:Competence', 'c')
+            ->leftJoin('c.etudes', 'etudes')
+            ->addSelect('etudes')
+            ->leftJoin('etudes.phases', 'phases')
+            ->addSelect('phases')
+            ->orderBy('c.id', 'asc')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

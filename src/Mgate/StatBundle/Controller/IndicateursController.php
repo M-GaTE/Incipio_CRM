@@ -1226,4 +1226,59 @@ class IndicateursController extends Controller
             'chart' => $ob,
         ));
     }
+
+    /**
+     * @Security("has_role('ROLE_CA')")
+     * A chart displaying how much a skill has brought in turnover
+     */
+    private function getCACompetences(){
+        $etude_manager = $this->get('Mgate.etude_manager');
+        $MANDAT_MAX = $etude_manager->getMaxMandat();
+        $MANDAT_MIN = $etude_manager->getMinMandat();
+
+        $em = $this->getDoctrine()->getManager();
+        $res = $em->getRepository('N7consultingRhBundle:Competence')->getAllEtudesByCompetences();
+
+        //how much each skill has make us earn.
+        $series = array();
+        $categories = array();
+        //create array structure
+        foreach ($res as $c){
+            $temp = array(
+              'name' => $c->getNom(),
+              'data' => array_fill(0,$MANDAT_MAX-$MANDAT_MIN+1,0)
+            );
+
+            $sumSkill = 0;
+            foreach ($c->getEtudes() as $e){
+                $temp['data'][$e->getMandat()-$MANDAT_MIN] += $e->getMontantHT();
+                $sumSkill += $e->getMontantHT();
+            }
+            if($sumSkill > 0) {
+                $series[] = $temp;
+            }
+        }
+
+        for($i = $MANDAT_MIN; $i <= $MANDAT_MAX; $i++){
+            $categories[] = 'Mandat '.$i;
+        }
+
+        $ob = new Highchart();
+        // ID de l'élement de DOM que vous utilisez comme conteneur
+        $ob->chart->renderTo(__FUNCTION__);
+        $ob->title->text('Revenus par compétences');
+        $ob->chart->type('column');
+
+        $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));
+        $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
+        $ob->credits->enabled(false);
+        $ob->yAxis->title(array('text' => 'Revenus par compétences'));
+        $ob->xAxis->title(array('text' => 'Mandats'));
+        $ob->xAxis->categories($categories);
+        $ob->series($series);
+
+        return  $this->render('MgateStatBundle:Indicateurs:Indicateur.html.twig', array(
+            'chart' => $ob,
+        ));
+    }
 }

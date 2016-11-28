@@ -118,6 +118,11 @@ class LoadIndicateurData implements FixtureInterface
         $clientFidel->setTitre('Taux de fidélisation')
             ->setMethode('getPartClientFidel');
 
+        // Revenus par compétences
+        $chiffreAffairesCompetencesMandat = new Indicateur();
+        $chiffreAffairesCompetencesMandat->setTitre('CA par compétences')
+            ->setMethode('getCACompetences');
+
         $chiffreAffaires->setCategorie('Treso');
         $chiffreAffairesMandat->setCategorie('Treso');
         $sortieNFFA->setCategorie('Treso');
@@ -129,6 +134,7 @@ class LoadIndicateurData implements FixtureInterface
         $repartitionCAClient->setCategorie('Com');
         $repartitionSourceProspectionClient->setCategorie('Com');
         $repartitionSourceProspectionCAClient->setCategorie('Com');
+        $chiffreAffairesCompetencesMandat->setCategorie('Com');
         $clientFidel->setCategorie('Com');
         $tauxAvenant->setCategorie('Suivi');
         $nombreEtudes->setCategorie('Suivi');
@@ -148,6 +154,7 @@ class LoadIndicateurData implements FixtureInterface
         $manager->persist($repartitionSourceProspectionClient);
         $manager->persist($repartitionSourceProspectionCAClient);
         $manager->persist($clientFidel);
+        $manager->persist($chiffreAffairesCompetencesMandat);
         $manager->persist($tauxAvenant);
         $manager->persist($nombreEtudes);
         $manager->persist($retardSurEtude);
