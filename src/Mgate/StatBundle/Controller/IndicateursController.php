@@ -1242,6 +1242,7 @@ class IndicateursController extends Controller
         //how much each skill has make us earn.
         $series = array();
         $categories = array();
+        $used_mandats = array_fill(0,$MANDAT_MAX-$MANDAT_MIN+1,0); // an array to post-process results and remove mandats without data.
         //create array structure
         foreach ($res as $c){
             $temp = array(
@@ -1252,6 +1253,7 @@ class IndicateursController extends Controller
             $sumSkill = 0;
             foreach ($c->getEtudes() as $e){
                 $temp['data'][$e->getMandat()-$MANDAT_MIN] += $e->getMontantHT();
+                $used_mandats[$e->getMandat()-$MANDAT_MIN] += 1;
                 $sumSkill += $e->getMontantHT();
             }
             if($sumSkill > 0) {
@@ -1261,6 +1263,21 @@ class IndicateursController extends Controller
 
         for($i = $MANDAT_MIN; $i <= $MANDAT_MAX; $i++){
             $categories[] = 'Mandat '.$i;
+        }
+
+        //remove mandats with no skills used
+        //once array has been spliced, index will be changed. Therefore, we uses $k has read index
+        $k =0;
+        for($i = 0; $i <= $MANDAT_MAX-$MANDAT_MIN; $i++){
+            if($used_mandats[$i] == 0 && isset($categories[$k]) ){
+                array_splice($categories,$k,1);
+                for($j = 0; $j < count($series); $j++){
+                    array_splice($series[$j]['data'],$k,1);
+                }
+            }
+            else{
+                $k++;
+            }
         }
 
         $ob = new Highchart();
