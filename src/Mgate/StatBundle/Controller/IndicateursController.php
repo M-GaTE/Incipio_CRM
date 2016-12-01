@@ -1271,7 +1271,8 @@ class IndicateursController extends Controller
         for($i = 0; $i <= $MANDAT_MAX-$MANDAT_MIN; $i++){
             if($used_mandats[$i] == 0 && isset($categories[$k]) ){
                 array_splice($categories,$k,1);
-                for($j = 0; $j < count($series); $j++){
+                $count_series = count($series);
+                for($j = 0; $j < $count_series; $j++){
                     array_splice($series[$j]['data'],$k,1);
                 }
             }
