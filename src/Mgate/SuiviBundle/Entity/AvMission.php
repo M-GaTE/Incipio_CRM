@@ -70,6 +70,12 @@ class AvMission extends DocType
      */
     private $avenant;
 
+
+    public function __toString()
+    {
+        return 'AvMission '.$this->id;
+    }
+
     /**
      * Get id.
      *

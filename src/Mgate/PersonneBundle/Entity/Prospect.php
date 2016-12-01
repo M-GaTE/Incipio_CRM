@@ -88,6 +88,11 @@ class Prospect extends Adressable
         }
     }
 
+    public function __toString()
+    {
+        return 'Prospect '.$this->nom;
+    }
+
     /**
      * Set thread.
      *
