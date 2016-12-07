@@ -123,7 +123,7 @@ class ApController extends Controller
         $form = $this->createForm(new DocTypeSuiviType(), $ap); //transmettre etude pour ajouter champ de etude
 
         if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->flush();

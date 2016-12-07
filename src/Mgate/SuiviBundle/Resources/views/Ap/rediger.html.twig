@@ -119,5 +119,8 @@
  {% block javascript %}
     {{ parent() }}
     {{ form_javascript(form) }}
+	 <script type="text/javascript">
+         $("#Mgate_suivibundle_aptype_competences").select2({containerCssClass : "td"});
+	 </script>
     {% include "MgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.ap.knownSignataire2, knowned: form.ap.signataire2, newed: form.ap.newSignataire2 }%}
 {% endblock %}
