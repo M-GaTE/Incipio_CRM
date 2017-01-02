@@ -6,8 +6,10 @@
     "autoload": {
         "psr-4": {
           "": "src/",
-          "Incipio\\": "app/"
-        }
+          "Incipio\\": "app/",
+          "Tests\\": "tests/"
+        },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
         "php": ">=5.6",
@@ -17,18 +19,17 @@
         "egulias/email-validator": "~1.2",
         "friendsofsymfony/comment-bundle": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "~1.1",
-        "friendsofsymfony/user-bundle": "2.0.0-alpha3",
+        "friendsofsymfony/user-bundle": "v2.0.0-beta1",
         "gedmo/doctrine-extensions": "~2.3",
-        "genemu/form-bundle": "v2.2.1",
         "incenteev/composer-parameter-handler": "~2.0",
         "ob/highcharts-bundle": "~1.2",
-        "sensio/distribution-bundle": "~2.3",
-        "sensio/framework-extra-bundle": "~3.0",
-        "sensio/generator-bundle": "~2.3",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0",
+        "sensio/generator-bundle": "^3.1",
         "stof/doctrine-extensions-bundle": "~1.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "symfony/symfony": "^2.8",
+        "symfony/symfony": "^3.1",
         "symfony/swiftmailer-bundle": "^2.3",
         "twig/extensions": "~1.0",
         "javiereguiluz/easyadmin-bundle": "^1.9"
@@ -66,12 +67,13 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
-    "config": {
-        "bin-dir": "bin"
-    },
     "extra": {
         "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
         "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
