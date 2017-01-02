@@ -27,6 +27,7 @@ framework:
         name: incipio
     fragments:       ~
     http_method_override: true
+    assets: ~
 
 # Twig Configuration
 twig:
@@ -106,11 +107,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
 #    spool:     { type: memory } #à commenter si bug
-
-genemu_form:
-    date: ~
-    autocomplete: ~
-    select2: ~
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'

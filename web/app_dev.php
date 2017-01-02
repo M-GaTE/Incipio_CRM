@@ -8,8 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 
-$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
-require_once __DIR__.'/../app/AppKernel.php';
+$loader = require __DIR__.'/../app/autoload.php';
 
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
