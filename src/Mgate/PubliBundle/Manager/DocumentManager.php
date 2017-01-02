@@ -22,31 +22,31 @@
 namespace Mgate\PubliBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\File\Exception\UploadException;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Mgate\PubliBundle\Entity\Document;
 use Mgate\PubliBundle\Entity\RelatedDocument;
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class DocumentManager extends BaseManager
 {
     protected $em;
-    protected $securityContext;
+    protected $tokenStorage;
     protected $junior;
     protected $kernel;
 
     /**
      * @param \Doctrine\ORM\EntityManager $em
      * @param array $junior
-     * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
+     * @param TokenStorage $tokenStorage
      * @param Kernel $kernel
      */
-    public function __construct(EntityManager $em, $junior, SecurityContext $securityContext, Kernel $kernel)
+    public function __construct(EntityManager $em, $junior, TokenStorage $tokenStorage, Kernel $kernel)
     {
         $this->em = $em;
         $this->junior = $junior;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->kernel = $kernel;
     }
 
@@ -107,7 +107,7 @@ class DocumentManager extends BaseManager
         }
 
         // Author
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
         $personne = $user->getPersonne();
         $document->setAuthor($personne);
 
