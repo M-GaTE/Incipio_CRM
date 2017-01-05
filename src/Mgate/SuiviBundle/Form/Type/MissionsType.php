@@ -13,6 +13,7 @@ namespace Mgate\SuiviBundle\Form\Type;
 
 use Mgate\SuiviBundle\Entity\Etude;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +28,7 @@ class MissionsType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('missions', 'collection', array(
+        $builder->add('missions', CollectionType::class, array(
                 'type' => new MissionType($this->etude),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -36,7 +37,7 @@ class MissionsType extends AbstractType
                 ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_missionstype';
     }

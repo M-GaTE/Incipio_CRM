@@ -36,7 +36,7 @@ class ThreadType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_commentbundle_threadtype';
     }

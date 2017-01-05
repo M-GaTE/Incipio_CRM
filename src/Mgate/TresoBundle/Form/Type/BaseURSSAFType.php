@@ -12,6 +12,7 @@
 namespace Mgate\TresoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,12 +21,12 @@ class BaseURSSAFType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('baseURSSAF', 'money', array('label' => 'Base en Euro', 'required' => true))
+            ->add('baseURSSAF', MoneyType::class, array('label' => 'Base en Euro', 'required' => true))
             ->add('dateDebut', 'genemu_jquerydate', array('label' => 'Applicable du', 'required' => true, 'widget' => 'single_text'))
             ->add('dateFin', 'genemu_jquerydate', array('label' => 'Applicable au', 'required' => true, 'widget' => 'single_text'));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_tresobundle_baseurssaftype';
     }

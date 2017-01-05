@@ -15,6 +15,7 @@ use Mgate\PersonneBundle\Entity\Poste;
 use Mgate\PersonneBundle\Form\Type\PosteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class PosteController extends Controller
 {
@@ -79,8 +80,11 @@ class PosteController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -91,8 +95,8 @@ class PosteController extends Controller
         // On passe l'$article récupéré au formulaire
         $form = $this->createForm(new PosteType(), $poste);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($poste);
@@ -111,11 +115,9 @@ class PosteController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
         $form->handleRequest($request);
 
         if ($form->isValid()) {

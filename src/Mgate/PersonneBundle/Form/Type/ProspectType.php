@@ -13,6 +13,9 @@ namespace Mgate\PersonneBundle\Form\Type;
 
 use Mgate\PersonneBundle\Entity\Prospect;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,15 +24,15 @@ class ProspectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('nom', 'text')
-                ->add('entite', 'choice', array('choices' => Prospect::getEntiteChoice(), 'required' => false))
-                ->add('adresse', 'textarea', array('required' => false))
-                ->add('codepostal', 'text', array('required' => false, 'attr' => array('placeholder' => 'Code Postal')))
-                ->add('ville', 'text', array('required' => false, 'attr' => array('placeholder' => 'Ville')))
-                ->add('pays', 'text', array('required' => false, 'attr' => array('placeholder' => 'Pays')));
+                ->add('nom', TextType::class)
+                ->add('entite', ChoiceType::class, array('choices' => Prospect::getEntiteChoice(), 'required' => false))
+                ->add('adresse', TextareaType::class, array('required' => false))
+                ->add('codepostal', TextType::class, array('required' => false, 'attr' => array('placeholder' => 'Code Postal')))
+                ->add('ville', TextType::class, array('required' => false, 'attr' => array('placeholder' => 'Ville')))
+                ->add('pays', TextType::class, array('required' => false, 'attr' => array('placeholder' => 'Pays')));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_prospecttype';
     }

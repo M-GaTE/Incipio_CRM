@@ -17,6 +17,7 @@ use Mgate\PersonneBundle\Form\Type\MembreType;
 use Mgate\PubliBundle\Entity\RelatedDocument;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class MembreController extends Controller
 {
@@ -238,11 +239,9 @@ class MembreController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
         $form->handleRequest($request);
 
         if ($form->isValid()) {

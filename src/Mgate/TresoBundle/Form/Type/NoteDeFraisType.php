@@ -13,6 +13,9 @@ namespace Mgate\TresoBundle\Form\Type;
 
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,9 +23,9 @@ class NoteDeFraisType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('mandat', 'integer', array('label' => 'Mandat', 'required' => true))
-                ->add('numero', 'integer', array('label' => 'Numéro de la Note de Frais', 'required' => true))
-                ->add('objet', 'textarea',
+        $builder->add('mandat', IntegerType::class, array('label' => 'Mandat', 'required' => true))
+                ->add('numero', IntegerType::class, array('label' => 'Numéro de la Note de Frais', 'required' => true))
+                ->add('objet', TextareaType::class,
                     array('label' => 'Objet de la Note de Frais',
                         'required' => false,
                         'attr' => array(
@@ -30,7 +33,7 @@ class NoteDeFraisType extends AbstractType
                             'rows' => 5, ),
                         )
                     )
-                ->add('details', 'collection', array(
+                ->add('details', CollectionType::class, array(
                     'type' => new NoteDeFraisDetailType(),
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -48,7 +51,7 @@ class NoteDeFraisType extends AbstractType
                 ->add('date', 'genemu_jquerydate', array('label' => 'Date', 'required' => true, 'widget' => 'single_text'));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_tresobundle_notedefraistype';
     }

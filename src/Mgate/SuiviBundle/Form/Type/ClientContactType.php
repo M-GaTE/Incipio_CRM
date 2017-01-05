@@ -12,6 +12,9 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,10 +31,10 @@ class ClientContactType extends AbstractType
                        'required' => true, ))
 
             //->add('thread', new ThreadType) // délicat
-           ->add('date', 'datetime', array('label' => 'Date du contact'))
+           ->add('date', DateTimeType::class, array('label' => 'Date du contact'))
            //->add('date', 'genemu_jquerydate', array('label'=>'Date du contact', 'required'=>true, 'widget'=>'single_text'))
-           ->add('objet', 'text', array('label' => 'Objet'))
-           ->add('contenu', 'textarea', array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
+           ->add('objet', TextType::class, array('label' => 'Objet'))
+           ->add('contenu', TextareaType::class, array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
            ->add('moyenContact', new MoyenContactType(), array('label' => 'Contact effectué par'))
            ;
 
@@ -40,7 +43,7 @@ class ClientContactType extends AbstractType
                                               'allow_add' => true)); */
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_clientcontacttype';
     }

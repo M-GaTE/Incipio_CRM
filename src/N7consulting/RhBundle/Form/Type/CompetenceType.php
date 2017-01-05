@@ -4,7 +4,7 @@ namespace N7consulting\RhBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CompetenceType extends AbstractType
 {
@@ -25,7 +25,7 @@ class CompetenceType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'N7consulting\RhBundle\Entity\Competence',
@@ -35,7 +35,7 @@ class CompetenceType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'N7consulting_rhbundle_competence';
     }

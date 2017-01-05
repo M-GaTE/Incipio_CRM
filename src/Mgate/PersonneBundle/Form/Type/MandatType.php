@@ -28,7 +28,7 @@ class MandatType extends AbstractType
                     'required' => true, )); //ajout de la condition "requis" pour éviter la corruption de la liste des membres par manque d'intitulé.
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_personnebundle_mandatetype';
     }

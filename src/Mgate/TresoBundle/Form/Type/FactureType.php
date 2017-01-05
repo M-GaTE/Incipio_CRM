@@ -13,6 +13,10 @@ namespace Mgate\TresoBundle\Form\Type;
 
 use Mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,10 +24,10 @@ class FactureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('exercice', 'integer', array('label' => 'Exercice Comptable', 'required' => true))
-                ->add('numero', 'integer', array('label' => 'Numéro de la Facture', 'required' => true))
-                ->add('type', 'choice', array('choices' => Facture::getTypeChoices(), 'required' => true))
-                ->add('objet', 'textarea',
+        $builder->add('exercice', IntegerType::class, array('label' => 'Exercice Comptable', 'required' => true))
+                ->add('numero', IntegerType::class, array('label' => 'Numéro de la Facture', 'required' => true))
+                ->add('type', ChoiceType::class, array('choices' => Facture::getTypeChoices(), 'required' => true))
+                ->add('objet', TextareaType::class,
                     array('label' => 'Objet de la Facture',
                         'required' => true,
                         'attr' => array(
@@ -31,7 +35,7 @@ class FactureType extends AbstractType
                             'rows' => 5, ),
                         )
                     )
-                ->add('details', 'collection', array(
+                ->add('details', CollectionType::class, array(
                     'type' => new FactureDetailType(),
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -49,7 +53,7 @@ class FactureType extends AbstractType
                 ->add('dateVersement', 'genemu_jquerydate', array('label' => 'Date de versement', 'required' => false, 'widget' => 'single_text'));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_tresobundle_facturetype';
     }

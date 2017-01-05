@@ -13,6 +13,9 @@ namespace Mgate\PubliBundle\Form\Type;
 
 use Mgate\PubliBundle\Controller\TraitementController;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,7 +23,7 @@ class DocTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'choice', array(
+        $builder->add('name', ChoiceType::class, array(
                         'required' => true,
                         'label' => 'Document Type',
                         'choices' => array(
@@ -48,16 +51,16 @@ class DocTypeType extends AbstractType
                 'label' => 'Intervenant pour vérifier le template',
                 'required' => false,
                 ))
-             ->add('template', 'file', array('required' => true))
+             ->add('template', FileType::class, array('required' => true))
              ->add('etude', 'genemu_jqueryselect2_entity', array(
                        'label' => 'Etude pour vérifier le template',
                         'class' => 'Mgate\\SuiviBundle\\Entity\\Etude',
                         'property' => 'reference',
                         'required' => false, ))
-             ->add('verification', 'checkbox', array('label' => 'Activer la vérification', 'required' => false));
+             ->add('verification', CheckboxType::class, array('label' => 'Activer la vérification', 'required' => false));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_doctypetype';
     }

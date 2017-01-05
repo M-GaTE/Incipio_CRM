@@ -16,6 +16,7 @@ use Mgate\SuiviBundle\Form\Type\ClientContactHandler;
 use Mgate\SuiviBundle\Form\Type\ClientContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ClientContactController extends Controller
@@ -37,7 +38,7 @@ class ClientContactController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction($id)
+    public function addAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -52,7 +53,7 @@ class ClientContactController extends Controller
         $clientcontact = new ClientContact();
         $clientcontact->setEtude($etude);
         $form = $this->createForm(new ClientContactType(), $clientcontact);
-        $formHandler = new ClientContactHandler($form, $this->get('request'), $em);
+        $formHandler = new ClientContactHandler($form, $request, $em);
 
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('MgateSuivi_clientcontact_voir', array('id' => $clientcontact->getId())));
@@ -106,7 +107,7 @@ class ClientContactController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -122,8 +123,8 @@ class ClientContactController extends Controller
 
         $form = $this->createForm(new ClientContactType(), $clientcontact);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->flush();

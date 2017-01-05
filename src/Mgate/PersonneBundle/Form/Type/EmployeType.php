@@ -24,7 +24,7 @@ class EmployeType extends AbstractType
                 ->add('poste');
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_personnebundle_employetype';
     }

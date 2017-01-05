@@ -15,6 +15,7 @@ use Mgate\TresoBundle\Entity\BaseURSSAF;
 use Mgate\TresoBundle\Form\Type\BaseURSSAFType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class BaseURSSAFController extends Controller
 {
@@ -32,7 +33,7 @@ class BaseURSSAFController extends Controller
     /**
      * @Security("has_role('ROLE_TRESO')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -42,8 +43,8 @@ class BaseURSSAFController extends Controller
 
         $form = $this->createForm(new BaseURSSAFType(), $base);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $em->persist($base);
                 $em->flush();

@@ -12,6 +12,7 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,7 +20,7 @@ class PhasesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('phases', 'collection', array(
+        $builder->add('phases', CollectionType::class, array(
             'type' => new PhaseType(),
             'options' => array('etude' => $options['etude']),
             'allow_add' => true,
@@ -29,7 +30,7 @@ class PhasesType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_etudephasestype';
     }

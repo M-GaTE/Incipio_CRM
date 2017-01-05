@@ -14,6 +14,9 @@ namespace Mgate\SuiviBundle\Form\Type;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Mgate\SuiviBundle\Entity\Etude;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,14 +32,14 @@ class ApType extends AbstractType
                     },
                     'required' => false, ))
                 ->add('ap', new SubApType(), array('label' => ' ', 'prospect' => $options['prospect']))
-                ->add('fraisDossier', 'integer', array('label' => 'Frais de dossier', 'required' => false))
-                ->add('presentationProjet', 'textarea', array('label' => 'Présentation du projet', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
-                ->add('descriptionPrestation', 'textarea', array('label' => 'Description de la prestation proposée', 'required' => false, 'attr' => array('title' => "La phrase commence par 'N7 Consulting réalisera, pour le compte du Client, une étude consistant en'. Il faut la continuer en décrivant la prestation proposée. Le début de la phrase est déjà généré.", 'cols' => '100%', 'rows' => 5)))
-                ->add('typePrestation', 'choice', array('choices' => Etude::getTypePrestationChoice(), 'label' => 'Type de prestation', 'required' => false))
+                ->add('fraisDossier', IntegerType::class, array('label' => 'Frais de dossier', 'required' => false))
+                ->add('presentationProjet', TextareaType::class, array('label' => 'Présentation du projet', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
+                ->add('descriptionPrestation', TextareaType::class, array('label' => 'Description de la prestation proposée', 'required' => false, 'attr' => array('title' => "La phrase commence par 'N7 Consulting réalisera, pour le compte du Client, une étude consistant en'. Il faut la continuer en décrivant la prestation proposée. Le début de la phrase est déjà généré.", 'cols' => '100%', 'rows' => 5)))
+                ->add('typePrestation', ChoiceType::class, array('choices' => Etude::getTypePrestationChoice(), 'label' => 'Type de prestation', 'required' => false))
                 ->add('competences' /**,'textarea', array('label' => 'Capacité des intervenants:', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5))**/);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_aptype';
     }

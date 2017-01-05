@@ -12,6 +12,9 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,12 +22,12 @@ class GroupePhasesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('numero', 'hidden', array('attr' => array('class' => 'position')))
-                ->add('titre', 'text')
-                ->add('description', 'textarea', array('label' => 'Description', 'required' => false));
+        $builder->add('numero', HiddenType::class, array('attr' => array('class' => 'position')))
+                ->add('titre', TextType::class)
+                ->add('description', TextareaType::class, array('label' => 'Description', 'required' => false));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_groupePhasestype';
     }

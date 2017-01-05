@@ -14,6 +14,12 @@ namespace Mgate\FormationBundle\Form\Type;
 use Mgate\FormationBundle\Entity\Formation;
 use Mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,13 +27,13 @@ class FormationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre', 'text', array('label' => 'Titre de la formation', 'required' => false))
-                ->add('description', 'textarea', array('label' => 'Description de la Formation', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)))
-                ->add('categorie', 'choice', array('multiple' => true, 'choices' => Formation::getCategoriesChoice(), 'label' => 'Catégorie', 'required' => false))
-                ->add('dateDebut', 'datetime', array('label' => 'Date de debut (d/MM/y - HH:mm:ss)', 'format' => 'd/MM/y - HH:mm:ss', 'required' => false, 'widget' => 'single_text'))
-                ->add('dateFin', 'datetime', array('label' => 'Date de fin (d/MM/y - HH:mm:ss)', 'format' => 'd/MM/y - HH:mm:ss', 'required' => false, 'widget' => 'single_text'))
-                ->add('mandat', 'integer')
-                ->add('formateurs', 'collection', array(
+        $builder->add('titre', TextType::class, array('label' => 'Titre de la formation', 'required' => false))
+                ->add('description', TextareaType::class, array('label' => 'Description de la Formation', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)))
+                ->add('categorie', ChoiceType::class, array('multiple' => true, 'choices' => Formation::getCategoriesChoice(), 'label' => 'Catégorie', 'required' => false))
+                ->add('dateDebut', DateTimeType::class, array('label' => 'Date de debut (d/MM/y - HH:mm:ss)', 'format' => 'd/MM/y - HH:mm:ss', 'required' => false, 'widget' => 'single_text'))
+                ->add('dateFin', DateTimeType::class, array('label' => 'Date de fin (d/MM/y - HH:mm:ss)', 'format' => 'd/MM/y - HH:mm:ss', 'required' => false, 'widget' => 'single_text'))
+                ->add('mandat', IntegerType::class)
+                ->add('formateurs', CollectionType::class, array(
                     'type' => 'genemu_jqueryselect2_entity',
                     'options' => array('label' => 'Suiveur de projet',
                         'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
@@ -40,7 +46,7 @@ class FormationType extends AbstractType
                     'allow_delete' => true,
                     'by_reference' => false,
                 ))
-                ->add('membresPresents', 'collection', array(
+                ->add('membresPresents', CollectionType::class, array(
                     'type' => 'genemu_jqueryselect2_entity',
                     'options' => array('label' => 'Suiveur de projet',
                         'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
@@ -53,11 +59,11 @@ class FormationType extends AbstractType
                     'allow_delete' => true,
                     'by_reference' => false,
                 ))
-                ->add('docPath', 'text', array('label' => 'Lien vers des documents externes', 'required' => false))
+                ->add('docPath', TextType::class, array('label' => 'Lien vers des documents externes', 'required' => false))
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_formulairetype';
     }

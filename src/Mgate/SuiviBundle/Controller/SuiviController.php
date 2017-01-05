@@ -15,6 +15,7 @@ use Mgate\SuiviBundle\Entity\Suivi;
 use Mgate\SuiviBundle\Form\Type\SuiviType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class SuiviController extends Controller
 {
@@ -43,7 +44,7 @@ class SuiviController extends Controller
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function addAction($id)
+    public function addAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -56,8 +57,8 @@ class SuiviController extends Controller
         $suivi->setDate(new \DateTime('now'));
         $form = $this->createForm(new SuiviType(), $suivi);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($suivi);
@@ -109,7 +110,7 @@ class SuiviController extends Controller
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -119,8 +120,8 @@ class SuiviController extends Controller
 
         $form = $this->createForm(new SuiviType(), $suivi);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->flush();

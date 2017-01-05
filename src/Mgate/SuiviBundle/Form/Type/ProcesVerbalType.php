@@ -22,7 +22,7 @@ class ProcesVerbalType extends AbstractType
         $builder->add(strtolower($options['type']), new ProcesVerbalSubType(), array('label' => ' ', 'type' => $options['type'], 'prospect' => $options['prospect'], 'phases' => $options['phases']));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_ProcesVerbaltype';
     }

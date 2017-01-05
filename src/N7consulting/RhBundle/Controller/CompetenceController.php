@@ -6,13 +6,14 @@ use N7consulting\RhBundle\Entity\Competence;
 use N7consulting\RhBundle\Form\Type\CompetenceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CompetenceController extends Controller
 {
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction()
+    public function ajouterAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -20,8 +21,8 @@ class CompetenceController extends Controller
 
         $form = $this->createForm(new CompetenceType(), $competence);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($competence);
@@ -75,7 +76,7 @@ class CompetenceController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -86,8 +87,8 @@ class CompetenceController extends Controller
         // On passe l'$article récupéré au formulaire
         $form = $this->createForm(new CompetenceType(), $competence);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($competence);
@@ -120,12 +121,13 @@ class CompetenceController extends Controller
 
     /**
      * @Security("has_role('ROLE_CA')")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
         $form->handleRequest($request);
 
         if ($form->isValid()) {

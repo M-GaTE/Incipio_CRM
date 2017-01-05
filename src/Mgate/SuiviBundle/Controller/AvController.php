@@ -17,6 +17,7 @@ use Mgate\SuiviBundle\Entity\PhaseChange;
 use Mgate\SuiviBundle\Form\Type\AvType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AvController extends Controller
@@ -132,7 +133,7 @@ class AvController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id, $idEtude = null)
+    public function modifierAction(Request $request, $id, $idEtude = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -183,8 +184,8 @@ class AvController extends Controller
 
         $form = $this->createForm(new AvType(), $av, array('prospect' => $av->getEtude()->getProspect()));
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $phasesEtude = $av->getEtude()->getPhases()->getValues();

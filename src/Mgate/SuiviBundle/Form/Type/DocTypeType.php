@@ -14,6 +14,8 @@ namespace Mgate\SuiviBundle\Form\Type;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Mgate\PersonneBundle\Form\Type\EmployeType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +24,7 @@ class DocTypeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Version du document
-        $builder->add('version', 'integer', array('label' => 'Version du document'));
+        $builder->add('version', IntegerType::class, array('label' => 'Version du document'));
 
         $builder->add('signataire1', 'genemu_jqueryselect2_entity',
             array('label' => 'Signataire Junior',
@@ -39,7 +41,7 @@ class DocTypeType extends AbstractType
 
             $pro = $options['prospect'];
             if ($options['data_class'] != 'Mgate\SuiviBundle\Entity\Av') {
-                $builder->add('knownSignataire2', 'checkbox', array(
+                $builder->add('knownSignataire2', CheckboxType::class, array(
                     'required' => false,
                     'label' => 'Le signataire client existe-t-il déjà dans la base de donnée ?',
                     ))
@@ -59,7 +61,7 @@ class DocTypeType extends AbstractType
         $builder->add('dateSignature', 'genemu_jquerydate', array('label' => 'Date de Signature du document', 'required' => false, 'format' => 'dd/MM/yyyy', 'widget' => 'single_text'));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_doctypetype';
     }

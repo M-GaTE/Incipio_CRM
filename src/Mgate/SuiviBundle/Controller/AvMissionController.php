@@ -16,6 +16,7 @@ use Mgate\SuiviBundle\Form\Type\AvMissionHandler;
 use Mgate\SuiviBundle\Form\Type\AvMissionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AvMissionController extends Controller
@@ -91,7 +92,7 @@ class AvMissionController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -107,8 +108,8 @@ class AvMissionController extends Controller
 
         $form = $this->createForm(new AvMissionType(), $avmission);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->flush();

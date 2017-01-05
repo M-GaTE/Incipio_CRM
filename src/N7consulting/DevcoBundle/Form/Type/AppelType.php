@@ -4,8 +4,10 @@ namespace N7consulting\DevcoBundle\Form\Type;
 
 use Mgate\PersonneBundle\Entity\MembreRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AppelType extends AbstractType
 {
@@ -26,16 +28,16 @@ class AppelType extends AbstractType
             ->add('prospect')
             ->add('employe')
             ->add('dateAppel', 'genemu_jquerydate', array('label' => 'Date appel (jj/mm/aaaa)', 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false))
-            ->add('aRappeller', 'checkbox', array('required' => false, 'attr' => array('checked' => true)))
+            ->add('aRappeller', CheckboxType::class, array('required' => false, 'attr' => array('checked' => true)))
             ->add('dateRappel', 'genemu_jquerydate', array('label' => 'Date de Rappel', 'required' => false, 'format' => 'dd/MM/yyyy', 'widget' => 'single_text', 'attr' => array('cols' => 10, 'rows' => 6)))
-            ->add('noteAppel', 'textarea', array('label' => 'Note sur l\'appel', 'required' => false))
+            ->add('noteAppel', TextareaType::class, array('label' => 'Note sur l\'appel', 'required' => false))
         ;
     }
 
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'N7consulting\DevcoBundle\Entity\Appel',
@@ -45,7 +47,7 @@ class AppelType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'N7consulting_devcobundle_appel';
     }

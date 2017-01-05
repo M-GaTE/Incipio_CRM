@@ -15,6 +15,7 @@ use Mgate\SuiviBundle\Entity\Cc;
 use Mgate\SuiviBundle\Form\Type\CcType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CcController extends Controller
@@ -60,7 +61,7 @@ class CcController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function redigerAction($id)
+    public function redigerAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -79,8 +80,8 @@ class CcController extends Controller
 
         $form = $this->createForm(new CcType(), $etude, array('prospect' => $etude->getProspect()));
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $this->get('Mgate.doctype_manager')->checkSaveNewEmploye($etude->getCc());
