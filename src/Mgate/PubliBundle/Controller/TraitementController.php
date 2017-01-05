@@ -470,7 +470,7 @@ class TraitementController extends Controller
     public function uploadNewDoctypeAction(Request $request)
     {
         $data = array();
-        $form = $this->createForm(new DocTypeType(), $data);
+        $form = $this->createForm(DocTypeType::class, $data);
         $session = $request->getSession();
 
         if ($request->getMethod() == 'POST') {

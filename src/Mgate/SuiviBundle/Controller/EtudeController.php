@@ -145,7 +145,7 @@ class EtudeController extends Controller
             $etude->setSuiveur($user->getPersonne());
         }
 
-        $form = $this->createForm(new EtudeType(), $etude);
+        $form = $this->createForm(EtudeType::class, $etude);
         $em = $this->getDoctrine()->getManager();
 
         $error_messages = array();
@@ -197,7 +197,7 @@ class EtudeController extends Controller
         $chartManager = $this->get('Mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'suivi');
 
-        $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
+        $formSuivi = $this->createForm(SuiviEtudeType::class, $etude);
 
         return $this->render('MgateSuiviBundle:Etude:voir.html.twig', array(
             'etude' => $etude,
@@ -218,7 +218,7 @@ class EtudeController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new EtudeType(), $etude);
+        $form = $this->createForm(EtudeType::class, $etude);
 
         $deleteForm = $this->createDeleteForm($etude);
         if ($this->get('request')->getMethod() == 'POST') {
@@ -393,7 +393,7 @@ class EtudeController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
+        $formSuivi = $this->createForm(SuiviEtudeType::class, $etude);
         if ($this->get('request')->getMethod() == 'POST') {
             $formSuivi->handleRequest($this->get('request'));
 

@@ -149,7 +149,7 @@ class DocumentController extends Controller
             }
         }
 
-        $form = $this->createForm(new DocumentType(), $document, $options);
+        $form = $this->createForm(DocumentType::class, $document, $options);
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));

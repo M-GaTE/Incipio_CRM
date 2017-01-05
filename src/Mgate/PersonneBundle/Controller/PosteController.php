@@ -28,7 +28,7 @@ class PosteController extends Controller
 
         $poste = new Poste();
 
-        $form = $this->createForm(new PosteType(), $poste);
+        $form = $this->createForm(PosteType::class, $poste);
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));
@@ -93,7 +93,7 @@ class PosteController extends Controller
         }
 
         // On passe l'$article récupéré au formulaire
-        $form = $this->createForm(new PosteType(), $poste);
+        $form = $this->createForm(PosteType::class, $poste);
         $deleteForm = $this->createDeleteForm($id);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

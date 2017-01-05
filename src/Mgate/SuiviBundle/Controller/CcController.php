@@ -78,7 +78,7 @@ class CcController extends Controller
             $etude->setCc($cc);
         }
 
-        $form = $this->createForm(new CcType(), $etude, array('prospect' => $etude->getProspect()));
+        $form = $this->createForm(CcType::class, $etude, array('prospect' => $etude->getProspect()));
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

@@ -77,7 +77,7 @@ class ProcesVerbalController extends Controller
         $proces = new ProcesVerbal();
         $etude->addPvi($proces);
 
-        $form = $this->createForm(new ProcesVerbalSubType(), $proces, array('type' => 'pvi', 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
+        $form = $this->createForm(ProcesVerbalSubType::class, $proces, array('type' => 'pvi', 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
 
@@ -111,7 +111,7 @@ class ProcesVerbalController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new ProcesVerbalSubType(), $procesverbal, array('type' => $procesverbal->getType(), 'prospect' => $procesverbal->getEtude()->getProspect(), 'phases' => count($procesverbal->getEtude()->getPhases()->getValues())));
+        $form = $this->createForm(ProcesVerbalSubType::class, $procesverbal, array('type' => $procesverbal->getType(), 'prospect' => $procesverbal->getEtude()->getProspect(), 'phases' => count($procesverbal->getEtude()->getPhases()->getValues())));
         $deleteForm = $this->createDeleteForm($id_pv);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -157,7 +157,7 @@ class ProcesVerbalController extends Controller
             $procesverbal->setType($type);
         }
 
-        $form = $this->createForm(new ProcesVerbalType(), $etude, array('type' => $type, 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
+        $form = $this->createForm(ProcesVerbalType::class, $etude, array('type' => $type, 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
 

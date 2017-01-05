@@ -41,7 +41,7 @@ class BaseURSSAFController extends Controller
             $base = new BaseURSSAF();
         }
 
-        $form = $this->createForm(new BaseURSSAFType(), $base);
+        $form = $this->createForm(BaseURSSAFType::class, $base);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

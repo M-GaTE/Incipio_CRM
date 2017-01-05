@@ -27,7 +27,7 @@ class AppelController extends Controller
 
         $appel = new Appel();
 
-        $form = $this->createForm(new AppelType(), $appel);
+        $form = $this->createForm(AppelType::class, $appel);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -60,7 +60,7 @@ class AppelController extends Controller
             throw $this->createNotFoundException('L\'appel demandé n\'existe pas !');
         }
         // On passe l'appel récupéré au formulaire
-        $form = $this->createForm(new AppelType(), $appel);
+        $form = $this->createForm(AppelType::class, $appel);
         $deleteForm = $this->createDeleteForm($id);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

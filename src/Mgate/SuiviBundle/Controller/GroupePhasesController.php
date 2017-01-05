@@ -40,7 +40,7 @@ class GroupePhasesController extends Controller
             $originalGroupes[] = $groupe;
         }
 
-        $form = $this->createForm(new GroupesPhasesType(), $etude);
+        $form = $this->createForm(GroupesPhasesType::class, $etude);
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));

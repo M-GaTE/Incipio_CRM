@@ -34,7 +34,7 @@ class EmployeController extends Controller
         $employe = new Employe();
         $employe->setProspect($prospect);
 
-        $form = $this->createForm(new EmployeType(), $employe);
+        $form = $this->createForm(EmployeType::class, $employe);
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));
@@ -100,7 +100,7 @@ class EmployeController extends Controller
         }
 
         // On passe l'$article récupéré au formulaire
-        $form = $this->createForm(new EmployeType(), $employe);
+        $form = $this->createForm(EmployeType::class, $employe);
         $deleteForm = $this->createDeleteForm($id);
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));

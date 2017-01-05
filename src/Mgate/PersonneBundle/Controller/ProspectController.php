@@ -24,15 +24,15 @@ class ProspectController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction($format)
+    public function ajouterAction(Request $request, $format)
     {
         $em = $this->getDoctrine()->getManager();
         $prospect = new Prospect();
 
-        $form = $this->createForm(new ProspectType(), $prospect);
+        $form = $this->createForm(ProspectType::class, $prospect);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($prospect);
@@ -103,7 +103,7 @@ class ProspectController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -112,10 +112,10 @@ class ProspectController extends Controller
         }
 
         // On passe l'$article récupéré au formulaire
-        $form = $this->createForm(new ProspectType(), $prospect);
+        $form = $this->createForm(ProspectType::class, $prospect);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($prospect);

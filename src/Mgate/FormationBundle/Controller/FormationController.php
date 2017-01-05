@@ -71,24 +71,24 @@ class FormationController extends Controller
      * @return Response
      *                  Manage creation and update of a training
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         if (!$formation = $em->getRepository('Mgate\FormationBundle\Entity\Formation')->find($id)) {
             $formation = new Formation();
         }
 
-        $form = $this->createForm(new FormationType(), $formation);
+        $form = $this->createForm(FormationType::class, $formation);
         $messages = array();
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($formation);
                 $em->flush();
 
-                $form = $this->createForm(new FormationType(), $formation);
+                $form = $this->createForm(FormationType::class, $formation);
                 array_push($messages, array('label' => 'success', 'message' => 'Formation modifée'));
             } else {
                 //constitution du tableau d'erreurs

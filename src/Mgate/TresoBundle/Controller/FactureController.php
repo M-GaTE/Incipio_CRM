@@ -111,7 +111,7 @@ class FactureController extends Controller
             }
         }
 
-        $form = $this->createForm(new FactureType(), $facture);
+        $form = $this->createForm(FactureType::class, $facture);
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));

@@ -52,7 +52,7 @@ class ClientContactController extends Controller
 
         $clientcontact = new ClientContact();
         $clientcontact->setEtude($etude);
-        $form = $this->createForm(new ClientContactType(), $clientcontact);
+        $form = $this->createForm(ClientContactType::class, $clientcontact);
         $formHandler = new ClientContactHandler($form, $request, $em);
 
         if ($formHandler->process()) {
@@ -121,7 +121,7 @@ class ClientContactController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new ClientContactType(), $clientcontact);
+        $form = $this->createForm(ClientContactType::class, $clientcontact);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

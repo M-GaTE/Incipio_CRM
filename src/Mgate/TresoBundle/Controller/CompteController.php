@@ -38,7 +38,7 @@ class CompteController extends Controller
             $compte = new Compte();
         }
 
-        $form = $this->createForm(new CompteType(), $compte);
+        $form = $this->createForm(CompteType::class, $compte);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

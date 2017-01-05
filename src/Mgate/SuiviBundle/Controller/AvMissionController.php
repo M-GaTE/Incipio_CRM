@@ -53,7 +53,7 @@ class AvMissionController extends Controller
 
         $avmission = new AvMission();
         $avmission->setEtude($etude);
-        $form = $this->createForm(new AvMissionType(), $avmission);
+        $form = $this->createForm(AvMissionType::class, $avmission);
         $formHandler = new AvMissionHandler($form, $this->get('request'), $em);
 
         if ($formHandler->process()) {
@@ -106,7 +106,7 @@ class AvMissionController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new AvMissionType(), $avmission);
+        $form = $this->createForm(AvMissionType::class, $avmission);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

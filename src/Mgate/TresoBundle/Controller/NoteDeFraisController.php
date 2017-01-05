@@ -56,7 +56,7 @@ class NoteDeFraisController extends Controller
             $nf->setDate($now);
         }
 
-        $form = $this->createForm(new NoteDeFraisType(), $nf);
+        $form = $this->createForm(NoteDeFraisType::class, $nf);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

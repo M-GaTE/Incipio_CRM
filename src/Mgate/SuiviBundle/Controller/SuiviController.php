@@ -55,7 +55,7 @@ class SuiviController extends Controller
         $suivi = new Suivi();
         $suivi->setEtude($etude);
         $suivi->setDate(new \DateTime('now'));
-        $form = $this->createForm(new SuiviType(), $suivi);
+        $form = $this->createForm(SuiviType::class, $suivi);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -118,7 +118,7 @@ class SuiviController extends Controller
             throw $this->createNotFoundException('Ce suivi n\'existe pas !');
         }
 
-        $form = $this->createForm(new SuiviType(), $suivi);
+        $form = $this->createForm(SuiviType::class, $suivi);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

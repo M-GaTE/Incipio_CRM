@@ -120,12 +120,12 @@ class MembreController extends Controller
             $membre->setEmailEMSE($email_etu_service->getEmailEtu($membre));
         }
 
-        $form = $this->createForm(new MembreType(), $membre);
+        $form = $this->createForm(MembreType::class, $membre);
         $deleteForm = $this->createDeleteForm($id);
 
         $mandatsToRemove = $membre->getMandats()->toArray();
 
-        $form = $this->createForm(new MembreType(), $membre);
+        $form = $this->createForm(MembreType::class, $membre);
 
         if ($this->get('request')->getMethod() == 'POST') {
             $form->handleRequest($this->get('request'));
@@ -224,7 +224,7 @@ class MembreController extends Controller
                 $em->persist($membre); // persist $etude / $form->getData()
                 $em->flush();
 
-                $form = $this->createForm(new MembreType(), $membre);
+                $form = $this->createForm(MembreType::class, $membre);
             }
         }
 

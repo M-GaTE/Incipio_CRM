@@ -16,6 +16,7 @@ use Mgate\SuiviBundle\Form\Type\ApType;
 use Mgate\SuiviBundle\Form\Type\DocTypeSuiviType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ApController extends Controller
@@ -63,7 +64,7 @@ class ApController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function redigerAction($id)
+    public function redigerAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -80,17 +81,17 @@ class ApController extends Controller
             $etude->setAp($ap);
         }
 
-        $form = $this->createForm(new ApType(), $etude, array('prospect' => $etude->getProspect()));
+        $form = $this->createForm(ApType::class, $etude, array('prospect' => $etude->getProspect()));
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $this->get('Mgate.doctype_manager')->checkSaveNewEmploye($etude->getAp());
 
                 $em->flush();
 
-                if ($this->get('request')->get('phases')) {
+                if ($request->get('phases')) {
                     return $this->redirect($this->generateUrl('MgateSuivi_phases_modifier', array('id' => $etude->getId())));
                 } else {
                     return $this->redirect($this->generateUrl('MgateSuivi_etude_voir', array('nom' => $etude->getNom())));
@@ -107,7 +108,7 @@ class ApController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function suiviAction($id)
+    public function suiviAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -120,10 +121,10 @@ class ApController extends Controller
         }
 
         $ap = $etude->getAp();
-        $form = $this->createForm(new DocTypeSuiviType(), $ap); //transmettre etude pour ajouter champ de etude
+        $form = $this->createForm(DocTypeSuiviType::class, $ap); //transmettre etude pour ajouter champ de etude
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->flush();

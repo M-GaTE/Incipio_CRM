@@ -182,7 +182,7 @@ class AvController extends Controller
             $phasesChanges[] = $changes;
         }
 
-        $form = $this->createForm(new AvType(), $av, array('prospect' => $av->getEtude()->getProspect()));
+        $form = $this->createForm(AvType::class, $av, array('prospect' => $av->getEtude()->getProspect()));
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
