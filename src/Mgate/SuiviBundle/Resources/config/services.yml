@@ -25,7 +25,7 @@ services:
     form.type_extension.help_message:
         class: Mgate\SuiviBundle\Form\Extension\HelpMessageTypeExtension
         tags:
-          - { name: "form.type_extension", alias: "form" }
+          - { name: form.type_extension, extended_type: Symfony\Component\Form\AbstractTypeExtension}
 
     Mgate.email_etu:
             class: Mgate\SuiviBundle\Manager\EmailEtuManager
