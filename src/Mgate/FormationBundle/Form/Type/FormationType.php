@@ -12,10 +12,10 @@
 namespace Mgate\FormationBundle\Form\Type;
 
 use Mgate\FormationBundle\Entity\Formation;
+use Mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
 
 class FormationType extends AbstractType
 {

@@ -12,11 +12,11 @@
 namespace Mgate\SuiviBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mgate\SuiviBundle\Entity\RepartitionJEH;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Form\Type\MissionsType;
 use Mgate\SuiviBundle\Entity\Mission;
+use Mgate\SuiviBundle\Entity\RepartitionJEH;
+use Mgate\SuiviBundle\Form\Type\MissionsType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

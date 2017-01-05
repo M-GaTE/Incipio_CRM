@@ -11,11 +11,11 @@
 
 namespace Mgate\FormationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\FormationBundle\Form\Type\FormationType;
-use Symfony\Component\HttpFoundation\Request;
 use Mgate\FormationBundle\Entity\Formation;
+use Mgate\FormationBundle\Form\Type\FormationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FormationController extends Controller

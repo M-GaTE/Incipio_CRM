@@ -11,10 +11,10 @@
 
 namespace Mgate\TresoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgate\TresoBundle\Entity\BaseURSSAF;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Form\Type\BaseURSSAFType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseURSSAFController extends Controller
 {

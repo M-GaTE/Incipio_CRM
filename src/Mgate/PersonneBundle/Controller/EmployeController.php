@@ -11,10 +11,10 @@
 
 namespace Mgate\PersonneBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\PersonneBundle\Entity\Employe;
 use Mgate\PersonneBundle\Form\Type\EmployeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class EmployeController extends Controller

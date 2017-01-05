@@ -2,10 +2,10 @@
 
 namespace N7consulting\DevcoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use N7consulting\DevcoBundle\Entity\Appel;
 use N7consulting\DevcoBundle\Form\Type\AppelType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AppelController extends Controller
 {

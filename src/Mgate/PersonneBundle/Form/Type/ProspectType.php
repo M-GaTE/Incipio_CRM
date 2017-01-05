@@ -11,10 +11,10 @@
 
 namespace Mgate\PersonneBundle\Form\Type;
 
+use Mgate\PersonneBundle\Entity\Prospect;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\PersonneBundle\Entity\Prospect;
 
 class ProspectType extends AbstractType
 {

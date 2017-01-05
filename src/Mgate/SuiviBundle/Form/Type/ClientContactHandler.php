@@ -13,10 +13,10 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Mgate\SuiviBundle\Entity\ClientContact;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 class ClientContactHandler
 {

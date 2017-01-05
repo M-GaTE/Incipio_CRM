@@ -11,10 +11,10 @@
 
 namespace Mgate\PersonneBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\PersonneBundle\Entity\Poste;
 use Mgate\PersonneBundle\Form\Type\PosteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PosteController extends Controller
 {

@@ -11,10 +11,10 @@
 
 namespace Mgate\TresoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Entity\NoteDeFrais as NoteDeFrais;
 use Mgate\TresoBundle\Form\Type\NoteDeFraisType as NoteDeFraisType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class NoteDeFraisController extends Controller
 {

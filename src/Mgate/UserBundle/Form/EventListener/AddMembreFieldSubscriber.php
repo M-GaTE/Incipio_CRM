@@ -11,11 +11,11 @@
 
 namespace Mgate\UserBundle\Form\EventListener;
 
+use Mgate\PersonneBundle\Entity\Personne;
+use Mgate\PersonneBundle\Entity\PersonneRepository;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Mgate\PersonneBundle\Entity\PersonneRepository;
-use Mgate\PersonneBundle\Entity\Personne;
 
 class AddMembreFieldSubscriber implements EventSubscriberInterface
 {

@@ -11,11 +11,11 @@
 
 namespace Mgate\TresoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Entity\Facture as Facture;
 use Mgate\TresoBundle\Entity\FactureDetail as FactureDetail;
 use Mgate\TresoBundle\Form\Type\FactureType as FactureType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class FactureController extends Controller
 {

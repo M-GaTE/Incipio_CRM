@@ -11,10 +11,10 @@
 
 namespace Mgate\PersonneBundle\Form\EventListener;
 
+use Mgate\UserBundle\Entity\UserRepository;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Mgate\UserBundle\Entity\UserRepository;
 
 /**
  * Class AddUserFieldSubscriber

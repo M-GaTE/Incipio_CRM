@@ -11,11 +11,11 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Mgate\PersonneBundle\Entity\PersonneRepository;
+use Mgate\PersonneBundle\Form\Type\EmployeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\PersonneBundle\Entity\PersonneRepository;
-use Mgate\PersonneBundle\Form\Type\EmployeType;
 
 class DocTypeType extends AbstractType
 {

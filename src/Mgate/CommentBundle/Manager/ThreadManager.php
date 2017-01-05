@@ -11,8 +11,8 @@
 
 namespace Mgate\CommentBundle\Manager;
 
-use FOS\CommentBundle\Acl\AclThreadManager as FOSthread;
 use Doctrine\ORM\EntityManager;
+use FOS\CommentBundle\Acl\AclThreadManager as FOSthread;
 use Mgate\SuiviBundle\Entity\Etude;
 
 class ThreadManager

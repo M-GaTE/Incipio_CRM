@@ -11,11 +11,11 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Form\Type\ClientContactHandler;
 use Mgate\SuiviBundle\Entity\ClientContact;
+use Mgate\SuiviBundle\Form\Type\ClientContactHandler;
 use Mgate\SuiviBundle\Form\Type\ClientContactType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ClientContactController extends Controller

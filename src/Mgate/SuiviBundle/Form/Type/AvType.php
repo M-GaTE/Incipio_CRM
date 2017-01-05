@@ -11,9 +11,9 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Mgate\SuiviBundle\Entity\Av;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\SuiviBundle\Entity\Av;
 
 class AvType extends DocTypeType
 {

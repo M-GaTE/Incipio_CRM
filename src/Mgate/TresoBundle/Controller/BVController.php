@@ -12,10 +12,10 @@
 namespace Mgate\TresoBundle\Controller;
 
 use JMS\Serializer\Exception\LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgate\TresoBundle\Entity\BV;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Form\Type\BVType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BVController extends Controller
 {

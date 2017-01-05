@@ -11,11 +11,11 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\SuiviBundle\Entity\ProcesVerbal;
-use Mgate\SuiviBundle\Form\Type\ProcesVerbalType;
 use Mgate\SuiviBundle\Form\Type\ProcesVerbalSubType;
+use Mgate\SuiviBundle\Form\Type\ProcesVerbalType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProcesVerbalController extends Controller

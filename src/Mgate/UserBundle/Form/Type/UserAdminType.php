@@ -11,9 +11,9 @@
 
 namespace Mgate\UserBundle\Form\Type;
 
+use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 use Mgate\UserBundle\Form\EventListener\AddMembreFieldSubscriber;
 use Symfony\Component\Form\FormBuilderInterface;
-use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 
 class UserAdminType extends BaseType
 {

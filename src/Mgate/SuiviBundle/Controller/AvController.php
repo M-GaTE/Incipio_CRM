@@ -11,12 +11,12 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
+use Mgate\SuiviBundle\Entity\Av;
 use Mgate\SuiviBundle\Entity\Phase;
 use Mgate\SuiviBundle\Entity\PhaseChange;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Entity\Av;
 use Mgate\SuiviBundle\Form\Type\AvType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AvController extends Controller

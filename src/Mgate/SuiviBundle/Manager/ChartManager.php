@@ -13,8 +13,8 @@ namespace Mgate\SuiviBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Mgate\SuiviBundle\Entity\Etude as Etude;
-use Ob\HighchartsBundle\Highcharts\Highchart;
 use Monolog\Logger;
+use Ob\HighchartsBundle\Highcharts\Highchart;
 use Zend\Json\Expr;
 
 class ChartManager /*extends \Twig_Extension*/

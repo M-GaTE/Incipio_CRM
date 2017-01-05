@@ -11,10 +11,10 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Form\Type\GroupesPhasesType;
 use Mgate\SuiviBundle\Entity\GroupePhases;
+use Mgate\SuiviBundle\Form\Type\GroupesPhasesType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class GroupePhasesController extends Controller

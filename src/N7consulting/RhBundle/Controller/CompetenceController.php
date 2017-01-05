@@ -2,10 +2,10 @@
 
 namespace N7consulting\RhBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use N7consulting\RhBundle\Entity\Competence;
 use N7consulting\RhBundle\Form\Type\CompetenceType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class CompetenceController extends Controller
 {

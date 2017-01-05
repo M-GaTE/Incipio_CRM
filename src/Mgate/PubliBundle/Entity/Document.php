@@ -12,10 +12,10 @@
 namespace Mgate\PubliBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mgate\PersonneBundle\Entity\Personne;
-
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+
+use Mgate\PersonneBundle\Entity\Personne;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Mgate\PubliBundle\Entity\DocumentRepository")

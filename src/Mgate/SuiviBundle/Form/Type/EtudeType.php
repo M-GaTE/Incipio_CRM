@@ -11,12 +11,12 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Mgate\PersonneBundle\Form\Type\ProspectType;
 use Mgate\SuiviBundle\Entity\Etude;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EtudeType extends AbstractType
 {

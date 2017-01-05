@@ -11,10 +11,10 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Mgate\TresoBundle\Entity\NoteDeFraisDetail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\TresoBundle\Entity\NoteDeFraisDetail;
 
 class NoteDeFraisDetailType extends AbstractType
 {

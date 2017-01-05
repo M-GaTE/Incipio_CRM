@@ -11,8 +11,8 @@
 
 namespace Mgate\PersonneBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Mgate\PubliBundle\Entity\RelatedDocument;
 use Mgate\SuiviBundle\Entity\Mission;
 use N7consulting\RhBundle\Entity\Competence;

@@ -11,9 +11,9 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Mgate\SuiviBundle\Entity\Phase;
 use Mgate\SuiviBundle\Entity\GroupePhasesRepository as GroupePhasesRepository;
+use Mgate\SuiviBundle\Entity\Phase;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

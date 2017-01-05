@@ -12,10 +12,10 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Mgate\PersonneBundle\Entity\PersonneRepository;
+use Mgate\SuiviBundle\Entity\Etude;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\SuiviBundle\Entity\Etude;
 
 class ApType extends AbstractType
 {

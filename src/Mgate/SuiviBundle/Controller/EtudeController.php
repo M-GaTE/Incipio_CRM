@@ -11,15 +11,15 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
+use Mgate\SuiviBundle\Entity\Etude;
+use Mgate\SuiviBundle\Form\Type\EtudeType;
+use Mgate\SuiviBundle\Form\Type\SuiviEtudeType;
 use Mgate\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Entity\Etude;
-use Mgate\SuiviBundle\Form\Type\EtudeType;
-use Mgate\SuiviBundle\Form\Type\SuiviEtudeType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 define('STATE_ID_EN_NEGOCIATION', 1);

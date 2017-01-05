@@ -11,10 +11,10 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\PersonneBundle\Entity\PersonneRepository;
 
 class NoteDeFraisType extends AbstractType
 {

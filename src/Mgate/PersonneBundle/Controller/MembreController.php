@@ -11,12 +11,12 @@
 
 namespace Mgate\PersonneBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\PersonneBundle\Entity\Membre;
 use Mgate\PersonneBundle\Entity\Mandat;
+use Mgate\PersonneBundle\Entity\Membre;
 use Mgate\PersonneBundle\Form\Type\MembreType;
 use Mgate\PubliBundle\Entity\RelatedDocument;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MembreController extends Controller
 {
