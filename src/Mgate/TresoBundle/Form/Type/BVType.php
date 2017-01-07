@@ -11,6 +11,8 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -27,13 +29,13 @@ class BVType extends AbstractType
             ->add('numero', IntegerType::class)
             ->add('nombreJEH', IntegerType::class)
             ->add('remunerationBruteParJEH', MoneyType::class)
-            ->add('dateDeVersement', 'genemu_jquerydate', array('label' => 'Date de versement', 'required' => true, 'widget' => 'single_text'))
-            ->add('dateDemission', 'genemu_jquerydate', array('label' => 'Date d\'émission', 'required' => true, 'widget' => 'single_text'))
+            ->add('dateDeVersement', DateType::class, array('label' => 'Date de versement', 'required' => true, 'widget' => 'single_text'))
+            ->add('dateDemission', DateType::class, array('label' => 'Date d\'émission', 'required' => true, 'widget' => 'single_text'))
             ->add('typeDeTravail', TextType::class)
-            ->add('mission', 'genemu_jqueryselect2_entity', array(
+            ->add('mission', Select2EntityType::class, array(
                       'label' => 'Mission',
                        'class' => 'Mgate\\SuiviBundle\\Entity\\Mission',
-                       'property' => 'reference',
+                       'choice_label' => 'reference',
                        'required' => true, ))
             ->add('numeroVirement', TextType::class, array('label' => 'Numéro de Virement', 'required' => true));
     }

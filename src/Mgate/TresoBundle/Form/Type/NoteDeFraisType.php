@@ -11,6 +11,8 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -34,21 +36,21 @@ class NoteDeFraisType extends AbstractType
                         )
                     )
                 ->add('details', CollectionType::class, array(
-                    'type' => new NoteDeFraisDetailType(),
+                    'entry_type' => NoteDeFraisDetailType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
                     'by_reference' => false,
                 ))
-                ->add('demandeur', 'genemu_jqueryselect2_entity', array(
+                ->add('demandeur', Select2EntityType::class, array(
                       'label' => 'Demandeur',
                        'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                       'property' => 'prenomNom',
+                       'choice_label' => 'prenomNom',
                        'query_builder' => function (PersonneRepository $pr) {
                            return $pr->getMembreOnly();
                        },
                        'required' => true, ))
-                ->add('date', 'genemu_jquerydate', array('label' => 'Date', 'required' => true, 'widget' => 'single_text'));
+                ->add('date', DateType::class, array('label' => 'Date', 'required' => true, 'widget' => 'single_text'));
     }
 
     public function getBlockPrefix()

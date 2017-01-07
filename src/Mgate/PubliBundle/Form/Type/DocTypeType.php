@@ -11,6 +11,7 @@
 
 namespace Mgate\PubliBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PubliBundle\Controller\TraitementController;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,17 +46,17 @@ class DocTypeType extends AbstractType
                             TraitementController::DOCTYPE_NOTE_DE_FRAIS => 'Note de Frais',
                             TraitementController::ROOTNAME_BULLETIN_DE_VERSEMENT => 'Bulletin de Versement',
                             ), ))
-                ->add('etudiant', 'genemu_jqueryselect2_entity', array(
+                ->add('etudiant', Select2EntityType::class, array(
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Membre',
-                'property' => 'identifiant',
+                'choice_label' => 'identifiant',
                 'label' => 'Intervenant pour vérifier le template',
                 'required' => false,
                 ))
              ->add('template', FileType::class, array('required' => true))
-             ->add('etude', 'genemu_jqueryselect2_entity', array(
+             ->add('etude', Select2EntityType::class, array(
                        'label' => 'Etude pour vérifier le template',
                         'class' => 'Mgate\\SuiviBundle\\Entity\\Etude',
-                        'property' => 'reference',
+                        'choice_label' => 'reference',
                         'required' => false, ))
              ->add('verification', CheckboxType::class, array('label' => 'Activer la vérification', 'required' => false));
     }

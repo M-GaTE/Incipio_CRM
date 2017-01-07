@@ -24,7 +24,7 @@ class DocumentType extends AbstractType
         $builder->add('name', TextType::class, array('label' => 'Nom du fichier', 'required' => false))
                 ->add('file', FileType::class, array('label' => 'Fichier', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)));
         if ($options['etude'] || $options['etudiant'] || $options['prospect'] || $options['formation']) {
-            $builder->add('relation', new RelatedDocumentType(), array(
+            $builder->add('relation', RelatedDocumentType::class, array(
                 'label' => '',
                 'etude' => $options['etude'],
                 'etudiant' => $options['etudiant'],

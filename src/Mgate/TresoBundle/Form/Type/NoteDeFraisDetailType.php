@@ -11,6 +11,7 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\TresoBundle\Entity\NoteDeFraisDetail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -38,9 +39,9 @@ class NoteDeFraisDetailType extends AbstractType
                 ->add('kilometrage', IntegerType::class, array('label' => 'Nombre de Kilomètre', 'required' => false))
                 ->add('tauxKm', IntegerType::class, array('label' => 'Prix au kilomètre (en cts)', 'required' => false))
                 ->add('type', ChoiceType::class, array('choices' => NoteDeFraisDetail::getTypeChoices(), 'required' => true))
-                ->add('compte', 'genemu_jqueryselect2_entity', array(
+                ->add('compte', Select2EntityType::class, array(
                         'class' => 'Mgate\TresoBundle\Entity\Compte',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'required' => false,
                         'label' => 'Catégorie',
                         'configs' => array('placeholder' => 'Sélectionnez une catégorie', 'allowClear' => true),

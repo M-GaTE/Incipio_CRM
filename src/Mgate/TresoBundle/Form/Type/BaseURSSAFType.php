@@ -11,6 +11,7 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,8 +23,8 @@ class BaseURSSAFType extends AbstractType
     {
         $builder
             ->add('baseURSSAF', MoneyType::class, array('label' => 'Base en Euro', 'required' => true))
-            ->add('dateDebut', 'genemu_jquerydate', array('label' => 'Applicable du', 'required' => true, 'widget' => 'single_text'))
-            ->add('dateFin', 'genemu_jquerydate', array('label' => 'Applicable au', 'required' => true, 'widget' => 'single_text'));
+            ->add('dateDebut', DateType::class, array('label' => 'Applicable du', 'required' => true, 'widget' => 'single_text'))
+            ->add('dateFin', DateType::class, array('label' => 'Applicable au', 'required' => true, 'widget' => 'single_text'));
     }
 
     public function getBlockPrefix()

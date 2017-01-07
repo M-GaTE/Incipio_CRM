@@ -39,9 +39,9 @@ class AvController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction($id)
+    public function addAction(Request $request, $id)
     {
-        return $this->modifierAction(null, $id);
+        return $this->modifierAction($request, null, $id);
     }
 
     /**

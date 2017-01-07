@@ -28,6 +28,9 @@ class ImportController extends Controller
         $form = $this->createFormBuilder(array())->add('import_method', ChoiceType::class, array('label' => 'Type du fichier',
                 'required' => true,
                 'choices' => $this::AVAILABLE_FORMATS,
+                'choice_label' => function ($value) {
+                                        return $value;
+                                    },
                 'expanded' => true,
                 'multiple' => false)
         )
