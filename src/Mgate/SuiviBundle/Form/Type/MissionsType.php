@@ -21,15 +21,17 @@ class MissionsType extends AbstractType
 {
     protected $etude;
 
-    public function __construct(Etude $etude)
-    {
-        $this->etude = $etude;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        if(!isset($options['etude']) || !($options['etude'] instanceof Etude)){
+            throw new \LogicException('A MissionsType can\'t be build without associated Etude object.');
+        }
+        $this->etude = $options['etude'];
+
         $builder->add('missions', CollectionType::class, array(
-                'type' => new MissionType($this->etude),
+                'entry_type' => MissionType::class,
+                'entry_options' => array('etude' => $this->etude),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
@@ -47,5 +49,9 @@ class MissionsType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Mgate\SuiviBundle\Entity\Etude',
         ));
+        $resolver->setRequired(['etude']);
+        $resolver->addAllowedTypes('etude', 'Mgate\SuiviBundle\Entity\Etude');
+
+
     }
 }

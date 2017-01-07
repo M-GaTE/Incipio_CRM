@@ -19,7 +19,12 @@ class ProcesVerbalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(strtolower($options['type']), new ProcesVerbalSubType(), array('label' => ' ', 'type' => $options['type'], 'prospect' => $options['prospect'], 'phases' => $options['phases']));
+        $builder->add(strtolower($options['type']), ProcesVerbalSubType::class,
+            array('label' => ' ',
+                'type' => $options['type'],
+                'prospect' => $options['prospect'],
+                'phases' => $options['phases'])
+        );
     }
 
     public function getBlockPrefix()

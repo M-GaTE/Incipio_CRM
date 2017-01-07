@@ -11,6 +11,7 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -32,9 +33,9 @@ class FactureDetailType extends AbstractType
                     )
                 ->add('montantHT', MoneyType::class, array('label' => 'Prix H.T.', 'required' => false))
                 ->add('tauxTVA', NumberType::class, array('label' => 'Taux TVA (%)', 'required' => false))
-                ->add('compte', 'genemu_jqueryselect2_entity', array(
+                ->add('compte', Select2EntityType::class, array(
                         'class' => 'Mgate\TresoBundle\Entity\Compte',
-                        'property' => 'libelle',
+                        'choice_label' => 'libelle',
                         'required' => false,
                         'label' => 'Catégorie',
                         'configs' => array('placeholder' => 'Sélectionnez une catégorie', 'allowClear' => true),

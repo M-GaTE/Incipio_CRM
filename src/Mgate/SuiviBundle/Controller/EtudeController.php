@@ -17,6 +17,7 @@ use Mgate\SuiviBundle\Form\Type\SuiviEtudeType;
 use Mgate\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -269,7 +270,7 @@ class EtudeController extends Controller
     private function createDeleteForm(Etude $etude)
     {
         return $this->createFormBuilder(array('id' => $etude->getId()))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm();
     }
 

@@ -21,7 +21,7 @@ class GroupesPhasesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('groupes', CollectionType::class, array(
-            'type' => new GroupePhasesType(),
+            'entry_type' => GroupePhasesType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,

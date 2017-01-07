@@ -21,7 +21,7 @@ class CcType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('cc', new SubCcType(), array('label' => ' ', 'prospect' => $options['prospect']))
+        $builder->add('cc', SubCcType::class, array('label' => ' ', 'prospect' => $options['prospect']))
             ->add('acompte', CheckboxType::class, array('label' => 'Acompte', 'required' => false))
             ->add('pourcentageAcompte', PercentType::class, array('label' => 'Pourcentage acompte', 'required' => false));
     }

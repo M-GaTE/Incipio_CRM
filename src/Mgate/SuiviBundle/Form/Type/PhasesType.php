@@ -21,8 +21,8 @@ class PhasesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('phases', CollectionType::class, array(
-            'type' => new PhaseType(),
-            'options' => array('etude' => $options['etude']),
+            'entry_type' => PhaseType::class,
+            'entry_options' => array('etude' => $options['etude']),
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,

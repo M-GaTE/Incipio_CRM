@@ -11,6 +11,8 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -36,21 +38,21 @@ class FactureType extends AbstractType
                         )
                     )
                 ->add('details', CollectionType::class, array(
-                    'type' => new FactureDetailType(),
+                    'entry_type' => FactureDetailType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
                     'by_reference' => false,
                 ))
-                ->add('beneficiaire', 'genemu_jqueryselect2_entity', array(
+                ->add('beneficiaire', Select2EntityType::class, array(
                     'class' => 'Mgate\PersonneBundle\Entity\Prospect',
-                    'property' => 'nom',
+                    'choice_label' => 'nom',
                     'required' => true,
                     'label' => 'Facture émise pour/par',
                 ))
-                ->add('montantADeduire', new FactureDetailType(), array('label' => 'Montant à déduire', 'required' => true))
-                ->add('dateEmission', 'genemu_jquerydate', array('label' => 'Date d\'émission', 'required' => true, 'widget' => 'single_text'))
-                ->add('dateVersement', 'genemu_jquerydate', array('label' => 'Date de versement', 'required' => false, 'widget' => 'single_text'));
+                ->add('montantADeduire', FactureDetailType::class, array('label' => 'Montant à déduire', 'required' => true))
+                ->add('dateEmission', DateType::class, array('label' => 'Date d\'émission', 'required' => true, 'widget' => 'single_text'))
+                ->add('dateVersement', DateType::class, array('label' => 'Date de versement', 'required' => false, 'widget' => 'single_text'));
     }
 
     public function getBlockPrefix()
