@@ -43,7 +43,7 @@ class AppKernel extends Kernel
 
 
             new Ob\HighchartsBundle\ObHighchartsBundle(),
-
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
 
             /****************************************
