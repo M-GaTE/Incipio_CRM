@@ -116,7 +116,7 @@ class Mission extends DocType
 //Ajout fonction rapide
     public function getReference()
     {
-        return $this->etude->getReference().'/'.$this->getDebutOm()->format('Y').'/RM/'.$this->getVersion();
+        return $this->etude->getReference().'/'.(!empty($this->getDebutOm()) ? $this->getDebutOm()->format('Y'): 'XX').'/RM/'.$this->getVersion();
     }
 
     public function __construct()
