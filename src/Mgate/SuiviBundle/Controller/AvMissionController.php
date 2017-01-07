@@ -38,7 +38,7 @@ class AvMissionController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction($id)
+    public function addAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -54,7 +54,7 @@ class AvMissionController extends Controller
         $avmission = new AvMission();
         $avmission->setEtude($etude);
         $form = $this->createForm(AvMissionType::class, $avmission);
-        $formHandler = new AvMissionHandler($form, $this->get('request'), $em);
+        $formHandler = new AvMissionHandler($form, $request, $em);
 
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('MgateSuivi_avmission_voir', array('id' => $avmission->getId())));

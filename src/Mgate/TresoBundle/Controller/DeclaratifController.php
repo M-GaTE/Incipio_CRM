@@ -11,9 +11,11 @@
 
 namespace Mgate\TresoBundle\Controller;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType as GenemuDateType;
 use Mgate\TresoBundle\Entity\Facture;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DeclaratifController extends Controller
@@ -46,12 +48,12 @@ class DeclaratifController extends Controller
         $defaultData = array('message' => 'Date');
         $form = $this->createFormBuilder($defaultData)
             ->add(
-                'date', 'genemu_jquerydate',
+                'date', GenemuDateType::class,
                 array(
                     'label' => 'Mois considéré',
                     'required' => true, 'widget' => 'single_text',
                     'data' => date_create(), 'format' => 'dd/MM/yyyy', ))
-            ->add('trimestriel', 'checkbox', array('label' => 'Trimestriel ?', 'required' => false))
+            ->add('trimestriel', CheckboxType::class, array('label' => 'Trimestriel ?', 'required' => false))
             ->getForm();
 
         $nfs = array();
@@ -202,7 +204,7 @@ class DeclaratifController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder(array('message' => 'Date'))
             ->add(
-                'date', 'genemu_jquerydate',
+                'date', GenemuDateType::class,
                 array(
                     'label' => 'Mois du déclaratif',
                     'required' => true, 'widget' => 'single_text',

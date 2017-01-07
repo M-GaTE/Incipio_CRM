@@ -74,11 +74,9 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function getEtudesAsyncAction()
+    public function getEtudesAsyncAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $request = $this->get('request');
 
         if ($request->getMethod() == 'GET') {
             $mandat = $request->query->get('mandat');
@@ -108,7 +106,7 @@ class EtudeController extends Controller
      */
     public function stateAction(Request $request)
     {
-        if ($this->get('request')->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
 
             $stateDescription = !empty($request->request->get('state')) ? $request->request->get('state') : '';
@@ -133,7 +131,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         $etude = new Etude();
 
@@ -149,8 +147,8 @@ class EtudeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $error_messages = array();
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 if (!$etude->isKnownProspect()) {
@@ -160,7 +158,7 @@ class EtudeController extends Controller
                 $em->persist($etude);
                 $em->flush();
 
-                if ($this->get('request')->get('ap')) {
+                if ($request->get('ap')) {
                     return $this->redirect($this->generateUrl('MgateSuivi_ap_rediger', array('id' => $etude->getId())));
                 } else {
                     return $this->redirect($this->generateUrl('MgateSuivi_etude_voir', array('nom' => $etude->getNom())));
@@ -210,7 +208,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction(Etude $etude)
+    public function modifierAction(Request $request, Etude $etude)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -221,8 +219,8 @@ class EtudeController extends Controller
         $form = $this->createForm(EtudeType::class, $etude);
 
         $deleteForm = $this->createDeleteForm($etude);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($etude);
@@ -278,7 +276,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function suiviAction()
+    public function suiviAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -324,8 +322,8 @@ class EtudeController extends Controller
         }
         $form = $form->getForm();
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             $data = $form->getData();
 
@@ -380,7 +378,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function suiviUpdateAction($id)
+    public function suiviUpdateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $etude = $em->getRepository('MgateSuiviBundle:Etude')->find($id);
@@ -394,8 +392,8 @@ class EtudeController extends Controller
         }
 
         $formSuivi = $this->createForm(SuiviEtudeType::class, $etude);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $formSuivi->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $formSuivi->handleRequest($request);
 
             if ($formSuivi->isValid()) {
                 $em->persist($etude);

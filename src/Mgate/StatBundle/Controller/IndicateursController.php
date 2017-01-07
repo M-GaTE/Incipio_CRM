@@ -15,6 +15,7 @@ use Mgate\StatBundle\Entity\Indicateur;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // A externaliser dans les parametres
@@ -55,10 +56,8 @@ class IndicateursController extends Controller
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function ajaxAction()
+    public function ajaxAction(Request $request)
     {
-        $request = $this->get('request');
-
         if ($request->getMethod() == 'GET') {
             $chartMethode = $request->query->get('chartMethode');
             $em = $this->getDoctrine()->getManager();

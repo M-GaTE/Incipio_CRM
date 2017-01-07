@@ -22,7 +22,7 @@ class EmployeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction($prospect_id, $format)
+    public function ajouterAction(Request $request, $prospect_id, $format)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -36,8 +36,8 @@ class EmployeController extends Controller
 
         $form = $this->createForm(EmployeType::class, $employe);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($employe->getPersonne());
@@ -91,7 +91,7 @@ class EmployeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -102,8 +102,8 @@ class EmployeController extends Controller
         // On passe l'$article récupéré au formulaire
         $form = $this->createForm(EmployeType::class, $employe);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($employe);

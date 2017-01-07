@@ -18,6 +18,7 @@ use Mgate\SuiviBundle\Form\Type\MissionsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -44,7 +45,7 @@ class MissionsController extends Controller
      *
      * @return RedirectResponse|Response
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -69,25 +70,25 @@ class MissionsController extends Controller
 
         /* Form handling */
         $form = $this->createForm(new MissionsType($etude), $etude);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 //if a new missions set is created
-                if ($this->get('request')->get('add')) {
+                if ($request->get('add')) {
                     $missionNew = new Mission(); // add a new empty mission to mission set.
                     $missionNew->setEtude($etude);
                     $etude->addMission($missionNew);
                 }
 
                 //if a repartition is added to a mission
-                if ($this->get('request')->get('addRepartition')) {
+                if ($request->get('addRepartition')) {
                     $repartitionNew = new RepartitionJEH();
 
-                    if ($this->get('request')->get('idMission') !== null) {
-                        $idMission = intval($this->get('request')->get('idMission'));
+                    if ($request->get('idMission') !== null) {
+                        $idMission = intval($request->get('idMission'));
                         if ($etude->getMissions()->get($idMission)) {
-                            $mission = $etude->getMissions()->get($this->get('request')->get('idMission'));
+                            $mission = $etude->getMissions()->get($request->get('idMission'));
                             $mission->addRepartitionsJEH($repartitionNew);
                             $repartitionNew->setMission($mission);
 

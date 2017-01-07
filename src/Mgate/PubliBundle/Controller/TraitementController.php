@@ -474,7 +474,7 @@ class TraitementController extends Controller
         $session = $request->getSession();
 
         if ($request->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();

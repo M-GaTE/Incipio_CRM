@@ -49,7 +49,7 @@ class DefaultController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -64,8 +64,8 @@ class DefaultController extends Controller
 
         $form = $this->createForm(new UserAdminType('Mgate\UserBundle\Entity\User', $this->getParameter('security.role_hierarchy.roles')), $user);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($user);

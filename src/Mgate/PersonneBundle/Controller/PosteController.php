@@ -22,7 +22,7 @@ class PosteController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction()
+    public function ajouterAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -30,8 +30,8 @@ class PosteController extends Controller
 
         $form = $this->createForm(PosteType::class, $poste);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($poste);
