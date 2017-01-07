@@ -18,11 +18,11 @@
 
 {% block content_bundle %}
 
-    <form method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
         {{ form_label(form.mandat) }} {{ form_widget(form.mandat) }}
         {{ form_widget(form) }}
         <input type="submit" value="{{ 'formation.chercher'|trans({}, 'formation') }}" class="btn"/>
-    </form>
+    {{ form_end(form) }}
 
     <table class="dataTable table table-bordered table-striped" id="presence">
         <thead>

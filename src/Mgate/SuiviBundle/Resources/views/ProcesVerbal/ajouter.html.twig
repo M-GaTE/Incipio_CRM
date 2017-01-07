@@ -8,13 +8,13 @@
 
     <h2>{{ 'suivi.proces_verbal_ajouter'|trans({}, 'suivi') }}</h2>
 
-    <form method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
 
         {{ form_widget(form) }}
 
         <input type="submit" value="{{ 'suivi.proces_verbal_enregistrer'|trans({}, 'suivi') }}"
                class="btn btn-success"/>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}
 
 

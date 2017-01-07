@@ -5,12 +5,12 @@
 {% block content_bundle %}
 
     <h2>Modifier un poste</h2>
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
 	{{ form_widget(form) }}
 
 	<input type="submit" />
-</form>
+{{ form_end(form) }}
 
 
     <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce poste ?" action="{{ path('MgatePersonne_poste_supprimer', { 'id': form.vars.value.id }) }}" method="post">

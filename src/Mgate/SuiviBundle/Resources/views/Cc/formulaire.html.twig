@@ -1,6 +1,6 @@
 {# Formulaire d'ajout d'une cc #}
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
 	<table class="table table-bordered table-striped standard">
 	<tr>
@@ -75,4 +75,5 @@
 
 	<input type="submit" value="{{ 'suivi.cc_enregistrer'|trans({}, 'suivi') }}" class="btn"/>
         <input type="submit" value="{{ 'suivi.cc_enregistrer_pvi_passer'|trans({}, 'suivi') }}" name="pvi" id="pvi" class="btn"/>
-</form><br>
+{{ form_end(form) }}
+<br>

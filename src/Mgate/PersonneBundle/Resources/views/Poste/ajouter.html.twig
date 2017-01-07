@@ -4,12 +4,12 @@
 
   <h2>Ajouter un Poste {{ junior['abbr'] }}</h2>
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
 	{{ form_widget(form) }}
 
 	<input type="submit" />
-</form>
+{{ form_end(form) }}
 
 
 

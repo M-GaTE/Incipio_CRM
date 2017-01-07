@@ -11,7 +11,7 @@
 
 {% block content_bundle %}
 
-    <form method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
 
         {% form_theme form 'MgateSuiviBundle:Form:fields.html.twig' %}
         <table class="table table-bordered table-striped standard">
@@ -91,7 +91,7 @@
         <br>
         <input type="submit" value="{{ 'suivi.etude_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default"/>
         <input type="submit" value="{{ 'suivi.etude_enregistrer_passer_ap'|trans({}, 'suivi') }}" name="ap" id="ap" class="btn btn-default"/>
-    </form>
+    {{ form_end(form) }}
     <br>
 
     <p>

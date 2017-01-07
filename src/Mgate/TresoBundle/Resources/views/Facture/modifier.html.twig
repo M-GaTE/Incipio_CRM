@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content_bundle %}
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
     <input name="save" type="submit" value="{{ 'treso.facture_enregistrer'|trans({}, 'treso') }}" class="btn" />
     <br/><br/>
     <table class="table table-bordered table-striped standard">
@@ -72,7 +72,7 @@
     </table>
 
 	{{ form_widget(form) }}
-</form>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascript %}

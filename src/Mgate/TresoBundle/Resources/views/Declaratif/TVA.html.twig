@@ -9,18 +9,19 @@
 {% endblock %}
 
 {% block content_bundle %}
-    <form method="post" {{ form_enctype(form) }} class="form-inline row">
-        {% form_theme form 'MgateSuiviBundle:Form:fields.html.twig' %}
-        <div class="col-md-3 col-xs-12">
-            {{ form_label(form.date) }} {{ form_widget(form.date) }}
-        </div>
-        <div class="col-md-3 col-xs-12">
-            {{ form_widget(form) }}
-        </div>
-        <div class="col-md-3 col-xs-12">
-            <input type="submit" value="{{ 'treso.chercher'|trans({}, 'treso') }}" class="btn btn-default"/>
-        </div>
-    </form>
+    {{ form_start(form, {'attr': {'class': 'form-inline row'}}) }}
+
+    {% form_theme form 'MgateSuiviBundle:Form:fields.html.twig' %}
+    <div class="col-md-3 col-xs-12">
+        {{ form_label(form.date) }} {{ form_widget(form.date) }}
+    </div>
+    <div class="col-md-3 col-xs-12">
+        {{ form_widget(form) }}
+    </div>
+    <div class="col-md-3 col-xs-12">
+        <input type="submit" value="{{ 'treso.chercher'|trans({}, 'treso') }}" class="btn btn-default"/>
+    </div>
+    {{ form_end(form) }}
     <h3>{{ periode }}</h3>
     <br>
     <table class="table table-bordered table-striped">
@@ -125,7 +126,7 @@
     </table>
 {% endblock %}
 
-{% block javascript %}
-    {{ parent() }}
-    {{ form_javascript(form) }}
-{% endblock %}
+    {% block javascript %}
+        {{ parent() }}
+        {{ form_javascript(form) }}
+    {% endblock %}

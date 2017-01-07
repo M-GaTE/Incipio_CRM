@@ -3,100 +3,100 @@
 {% block content_bundle %}
 
     <h2>Modifier les {{ form.missions | length }} intervenants</h2>
-    <form name="missionsForm" method="POST" {{ form_enctype(form) }}>
+    {{ form_start(form, {'attr': {'name': 'missionsForm'}}) }}
 
-        <p><br/><input type="submit" value="{{ 'suivi.mission_ajouter'|trans({}, 'suivi') }}" name="add" class="btn"/> -
-            <input type="submit" value="{{ 'suivi.missions_enregistrer'|trans({}, 'suivi') }}" class="btn"/></p>
-        <input type="hidden" value="" name="idMission" id="idMission"/>
+    <p><br/><input type="submit" value="{{ 'suivi.mission_ajouter'|trans({}, 'suivi') }}" name="add" class="btn"/> -
+        <input type="submit" value="{{ 'suivi.missions_enregistrer'|trans({}, 'suivi') }}" class="btn"/></p>
+    <input type="hidden" value="" name="idMission" id="idMission"/>
 
 
-        {% for mission in form.missions %}
-            <div class="panel panel-primary" data-role="mission">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4 worker">
-                            {{ form_label(mission.intervenant) }}
-                            {{ form_widget(mission.intervenant) }}
-                        </div>
+    {% for mission in form.missions %}
+        <div class="panel panel-primary" data-role="mission">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 worker">
+                        {{ form_label(mission.intervenant) }}
+                        {{ form_widget(mission.intervenant) }}
                     </div>
                 </div>
-                <div class="panel-body">
-                    {% include 'MgateSuiviBundle:Mission:formulaire.html.twig' %}
-                </div><!-- end panel body -->
             </div>
-        {% endfor %}
+            <div class="panel-body">
+                {% include 'MgateSuiviBundle:Mission:formulaire.html.twig' %}
+            </div><!-- end panel body -->
+        </div>
+    {% endfor %}
 
 
-        {{ form_rest(form) }}
+    {{ form_rest(form) }}
 
-    </form>
+    {{ form_end(form) }}
 
     <a href="{{ path('MgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
 
 {% endblock %}
 
-{% block javascript %}
-    {{ parent() }}
-    {{ form_javascript(form) }}
+    {% block javascript %}
+        {{ parent() }}
+        {{ form_javascript(form) }}
 
-    <script type="text/javascript">
-        var isDirty = false;
-        //Verification avant de quitter
-        $(':input').change(function () {
-            if (!isDirty) {
-                isDirty = true;
+        <script type="text/javascript">
+            var isDirty = false;
+            //Verification avant de quitter
+            $(':input').change(function () {
+                if (!isDirty) {
+                    isDirty = true;
+                }
+            });
+            $(window).bind('beforeunload', function () {
+                if (isDirty)
+                    return "Voulez-vous quitter sans enregistrer ?";
+            });
+            $('form').submit(function () {
+                isDirty = false;
+                return true;
+            });
+
+            //add button delete on repartition
+            $('.repartitions').each(function () {
+                addPhaseButton($(this));
+            });
+
+            //add button delete on missions
+            var missions = $('[data-role=mission]');
+
+            missions.find('.worker').each(function () {
+                addMissionButton($(this));
+            });
+
+
+            function addPhaseButton(tag) {
+                var removePhase = $('<button class="btn btn-xs"><i class="fa fa-times"></i></button>');
+                tag.children().first().append(removePhase);
+                removePhase.on('click', function (e) {
+                    e.preventDefault();
+                    var message = "Êtes vous sûr de vouloir supprimer ces JEH ?";
+                    bootbox.confirm(message, function (result) {
+                        if (result) {
+                            tag.remove();
+                        }
+                    });
+                });
             }
-        });
-        $(window).bind('beforeunload', function () {
-            if (isDirty)
-                return "Voulez-vous quitter sans enregistrer ?";
-        });
-        $('form').submit(function () {
-            isDirty = false;
-            return true;
-        });
 
-        //add button delete on repartition
-        $('.repartitions').each(function () {
-            addPhaseButton($(this));
-        });
-
-        //add button delete on missions
-        var missions = $('[data-role=mission]');
-
-        missions.find('.worker').each(function () {
-            addMissionButton($(this));
-        });
-
-
-        function addPhaseButton(tag) {
-            var removePhase = $('<button class="btn btn-xs"><i class="fa fa-times"></i></button>');
-            tag.children().first().append(removePhase);
-            removePhase.on('click', function (e) {
-                e.preventDefault();
-                var message = "Êtes vous sûr de vouloir supprimer ces JEH ?";
-                bootbox.confirm(message, function (result) {
-                    if (result) {
-                        tag.remove();
-                    }
+            function addMissionButton(tag) {
+                var removeMission = $('<button class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>');
+                tag.append(removeMission);
+                removeMission.on('click', function (e) {
+                    e.preventDefault();
+                    var message = "Êtes vous sûr de vouloir supprimer cet intervenant ?";
+                    bootbox.confirm(message, function (result) {
+                        if (result) {
+                            tag.parent().parent().parent().remove();
+                        }
+                    });
                 });
-            });
-        }
+            }
 
-        function addMissionButton(tag) {
-            var removeMission = $('<button class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>');
-            tag.append(removeMission);
-            removeMission.on('click', function (e) {
-                e.preventDefault();
-                var message = "Êtes vous sûr de vouloir supprimer cet intervenant ?";
-                bootbox.confirm(message, function (result) {
-                    if (result) {
-                        tag.parent().parent().parent().remove();
-                    }
-                });
-            });
-        }
-
-        $('.select2-multiple').select2();
-    </script>
-{% endblock %}
+            $('.select2-multiple').select2();
+        </script>
+    {% endblock %}

@@ -1,6 +1,6 @@
 {# Formulaire d'ajout d'une cc #}
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
     <table class="table table-bordered table-striped standard">
         <tr>
@@ -28,4 +28,4 @@
 
     <input type="submit" value="{{ 'suivi.contact_client_nouveau_enregistrer'|trans({}, 'suivi') }}" class="btn"/>
 
-</form>
+{{ form_end(form) }}

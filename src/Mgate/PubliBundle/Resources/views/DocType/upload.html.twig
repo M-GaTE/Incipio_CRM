@@ -10,7 +10,7 @@
 
 {% block content_bundle %}
 
-    <form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
         <table class="table table-bordered table-striped">
             <tr>
                 <td>{{ form_label(form.template) }}</td>
@@ -42,7 +42,7 @@
         {{ form_widget(form) }}
 
         <input type="submit" class="btn btn-success" value="Uploader"/>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascript %}

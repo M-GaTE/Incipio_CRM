@@ -8,7 +8,7 @@
 
 {% block content_bundle %}
     <h3>{{ base.baseURSSAF ? "Ajout d'une" :  "Modification de la" }} {{ 'treso.base'|trans({}, 'treso') }} : </h3>
-    <form method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
     <table class="table table-bordered table-striped standard">
         <tr>
             <th>{{ form_label(form.dateDebut) }}</th>
@@ -23,7 +23,8 @@
     </table>
             <input type="submit" class="btn btn-success" value="Enregistrer" />
     {{ form_rest(form) }}
-    </form>
+    {{ form_end(form) }}
+
     {% if base.baseURSSAF %}
     <table class="table">
         <tr>

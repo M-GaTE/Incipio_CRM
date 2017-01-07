@@ -1,8 +1,6 @@
 {# Formulaire d'ajout d'un de user #}
 
-<form method="post" {{ form_enctype(form) }}>
-
+{{ form_start(form) }}
 	{{ form_widget(form) }}
-
-	<input type="submit" />
-</form>
+    <input type="submit" class="btn btn-default"/>
+{{ form_end(form) }}

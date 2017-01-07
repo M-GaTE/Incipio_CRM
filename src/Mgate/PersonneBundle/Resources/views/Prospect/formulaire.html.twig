@@ -1,6 +1,6 @@
 {# Formulaire d'ajout d'un prospect #}
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
     <table class="table table-bordered table-striped standard">
         <tr>
@@ -43,5 +43,4 @@
 
     {{ form_rest(form) }}
 
-
-</form>
+{{  form_end(form) }}

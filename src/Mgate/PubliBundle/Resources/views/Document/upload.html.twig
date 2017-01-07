@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block content_bundle %}
-    <form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_start(form) }}
         {{ form_widget(form) }}
 
         <input type="submit" value="Uploader" class="btn btn-warning"/>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascript %}

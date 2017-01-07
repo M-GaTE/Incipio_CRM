@@ -17,7 +17,7 @@
     </style>
 
     <h2>{{ 'suivi.modifier_les'|trans({}, 'suivi') }} {{ form.phases | length }} {{ 'suivi.phases'|trans({}, 'suivi') }}</h2>
-    <form method="POST" {{ form_enctype(form) }} id="form">
+    {{ form_start(form, {'attr': {'id': 'form'}}) }}
         {# affiche l'unique champ de la tache : description #}
         {#{ form_row(form.description) }#}
 
@@ -83,7 +83,7 @@
             <p><input type="submit" value="{{ 'suivi.phase_ajouter'|trans({}, 'suivi') }}" name="add" class="btn btn-info"/>
                 - <input type="submit" value="{{ 'suivi.phases_enregistrer'|trans({}, 'suivi') }}" class="btn btn-default"/></p>
 
-    </form>
+    {{ form_end(form) }}
 
     <a href="{{ path('MgateSuivi_etude_voir', {'nom': etude.nom}) }}">{{ 'suivi.etude_retour'|trans({}, 'suivi') }}</a>
 
