@@ -11,6 +11,8 @@
 
 namespace Mgate\PersonneBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType as GenemuDateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,11 +22,11 @@ class MandatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('debutMandat', 'genemu_jquerydate', array('label' => 'Date de début', 'format' => 'dd/MM/yyyy', 'required' => false, 'widget' => 'single_text'))
-                ->add('finMandat', 'genemu_jquerydate', array('label' => 'Date de Fin', 'format' => 'dd/MM/yyyy', 'required' => false, 'widget' => 'single_text'))
-                ->add('poste', 'entity', array('label' => 'Intitulé',
+                ->add('debutMandat', GenemuDateType::class, array('label' => 'Date de début', 'format' => 'dd/MM/yyyy', 'required' => false, 'widget' => 'single_text'))
+                ->add('finMandat', GenemuDateType::class, array('label' => 'Date de Fin', 'format' => 'dd/MM/yyyy', 'required' => false, 'widget' => 'single_text'))
+                ->add('poste', EntityType::class, array('label' => 'Intitulé',
                     'class' => 'Mgate\\PersonneBundle\\Entity\\Poste',
-                    'property' => 'intitule',
+                    'choice_label' => 'intitule',
                     'required' => true, )); //ajout de la condition "requis" pour éviter la corruption de la liste des membres par manque d'intitulé.
     }
 

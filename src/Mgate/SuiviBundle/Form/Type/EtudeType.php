@@ -11,6 +11,7 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Mgate\PersonneBundle\Form\Type\ProspectType;
 use Mgate\SuiviBundle\Entity\Etude;
@@ -33,29 +34,29 @@ class EtudeType extends AbstractType
                 'required' => false,
                 'label' => 'Le signataire client existe-t-il déjà dans la base de donnée ?',
                 ))
-             ->add('prospect', 'genemu_jqueryselect2_entity', array(
+             ->add('prospect', Select2EntityType::class, array(
                 'class' => 'Mgate\PersonneBundle\Entity\Prospect',
-                'property' => 'nom',
+                'choice_label' => 'nom',
                 'required' => true,
                 'label' => 'Prospect existant',
                 ))
-            ->add('newProspect', new ProspectType(), array('label' => 'Nouveau prospect:', 'required' => false))
+            ->add('newProspect', ProspectType::class, array('label' => 'Nouveau prospect:', 'required' => false))
             ->add('nom', TextType::class, array('label' => 'Nom interne de l\'étude'))
             ->add('description', TextareaType::class, array('label' => 'Présentation interne de l\'étude', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
             ->add('mandat', IntegerType::class)
             ->add('num', IntegerType::class, array('label' => 'Numéro de l\'étude', 'required' => false))
             ->add('confidentiel', CheckboxType::class, array('label' => 'Confidentialité :', 'required' => false, 'attr' => array('title' => "Si l'étude est confidentielle, elle ne sera visible que par vous et les membres du CA.")))
-            ->add('suiveur', 'genemu_jqueryselect2_entity',
+            ->add('suiveur', Select2EntityType::class,
                 array('label' => 'Suiveur de projet',
                        'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                       'property' => 'prenomNom',
+                       'choice_label' => 'prenomNom',
                        'query_builder' => function (PersonneRepository $pr) {
                            return $pr->getMembreOnly();
                        },
                        'required' => false, ))
-            ->add('domaineCompetence', 'genemu_jqueryselect2_entity', array(
+            ->add('domaineCompetence', Select2EntityType::class, array(
                 'class' => 'Mgate\SuiviBundle\Entity\DomaineCompetence',
-                'property' => 'nom',
+                'choice_label' => 'nom',
                 'required' => false,
                 'label' => 'Domaine de compétence',
                 ))
