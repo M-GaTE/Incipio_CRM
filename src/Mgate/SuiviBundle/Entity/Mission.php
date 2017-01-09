@@ -81,7 +81,7 @@ class Mission extends DocType
 
     /**
      * @var Phase
-     * @ORM\OneToMany(targetEntity="Mgate\SuiviBundle\Entity\Phase", mappedBy="mission", cascade={"merge"})
+     * @ORM\OneToMany(targetEntity="Mgate\SuiviBundle\Entity\Phase", mappedBy="mission", cascade={"persist", "merge", "remove"})
      */
     private $phases;
 
