@@ -2,7 +2,7 @@
 
 {% block content_bundle %}
 
-    <h2>Modifier les {{ form.missions | length }} intervenants</h2>
+    <h2>Modifier l{{ form.missions | length |pluriel('es '~(form.missions | length)  ,'a') }} mission{{ form.missions | length | pluriel  }}</h2>
     <form name="missionsForm" method="POST" {{ form_enctype(form) }}>
 
         <p><br/><input type="submit" value="{{ 'suivi.mission_ajouter'|trans({}, 'suivi') }}" name="add" class="btn"/> -
