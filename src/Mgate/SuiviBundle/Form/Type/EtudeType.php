@@ -60,7 +60,11 @@ class EtudeType extends AbstractType
                 'required' => false,
                 'label' => 'Domaine de compétence',
                 ))
-            ->add('sourceDeProspection', ChoiceType::class, array('choices' => Etude::getSourceDeProspectionChoice(), 'required' => false));
+            ->add('sourceDeProspection', ChoiceType::class, array(
+                'choices' => Etude::getSourceDeProspectionChoice(),
+                'choice_label' => function($value){ return $value; },
+                'required' => false
+            ));
     }
 
     public function getBlockPrefix()
