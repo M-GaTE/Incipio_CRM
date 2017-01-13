@@ -1,3 +1,0 @@
----
-- name:  Regenerate locales
-  shell: locale-gen && update-locale "{{ locale }}"
