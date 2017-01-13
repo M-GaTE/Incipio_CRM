@@ -15,6 +15,7 @@ use Mgate\PersonneBundle\Entity\Employe;
 use Mgate\PersonneBundle\Form\Type\EmployeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 
 class EmployeController extends Controller
@@ -149,7 +150,7 @@ class EmployeController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm()
             ;
     }

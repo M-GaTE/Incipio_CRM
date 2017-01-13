@@ -16,6 +16,7 @@ use Mgate\SuiviBundle\Form\Type\ProcesVerbalSubType;
 use Mgate\SuiviBundle\Form\Type\ProcesVerbalType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -207,7 +208,7 @@ class ProcesVerbalController extends Controller
     private function createDeleteForm($id_pv)
     {
         return $this->createFormBuilder(array('id' => $id_pv))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm();
     }
 }

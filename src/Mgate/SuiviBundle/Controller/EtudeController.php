@@ -313,7 +313,7 @@ class EtudeController extends Controller
         $id = 0;
         foreach (array_reverse($etudesParMandat) as $etudesInMandat) {
             foreach ($etudesInMandat as $etude) {
-                $form = $form->add((string) (2 * $id), 'hidden', array('label' => 'refEtude', 'data' => $etude->getReference()))
+                $form = $form->add((string) (2 * $id), HiddenType::class, array('label' => 'refEtude', 'data' => $etude->getReference()))
                     ->add((string) (2 * $id + 1), 'textarea', array('label' => $etude->getReference(), 'required' => false, 'data' => $etude->getStateDescription()));
                 ++$id;
                 if ($etude->getStateID() == STATE_ID_EN_COURS) {
