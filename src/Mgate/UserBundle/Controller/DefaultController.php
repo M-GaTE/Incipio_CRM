@@ -14,6 +14,7 @@ namespace Mgate\UserBundle\Controller;
 use Mgate\UserBundle\Form\Type\UserAdminType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -62,7 +63,7 @@ class DefaultController extends Controller
             throw new AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
         }
 
-        $form = $this->createForm(new UserAdminType('Mgate\UserBundle\Entity\User', $this->getParameter('security.role_hierarchy.roles')), $user);
+        $form = $this->createForm(UserAdminType::class, $user, array('user_class'=> 'Mgate\UserBundle\Entity\User', 'roles' => $this->getParameter('security.role_hierarchy.roles')) );
         $deleteForm = $this->createDeleteForm($id);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -123,7 +124,7 @@ class DefaultController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm()
         ;
     }
