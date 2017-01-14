@@ -36,11 +36,11 @@
         "stoakes/form-bundle": "^3.0@dev"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "^1.9",
+        "friendsofphp/php-cs-fixer": "^1.9",
         "behat/behat": "@stable",
         "behat/mink": "@stable",
         "behat/mink-extension": "@stable",
-        "behat/mink-goutte-driver": "*",
+        "behat/mink-goutte-driver": "*"
     },
     "scripts": {
         "style:check": "php bin/php-cs-fixer fix --no-interaction --dry-run --diff -vvvv src/",
