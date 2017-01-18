@@ -2,6 +2,7 @@
 
 namespace N7consulting\DevcoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\MembreRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -18,7 +19,7 @@ class AppelType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('suiveur', 'genemu_jqueryselect2_entity',
+            ->add('suiveur', Select2EntityType::class,
                 array('label' => 'Appellant',
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Membre',
                 'query_builder' => function (MembreRepository $mr) {

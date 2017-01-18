@@ -11,6 +11,7 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,9 +26,9 @@ class ClientContactType extends AbstractType
         $builder
             //->add('dateCreation',  'date')
 
-            ->add('faitPar', 'genemu_jqueryselect2_entity', array('label' => 'Fait par',
+            ->add('faitPar', Select2EntityType::class, array('label' => 'Fait par',
                        'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                       'property' => 'prenomNom',
+                       'choice_label' => 'prenomNom',
                        'required' => true, ))
 
             //->add('thread', new ThreadType) // délicat
@@ -35,7 +36,7 @@ class ClientContactType extends AbstractType
            //->add('date', 'genemu_jquerydate', array('label'=>'Date du contact', 'required'=>true, 'widget'=>'single_text'))
            ->add('objet', TextType::class, array('label' => 'Objet'))
            ->add('contenu', TextareaType::class, array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
-           ->add('moyenContact', new MoyenContactType(), array('label' => 'Contact effectué par'))
+           ->add('moyenContact', MoyenContactType::class, array('label' => 'Contact effectué par'))
            ;
 
             /*             ->add('prospect', 'collection', array('type'  => new \Mgate\PersonneBundle\Form\ProspectType,
