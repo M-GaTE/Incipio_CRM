@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-// src/Sdz/BlogBundle/Form/ArticleHandler.php
-
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
@@ -34,7 +32,7 @@ class ClientContactHandler
     public function process()
     {
         if ($this->request->getMethod() == 'POST') {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($this->form->getData());
