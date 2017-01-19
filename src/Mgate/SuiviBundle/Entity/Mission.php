@@ -82,6 +82,7 @@ class Mission extends DocType
     /**
      * @var Phase
      * @ORM\OneToMany(targetEntity="Mgate\SuiviBundle\Entity\Phase", mappedBy="mission", cascade={"merge"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $phases;
 
