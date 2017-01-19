@@ -37,7 +37,7 @@ class MembreType extends AbstractType
                 )
                 ->add('emailEMSE', TextType::class, array('label' => 'Email Ecole', 'required' => false))
                 ->add('promotion', IntegerType::class, array('label' => 'Promotion', 'required' => false))
-                ->add('dateDeNaissance', DateType::class, array('label' => 'Date de naissance (jj/mm/aaaa)', 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false))
+                ->add('dateDeNaissance', GenemuDateType::class, array('label' => 'Date de naissance (jj/mm/aaaa)', 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false))
                 ->add('lieuDeNaissance', TextType::class, array('label' => 'Lieu de naissance', 'required' => false))
                 ->add('nationalite', Select2CountryType::class, array('label' => 'Nationalité', 'required' => true, 'preferred_choices' => array('FR')))
                 ->add('mandats', CollectionType::class, array(

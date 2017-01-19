@@ -27,7 +27,8 @@ class AvType extends DocTypeType
         ->add('objet', TextareaType::class, array('label' => 'Exposer les causes de l’Avenant. Ne pas hésiter à 
         détailler l\'historique des relations avec le client et du travail sur l\'étude qui ont conduit à l\'Avenant.',
         'required' => true, ))
-        ->add('clauses', ChoiceType::class, array('label' => 'Type d\'avenant', 'multiple' => true, 'choices' => Av::getClausesChoices()))
+        ->add('clauses', ChoiceType::class, array('label' => 'Type d\'avenant', 'multiple' => true, 'choices' => Av::getClausesChoices(),
+            'choice_label'=>function($var){return $var;}))
         ->add('phases', CollectionType::class, array(
                 'entry_type' => PhaseType::class,
                 'entry_options' => array('isAvenant' => true),

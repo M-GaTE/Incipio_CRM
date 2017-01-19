@@ -44,7 +44,7 @@ class MissionType extends DocTypeType
             ->add('debutOm', Datetype::class, array('label' => 'Début du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
             ->add('finOm', DateType::class, array('label' => 'Fin du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
             ->add('pourcentageJunior', PercentType::class, array('label' => 'Pourcentage junior', 'required' => true, 'scale' => 2))
-            ->add('referentTechnique', EntityType::class, array(
+            ->add('referentTechnique', Select2EntityType::class, array(
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Membre',
                 'choice_label' => 'personne.prenomNom',
                 'label' => 'Référent Technique',

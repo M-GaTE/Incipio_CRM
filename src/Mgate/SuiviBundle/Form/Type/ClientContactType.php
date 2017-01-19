@@ -11,9 +11,9 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
 use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,8 +32,7 @@ class ClientContactType extends AbstractType
                        'required' => true, ))
 
             //->add('thread', new ThreadType) // délicat
-           ->add('date', DateTimeType::class, array('label' => 'Date du contact'))
-           //->add('date', 'genemu_jquerydate', array('label'=>'Date du contact', 'required'=>true, 'widget'=>'single_text'))
+           ->add('date', DateType::class, array('label' => 'Date du contact',  'required'=>true, 'widget'=>'single_text'))
            ->add('objet', TextType::class, array('label' => 'Objet'))
            ->add('contenu', TextareaType::class, array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
            ->add('moyenContact', MoyenContactType::class, array('label' => 'Contact effectué par'))

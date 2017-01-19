@@ -50,7 +50,8 @@ class ApType extends AbstractType
             ->add('typePrestation', ChoiceType::class,
                 array('choices' => Etude::getTypePrestationChoice(),
                     'label' => 'Type de prestation',
-                    'required' => false))
+                    'required' => false,
+                    'choice_label' => function($name){return $name;}))
             ->add('competences'/**,'textarea', array('label' => 'Capacité des intervenants:', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5))**/);
     }
 
