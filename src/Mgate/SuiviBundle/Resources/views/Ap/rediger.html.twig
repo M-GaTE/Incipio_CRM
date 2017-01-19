@@ -109,7 +109,7 @@
         </tr>
         <tr>
             <th>{{ form_label(form.competences) }}</th>
-            <td>{{ form_widget(form.competences) }}</td>
+            <td>{{ form_widget(form.competences, {'attr': {'class':'select2', 'style': 'width=100%'}}) }}</td>
         </tr>
     </table>
     {{ form_widget(form) }}
@@ -125,7 +125,7 @@
      {{ parent() }}
      {{ form_javascript(form) }}
      <script type="text/javascript">
-         $("#Mgate_suivibundle_aptype_competences").select2({containerCssClass: "td"});
+         $(".select2").select2({ width: '100%' });
      </script>
      {% include "MgateSuiviBundle:DocType:selectOrNew.html.twig" with { known: form.ap.knownSignataire2, knowned: form.ap.signataire2, newed: form.ap.newSignataire2 } %}
  {% endblock %}
