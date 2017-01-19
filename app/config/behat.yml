@@ -1,0 +1,17 @@
+default:
+    autoload:
+      '': "tests/features/"
+    suites:
+        default:
+            contexts: [Tests\Features\Bootstrap\FeatureContext]
+            paths: [ "tests/features" ]
+
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            base_url: http://incipio1x.dev
+            sessions:
+                default:
+                    symfony2: ~
+                javascript:
+                    selenium2: ~
