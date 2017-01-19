@@ -8,6 +8,7 @@
 
     <h2>Liste des Postes</h2>
 
+    <a href="{{ path('MgatePersonne_poste_ajouter') }}" class="btn btn-info">{{ 'dashboard.poste_ajouter'|trans({}, 'dashboard') }}</a>
     <ul>
         {% for poste in postes %}
             <li>

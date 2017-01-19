@@ -116,27 +116,30 @@ class PosteController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Poste $poste)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($poste->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if (!$entity = $em->getRepository('Mgate\PersonneBundle\Entity\Poste')->find($id)) {
-                throw $this->createNotFoundException('Le poste demandé n\'existe pas !');
+            if($poste->getMandats()->count() == 0) { //collection contains no mandats
+                foreach ($poste->getMandats() as $membre) {
+                    $membre->setPoste(null);
+                }
+                $em->remove($poste);
+                $em->flush();
+                $this->addFlash('success', 'Poste supprimé avec succès');
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
-
-            foreach ($entity->getMembres() as $membre) {
-                $membre->setPoste(null);
+            else{
+                $this->addFlash('danger', 'Impossible de supprimer un poste ayant des membres.');
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_modifier', array('id' => $poste->getId() )));
             }
-
-            $em->remove($entity);
-            $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
+
     }
 
     private function createDeleteForm($id)
