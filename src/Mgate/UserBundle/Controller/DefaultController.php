@@ -73,7 +73,7 @@ class DefaultController extends Controller
                 $em->flush();
 
                 $userManager = $this->container->get('fos_user.user_manager');
-                $userManager->refreshUser($user);
+                $userManager->reloadUser($user);
 
                 return $this->redirect($this->generateUrl('Mgate_user_voir', array('id' => $user->getId())));
             }
