@@ -48,7 +48,7 @@
 				<td colspan="4">
 					<button class="btn btn-sm" type="submit" value="{{ 'suivi.jeh_ajouter'|trans({}, 'suivi') }}"
 							name="addRepartition"
-							onclick="document.forms['missionsForm'].elements['idMission'].value = {{ loop.index0 }};"
+							onclick="$('#idMission').val({{ loop.index0 }});"
 							title="{{ 'suivi.jeh_ajouter'|trans({}, 'suivi') }}" data-toggle="tooltip">
 						<i class="fa fa-plus"></i></button>
 					<h4 style="display: inline;">{{ 'suivi.jeh_repartition'|trans({}, 'suivi') }}</h4>

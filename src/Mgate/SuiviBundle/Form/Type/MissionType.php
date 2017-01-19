@@ -55,6 +55,7 @@ class MissionType extends DocTypeType
                 'query_builder' => function (PhaseRepository $pr) {
                     return $pr->getByEtudeQuery($this->etude);
                 },
+                'required' =>false,
                 'multiple' => true,
                 'by_reference' => false,
                 'attr' => array('class' => 'select2-multiple'),
