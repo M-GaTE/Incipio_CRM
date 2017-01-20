@@ -11,6 +11,7 @@
 
 namespace Mgate\TresoBundle\Controller;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,7 +23,7 @@ class UrssafController extends Controller
 
         $defaultData = array('message' => 'Type your message here');
         $form = $this->createFormBuilder($defaultData)
-            ->add('date', 'genemu_jquerydate', array('label' => 'Missions commencées avant le :', 'required' => true, 'widget' => 'single_text', 'data' => date_create(), 'format' => 'dd/MM/yyyy'))
+            ->add('date', DateType::class, array('label' => 'Missions commencées avant le :', 'required' => true, 'widget' => 'single_text', 'data' => date_create(), 'format' => 'dd/MM/yyyy'))
             ->getForm();
 
         if ($request->isMethod('POST')) {

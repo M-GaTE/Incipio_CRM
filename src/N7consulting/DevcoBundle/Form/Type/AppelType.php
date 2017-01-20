@@ -2,6 +2,7 @@
 
 namespace N7consulting\DevcoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
 use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\MembreRepository;
 use Symfony\Component\Form\AbstractType;
@@ -28,9 +29,9 @@ class AppelType extends AbstractType
                 'required' => false, ))
             ->add('prospect')
             ->add('employe')
-            ->add('dateAppel', 'genemu_jquerydate', array('label' => 'Date appel (jj/mm/aaaa)', 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false))
+            ->add('dateAppel', DateType::class, array('label' => 'Date appel (jj/mm/aaaa)', 'widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false))
             ->add('aRappeller', CheckboxType::class, array('required' => false, 'attr' => array('checked' => true)))
-            ->add('dateRappel', 'genemu_jquerydate', array('label' => 'Date de Rappel', 'required' => false, 'format' => 'dd/MM/yyyy', 'widget' => 'single_text', 'attr' => array('cols' => 10, 'rows' => 6)))
+            ->add('dateRappel', DateType::class, array('label' => 'Date de Rappel', 'required' => false, 'format' => 'dd/MM/yyyy', 'widget' => 'single_text', 'attr' => array('cols' => 10, 'rows' => 6)))
             ->add('noteAppel', TextareaType::class, array('label' => 'Note sur l\'appel', 'required' => false))
         ;
     }
