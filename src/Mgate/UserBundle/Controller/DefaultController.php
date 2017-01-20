@@ -35,21 +35,6 @@ class DefaultController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function voirAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $em->getRepository('MgateUserBundle:User')->find($id);
-        if (!$user) {
-            throw $this->createNotFoundException('L\'utilisateur n\'existe pas !');
-        }
-
-        return $this->render('MgateUserBundle:Default:voir.html.twig', array('user' => $user));
-    }
-
-    /**
-     * @Security("has_role('ROLE_ADMIN')")
-     */
     public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -74,8 +59,9 @@ class DefaultController extends Controller
 
                 $userManager = $this->container->get('fos_user.user_manager');
                 $userManager->reloadUser($user);
+                $this->addFlash('success','Utilisateur modifié');
 
-                return $this->redirect($this->generateUrl('Mgate_user_voir', array('id' => $user->getId())));
+                return $this->redirect($this->generateUrl('Mgate_user_lister'));
             }
         }
 
@@ -116,6 +102,7 @@ class DefaultController extends Controller
             $entity->setPersonne(null);
             $em->remove($entity);
             $em->flush();
+            $this->addFlash('success','Utilisateur supprimé');
         }
 
         return $this->redirect($this->generateUrl('Mgate_user_lister'));
