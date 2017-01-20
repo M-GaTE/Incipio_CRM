@@ -54,7 +54,11 @@ dashboard:
   donnes_externes_importer: Importer données externes
   postes: Postes
   postes_lister: Lister les postes
+  postes_filieres: Postes & Filières
   poste_ajouter: Ajouter un poste
+  filieres: Filieres
+  filieres_lister: Lister les filieres
+  filiere_ajouter: Ajouter une filiere
   compte_utilisateur: Compte d'Utilisateur
   lister_modifier: Lister / Modifier
   autres: Autres

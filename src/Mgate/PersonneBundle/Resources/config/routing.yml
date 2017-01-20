@@ -132,7 +132,7 @@ MgatePersonne_membre_supprimer:
 
 MgatePersonne_poste_homepage:
     path:  /poste
-    defaults: { _controller: MgatePersonneBundle:Poste:index , page: 1 }
+    defaults: { _controller: MgatePersonneBundle:Poste:index }
     requirements:
       page : \d*
     methods:  [GET, HEAD]
@@ -141,13 +141,6 @@ MgatePersonne_poste_ajouter:
     path: /poste/add
     defaults: {_controller: MgatePersonneBundle:Poste:ajouter}
     methods:  [GET, HEAD, POST]
-
-MgatePersonne_poste_voir:
-    path:   /poste/{id}
-    defaults:  { _controller: MgatePersonneBundle:Poste:voir}
-    requirements:
-        id:  \d+
-    methods:  [GET, HEAD]
 
 MgatePersonne_poste_modifier:
     path: /poste/modifier/{id}
@@ -159,6 +152,25 @@ MgatePersonne_poste_modifier:
 MgatePersonne_poste_supprimer:
     path: /poste/supprimer/{id}
     defaults: {_controller: MgatePersonneBundle:Poste:delete}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]
+
+MgatePersonne_filiere_ajouter:
+    path: /filiere/add
+    defaults: {_controller: MgatePersonneBundle:Filiere:ajouter}
+    methods:  [GET, HEAD, POST]
+
+MgatePersonne_filiere_modifier:
+    path: /filiere/modifier/{id}
+    defaults: {_controller: MgatePersonneBundle:Filiere:modifier}
+    requirements:
+        id: \d+
+    methods:  [GET, HEAD, POST]
+
+MgatePersonne_filiere_supprimer:
+    path: /filiere/supprimer/{id}
+    defaults: {_controller: MgatePersonneBundle:Filiere:delete}
     requirements:
         id: \d+
     methods:  [GET, HEAD, POST]

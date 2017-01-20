@@ -48,3 +48,6 @@ easy_admin:
                 - 'debutOm'
                 - 'finOm'
                 - 'pourcentageJunior'
+
+        Filiere:
+            class: Mgate\PersonneBundle\Entity\Filiere

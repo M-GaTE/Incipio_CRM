@@ -1,0 +1,33 @@
+{# Liste of Filieres. Displayed on Poste:index.html.twig if user is granted ROLE_ADMIN #}
+
+<h2>Liste des Filières</h2>
+
+<a href="{{ path('MgatePersonne_filiere_ajouter') }}"
+   class="btn btn-info">{{ 'dashboard.filiere_ajouter'|trans({}, 'dashboard') }}</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Filières</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for filiere in filieres %}
+        {% if loop.index0 % 2 == 0 or loop.first %}
+            <tr>
+        {% endif %}
+        <td>
+            <a href="{{ path('MgatePersonne_filiere_modifier', {'id': filiere.id}) }}">
+                <i class="fa fa-pencil"></i>
+                {{ filiere.nom }}
+            </a>
+        </td>
+        {% if loop.index0 % 2 == 1 or loop.last %}
+            </tr>
+        {% endif %}
+    {% else %}
+        <tr>
+            <td>Pas de Filière</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -37,8 +37,8 @@ class PosteController extends Controller
             if ($form->isValid()) {
                 $em->persist($poste);
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('MgatePersonne_poste_voir', array('id' => $poste->getId())));
+                $this->addFlash('success', 'Poste ajouté');
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
         }
 
@@ -50,32 +50,16 @@ class PosteController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function indexAction($page)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MgatePersonneBundle:Poste')->findAll();
+        $postes = $em->getRepository('MgatePersonneBundle:Poste')->findAll();
+        $filieres = $em->getRepository('MgatePersonneBundle:Filiere')->findAll();
 
         return $this->render('MgatePersonneBundle:Poste:index.html.twig', array(
-            'postes' => $entities,
-        ));
-    }
-
-    /**
-     * @Security("has_role('ROLE_ELEVE')")
-     */
-    public function voirAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MgatePersonneBundle:Poste')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Le poste demandé n\'existe pas !');
-        }
-
-        return $this->render('MgatePersonneBundle:Poste:voir.html.twig', array(
-            'poste' => $entity,
+            'postes' => $postes,
+            'filieres' => $filieres
         ));
     }
 
@@ -102,8 +86,8 @@ class PosteController extends Controller
             if ($form->isValid()) {
                 $em->persist($poste);
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('MgatePersonne_poste_voir', array('id' => $poste->getId())));
+                $this->addFlash('success','Poste modifié');
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
         }
 
@@ -124,7 +108,7 @@ class PosteController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if($poste->getMandats()->count() == 0) { //collection contains no mandats
+            if ($poste->getMandats()->count() == 0) { //collection contains no mandats
                 foreach ($poste->getMandats() as $membre) {
                     $membre->setPoste(null);
                 }
@@ -132,10 +116,9 @@ class PosteController extends Controller
                 $em->flush();
                 $this->addFlash('success', 'Poste supprimé avec succès');
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
-            }
-            else{
+            } else {
                 $this->addFlash('danger', 'Impossible de supprimer un poste ayant des membres.');
-                return $this->redirect($this->generateUrl('MgatePersonne_poste_modifier', array('id' => $poste->getId() )));
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_modifier', array('id' => $poste->getId())));
             }
         }
 
@@ -146,7 +129,6 @@ class PosteController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', HiddenType::class)
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
