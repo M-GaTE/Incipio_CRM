@@ -57,8 +57,8 @@ dashboard:
   postes_filieres: Postes & Filières
   poste_ajouter: Ajouter un poste
   filieres: Filieres
-  filieres_lister: Lister les filieres
-  filiere_ajouter: Ajouter une filiere
+  filieres_lister: Lister les filières
+  filiere_ajouter: Ajouter une filière
   compte_utilisateur: Compte d'Utilisateur
   lister_modifier: Lister / Modifier
   autres: Autres

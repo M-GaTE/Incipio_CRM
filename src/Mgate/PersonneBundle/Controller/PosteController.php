@@ -114,7 +114,7 @@ class PosteController extends Controller
                 }
                 $em->remove($poste);
                 $em->flush();
-                $this->addFlash('success', 'Poste supprimé avec succès');
+                $this->addFlash('success', 'Poste supprimé');
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             } else {
                 $this->addFlash('danger', 'Impossible de supprimer un poste ayant des membres.');
