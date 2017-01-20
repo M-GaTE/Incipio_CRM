@@ -47,7 +47,7 @@ class PersonneType extends AbstractType
             $builder->add('adresse', TextareaType::class, array('label' => 'Adresse', 'required' => false))
                 ->add('codepostal', TextType::class, array('label' => 'Code Postal', 'required' => false))
                 ->add('ville', TextType::class, array('label' => 'Ville', 'required' => false))
-                ->add('pays', TextType::class, array('label' => 'pays', 'required' => false));
+                ->add('pays', TextType::class, array('label' => 'Pays', 'required' => false));
         }
     }
 
