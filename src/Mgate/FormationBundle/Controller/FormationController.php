@@ -15,6 +15,7 @@ use Mgate\FormationBundle\Entity\Formation;
 use Mgate\FormationBundle\Form\Type\FormationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -94,7 +95,7 @@ class FormationController extends Controller
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate($formation);
                 foreach ($errors as $error) {
-                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath().' : '.$error->getMessage()));
+                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath() . ' : ' . $error->getMessage()));
                 }
             }
         }
@@ -113,7 +114,7 @@ class FormationController extends Controller
      * @return Response
      *                  Manage particpant present to a training
      */
-    public function participationAction(Request $request)
+    public function participationAction(Request $request, $mandat = null)
     {
         $em = $this->getDoctrine()->getManager();
         $formationsParMandat = $em->getRepository('MgateFormationBundle:Formation')->findAllByMandat();
@@ -127,7 +128,7 @@ class FormationController extends Controller
         $form = $this->createFormBuilder($defaultData)
             ->add(
                 'mandat',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'Présents aux formations du mandat ',
                     'choices' => $choices,
@@ -135,10 +136,7 @@ class FormationController extends Controller
                 )
             )->getForm();
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $data = $form->getData();
-            $mandat = $data['mandat'];
+        if ($mandat !== null) {
             $formations = array_key_exists($mandat, $formationsParMandat) ? $formationsParMandat[$mandat] : array();
         } else {
             $formations = count($formationsParMandat) ? reset($formationsParMandat) : array();
@@ -161,6 +159,7 @@ class FormationController extends Controller
             'form' => $form->createView(),
             'formations' => $formations,
             'presents' => $presents,
+            'mandat' => $mandat,
         ));
     }
 
