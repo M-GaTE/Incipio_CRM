@@ -14,6 +14,8 @@ namespace Mgate\FormationBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\PersonneBundle\Entity\Personne;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Formation.
@@ -36,6 +38,7 @@ class Formation
      * @var int
      *
      * @ORM\Column(name="mandat", type="integer")
+     * @Assert\NotBlank
      */
     private $mandat;
 
@@ -50,6 +53,7 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $titre;
 
@@ -57,11 +61,12 @@ class Formation
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank
      */
     private $description;
 
     /**
-     * @var Mgate\PersonneBundle\Entity\Personne
+     * @var Personne
      *
      * @ORM\ManyToMany(targetEntity="Mgate\PersonneBundle\Entity\Personne")
      * @ORM\JoinTable(name="formation_formateurs")
@@ -69,7 +74,7 @@ class Formation
     private $formateurs;
 
     /**
-     * @var Mgate\PersonneBundle\Entity\Personne
+     * @var Personne
      *
      * @ORM\ManyToMany(targetEntity="Mgate\PersonneBundle\Entity\Personne")
      * @ORM\JoinTable(name="formation_membresPresents")
@@ -79,12 +84,14 @@ class Formation
     /**
      * @var DateTime
      * @ORM\Column(name="dateDebut", type="datetime")
+     * @Assert\NotBlank
      */
     private $dateDebut;
 
     /**
      * @var DateTime
      * @ORM\Column(name="dateFin", type="datetime")
+     * @Assert\NotBlank
      */
     private $dateFin;
 

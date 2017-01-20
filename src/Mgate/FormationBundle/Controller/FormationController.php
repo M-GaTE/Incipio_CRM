@@ -69,7 +69,7 @@ class FormationController extends Controller
      * @param $id mixed valid id : modify an existing training; unknown id : display a creation form
      *
      * @return Response
-     *                  Manage creation and update of a training
+     * Manage creation and update of a training
      */
     public function modifierAction(Request $request, $id)
     {

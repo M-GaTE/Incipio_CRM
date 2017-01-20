@@ -11,6 +11,7 @@
 
 namespace Mgate\FormationBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2ChoiceType;
 use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\FormationBundle\Entity\Formation;
 use Mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
@@ -28,9 +29,9 @@ class FormationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titre', TextType::class, array('label' => 'Titre de la formation', 'required' => false))
+        $builder->add('titre', TextType::class, array('label' => 'Titre de la formation', 'required' => true))
                 ->add('description', TextareaType::class, array('label' => 'Description de la Formation', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)))
-                ->add('categorie', ChoiceType::class, array(
+                ->add('categorie', Select2ChoiceType::class, array(
                     'multiple' => true,
                     'choices' => Formation::getCategoriesChoice(),
                     'choice_label' => function($value){
@@ -39,8 +40,8 @@ class FormationType extends AbstractType
                     'label' => 'Catégorie',
                     'required' => false)
                 )
-                ->add('dateDebut', DateTimeType::class, array('label' => 'Date de debut (d/MM/y - HH:mm:ss)', 'format' => 'd/MM/y - HH:mm:ss', 'required' => false, 'widget' => 'single_text'))
-                ->add('dateFin', DateTimeType::class, array('label' => 'Date de fin (d/MM/y - HH:mm:ss)', 'format' => 'd/MM/y - HH:mm:ss', 'required' => false, 'widget' => 'single_text'))
+                ->add('dateDebut', DateTimeType::class, array('label' => 'Date de debut', 'format' => 'd/MM/y - HH:mm', 'required' => true, 'widget' => 'choice'))
+                ->add('dateFin', DateTimeType::class, array('label' => 'Date de fin', 'format' => 'd/MM/y - HH:mm', 'required' => true, 'widget' => 'choice'))
                 ->add('mandat', IntegerType::class)
                 ->add('formateurs', CollectionType::class, array(
                     'entry_type' => Select2EntityType::class,
