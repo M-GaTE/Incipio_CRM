@@ -115,7 +115,7 @@ class Membre
     private $formatPaiement;
 
     /**
-     * @ORM\OneToOne(targetEntity="Mgate\PersonneBundle\Entity\Filiere")
+     * @ORM\ManyToOne(targetEntity="Mgate\PersonneBundle\Entity\Filiere")
      */
     private $filiere;
 
