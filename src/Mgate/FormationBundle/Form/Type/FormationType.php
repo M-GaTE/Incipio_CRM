@@ -16,7 +16,6 @@ use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\FormationBundle\Entity\Formation;
 use Mgate\PersonneBundle\Entity\PersonneRepository as PersonneRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
