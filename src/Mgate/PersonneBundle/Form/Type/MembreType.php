@@ -13,6 +13,7 @@ namespace Mgate\PersonneBundle\Form\Type;
 
 use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType as GenemuDateType;
 use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2CountryType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -54,7 +55,10 @@ class MembreType extends AbstractType
                     'label' => 'Modifier la photo de profil du membre',
                 ))
                 ->add('formatPaiement', ChoiceType::class, array('choices' => array('aucun' => 'aucun', 'cheque' => 'Chèque', 'especes' => 'Espèces'), 'required' => true))
-                ->add('filiere', ChoiceType::class, array('choices' => array('EN' => 'EN', 'HMF' => 'HMF', 'IMA' => 'IMA', 'TR' => 'TR', 'GEA' => 'GEA'), 'required' => true));
+                ->add('filiere', EntityType::class,
+                    array('label' => 'Filiere',
+                        'class' => 'Mgate\\PersonneBundle\\Entity\\Filiere',
+                        'required' => true, ));
     }
 
     public function getBlockPrefix()

@@ -1,14 +1,16 @@
 {% extends "MgatePersonneBundle::layout.html.twig" %}
 
-{% block content_bundle %}
+{% block content_title %}
+    Ajouter un Poste {{ junior['abbr'] }}
+{%  endblock %}
 
-  <h2>Ajouter un Poste {{ junior['abbr'] }}</h2>
+{% block content_bundle %}
 
 {{ form_start(form) }}
 
 	{{ form_widget(form) }}
 
-	<input type="submit" />
+	<input type="submit" class="btn"/>
 {{ form_end(form) }}
 
 

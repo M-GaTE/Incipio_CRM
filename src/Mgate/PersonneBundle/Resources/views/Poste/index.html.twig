@@ -4,19 +4,52 @@
 
 {% block title %}Accueil - {{ parent() }}{% endblock %}
 
+{% block content_title %}
+    Postes et Filières
+{% endblock %}
+
+
 {% block content_bundle %}
 
-    <h2>Liste des Postes</h2>
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <h2>Liste des Postes</h2>
 
-    <a href="{{ path('MgatePersonne_poste_ajouter') }}" class="btn btn-info">{{ 'dashboard.poste_ajouter'|trans({}, 'dashboard') }}</a>
-    <ul>
-        {% for poste in postes %}
-            <li>
-            <a href="{{ path('MgatePersonne_poste_voir', {'id': poste.id}) }}"> {{ poste.intitule }} </a>
-            </li>
-        {% else %}
-            <li>Pas (encore !) de Poste</li>
-        {% endfor %}
-    </ul>
+            <a href="{{ path('MgatePersonne_poste_ajouter') }}"
+               class="btn btn-info">{{ 'dashboard.poste_ajouter'|trans({}, 'dashboard') }}</a>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Postes</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for poste in postes %}
+                    {% if loop.index0 % 2 == 0 or loop.first %}
+                        <tr>
+                    {% endif %}
+                        <td>
+                            <a href="{{ path('MgatePersonne_poste_modifier', {'id': poste.id}) }}">
+                                <i class="fa fa-pencil"></i>
+                                {{ poste.intitule }}
+                            </a>
+                        </td>
+                    {% if loop.index0 % 2 == 1 or loop.last %}
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td>Pas de Poste</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-sm-6 col-xs-12">
+                {% include '@MgatePersonne/Filiere/index.html.twig' %}
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}
