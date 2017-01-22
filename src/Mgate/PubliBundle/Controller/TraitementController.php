@@ -148,7 +148,12 @@ class TraitementController extends Controller
         }
 
         if ($rootName == 'etude' && $rootObject->getReference()) {
-            $refDocx = $rootObject->getReference().'-'.$templateName.'-';
+            if(!$debug) {//avoid collision with references using / or other characters.
+                $refDocx = $rootObject->getReference() . '-' . $templateName . '-';
+            }
+            else{
+                $refDocx = '';
+            }
         } elseif ($rootName == 'etudiant') {
             $refDocx = $templateName.'-'.$rootObject->getIdentifiant();
         } else {
