@@ -13,14 +13,29 @@ namespace Mgate\PubliBundle\Controller;
 
 use Mgate\PubliBundle\Entity\Document;
 use Mgate\PubliBundle\Entity\RelatedDocument;
-use Mgate\PubliBundle\Form\Type\DocumentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DocumentController extends Controller
 {
+
+    /**
+     * @param ContainerInterface|null $container
+     * There are no constructor with container available on a Controller, therefore
+     * we ovveride setContainer (from ContainerAware) to get our stuff done.
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+        $this->documentStoragePath = $this->get('kernel')->getRootDir() . '' . Document::DOCUMENT_STORAGE_ROOT;
+    }
+
+
     /**
      * @Security("has_role('ROLE_CA')")
      */
@@ -39,6 +54,21 @@ class DocumentController extends Controller
             'docs' => $entities,
             'totalSize' => $totalSize,
         ));
+    }
+
+    /**
+     * @Security("has_role('ROLE_CA')")
+     */
+    public function voirAction(Document $documentType)
+    {
+        if (file_exists($this->documentStoragePath . '/' . $documentType->getPath())) {
+            $response = new BinaryFileResponse($this->documentStoragePath . '/' . $documentType->getPath());
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+
+            return $response;
+        } else {
+            throw new \Exception($this->documentStoragePath . '/' . $documentType->getPath() . ' n\'existe pas');
+        }
     }
 
     /**

@@ -23,6 +23,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Document
 {
+
+    const DOCUMENT_STORAGE_ROOT = '/../var/documents'; //document storage root on kernerl->getrootdir() path.
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -62,9 +65,16 @@ class Document
     private $author;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $path;
+
+    /**
+     * @var string
+     * @Assert\NotBlank
+     * Defined on creation.
+     */
+    private $rootDir;
 
     /**
      * @var UploadedFile
@@ -73,52 +83,15 @@ class Document
     private $file;
 
     /**
-     * @var string
-     * @Assert\NotBlank
-     * Folder where all uploaded documents will be stored, without trailing slash.
+     * @return null|string
      */
-    private $rootDir;
-
     public function getAbsolutePath()
     {
-        return null === $this->path
-            ? null
-            : $this->getUploadRootDir().'/'.$this->path;
+        if (!empty($this->rootDir)) {
+            return $this->rootDir . '' . self::DOCUMENT_STORAGE_ROOT . '/' . $this->path;
+        }
     }
 
-    public function getWebPath()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadDir().'/'.$this->path;
-    }
-
-    protected function getRootDir()
-    {
-        // the absolute directory path where uploaded documents should be saved
-        return $this->rootDir;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // the absolute directory path where uploaded documents should be saved
-        return $this->rootDir.'/uploads';
-    }
-
-
-    /**
-     * @param $rootDir string folder where documents should be stored without trailing slash.
-     */
-    public function setRootDir($rootDir){
-        $this->rootDir = $rootDir.'/..';
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'documents';
-    }
 
     /**
      * @ORM\PrePersist()
@@ -129,7 +102,7 @@ class Document
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = $filename.'.'.$this->file->guessExtension();
+            $this->path = $filename . '.' . $this->file->guessExtension();
             $this->size = filesize($this->file);
         }
     }
@@ -144,13 +117,15 @@ class Document
             return;
         }
 
+        if (empty($this->rootDir)) {
+            throw new \Exception('$this->rootDir is undefined');
+        }
+
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
         // moving file into /data
-        $this->file->move($this->getUploadRootDir(), $this->path);
-        // creating symlink to acces file from web/...
-        symlink($this->getUploadRootDir().'/'.$this->path, $this->getWebPath());
+        $this->file->move($this->rootDir . '' . self::DOCUMENT_STORAGE_ROOT, $this->path);
         unset($this->file);
     }
 
@@ -159,82 +134,17 @@ class Document
      */
     public function removeUpload()
     {
-        if($this->rootDir !== null) {
-            if ($file = $this->getWebPath()) {
-                unlink($file);
-            }
-            if ($file = $this->getAbsolutePath()) {
-                unlink($file);
-            }
+        $file = $this->getAbsolutePath();
+        if (file_exists($file)) {
+            unlink($file);
         }
-        else{
-            throw  new \Exception('rootDir non défini lors de la suppression du document. Définissez le via setRootDir avant toute manipulation.');
-        }
-
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Document
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get uptime.
-     *
-     * @return \DateTime
-     */
-    public function getUptime()
-    {
-        return $this->uptime;
-    }
 
     /**
      * Set path.
      *
-     * @param string $path
-     *
-     * @return Document
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * Set path.
-     *
-     * @param string $junior['id']
+     * @param string $junior ['id']
      *
      * @return Document
      */
@@ -245,34 +155,28 @@ class Document
         return $this;
     }
 
+    /** auto generated methods */
+
     /**
-     * Get path.
-     *
-     * @return string
+     * @return mixed
      */
-    public function getPath()
+    public function getId()
     {
-        return $this->path;
+        return $this->id;
     }
 
     /**
-     * Set relation.
-     *
-     * @param RelatedDocument $relation
-     *
+     * @param mixed $id
      * @return Document
      */
-    public function setRelation(RelatedDocument $relation = null)
+    public function setId($id)
     {
-        $this->relation = $relation;
-
+        $this->id = $id;
         return $this;
     }
 
     /**
-     * Get relation.
-     *
-     * @return RelatedDocument
+     * @return mixed
      */
     public function getRelation()
     {
@@ -280,36 +184,61 @@ class Document
     }
 
     /**
-     * Set author.
-     *
-     * @param Personne $author
-     *
+     * @param mixed $relation
      * @return Document
      */
-    public function setAuthor(Personne $author = null)
+    public function setRelation($relation)
     {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function setFile($file)
-    {
-        $this->file = $file;
-        $this->size = filesize($file);
-
+        $this->relation = $relation;
         return $this;
     }
 
     /**
-     * Get author.
-     *
-     * @return Personne
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     * @return Document
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUptime()
+    {
+        return $this->uptime;
+    }
+
+    /**
+     * @param \DateTime $uptime
+     * @return Document
+     */
+    public function setUptime($uptime)
+    {
+        $this->uptime = $uptime;
+        return $this;
+    }
+
+    /**
+     * @return mixed
      */
     public function getAuthor()
     {
@@ -317,12 +246,68 @@ class Document
     }
 
     /**
-     * Get size.
-     *
-     * @return int
+     * @param mixed $author
+     * @return Document
      */
-    public function getSize()
+    public function setAuthor($author)
     {
-        return $this->size;
+        $this->author = $author;
+        return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     * @return Document
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @return Document
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootDir()
+    {
+        return $this->rootDir;
+    }
+
+    /**
+     * @param string $rootDir
+     * @return Document
+     */
+    public function setRootDir($rootDir)
+    {
+        $this->rootDir = $rootDir;
+        return $this;
+    }
+
+
 }

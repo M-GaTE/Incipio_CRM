@@ -254,7 +254,7 @@ class TraitementController extends Controller
         if (!$documenttype = $em->getRepository('Mgate\PubliBundle\Entity\Document')->findOneBy(array('name' => $doc))) {
             throw $this->createNotFoundException('Le doctype '.$doc.' n\'existe pas... C\'est bien balo');
         } else {
-            $chemin = $documenttype->getWebPath();
+            $chemin = $this->get('kernel')->getRootDir().''.$documenttype::DOCUMENT_STORAGE_ROOT.'/'.$documenttype->getPath();
         }
 
         return $chemin;
@@ -558,7 +558,7 @@ class TraitementController extends Controller
                 }
                 $em->flush();
 
-                $session->getFlashBag()->add('success', 'Le document a été mis à jour : ');
+                $session->getFlashBag()->add('success', 'Le document a été mis à jour');
 
                 return $this->redirect($this->generateUrl('Mgate_publi_documenttype_upload'));
             }

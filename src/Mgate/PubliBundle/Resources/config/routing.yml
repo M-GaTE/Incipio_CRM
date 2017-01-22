@@ -34,6 +34,11 @@ Mgate_publi_documenttype_index:
     defaults: {_controller: MgatePubliBundle:Document:index}
     methods:  [GET, HEAD]
 
+Mgate_publi_document_voir:
+    path: /Documents/{id}
+    defaults: {_controller: MgatePubliBundle:Document:voir}
+    methods:  [GET, HEAD]
+
 Mgate_publi_document_uploadEtude:
     path: /Documents/Upload/Etude/{etude_id}
     defaults: {_controller: MgatePubliBundle:Document:uploadEtude}
