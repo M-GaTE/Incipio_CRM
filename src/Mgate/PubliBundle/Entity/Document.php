@@ -220,6 +220,16 @@ class Document
     }
 
     /**
+     * @param mixed $size
+     * @return Document
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+        return $this;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getUptime()
@@ -308,6 +318,7 @@ class Document
         $this->rootDir = $rootDir;
         return $this;
     }
+
 
 
 }
