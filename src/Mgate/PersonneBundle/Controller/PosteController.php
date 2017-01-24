@@ -38,6 +38,7 @@ class PosteController extends Controller
                 $em->persist($poste);
                 $em->flush();
                 $this->addFlash('success', 'Poste ajouté');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
         }
@@ -59,14 +60,16 @@ class PosteController extends Controller
 
         return $this->render('MgatePersonneBundle:Poste:index.html.twig', array(
             'postes' => $postes,
-            'filieres' => $filieres
+            'filieres' => $filieres,
         ));
     }
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Request $request
      * @param $id
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function modifierAction(Request $request, $id)
@@ -86,7 +89,8 @@ class PosteController extends Controller
             if ($form->isValid()) {
                 $em->persist($poste);
                 $em->flush();
-                $this->addFlash('success','Poste modifié');
+                $this->addFlash('success', 'Poste modifié');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
         }
@@ -115,14 +119,14 @@ class PosteController extends Controller
                 $em->remove($poste);
                 $em->flush();
                 $this->addFlash('success', 'Poste supprimé');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             } else {
                 $this->addFlash('danger', 'Impossible de supprimer un poste ayant des membres.');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_modifier', array('id' => $poste->getId())));
             }
         }
-
-
     }
 
     private function createDeleteForm($id)

@@ -62,8 +62,10 @@ class EtudeType extends AbstractType
                 ))
             ->add('sourceDeProspection', ChoiceType::class, array(
                 'choices' => Etude::getSourceDeProspectionChoice(),
-                'choice_label' => function($value){ return $value; },
-                'required' => false
+                'choice_label' => function ($value) {
+                    return $value;
+                },
+                'required' => false,
             ));
     }
 

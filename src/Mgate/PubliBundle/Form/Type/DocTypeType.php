@@ -45,7 +45,7 @@ class DocTypeType extends AbstractType
                 'Déclaration étudiant étranger' => TraitementController::DOCTYPE_DECLARATION_ETUDIANT_ETR,
                 'Note de Frais' => TraitementController::DOCTYPE_NOTE_DE_FRAIS,
                 'Bulletin de Versement' => TraitementController::ROOTNAME_BULLETIN_DE_VERSEMENT,
-            )
+            ),
         ))
             ->add('etudiant', Select2EntityType::class, array(
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Membre',
@@ -58,7 +58,7 @@ class DocTypeType extends AbstractType
                 'label' => 'Etude pour vérifier le template',
                 'class' => 'Mgate\\SuiviBundle\\Entity\\Etude',
                 'choice_label' => 'reference',
-                'required' => false,))
+                'required' => false, ))
             ->add('verification', CheckboxType::class, array('label' => 'Activer la vérification', 'required' => false));
     }
 

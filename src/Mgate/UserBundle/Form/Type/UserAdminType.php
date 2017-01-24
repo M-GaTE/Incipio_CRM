@@ -22,9 +22,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 /**
- * Class UserAdminType
- * @package Mgate\UserBundle\Form\Type
  * A rewrite of FOS\UserBundle\Form\Type\ProfileFormType because it can't handle parameters given through options.
+ *
+ * Class UserAdminType
  */
 class UserAdminType extends AbstractType
 {
@@ -58,14 +58,13 @@ class UserAdminType extends AbstractType
             'constraints' => new UserPassword(),
         ));
         // end from
-
     }
 
     /**
      * Builds the embedded form representing the user.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
@@ -86,9 +85,7 @@ class UserAdminType extends AbstractType
             'intention' => 'profile',
         ));
         $resolver->setRequired(['user_class', 'roles']);
-
     }
-
 
     public function getName()
     {
@@ -108,5 +105,4 @@ class UserAdminType extends AbstractType
 
         return $roles;
     }
-
 }

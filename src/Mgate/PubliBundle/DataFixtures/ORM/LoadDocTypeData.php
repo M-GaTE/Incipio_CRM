@@ -5,12 +5,9 @@ namespace Mgate\PubliBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Mgate\PubliBundle\Entity\Document;
-use Mgate\StatBundle\Entity\Indicateur;
 
 /**
- * Class LoadDocTypeData
- * @package Mgate\PubliBundle\DataFixtures\ORM
- * Creates default doctypes.
+ * Class LoadDocTypeData.
  */
 class LoadDocTypeData implements FixtureInterface
 {
@@ -46,15 +43,14 @@ class LoadDocTypeData implements FixtureInterface
         $pvr->setPath('PVR.docx');
         $pvr->setSize(17000);
         $manager->persist($pvr);
-        
+
         //recapitulatif de mission
         $rm = new Document();
         $rm->setName('RM');
         $rm->setPath('RM.docx');
         $rm->setSize(26000);
         $manager->persist($rm);
-        
-        
+
         $manager->flush();
     }
 }

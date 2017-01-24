@@ -44,7 +44,7 @@ class AvMissionController extends Controller
 
         // On vérifie que l'article d'id $id existe bien, sinon, erreur 404.
         if (!$etude = $em->getRepository('Mgate\SuiviBundle\Entity\Etude')->find($id)) {
-            throw $this->createNotFoundException('Article[id=' . $id . '] inexistant');
+            throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
@@ -97,7 +97,7 @@ class AvMissionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if (!$avmission = $em->getRepository('Mgate\SuiviBundle\Entity\AvMission')->find($id)) {
-            throw $this->createNotFoundException('AvMission[id=' . $id . '] inexistant');
+            throw $this->createNotFoundException('AvMission[id='.$id.'] inexistant');
         }
 
         $etude = $avmission->getEtude();

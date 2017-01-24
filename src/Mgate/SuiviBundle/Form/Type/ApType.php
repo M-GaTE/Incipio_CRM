@@ -31,13 +31,13 @@ class ApType extends AbstractType
             'query_builder' => function (PersonneRepository $pr) {
                 return $pr->getByMandatNonNulQueryBuilder();
             },
-            'required' => false,))
+            'required' => false, ))
             ->add('ap', SubApType::class, array('label' => ' ', 'prospect' => $options['prospect']))
             ->add('fraisDossier', IntegerType::class, array('label' => 'Frais de dossier', 'required' => false))
             ->add('presentationProjet', TextareaType::class,
                 array('label' => 'Présentation du projet',
                     'required' => false,
-                    'attr' => array('cols' => '100%', 'rows' => 5))
+                    'attr' => array('cols' => '100%', 'rows' => 5), )
             )
             ->add('descriptionPrestation', TextareaType::class,
                 array('label' => 'Description de la prestation proposée',
@@ -46,12 +46,14 @@ class ApType extends AbstractType
                     une étude consistant en'. Il faut la continuer en décrivant la prestation proposée. 
                     Le début de la phrase est déjà généré.",
                         'cols' => '100%',
-                        'rows' => 5)))
+                        'rows' => 5, ), ))
             ->add('typePrestation', ChoiceType::class,
                 array('choices' => Etude::getTypePrestationChoice(),
                     'label' => 'Type de prestation',
                     'required' => false,
-                    'choice_label' => function($name){return $name;}))
+                    'choice_label' => function ($name) {
+                        return $name;
+                    }, ))
             ->add('competences'/**,'textarea', array('label' => 'Capacité des intervenants:', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5))**/);
     }
 

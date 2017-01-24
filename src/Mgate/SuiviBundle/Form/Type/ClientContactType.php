@@ -32,7 +32,7 @@ class ClientContactType extends AbstractType
                        'required' => true, ))
 
             //->add('thread', new ThreadType) // délicat
-           ->add('date', DateType::class, array('label' => 'Date du contact',  'required'=>true, 'widget'=>'single_text'))
+           ->add('date', DateType::class, array('label' => 'Date du contact',  'required' => true, 'widget' => 'single_text'))
            ->add('objet', TextType::class, array('label' => 'Objet'))
            ->add('contenu', TextareaType::class, array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
            ->add('moyenContact', MoyenContactType::class, array('label' => 'Contact effectué par'))

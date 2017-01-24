@@ -135,8 +135,10 @@ class ProspectController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Prospect $prospect the prospect to delete
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Prospect $prospect, Request $request)
@@ -151,13 +153,14 @@ class ProspectController extends Controller
 
             $related_projects = $em->getRepository('MgateSuiviBundle:Etude')->findByProspect($prospect);
 
-            if(count($related_projects) > 0){//can't delete a prospect with related projects
+            if (count($related_projects) > 0) {
+                //can't delete a prospect with related projects
                 $session->getFlashBag()->add('warning', 'Impossible de supprimer un prospect ayant une étude liée.');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir', array('id' => $prospect->getId())));
-            }
-            else {
+            } else {
                 //remove employes
-                foreach($prospect->getEmployes() as $employe){
+                foreach ($prospect->getEmployes() as $employe) {
                     $em->remove($employe);
                 }
                 $em->remove($prospect);

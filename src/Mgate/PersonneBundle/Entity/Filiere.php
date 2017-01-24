@@ -14,8 +14,6 @@ namespace Mgate\PersonneBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
-
 /**
  * Mgate\PersonneBundle\Entity\Filiere.
  *
@@ -48,8 +46,6 @@ class Filiere
      * @ORM\Column(type="string", length=127)
      */
     private $description;
-
-
 
     public function __toString()
     {
@@ -105,7 +101,4 @@ class Filiere
     {
         $this->description = $description;
     }
-
-
-
 }

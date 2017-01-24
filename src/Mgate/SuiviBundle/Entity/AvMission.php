@@ -14,10 +14,6 @@ namespace Mgate\SuiviBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
-
 /**
  * Mgate\SuiviBundle\Entity\AvMission.
  *
@@ -69,7 +65,6 @@ class AvMission extends DocType
      * @ORM\ManyToOne(targetEntity="Av", inversedBy="avenantsMissions")
      */
     private $avenant;
-
 
     public function __toString()
     {

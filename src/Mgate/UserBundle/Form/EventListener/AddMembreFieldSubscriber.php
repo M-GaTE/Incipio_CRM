@@ -20,7 +20,6 @@ use Symfony\Component\Form\FormEvents;
 
 class AddMembreFieldSubscriber implements EventSubscriberInterface
 {
-
     public static function getSubscribedEvents()
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data

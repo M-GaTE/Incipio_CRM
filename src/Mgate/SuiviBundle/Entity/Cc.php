@@ -13,7 +13,6 @@ namespace Mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Mgate\SuiviBundle\Entity\Cc.
  *

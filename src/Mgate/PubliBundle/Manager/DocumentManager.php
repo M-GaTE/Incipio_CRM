@@ -38,9 +38,9 @@ class DocumentManager extends BaseManager
 
     /**
      * @param \Doctrine\ORM\EntityManager $em
-     * @param array $junior
-     * @param TokenStorage $tokenStorage
-     * @param Kernel $kernel
+     * @param array                       $junior
+     * @param TokenStorage                $tokenStorage
+     * @param Kernel                      $kernel
      */
     public function __construct(EntityManager $em, $junior, TokenStorage $tokenStorage, Kernel $kernel)
     {

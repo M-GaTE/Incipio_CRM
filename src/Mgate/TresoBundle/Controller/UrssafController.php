@@ -46,8 +46,6 @@ class UrssafController extends Controller
 
         $RMs = $em->getRepository('MgateSuiviBundle:Mission')->getMissionsBeginBeforeDate($date);
 
-
-
         return $this->render('MgateTresoBundle:Urssaf:index.html.twig', array('form' => $form->createView(), 'RMs' => $RMs));
     }
 }

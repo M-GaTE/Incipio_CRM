@@ -12,7 +12,6 @@
 namespace Mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

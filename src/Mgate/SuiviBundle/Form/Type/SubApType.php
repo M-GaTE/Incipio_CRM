@@ -24,7 +24,7 @@ class SubApType extends DocTypeType
         $builder->add('nbrDev', IntegerType::class,
             array('label' => 'Nombre d\'intervenants estimé',
                 'required' => false,
-                'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant'))
+                'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant'), )
         );
     }
 

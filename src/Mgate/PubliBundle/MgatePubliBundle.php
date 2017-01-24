@@ -15,10 +15,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class MgatePubliBundle extends Bundle
 {
-
     public function __construct()
     {
         $this->name = 'MgatePubliBundle';
     }
-
 }

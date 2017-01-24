@@ -25,10 +25,9 @@ class MissionType extends DocTypeType
 {
     protected $etude;
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if(!isset($options['etude']) || !($options['etude'] instanceof Etude)){
+        if (!isset($options['etude']) || !($options['etude'] instanceof Etude)) {
             throw new \LogicException('A MissionsType can\'t be build without associated Etude object.');
         }
         $this->etude = $options['etude'];
@@ -55,7 +54,7 @@ class MissionType extends DocTypeType
                 'query_builder' => function (PhaseRepository $pr) {
                     return $pr->getByEtudeQuery($this->etude);
                 },
-                'required' =>false,
+                'required' => false,
                 'multiple' => true,
                 'by_reference' => false,
                 'attr' => array('class' => 'select2-multiple'),

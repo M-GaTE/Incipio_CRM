@@ -122,8 +122,10 @@ class CompetenceController extends Controller
 
     /**
      * @Security("has_role('ROLE_CA')")
+     *
      * @param Request $request
      * @param $id
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, $id)

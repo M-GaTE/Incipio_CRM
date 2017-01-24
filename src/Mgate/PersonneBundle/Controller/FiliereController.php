@@ -37,7 +37,7 @@ class FiliereController extends Controller
             if ($form->isValid()) {
                 $em->persist($filiere);
                 $em->flush();
-                $this->addFlash('success','Filière ajoutée');
+                $this->addFlash('success', 'Filière ajoutée');
 
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
@@ -50,8 +50,10 @@ class FiliereController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Request $request
      * @param Filiere $filiere
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function modifierAction(Request $request, Filiere $filiere)
@@ -67,7 +69,8 @@ class FiliereController extends Controller
             if ($form->isValid()) {
                 $em->persist($filiere);
                 $em->flush();
-                $this->addFlash('success','Filière modifiée');
+                $this->addFlash('success', 'Filière modifiée');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
         }
@@ -80,8 +83,10 @@ class FiliereController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Request $request
      * @param Filiere $filiere
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Filiere $filiere)
@@ -92,22 +97,21 @@ class FiliereController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if($filiere->getMandats()->count() == 0) { //collection contains no mandats
+            if ($filiere->getMandats()->count() == 0) { //collection contains no mandats
                 foreach ($filiere->getMandats() as $membre) {
                     $membre->setPoste(null);
                 }
                 $em->remove($filiere);
                 $em->flush();
                 $this->addFlash('success', 'Filiere supprimée avec succès');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_filiere_homepage'));
-            }
-            else{
+            } else {
                 $this->addFlash('danger', 'Impossible de supprimer une filiere ayant des membres.');
-                return $this->redirect($this->generateUrl('MgatePersonne_filiere_modifier', array('id' => $filiere->getId() )));
+
+                return $this->redirect($this->generateUrl('MgatePersonne_filiere_modifier', array('id' => $filiere->getId())));
             }
         }
-
-
     }
 
     private function createDeleteForm($id)

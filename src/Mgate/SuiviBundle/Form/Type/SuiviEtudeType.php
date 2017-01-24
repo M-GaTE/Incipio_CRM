@@ -26,9 +26,13 @@ class SuiviEtudeType extends AbstractType
     {
         $builder->add('stateID', ChoiceType::class, array('choices' => Etude::getStateIDChoice(), 'label' => 'Etat de l\'Étude',
             'required' => true,
-            'choice_label'=> function($var){return $var; }))
+            'choice_label' => function ($var) {
+                return $var;
+            }, ))
                 ->add('auditDate', GenemuDateType::class, array('label' => 'Audité le', 'format' => 'd/MM/y', 'required' => false, 'widget' => 'single_text'))
-                ->add('auditType', AuditType::class, array('label' => 'Type d\'audit', 'required' => false, 'choice_label'=> function($var){return $var; }))
+                ->add('auditType', AuditType::class, array('label' => 'Type d\'audit', 'required' => false, 'choice_label' => function ($var) {
+                    return $var;
+                }))
                 ->add('stateDescription', TextareaType::class, array('label' => 'Problèmes', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
                 ->add('ap', DocTypeSuiviType::class, array('label' => 'Avant-Projet', 'data_class' => 'Mgate\SuiviBundle\Entity\Ap'))
                 ->add('cc', DocTypeSuiviType::class, array('label' => 'Convention Client', 'data_class' => 'Mgate\SuiviBundle\Entity\Cc'));

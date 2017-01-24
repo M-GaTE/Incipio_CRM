@@ -15,8 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\SuiviBundle\Entity\Mission;
 
-
-
 /**
  * BV.
  *
@@ -134,7 +132,7 @@ class BV
 
     public function getRemunerationNetImposable()
     {
-        $result =  $this->getRemunerationNet();
+        $result = $this->getRemunerationNet();
 
         foreach ($this->cotisationURSSAF as $cotisation) {
             if ($cotisation->getLibelle() == 'C.R.D.S. + CSG non déductible') {

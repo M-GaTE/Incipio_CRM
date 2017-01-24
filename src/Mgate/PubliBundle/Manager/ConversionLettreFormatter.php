@@ -86,7 +86,7 @@ class ConversionLettreFormatter
             $NumberLetter .= ' '.$this->convNumDizaine($byDec, $Langue).$strCentimes;
         }
 
-        if($bNegatif){
+        if ($bNegatif) {
             $NumberLetter = 'moins '.$NumberLetter;
         }
 

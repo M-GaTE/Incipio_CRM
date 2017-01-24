@@ -24,5 +24,4 @@ class MgateUserBundle extends Bundle
     {
         $this->name = 'MgateUserBundle';
     }
-
 }

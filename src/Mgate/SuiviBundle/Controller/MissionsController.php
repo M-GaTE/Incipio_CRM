@@ -85,7 +85,7 @@ class MissionsController extends Controller
                 if ($request->get('addRepartition')) {
                     $repartitionNew = new RepartitionJEH();
 
-                    if ($request->get('idMission') !== null && $request->get('idMission') !== "") {
+                    if ($request->get('idMission') !== null && $request->get('idMission') !== '') {
                         $idMission = intval($request->get('idMission'));
                         if ($etude->getMissions()->get($idMission)) {
                             $mission = $etude->getMissions()->get($request->get('idMission'));

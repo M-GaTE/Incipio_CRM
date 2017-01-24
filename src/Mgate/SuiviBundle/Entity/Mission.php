@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\PersonneBundle\Entity\Membre;
 
-
 /**
  * Mgate\SuiviBundle\Entity\Mission.
  *
@@ -117,7 +116,7 @@ class Mission extends DocType
 //Ajout fonction rapide
     public function getReference()
     {
-        return $this->etude->getReference().'/'.(!empty($this->getDebutOm()) ? $this->getDebutOm()->format('Y'): 'XX').'/RM/'.$this->getVersion();
+        return $this->etude->getReference().'/'.(!empty($this->getDebutOm()) ? $this->getDebutOm()->format('Y') : 'XX').'/RM/'.$this->getVersion();
     }
 
     public function __construct()

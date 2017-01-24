@@ -23,7 +23,7 @@ class ProcesVerbalType extends AbstractType
             array('label' => ' ',
                 'type' => $options['type'],
                 'prospect' => $options['prospect'],
-                'phases' => $options['phases'])
+                'phases' => $options['phases'], )
         );
     }
 

@@ -13,8 +13,6 @@ namespace Mgate\PubliBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
-use Mgate\PersonneBundle\Entity\Personne;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,7 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Document
 {
-
     const DOCUMENT_STORAGE_ROOT = '/../var/documents'; //document storage root on kernerl->getrootdir() path.
 
     /**
@@ -88,10 +85,9 @@ class Document
     public function getAbsolutePath()
     {
         if (!empty($this->rootDir)) {
-            return $this->rootDir . '' . self::DOCUMENT_STORAGE_ROOT . '/' . $this->path;
+            return $this->rootDir.''.self::DOCUMENT_STORAGE_ROOT.'/'.$this->path;
         }
     }
-
 
     /**
      * @ORM\PrePersist()
@@ -102,7 +98,7 @@ class Document
         if (null !== $this->file) {
             // do whatever you want to generate a unique name
             $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = $filename . '.' . $this->file->guessExtension();
+            $this->path = $filename.'.'.$this->file->guessExtension();
             $this->size = filesize($this->file);
         }
     }
@@ -125,7 +121,7 @@ class Document
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
         // moving file into /data
-        $this->file->move($this->rootDir . '' . self::DOCUMENT_STORAGE_ROOT, $this->path);
+        $this->file->move($this->rootDir.''.self::DOCUMENT_STORAGE_ROOT, $this->path);
         unset($this->file);
     }
 
@@ -139,7 +135,6 @@ class Document
             unlink($file);
         }
     }
-
 
     /**
      * Set path.
@@ -167,11 +162,13 @@ class Document
 
     /**
      * @param mixed $id
+     *
      * @return Document
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -185,11 +182,13 @@ class Document
 
     /**
      * @param mixed $relation
+     *
      * @return Document
      */
     public function setRelation($relation)
     {
         $this->relation = $relation;
+
         return $this;
     }
 
@@ -203,11 +202,13 @@ class Document
 
     /**
      * @param mixed $name
+     *
      * @return Document
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -221,11 +222,13 @@ class Document
 
     /**
      * @param mixed $size
+     *
      * @return Document
      */
     public function setSize($size)
     {
         $this->size = $size;
+
         return $this;
     }
 
@@ -239,11 +242,13 @@ class Document
 
     /**
      * @param \DateTime $uptime
+     *
      * @return Document
      */
     public function setUptime($uptime)
     {
         $this->uptime = $uptime;
+
         return $this;
     }
 
@@ -257,11 +262,13 @@ class Document
 
     /**
      * @param mixed $author
+     *
      * @return Document
      */
     public function setAuthor($author)
     {
         $this->author = $author;
+
         return $this;
     }
 
@@ -275,11 +282,13 @@ class Document
 
     /**
      * @param mixed $path
+     *
      * @return Document
      */
     public function setPath($path)
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -293,11 +302,13 @@ class Document
 
     /**
      * @param UploadedFile $file
+     *
      * @return Document
      */
     public function setFile($file)
     {
         $this->file = $file;
+
         return $this;
     }
 
@@ -311,14 +322,13 @@ class Document
 
     /**
      * @param string $rootDir
+     *
      * @return Document
      */
     public function setRootDir($rootDir)
     {
         $this->rootDir = $rootDir;
+
         return $this;
     }
-
-
-
 }

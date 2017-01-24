@@ -17,14 +17,13 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 /**
+ * Where is that stuff used ? Doesn't seem to be.
+ *
  * Class AddUserFieldSubscriber
  * @package Mgate\PersonneBundle\Form\EventListener
- * Where is that stuff used ? Doesn't seem to be.
  */
 class AddUserFieldSubscriber implements EventSubscriberInterface
 {
-
-
     public static function getSubscribedEvents()
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
@@ -53,6 +52,5 @@ class AddUserFieldSubscriber implements EventSubscriberInterface
                     return $ur->getNotPersonne($personne);
                 },
             ));
-
     }
 }

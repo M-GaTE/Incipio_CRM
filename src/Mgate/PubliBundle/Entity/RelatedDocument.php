@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Mgate\FormationBundle\Entity\Formation;
 use Mgate\PersonneBundle\Entity\Membre;
 use Mgate\PersonneBundle\Entity\Prospect;
-
 use Mgate\SuiviBundle\Entity\Etude;
 
 /**

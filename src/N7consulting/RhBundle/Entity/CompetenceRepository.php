@@ -27,9 +27,11 @@ class CompetenceRepository extends EntityRepository
 
     /**
      * Returns an array of etudes and phases with their associated competences.
+     *
      * @return array
      */
-    public function getAllEtudesByCompetences(){
+    public function getAllEtudesByCompetences()
+    {
         $qb = $this->_em->createQueryBuilder();
 
         $query = $qb->select('c')

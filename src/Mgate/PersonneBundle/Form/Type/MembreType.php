@@ -32,7 +32,7 @@ class MembreType extends AbstractType
                 ->add('identifiant', TextType::class,
                     array('label' => 'Identifiant',
                         'required' => false,
-                        'attr' => array('readonly' => true)
+                        'attr' => array('readonly' => true),
                     )
                 )
                 ->add('emailEMSE', TextType::class, array('label' => 'Email Ecole', 'required' => false))

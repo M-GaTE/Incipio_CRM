@@ -95,7 +95,7 @@ class FormationController extends Controller
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate($formation);
                 foreach ($errors as $error) {
-                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath() . ' : ' . $error->getMessage()));
+                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath().' : '.$error->getMessage()));
                 }
             }
         }

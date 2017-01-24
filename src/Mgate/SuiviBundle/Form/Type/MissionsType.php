@@ -23,8 +23,7 @@ class MissionsType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        if(!isset($options['etude']) || !($options['etude'] instanceof Etude)){
+        if (!isset($options['etude']) || !($options['etude'] instanceof Etude)) {
             throw new \LogicException('A MissionsType can\'t be build without associated Etude object.');
         }
         $this->etude = $options['etude'];
@@ -51,7 +50,5 @@ class MissionsType extends AbstractType
         ));
         $resolver->setRequired(['etude']);
         $resolver->addAllowedTypes('etude', 'Mgate\SuiviBundle\Entity\Etude');
-
-
     }
 }

@@ -148,10 +148,10 @@ class TraitementController extends Controller
         }
 
         if ($rootName == 'etude' && $rootObject->getReference()) {
-            if(!$debug) {//avoid collision with references using / or other characters.
-                $refDocx = $rootObject->getReference() . '-' . $templateName . '-';
-            }
-            else{
+            if (!$debug) {
+                //avoid collision with references using / or other characters.
+                $refDocx = $rootObject->getReference().'-'.$templateName.'-';
+            } else {
                 $refDocx = '';
             }
         } elseif ($rootName == 'etudiant') {
@@ -349,7 +349,7 @@ class TraitementController extends Controller
         $oldSec = 86400; // = 1 Jours
         clearstatcache();
         $glob = glob('tmp/*');
-        if($glob !== false) {
+        if ($glob !== false) {
             foreach ($glob as $filename) {
                 if (filemtime($filename) + $oldSec < time()) {
                     unlink($filename);

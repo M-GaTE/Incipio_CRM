@@ -63,7 +63,6 @@ class AvController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-
         return $this->render('MgateSuiviBundle:Av:voir.html.twig', array(
             'av' => $entity,
         ));
@@ -85,8 +84,8 @@ class AvController extends Controller
     private function mergePhaseIfNotNull($phaseReceptor, $phaseToMerge, $changes)
     {
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
-            $setMethode = 'set' . $methode;
+            $getMethode = 'get'.$methode;
+            $setMethode = 'set'.$methode;
             if ($phaseToMerge->$getMethode() !== null) {
                 $changes->$setMethode(true);
                 $phaseReceptor->$setMethode($phaseToMerge->$getMethode());
@@ -97,8 +96,8 @@ class AvController extends Controller
     private function copyPhase($source, $destination)
     {
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
-            $setMethode = 'set' . $methode;
+            $getMethode = 'get'.$methode;
+            $setMethode = 'set'.$methode;
             $destination->$setMethode($source->$getMethode());
         }
     }
@@ -107,7 +106,7 @@ class AvController extends Controller
     {
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
+            $getMethode = 'get'.$methode;
             $isNotNull = $isNotNull || ($phase->$getMethode() !== null && $methode != 'Position');
         }
 
@@ -118,8 +117,8 @@ class AvController extends Controller
     {
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
-            $setMethode = 'set' . $methode;
+            $getMethode = 'get'.$methode;
+            $setMethode = 'set'.$methode;
             if ($phaseReceptor->$getMethode() == $phaseToCompare->$getMethode() && $methode != 'Position') {
                 $phaseReceptor->$setMethode(null);
             } else {

@@ -521,6 +521,7 @@ class Membre
      * Set filiere.
      *
      * @param Filiere $filiere
+     *
      * @return Membre
      */
     public function setFiliere(Filiere $filiere)

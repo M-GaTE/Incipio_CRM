@@ -191,7 +191,7 @@ class EtudeController extends Controller
         }
 
         //get contacts clients
-        $clientContacts = $em->getRepository('MgateSuiviBundle:ClientContact')->getByEtude($etude,array('date' => 'desc'));
+        $clientContacts = $em->getRepository('MgateSuiviBundle:ClientContact')->getByEtude($etude, array('date' => 'desc'));
 
         $chartManager = $this->get('Mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'suivi');
@@ -241,8 +241,9 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param Etude $etude
+     * @param Etude   $etude
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Etude $etude, Request $request)
@@ -261,7 +262,6 @@ class EtudeController extends Controller
             $em->remove($etude);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Etude supprimée');
-
         }
 
         return $this->redirect($this->generateUrl('MgateSuivi_etude_homepage'));

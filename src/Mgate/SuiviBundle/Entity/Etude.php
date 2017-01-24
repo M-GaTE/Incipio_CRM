@@ -20,7 +20,6 @@ use Mgate\CommentBundle\Entity\Thread;
 use Mgate\PersonneBundle\Entity\Personne;
 use Mgate\PersonneBundle\Entity\Prospect;
 use Mgate\PubliBundle\Entity\RelatedDocument;
-
 use Mgate\TresoBundle\Entity\Facture;
 use N7consulting\RhBundle\Entity\Competence;
 
@@ -291,8 +290,9 @@ class Etude
     /**
      * @ORM\PostPersist
      */
-    public function createThread(LifecycleEventArgs $args){
-        if($this->getThread() === null) {
+    public function createThread(LifecycleEventArgs $args)
+    {
+        if ($this->getThread() === null) {
             $em = $args->getEntityManager();
             $t = new Thread();
             $this->setThread($t);
@@ -302,7 +302,6 @@ class Etude
             $em->flush($t);
         }
     }
-
 
     /**
      * ADDITIONAL GETTERS/SETTERS.
@@ -1561,7 +1560,7 @@ class Etude
         $this->procesVerbaux->removeElement($procesVerbaux);
     }
 
-    private function trieDateSignature(DocType $a,DocType $b)
+    private function trieDateSignature(DocType $a, DocType $b)
     {
         if ($a->getDateSignature() == $b->getDateSignature()) {
             return 0;

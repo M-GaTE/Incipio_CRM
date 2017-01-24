@@ -33,11 +33,11 @@ class FormationType extends AbstractType
                 ->add('categorie', Select2ChoiceType::class, array(
                     'multiple' => true,
                     'choices' => Formation::getCategoriesChoice(),
-                    'choice_label' => function($value){
+                    'choice_label' => function ($value) {
                         return $value;
                     },
                     'label' => 'Catégorie',
-                    'required' => false)
+                    'required' => false, )
                 )
                 ->add('dateDebut', DateTimeType::class, array('label' => 'Date de debut', 'format' => 'd/MM/y - HH:mm', 'required' => true, 'widget' => 'choice'))
                 ->add('dateFin', DateTimeType::class, array('label' => 'Date de fin', 'format' => 'd/MM/y - HH:mm', 'required' => true, 'widget' => 'choice'))

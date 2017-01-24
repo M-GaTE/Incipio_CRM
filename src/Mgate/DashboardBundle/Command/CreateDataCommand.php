@@ -19,7 +19,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateDataCommand extends ContainerAwareCommand
 {
-
     const NOM = array('Henry', 'Martinez', 'Durand', 'Duval', 'Leroux', 'Robert', 'Morel', 'Bourgeois', 'Dupont', 'Dumont', 'Bernard', 'Francois', 'Dupond', 'Dubois', 'Blanc', 'Paul', 'Petit');
     const PRENOM = array('Alexandre', 'Paul', 'Thomas', 'Raphaël', 'Camille', 'Inès', 'Emma', 'Gabriel', 'Antoine', 'Louis', 'Victor', 'Maxime', 'Hugo', 'Louise', 'Marie', 'Sarah', 'Arthur', 'Clara', 'Lea', 'Alice', 'Lucas', 'Jules', 'Chloe', 'Elsa', 'Manon');
 
@@ -54,8 +53,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 33100,
                     'ville' => 'Toulouse',
                     'entite' => 2,
-                    'email' => 'contact@glad.fr'
-                )
+                    'email' => 'contact@glad.fr',
+                ),
             ),
             array(
                 'nom' => '316BLA',
@@ -69,8 +68,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 92200,
                     'ville' => 'Neuilly',
                     'entite' => 3,
-                    'email' => 'hello@black.ninja'
-                )
+                    'email' => 'hello@black.ninja',
+                ),
             ),
             array(
                 'nom' => '317IMU',
@@ -84,8 +83,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 91000,
                     'ville' => 'Evry',
                     'entite' => 4,
-                    'email' => 'contact@imuka.jp'
-                )
+                    'email' => 'contact@imuka.jp',
+                ),
             ),
             array(
                 'nom' => '319UNI',
@@ -99,8 +98,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 35000,
                     'ville' => 'Rennes',
                     'entite' => 5,
-                    'email' => 'contact@univ.radar'
-                )
+                    'email' => 'contact@univ.radar',
+                ),
             ),
             array(
                 'nom' => '320TEK',
@@ -114,8 +113,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 35000,
                     'ville' => 'Rennes',
                     'entite' => 6,
-                    'email' => 'contact@teknik.paris'
-                )
+                    'email' => 'contact@teknik.paris',
+                ),
             ),
             array(
                 'nom' => '321DUV',
@@ -129,8 +128,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 33100,
                     'ville' => 'Labege',
                     'entite' => 4,
-                    'email' => 'contact@duvilcol.or'
-                )
+                    'email' => 'contact@duvilcol.or',
+                ),
             ),
             array(
                 'nom' => '322NIL',
@@ -144,8 +143,8 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 31000,
                     'ville' => 'Bordeaux',
                     'entite' => 7,
-                    'email' => 'contact@nislen.com'
-                )
+                    'email' => 'contact@nislen.com',
+                ),
             ),
             array(
                 'nom' => '323PRR',
@@ -159,42 +158,41 @@ class CreateDataCommand extends ContainerAwareCommand
                     'codePostal' => 35000,
                     'ville' => 'Rennes',
                     'entite' => 4,
-                    'email' => 'contact@prr.cn'
-                )
+                    'email' => 'contact@prr.cn',
+                ),
             ),
         );
         $inserted_projects = 0;
         $inserted_prospects = 0;
 
-
         foreach ($array_projects as $etude) {
 
             //create project
             $e = new Etude();
-            $inserted_projects++;
+            ++$inserted_projects;
             $mandat = rand(2013, 2016);
             $month = rand(1, 10);
             $day = rand(1, 30);
             $e->setMandat($mandat);
             $e->setNom($etude['nom']);
             $e->setDescription($etude['description']);
-            $e->setDateCreation(new \DateTime($mandat . '-' . $month . '-' . $day));
+            $e->setDateCreation(new \DateTime($mandat.'-'.$month.'-'.$day));
             $e->setStateID($etude['statut']);
             $e->setAcompte(true);
             $e->setPourcentageAcompte(0.3);
             $e->setFraisDossier(90);
-            $e->setPresentationProjet('Presentation ' . $etude['description']);
+            $e->setPresentationProjet('Presentation '.$etude['description']);
             $e->setDescriptionPrestation('Describe what we will do here');
-            $e->setSourceDeProspection(rand(1,10));
+            $e->setSourceDeProspection(rand(1, 10));
             $em->persist($e);
-            $c = $em->getRepository('N7consultingRhBundle:Competence')->find(rand(1,12));
-            if($c !== null) {
+            $c = $em->getRepository('N7consultingRhBundle:Competence')->find(rand(1, 12));
+            if ($c !== null) {
                 $c->addEtude($e);
             }
 
-            /** Prospect management */
+            /* Prospect management */
             $p = new Prospect();
-            $inserted_prospects++;
+            ++$inserted_prospects;
             $p->setNom($etude['prospect']['entreprise']);
             $p->setAdresse($etude['prospect']['adresse']);
             $p->setCodePostal($etude['prospect']['codePostal']);
@@ -202,7 +200,7 @@ class CreateDataCommand extends ContainerAwareCommand
             $p->setEntite($etude['prospect']['entite']);
 
             $pe = new Personne();
-            $pe->setPrenom(self::PRENOM[array_rand(self::PRENOM)]);//whitespace explode : not perfect but better than nothing
+            $pe->setPrenom(self::PRENOM[array_rand(self::PRENOM)]); //whitespace explode : not perfect but better than nothing
             $pe->setNom(self::NOM[array_rand(self::NOM)]);
             $pe->setEmailEstValide(true);
             $pe->setEstAbonneNewsletter(false);
@@ -220,10 +218,9 @@ class CreateDataCommand extends ContainerAwareCommand
             $em->persist($p);
             $e->setProspect($p);
 
-
             //create phases
-            $g = new GroupePhases();//default group
-            $g->setTitre('Random generated' . rand());
+            $g = new GroupePhases(); //default group
+            $g->setTitre('Random generated'.rand());
             $g->setNumero(1);
             $g->setDescription('Automatic description');
             $g->setEtude($e);
@@ -237,7 +234,7 @@ class CreateDataCommand extends ContainerAwareCommand
             $ph->setPrixJEH(340);
             $ph->setTitre('Default phase');
             $ph->setDelai($etude['duree'] * 7);
-            $ph->setDateDebut(new \DateTime($mandat . '-' . $month . '-' . $day));
+            $ph->setDateDebut(new \DateTime($mandat.'-'.$month.'-'.$day));
             $em->persist($ph);
 
             //manage project manager
@@ -249,13 +246,12 @@ class CreateDataCommand extends ContainerAwareCommand
             $em->persist($pm);
             $m = new Membre();
             $m->setPersonne($pm);
-            $m->setPromotion($mandat+2);
+            $m->setPromotion($mandat + 2);
             $em->persist($m);
-            if($c !== null) {
+            if ($c !== null) {
                 $c->addMembre($m);
             }
             $e->setSuiveur($pm);
-
 
             //manage AP & CC
             if ($etude['dateCC'] !== null && $etude['statut'] > 1) {
@@ -265,13 +261,13 @@ class CreateDataCommand extends ContainerAwareCommand
 
                 $cc = new Cc();
                 $cc->setEtude($e);
-                $cc->setDateSignature(new \DateTime($mandat . '-' . $month . '-' . $day));
+                $cc->setDateSignature(new \DateTime($mandat.'-'.$month.'-'.$day));
                 $cc->setSignataire2($pe);
                 $em->persist($cc);
             }
 
             //manage intervenant
-            if ($etude['statut'] > 1 && $etude['statut'] < 5){
+            if ($etude['statut'] > 1 && $etude['statut'] < 5) {
                 //manage developper
                 $dev = new Personne();
                 $dev->setPrenom(self::PRENOM[array_rand(self::PRENOM)]);
@@ -282,29 +278,28 @@ class CreateDataCommand extends ContainerAwareCommand
 
                 $mdev = new Membre();
                 $mdev->setPersonne($dev);
-                $mdev->setPromotion($mandat+rand(1,2));
+                $mdev->setPromotion($mandat + rand(1, 2));
                 $em->persist($mdev);
-                if($c !== null) {
+                if ($c !== null) {
                     $c->addMembre($mdev);
                 }
 
                 $mi = new Mission();
                 $mi->setSignataire2($dev);
                 $mi->setEtude($e);
-                $mi->setDateSignature(new \DateTime($mandat . '-' . $month . '-' . $day));
-                $mi->setDebutOm(new \DateTime($mandat . '-' . $month . '-' . $day));
-                $mi->setAvancement(rand(90,100));
+                $mi->setDateSignature(new \DateTime($mandat.'-'.$month.'-'.$day));
+                $mi->setDebutOm(new \DateTime($mandat.'-'.$month.'-'.$day));
+                $mi->setAvancement(rand(90, 100));
                 $mi->setIntervenant($mdev);
 
                 $em->persist($mi);
             }
 
-
                 //manage PVR
             if ($etude['statut'] > 1 && $etude['statut'] < 5) {
                 $pv = new ProcesVerbal();
                 $pv->setEtude($e);
-                $pv->setDateSignature(new \DateTime($mandat . '-' . ($month+1) . '-' . ($day )));
+                $pv->setDateSignature(new \DateTime($mandat.'-'.($month + 1).'-'.($day)));
                 $pv->setSignataire2($pe);
                 $pv->setType('pvr');
                 $em->persist($pv);
@@ -313,7 +308,5 @@ class CreateDataCommand extends ContainerAwareCommand
         $em->flush();
 
         $output->writeln('Done.');
-
-
     }
 }

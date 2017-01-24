@@ -133,7 +133,6 @@ class MembreController extends Controller
             $photoUpload = $form->get('photo')->getData();
 
             if ($form->isValid()) {
-
                 if ($membre->getPersonne()) {
                     // Photo de l'étudiant
                     $path = $membre->getPromotion().'/'.
@@ -228,7 +227,6 @@ class MembreController extends Controller
                 $form = $this->createForm(MembreType::class, $membre);
             }
         }
-
 
         return $this->render('MgatePersonneBundle:Membre:modifier.html.twig', array(
                     'form' => $form->createView(),

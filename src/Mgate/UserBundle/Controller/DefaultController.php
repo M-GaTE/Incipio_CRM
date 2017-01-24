@@ -48,7 +48,7 @@ class DefaultController extends Controller
             throw new AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
         }
 
-        $form = $this->createForm(UserAdminType::class, $user, array('user_class'=> 'Mgate\UserBundle\Entity\User', 'roles' => $this->getParameter('security.role_hierarchy.roles')) );
+        $form = $this->createForm(UserAdminType::class, $user, array('user_class' => 'Mgate\UserBundle\Entity\User', 'roles' => $this->getParameter('security.role_hierarchy.roles')));
         $deleteForm = $this->createDeleteForm($id);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -59,7 +59,7 @@ class DefaultController extends Controller
 
                 $userManager = $this->container->get('fos_user.user_manager');
                 $userManager->reloadUser($user);
-                $this->addFlash('success','Utilisateur modifié');
+                $this->addFlash('success', 'Utilisateur modifié');
 
                 return $this->redirect($this->generateUrl('Mgate_user_lister'));
             }
@@ -102,7 +102,7 @@ class DefaultController extends Controller
             $entity->setPersonne(null);
             $em->remove($entity);
             $em->flush();
-            $this->addFlash('success','Utilisateur supprimé');
+            $this->addFlash('success', 'Utilisateur supprimé');
         }
 
         return $this->redirect($this->generateUrl('Mgate_user_lister'));
