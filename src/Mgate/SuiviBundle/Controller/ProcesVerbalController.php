@@ -11,6 +11,7 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
+use Mgate\SuiviBundle\Entity\Etude;
 use Mgate\SuiviBundle\Entity\ProcesVerbal;
 use Mgate\SuiviBundle\Form\Type\ProcesVerbalSubType;
 use Mgate\SuiviBundle\Form\Type\ProcesVerbalType;
@@ -136,14 +137,14 @@ class ProcesVerbalController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Request $request
+     * @param Etude $etude
+     * @param $type string PVR or PVRI
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function redigerAction(Request $request, $id_etude, $type)
+    public function redigerAction(Request $request, Etude $etude, $type)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$etude = $em->getRepository('Mgate\SuiviBundle\Entity\Etude')->find($id_etude)) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        }
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
@@ -170,11 +171,9 @@ class ProcesVerbalController extends Controller
             }
         }
 
-        return $this->render('MgateSuiviBundle:ProcesVerbal:rediger.html.twig', array(
-            'form' => $form->createView(),
-            'etude' => $etude,
-            'type' => $type,
-        ));
+        return $this->render('MgateSuiviBundle:ProcesVerbal:rediger.html.twig',
+            array('form' => $form->createView(),'etude' => $etude,'type' => $type,)
+        );
     }
 
     /**
