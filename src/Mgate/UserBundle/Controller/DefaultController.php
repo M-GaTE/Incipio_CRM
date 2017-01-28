@@ -11,6 +11,8 @@
 
 namespace Mgate\UserBundle\Controller;
 
+use Mgate\PersonneBundle\Entity\Personne;
+use Mgate\UserBundle\Entity\User;
 use Mgate\UserBundle\Form\Type\UserAdminType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,22 +36,22 @@ class DefaultController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function modifierAction(Request $request, $id)
+    public function modifierAction(Request $request, User $user)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository('MgateUserBundle:User')->find($id);
-        if (!$user) {
-            throw $this->createNotFoundException('L\'utilisateur n\'existe pas !');
-        }
-
         if ($user->getId() == 1) {
-            throw new AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
+            throw new AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez dsi@n7consulting.fr pour toute modification.');
         }
 
-        $form = $this->createForm(UserAdminType::class, $user, array('user_class' => 'Mgate\UserBundle\Entity\User', 'roles' => $this->getParameter('security.role_hierarchy.roles')));
-        $deleteForm = $this->createDeleteForm($id);
+        $form = $this->createForm(UserAdminType::class, $user, array(
+            'user_class' => 'Mgate\UserBundle\Entity\User','roles' => $this->getParameter('security.role_hierarchy.roles')
+        ));
+        $deleteForm = $this->createDeleteForm($user->getId());
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
 
@@ -68,39 +70,35 @@ class DefaultController extends Controller
         return $this->render('MgateUserBundle:Default:modifier.html.twig', array(
             'form' => $form->createView(),
             'delete_form' => $deleteForm->createView(),
-            ));
+        ));
     }
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param $id
+     * @param User $user the user to be deleted
      * @param Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @internal param $id
      */
-    public function deleteAction($id, Request $request)
+    public function deleteAction(User $user, Request $request)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($user->getId());
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if (!$entity = $em->getRepository('Mgate\UserBundle\Entity\User')->find($id)) {
-                throw $this->createNotFoundException('L\'utilisateur n\'existe pas !');
-            }
-
-            if ($entity->getId() == 1) {
+            if ($user->getId() == 1) {
                 throw new AccessDeniedException('Impossible de supprimer le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
             }
 
-            if ($entity->getPersonne()) {
-                $entity->getPersonne()->setUser(null);
+            if ($user->getPersonne()) {
+                $user->getPersonne()->setUser(null);
             }
-            $entity->setPersonne(null);
-            $em->remove($entity);
+            $user->setPersonne(null);
+            $em->remove($user);
             $em->flush();
             $this->addFlash('success', 'Utilisateur supprimé');
         }
@@ -112,21 +110,17 @@ class DefaultController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', HiddenType::class)
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     * @param Personne $personne the personne whom a user should be added
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      */
-    public function addUserFromPersonneAction($id)
+    public function addUserFromPersonneAction(Personne $personne)
     {
-        $em = $this->getDoctrine()->getManager();
-        $personne = $em->getRepository('MgatePersonneBundle:Personne')->find($id);
-
-        if (!$personne) {
-            throw $this->createNotFoundException('La personne n\'existe pas !');
-        }
 
         if ($personne->getUser()) {
             throw new \Exception('Un utilisateur est déjà liée à cette personne !');
@@ -148,8 +142,7 @@ class DefaultController extends Controller
         // Utilisateur à confirmer
         $user->setEnabled(false);
         $user->setConfirmationToken($token);
-        // \\
-        $user->setUsername($this->enMinusculeSansAccent($personne->getPrenom().'.'.$personne->getNom()));
+        $user->setUsername($this->enMinusculeSansAccent($personne->getPrenom() . '.' . $personne->getNom()));
 
         $userManager->updateUser($user); // Pas besoin de faire un flush (ça le fait tout seul)
 
