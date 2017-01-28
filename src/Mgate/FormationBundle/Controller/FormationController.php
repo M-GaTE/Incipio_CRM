@@ -80,7 +80,6 @@ class FormationController extends Controller
         }
 
         $form = $this->createForm(FormationType::class, $formation);
-        $messages = array();
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -90,19 +89,18 @@ class FormationController extends Controller
                 $em->flush();
 
                 $form = $this->createForm(FormationType::class, $formation);
-                array_push($messages, array('label' => 'success', 'message' => 'Formation modifée'));
+                $this->addFlash('success', 'Formation modifiée');
             } else {
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate($formation);
                 foreach ($errors as $error) {
-                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath().' : '.$error->getMessage()));
+                    $this->addFlash('warning', $error->getPropertyPath().' : '.$error->getMessage());
                 }
             }
         }
 
         return $this->render('MgateFormationBundle:Gestion:modifier.html.twig', array('form' => $form->createView(),
-            'formation' => $formation,
-            'messages' => $messages,
+            'formation' => $formation
         ));
     }
 
