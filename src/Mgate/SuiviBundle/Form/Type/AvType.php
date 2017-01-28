@@ -28,9 +28,9 @@ class AvType extends DocTypeType
         détailler l\'historique des relations avec le client et du travail sur l\'étude qui ont conduit à l\'Avenant.',
         'required' => true, ))
         ->add('clauses', ChoiceType::class, array('label' => 'Type d\'avenant', 'multiple' => true, 'choices' => Av::getClausesChoices(),
-            'choice_label' => function ($var) {
-                return $var;
-            }, ))
+            'choice_label' => function ($val, $key) {
+                return $key;
+            },))
         ->add('phases', CollectionType::class, array(
                 'entry_type' => PhaseType::class,
                 'entry_options' => array('isAvenant' => true),

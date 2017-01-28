@@ -1,7 +1,11 @@
 {% extends "MgateSuiviBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ 'suivi.ap_modifier_un'|trans({}, 'suivi') }} - {{ parent() }}
+    {{ 'suivi.av_modifier_un'|trans({}, 'suivi') }} - {{ parent() }}
+{% endblock %}
+
+{% block content_title %}
+    {{ 'suivi.av_modifier_un'|trans({}, 'suivi') }}
 {% endblock %}
 
 
@@ -29,11 +33,7 @@
     </style>
 
 
-    <h2>{{ 'suivi.ap_modifier_un'|trans({}, 'suivi') }}</h2>
-
     {{ form_start(form) }}
-    <button type="submit" class="btn btn-success">{{ 'suivi.ap_enregistrer'|trans({}, 'suivi') }}</button>
-
     <table class="table table-bordered table-striped">
         <tr>
             <td width="400px">{{ form_row(form.signataire1) }}</td>
@@ -49,7 +49,7 @@
         </tr>
         <tr>
             <td>{{ form_label(form.clauses) }}</td>
-            <td>{{ form_widget(form.clauses, {'attr': {'class': 'select2'}}) }}</td>
+            <td>{{ form_widget(form.clauses, {'attr': {'class': 'select2-multiple'}}) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.differentielDelai) }}</td>
@@ -107,7 +107,7 @@
             </div>
         </span>
     {{ form_widget(form) }}
-    <button type="submit" >{{ 'suivi.avenant_enregistrer'|trans({}, 'suivi') }}</button>
+    <button type="submit" class="btn btn-success">{{ 'suivi.avenant_enregistrer'|trans({}, 'suivi') }}</button>
     {{ form_end(form) }}
 
 
@@ -129,7 +129,7 @@
             $('.titrePhase').each(function (i) {
                 $(this).text('Phase n°' + (i + 1));
             });
-            $(".select2").select2();
+            $(".select2-multiple").select2();
         });
 
     </script>

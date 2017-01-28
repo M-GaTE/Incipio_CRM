@@ -22,6 +22,7 @@ suivi:
     ap_modifier: Modifier l'Avant-Projet
     avenant_ajouter: Ajouter un Avenant
     avenant_liste: Liste des Avenants
+    av_modifier_un: Modifier un Avenant
     ap_modifier_un: Modifier un Avant-Projet
     repartitions_jeh_gestion: Gestion des Répartions JEH (à venir)
     phases_gestion: Gestion des Phases (à venir)
@@ -264,4 +265,3 @@ suivi:
     suivi_modifier_le: Modifier un Suivi
     suivi_affichage: Affichage du suivi
     historique: Historique
-

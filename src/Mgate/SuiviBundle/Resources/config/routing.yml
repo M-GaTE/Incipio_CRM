@@ -255,7 +255,7 @@ MgateSuivi_procesverbal_modifier:
     methods:  [GET, HEAD, POST]
 
 MgateSuivi_procesverbal_rediger:
-    path: /procesverbal/rediger/{id_etude}/{type}
+    path: /procesverbal/rediger/{id}/{type}
     defaults: {_controller: MgateSuiviBundle:ProcesVerbal:rediger}
     requirements:
         id: \d+
