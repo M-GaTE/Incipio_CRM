@@ -34,7 +34,9 @@
         "twig/extensions": "~1.0",
         "javiereguiluz/easyadmin-bundle": "^1.9",
         "stoakes/form-bundle": "^3.0@dev",
-        "doctrine/doctrine-migrations-bundle": "^1.0"
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "webmozart/key-value-store": "^1.0",
+        "webmozart/json": "^1.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.9",

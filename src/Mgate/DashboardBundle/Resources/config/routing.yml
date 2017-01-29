@@ -7,3 +7,8 @@ Mgate_dashboard_search:
     path: /search
     defaults: { _controller: MgateDashboardBundle:Default:search }
     methods:  [GET, HEAD]
+
+Mgate_dashboard_admin:
+    path: /dashboard/admin
+    defaults: { _controller: MgateDashboardBundle:Admin:index}
+    methods: [GET, HEAD, POST]
