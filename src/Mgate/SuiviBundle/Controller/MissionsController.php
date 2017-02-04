@@ -13,6 +13,7 @@ namespace Mgate\SuiviBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mgate\SuiviBundle\Entity\Mission;
+use Mgate\SuiviBundle\Entity\Etude;
 use Mgate\SuiviBundle\Entity\RepartitionJEH;
 use Mgate\SuiviBundle\Form\Type\MissionsType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -41,17 +42,13 @@ class MissionsController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      *
-     * @param $id int id of project
-     *
+     * @param Etude $etude
      * @return RedirectResponse|Response
+     *
      */
-    public function modifierAction(Request $request, $id)
+    public function modifierAction(Request $request, Etude $etude)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$etude = $em->getRepository('Mgate\SuiviBundle\Entity\Etude')->find($id)) {
-            throw $this->createNotFoundException('L\'étude demandée n\'existe pas!');
-        }
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
@@ -93,31 +90,8 @@ class MissionsController extends Controller
                             $repartitionNew->setMission($mission);
 
                             $repartitionNew->setNbrJEH(0);
-                            $repartitionNew->setPrixJEH(320);
+                            $repartitionNew->setPrixJEH(340);
                         }
-                    }
-                }
-                //removing existing missions from missionList to get missions to delete
-                foreach ($etude->getMissions() as $mission) {
-                    //compare current missions to initial mission list
-                    if ($missionList->contains($mission)) { // mission still exists, let's remove it
-                        $missionList->removeElement($mission);
-
-                        //compare current repartition to initial repartition list
-                        foreach ($mission->getRepartitionsJEH() as $repartition) {
-                            if ($repartitionList->contains($repartition)) { // repartition still exist, let's remove it
-                                $repartitionList->removeElement($repartition);
-                            }
-                        }
-                    }
-                }
-                //at that point we have missionList and repartitionlist are containing only objects to delete. let's iterate on them
-                foreach ($missionList as $mission) {
-                    $em->remove($mission);
-                }
-                foreach ($repartitionList as $repartitions) {
-                    foreach ($repartitions as $repartition) {
-                        $em->remove($repartition);
                     }
                 }
 
