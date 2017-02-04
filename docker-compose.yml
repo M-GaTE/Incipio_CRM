@@ -28,8 +28,8 @@ traefik:
   command: | 
     -c /dev/null --web --docker --docker.domain=docker.localhost --logLevel=DEBUG 
     --defaultEntryPoints='http,https' --entryPoints='Name:http Address::80 Redirect.EntryPoint:https' 
-    --entryPoints='Name:https Address::443 TLS' 
-    --acme.entryPoint=https --acme.email='dsi@n7consulting.fr' --acme.storage=/acme.json
+    --entryPoints='Name:https Address::443 TLS' --acme.entryPoint=https
+    --acme.email='dsi@n7consulting.fr' --acme.storage=/acme.json --acme.onDemand=true
   ports:
     - "80:80"
     - "8080:8080"
