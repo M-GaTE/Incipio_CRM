@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Features\Bootstrap;
-
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\AfterStepScope;

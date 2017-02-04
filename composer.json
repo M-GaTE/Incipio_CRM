@@ -48,7 +48,7 @@
         "style:check": "php bin/php-cs-fixer fix --no-interaction --dry-run --diff -vvvv src/",
         "style:fix": "php bin/php-cs-fixer fix -vvvv src/",
         "test": "composer test:db",
-        "test:behat": "vendor/bin/behat --config app/config/behat.yml",
+        "test:behat": "vendor/bin/behat",
         "test:db": "php bin/console doctrine:schema:validate --ansi",
         "db": "composer db:drop && composer db:create && composer db:seed",
         "db:create": "php bin/console doctrine:schema:create --ansi",
