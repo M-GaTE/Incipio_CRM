@@ -19,11 +19,11 @@ RUN buildDeps=" \
         zip \
     && apt-get purge -y --auto-remove $buildDeps
 RUN pecl install \
-        apcu-$APCU_VERSION  redis-3.1.0\
+        apcu-$APCU_VERSION \
     && docker-php-ext-enable --ini-name 05-opcache.ini \
         opcache \
     && docker-php-ext-enable --ini-name 20-apcu.ini \
-        apcu redis
+        apcu
 
 # Apache config
 RUN a2enmod rewrite
