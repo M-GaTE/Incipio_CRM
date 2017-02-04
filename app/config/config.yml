@@ -23,8 +23,8 @@ framework:
     trusted_proxies: ~
     session:
         handler_id: session.handler.native_file
-        save_path: '%kernel.root_dir%/sessions'
-        name: incipio
+        save_path: '%kernel.root_dir%/../var/sessions'
+        name: jeyser
     fragments:       ~
     http_method_override: true
     assets: ~
