@@ -28,24 +28,28 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 class DocumentManager extends BaseManager
 {
     protected $em;
     protected $tokenStorage;
-    protected $junior;
     protected $kernel;
+    protected $junior_authorizedStorageSize;
+    protected $junior_id;
 
     /**
      * @param \Doctrine\ORM\EntityManager $em
-     * @param array                       $junior
-     * @param TokenStorage                $tokenStorage
-     * @param Kernel                      $kernel
+     * @param $junior_id
+     * @param $authorizedStorageSize
+     * @param TokenStorage $tokenStorage
+     * @param Kernel $kernel
      */
-    public function __construct(EntityManager $em, $junior, TokenStorage $tokenStorage, Kernel $kernel)
+    public function __construct(EntityManager $em, $junior_id, $authorizedStorageSize, TokenStorage $tokenStorage, Kernel $kernel)
     {
         $this->em = $em;
-        $this->junior = $junior;
+        $this->junior_id = $junior_id;
+        $this->junior_authorizedStorageSize = $authorizedStorageSize;
         $this->tokenStorage = $tokenStorage;
         $this->kernel = $kernel;
     }
@@ -139,16 +143,13 @@ class DocumentManager extends BaseManager
         }
 
         // Store each Junior documents in a distinct subdirectory
-        if (!array_key_exists('id', $this->junior)) {
-            throw new \Exception('Votre version de Incipio est obsolète. Contactez dsi@N7consulting.fr (incorrect parameters junior : id)');
-        }
-        $juniorId = $this->junior['id'];
+        $juniorId = $this->junior_id;
         $document->setSubdirectory($juniorId);
         $document->setRootDir($this->kernel->getRootDir());
 
         // Authorized Storage Size Overflow
         $totalSize = $document->getSize() + $this->getRepository()->getTotalSize();
-        if ($totalSize > $this->junior['authorizedStorageSize']) {
+        if ($totalSize > $this->junior_authorizedStorageSize) {
             throw new UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à dsi@N7consulting.fr.');
         }
 

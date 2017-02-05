@@ -34,8 +34,6 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        junior: "%junior%"
-        tva: "%tva%"
         role_voir_confidentiel: "%role_voir_confidentiel%"
 # Assetic Configuration
 assetic:

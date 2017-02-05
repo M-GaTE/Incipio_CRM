@@ -8,7 +8,7 @@ services:
         class: "%Mgate.etude_manager.class%"
         arguments:
           - "@doctrine.orm.entity_manager"
-          - "%tva%"
+          - "@app.json_key_value_store"
         tags:
             - { name: twig.extension }
     Mgate.doctype_manager:
@@ -30,4 +30,4 @@ services:
     Mgate.email_etu:
             class: Mgate\SuiviBundle\Manager\EmailEtuManager
             arguments:
-              - "%junior%"
+              - "@app.json_key_value_store"

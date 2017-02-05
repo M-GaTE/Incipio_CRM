@@ -15,16 +15,22 @@ use Doctrine\ORM\EntityManager;
 use Mgate\SuiviBundle\Entity\Etude as Etude;
 use Mgate\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 class EtudeManager extends \Twig_Extension
 {
     protected $em;
     protected $tva;
 
-    public function __construct(EntityManager $em, $tva)
+    public function __construct(EntityManager $em, KeyValueStore $keyValueStore)
     {
         $this->em = $em;
-        $this->tva = $tva;
+        if($keyValueStore->exists('tva')) {
+            $this->tva = $keyValueStore->get('tva');
+        }
+        else{
+            throw new \LogicException('Parameter TVA is undefined.');
+        }
     }
 
     // Pour utiliser les fonctions depuis twig

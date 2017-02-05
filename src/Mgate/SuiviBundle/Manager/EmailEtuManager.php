@@ -3,16 +3,17 @@
 namespace Mgate\SuiviBundle\Manager;
 
 use Mgate\PersonneBundle\Entity\Membre;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 class EmailEtuManager
 {
     private $emailEtu;
     private $emailAncien;
 
-    public function __construct($junior)
+    public function __construct(KeyValueStore $keyValueStore)
     {
-        $this->emailEtu = array_key_exists('domaineEmailEtu', $junior) ? '@'.$junior['domaineEmailEtu'] : '@';
-        $this->emailAncien = array_key_exists('domaineEmailAncien', $junior) ? '@'.$junior['domaineEmailAncien'] : '@';
+        $this->emailEtu = $keyValueStore->exists('domaineEmailEtu') ? '@'.$keyValueStore->get('domaineEmailEtu') : '@';
+        $this->emailAncien = $keyValueStore->exists('domaineEmailAncien') ? '@'.$keyValueStore->exists('domaineEmailAncien') : '@';
     }
 
     /**

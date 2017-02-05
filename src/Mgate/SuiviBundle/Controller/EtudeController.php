@@ -55,19 +55,19 @@ class EtudeController extends Controller
         $etudesTermineesParMandat = array();
         $etudesAvorteesParMandat = array();
 
-        $junior = $this->container->getParameter('junior');
         for ($i = $MANDAT_MIN; $i <= $MANDAT_MAX; ++$i) {
             array_push($etudesTermineesParMandat, array());
             array_push($etudesAvorteesParMandat, array());
         }
 
+        $anneeCreation = $this->get('app.json_key_value_store')->get('anneeCreation');
         return $this->render('MgateSuiviBundle:Etude:index.html.twig', array(
             'etudesEnNegociation' => $etudesEnNegociation,
             'etudesEnCours' => $etudesEnCours,
             'etudesEnPause' => $etudesEnPause,
             'etudesTermineesParMandat' => $etudesTermineesParMandat,
             'etudesAvorteesParMandat' => $etudesAvorteesParMandat,
-            'anneeCreation' => $junior['anneeCreation'],
+            'anneeCreation' => $anneeCreation,
             'mandatMax' => $MANDAT_MAX,
         ));
     }
