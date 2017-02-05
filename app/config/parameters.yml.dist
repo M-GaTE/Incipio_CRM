@@ -1,11 +1,11 @@
 parameters:
 ###configuration par defaut, local, wamp
     database_driver:   pdo_mysql
-    database_host:     localhost
+    database_host:     database
     database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_name:     jeyser
+    database_user:     jeyser
+    database_password: jeyser
     
     mailer_transport:  mail
     mailer_host:       localhost
@@ -19,30 +19,6 @@ parameters:
     locale:            fr
     secret:            ThisIsNotSecretYouKnow
     
-    tva:  0.200
     role_voir_confidentiel: ROLE_CA
-
-###configuration de la Junior
-###annee1Incipio : première année d'utilisation d'incipio.
-    junior:
-        nom:          N7 Consulting
-        abbr:         N7C
-        id:           ~
-        email:        contact@N7consulting.fr
-        logo:         https://N7consulting.fr/themes/IOTH-bootstrap-basic/assets/images/logo_N7consulting.png
-        adresse:      2 Rue Charles Camichel
-        url:          https://N7consulting.fr
-        ga_tracking:  ~
-        authorizedStorageSize : 104857600
-        domaineEmailEtu:    etu.enseeiht.fr
-        domaineEmailAncien: alumni.enseeiht.fr
-        anneeCreation: 1977
-        annee1Incipio: 2015
-        president:
-            prenom: PrenomPrez
-            nom: NomPrez
-            male: true
-        tresorier:
-            prenom: PrenomTrez
-            nom: NomTrez
-            male: false
+    junior_authorizedStorageSize: 104857600
+    junior_id: 1
