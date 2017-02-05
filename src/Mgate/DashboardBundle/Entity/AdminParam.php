@@ -56,6 +56,12 @@ class AdminParam
      */
     private $paramDescription;
 
+    /**
+     * The priority in display order. the higher priority is, the higher in the list it will be.
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $priority;
 
 
     /** Auto generated methods */
@@ -171,5 +177,22 @@ class AdminParam
     {
         $this->paramDescription = $paramDescription;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param mixed $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
 
 }

@@ -32,7 +32,7 @@ class AdminParamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $fields = $this->em->getRepository('MgateDashboardBundle:AdminParam')->findAll();
+        $fields = $this->em->getRepository('MgateDashboardBundle:AdminParam')->findAll(array(), array('priority'=>'desc'));
 
         foreach ($fields as $field){
             $builder->add($field->getName(),$this->chooseType($field->getParamType()), array('required' => $field->getRequired(), 'label' => $field->getParamLabel()));

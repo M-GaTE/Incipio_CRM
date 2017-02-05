@@ -41,7 +41,6 @@ class AdminController extends Controller
             if ($form->isValid()) {
                 $form_fields = $form->getData();
                 foreach($form_fields as $key => $value) {
-                    dump($value);
                     $json_key_value_store->set($key,$value);
                 }
                 $this->addFlash('success', 'valide');
