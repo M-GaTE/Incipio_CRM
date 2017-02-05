@@ -2,7 +2,7 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    {{ junior['abbr'] }} - {{ parent() }}
+    {{ param('abbr') }} - {{ parent() }}
 {% endblock %}
 
 {% block content %}

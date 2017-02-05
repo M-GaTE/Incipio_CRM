@@ -34,7 +34,7 @@
         <tbody>
         {% for personne in personnes if personne.prenom != "Admin" %}
             <tr>
-                <td>{{ personne.membre ? junior['abbr'] : personne.employe ? "Client" : "Autre" }}</td>
+                <td>{{ personne.membre ? param('abbr') : personne.employe ? "Client" : "Autre" }}</td>
                 <td>{{ personne.prenomNom }}</td>
                 <td>{{ personne.email }}</td>
                 <td>{{ personne.mobile }}</td>

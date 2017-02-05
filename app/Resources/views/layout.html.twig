@@ -59,8 +59,8 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
         <header class="main-header hidden-print">
         {% if app.user is not empty and  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <a href="{{ path('Mgate_dashboard_homepage') }}" class="logo">
-                <span class="logo-mini"><b>{{ junior['abbr'] }}</b></span>
-                <span class="logo-lg">My {{ junior['abbr'] }}</span>
+                <span class="logo-mini"><b>{{ param('abbr') }}</b></span>
+                <span class="logo-lg">My {{ param('abbr') }}</span>
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -71,7 +71,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
                 </div>
             </nav>
         {% else %}
-            <a class="navbar-brand" href="#">{{ junior['abbr'] }}</a>
+            <a class="navbar-brand" href="#">{{ param('abbr') }}</a>
         {% endif %}
         </header>
     {% endblock %}
@@ -145,7 +145,7 @@ along with Incipio as the file LICENSE.  If not, see <http://www.gnu.org/license
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', '{{ junior['ga_tracking'] }}', 'auto');
+	  ga('create', '{{ param('gaTracking') }}', 'auto');
 	  ga('send', 'pageview');
 
 	</script>

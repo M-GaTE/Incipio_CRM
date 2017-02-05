@@ -27,7 +27,7 @@ class LoadAdminParamData implements FixtureInterface
     {
         $parameters = array(
         array('name' => 'nom', 'paramType' => 'string', 'defaultValue'=> 'N7 Consulting', 'required' => true, 'paramLabel' => 'Nom de la junior'),
-        array('name' => 'nom', 'paramType' => 'string', 'defaultValue'=> 'N7C', 'required' => true, 'paramLabel' => 'Abbréviation de la junior'),
+        array('name' => 'abbr', 'paramType' => 'string', 'defaultValue'=> 'N7C', 'required' => true, 'paramLabel' => 'Abbréviation de la junior'),
         array('name' => 'logo', 'paramType' => 'url', 'defaultValue'=> 'http://N7consulting.fr/themes/IOTH-bootstrap-basic/assets/images/logo_N7consulting.png', 'required' => true, 'paramLabel' => 'URL du logo de la Junior Entreprise'),
         array('name' => 'adresse', 'paramType' => 'string', 'defaultValue'=> '2 Rue Charles Camichel 31000 Toulouse', 'required' => true, 'paramLabel' => 'Adresse postale', ),
         array('name' => 'url', 'paramType' => 'url', 'defaultValue'=> 'http://n7consulting.fr', 'required' => true, 'paramLabel' => 'URL du site web'),
