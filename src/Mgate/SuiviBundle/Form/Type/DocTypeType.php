@@ -11,27 +11,31 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Mgate\PersonneBundle\Form\Type\EmployeType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DocTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Version du document
-        $builder->add('version', 'integer', array('label' => 'Version du document'));
+        $builder->add('version', IntegerType::class, array('label' => 'Version du document'));
 
-        $builder->add('signataire1', 'genemu_jqueryselect2_entity',
+        $builder->add('signataire1', Select2EntityType::class,
             array('label' => 'Signataire Junior',
-                   'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                   'property' => 'prenomNom',
-                   'query_builder' => function (PersonneRepository $pr) {
-                       return $pr->getMembresByPoste('president%');
-                   },
-                   'required' => true, ));
+                'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
+                'choice_label' => 'prenomNom',
+                'query_builder' => function (PersonneRepository $pr) {
+                    return $pr->getMembresByPoste('president%');
+                },
+                'required' => true, ));
 
         // Si le document n'est ni une FactureVente ni un RM
         if ($options['data_class'] != 'Mgate\SuiviBundle\Entity\Mission') {
@@ -39,27 +43,38 @@ class DocTypeType extends AbstractType
 
             $pro = $options['prospect'];
             if ($options['data_class'] != 'Mgate\SuiviBundle\Entity\Av') {
-                $builder->add('knownSignataire2', 'checkbox', array(
-                    'required' => false,
-                    'label' => 'Le signataire client existe-t-il déjà dans la base de donnée ?',
+                $builder->add('knownSignataire2', CheckboxType::class,
+                    array(
+                        'required' => false,
+                        'label' => 'Le signataire client existe-t-il déjà dans la base de donnée ?',
                     ))
-                ->add('newSignataire2', new EmployeType(), array('label' => 'Nouveau signataire '.$pro->getNom(), 'required' => false, 'signataire' => true, 'mini' => true));
+                    ->add('newSignataire2', EmployeType::class,
+                        array('label' => 'Nouveau signataire '.$pro->getNom(),
+                            'required' => false,
+                            'signataire' => true,
+                            'mini' => true, )
+                    );
             }
-            $builder->add('signataire2', 'genemu_jqueryselect2_entity', array(
+
+            $builder->add('signataire2', Select2EntityType::class, array(
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                'property' => 'prenomNom',
+                'choice_label' => 'prenomNom',
                 'label' => 'Signataire '.$pro->getNom(),
                 'query_builder' => function (PersonneRepository $pr) use ($pro) {
                     return $pr->getEmployeOnly($pro);
                 },
                 'required' => false,
-                ));
+            ));
         }
 
-        $builder->add('dateSignature', 'genemu_jquerydate', array('label' => 'Date de Signature du document', 'required' => false, 'format' => 'dd/MM/yyyy', 'widget' => 'single_text'));
+        $builder->add('dateSignature', DateType::class,
+            array('label' => 'Date de Signature du document',
+                'required' => false,
+                'format' => 'dd/MM/yyyy',
+                'widget' => 'single_text', ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_doctypetype';
     }

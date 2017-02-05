@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\PersonneBundle\Entity\Personne;
 
-
 /**
  * NoteDeFrais.
  *

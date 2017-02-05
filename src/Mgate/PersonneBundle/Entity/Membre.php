@@ -11,8 +11,8 @@
 
 namespace Mgate\PersonneBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 use Mgate\PubliBundle\Entity\RelatedDocument;
 use Mgate\SuiviBundle\Entity\Mission;
 use N7consulting\RhBundle\Entity\Competence;
@@ -115,8 +115,7 @@ class Membre
     private $formatPaiement;
 
     /**
-     * @var string
-     * @ORM\Column(name="filiere", type="string", length=15, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Mgate\PersonneBundle\Entity\Filiere")
      */
     private $filiere;
 
@@ -521,11 +520,11 @@ class Membre
     /**
      * Set filiere.
      *
-     * @param string $filiere
+     * @param Filiere $filiere
      *
      * @return Membre
      */
-    public function setFiliere($filiere)
+    public function setFiliere(Filiere $filiere)
     {
         $this->filiere = $filiere;
 
@@ -535,7 +534,7 @@ class Membre
     /**
      * Get filiere.
      *
-     * @return string
+     * @return Filiere
      */
     public function getFiliere()
     {

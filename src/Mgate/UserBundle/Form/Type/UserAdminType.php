@@ -12,34 +12,79 @@
 namespace Mgate\UserBundle\Form\Type;
 
 use Mgate\UserBundle\Form\EventListener\AddMembreFieldSubscriber;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
-class UserAdminType extends BaseType
+/**
+ * A rewrite of FOS\UserBundle\Form\Type\ProfileFormType because it can't handle parameters given through options.
+ *
+ * Class UserAdminType
+ */
+class UserAdminType extends AbstractType
 {
+    protected $class = 'Mgate\UserBundle\Entity\User';
     protected $roles;
-
-    public function __construct($class, $roles)
-    {
-        parent::__construct($class);
-        $this->roles = $roles;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->roles = $options['roles'];
+        $this->class = $options['user_class'];
+
         $subscriber = new AddMembreFieldSubscriber();
         $builder->addEventSubscriber($subscriber);
 
-        $builder->add('enabled', 'checkbox', array(
+        $builder->add('enabled', CheckboxType::class, array(
             'label' => 'Adresse email validé ?',
             'required' => false,
         ));
-        $builder->add('roles', 'choice', array(
+        $builder->add('roles', ChoiceType::class, array(
             'choices' => $this->refactorRoles($this->roles),
             'required' => false, 'label' => 'Roles', 'multiple' => true,
         ));
 
-        parent::buildForm($builder, $options);
+        //from ProfileFormType
+        $this->buildUserForm($builder, $options);
+
+        $builder->add('current_password', PasswordType::class, array(
+            'label' => 'form.current_password',
+            'translation_domain' => 'FOSUserBundle',
+            'mapped' => false,
+            'constraints' => new UserPassword(),
+        ));
+        // end from
+    }
+
+    /**
+     * Builds the embedded form representing the user.
+     *
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    protected function buildUserForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => $this->class,
+            'csrf_token_id' => 'profile',
+            // BC for SF < 2.8
+            'intention' => 'profile',
+        ));
+        $resolver->setRequired(['user_class', 'roles']);
     }
 
     public function getName()

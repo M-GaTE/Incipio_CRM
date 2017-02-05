@@ -17,7 +17,6 @@ use Mgate\PersonneBundle\Entity\Prospect;
 use Mgate\PubliBundle\Controller\TraitementController;
 use Mgate\SuiviBundle\Entity\Etude;
 
-
 /**
  * FV.
  *

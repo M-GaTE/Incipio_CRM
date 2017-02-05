@@ -11,22 +11,29 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Mgate\SuiviBundle\Entity\Av;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Mgate\SuiviBundle\Entity\Av;
 
 class AvType extends DocTypeType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('differentielDelai', 'integer', array('label' => 'Modification du Délai (+/- x jours)', 'required' => true))
-        ->add('objet', 'textarea',
-        array('label' => 'Exposer les causes de l’Avenant. Ne pas hésiter à détailler l\'historique des relations avec le client et du travail sur l\'étude qui ont conduit à l\'Avenant.',
+        $builder->add('differentielDelai', IntegerType::class, array('label' => 'Modification du Délai (+/- x jours)', 'required' => true))
+        ->add('objet', TextareaType::class, array('label' => 'Exposer les causes de l’Avenant. Ne pas hésiter à 
+        détailler l\'historique des relations avec le client et du travail sur l\'étude qui ont conduit à l\'Avenant.',
         'required' => true, ))
-        ->add('clauses', 'choice', array('label' => 'Type d\'avenant', 'multiple' => true, 'choices' => Av::getClausesChoices()))
-        ->add('phases', 'collection', array(
-                'type' => new PhaseType(),
-                'options' => array('isAvenant' => true),
+        ->add('clauses', ChoiceType::class, array('label' => 'Type d\'avenant', 'multiple' => true, 'choices' => Av::getClausesChoices(),
+            'choice_label' => function ($val, $key) {
+                return $key;
+            },))
+        ->add('phases', CollectionType::class, array(
+                'entry_type' => PhaseType::class,
+                'entry_options' => array('isAvenant' => true),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,

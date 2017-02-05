@@ -15,10 +15,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class MgateTresoBundle extends Bundle
 {
-
     public function __construct()
     {
         $this->name = 'MgateTresoBundle';
     }
-
 }

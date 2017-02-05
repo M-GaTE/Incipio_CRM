@@ -27,10 +27,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class MgateSuiviBundle extends Bundle
 {
-
     public function __construct()
     {
         $this->name = 'MgateSuiviBundle';
     }
-
 }

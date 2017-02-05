@@ -11,6 +11,7 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,7 +21,7 @@ class ProcesVerbalSubType extends DocTypeType
     {
         $phaseNum = $options['phases'];
         if ($options['type'] == 'pvi') {
-            $builder->add('phaseID', 'integer', array('label' => 'Phases concernées', 'required' => false, 'attr' => array('min' => '1', 'max' => $phaseNum)));
+            $builder->add('phaseID', IntegerType::class, array('label' => 'Phases concernées', 'required' => false, 'attr' => array('min' => '1', 'max' => $phaseNum)));
         }
 
         DocTypeType::buildForm($builder, $options);

@@ -11,10 +11,11 @@
 
 namespace Mgate\PersonneBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\PersonneBundle\Entity\Employe;
 use Mgate\PersonneBundle\Form\Type\EmployeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 
 class EmployeController extends Controller
@@ -22,7 +23,7 @@ class EmployeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction($prospect_id, $format)
+    public function ajouterAction(Request $request, $prospect_id, $format)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -34,10 +35,10 @@ class EmployeController extends Controller
         $employe = new Employe();
         $employe->setProspect($prospect);
 
-        $form = $this->createForm(new EmployeType(), $employe);
+        $form = $this->createForm(EmployeType::class, $employe);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($employe->getPersonne());
@@ -91,7 +92,7 @@ class EmployeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -100,10 +101,10 @@ class EmployeController extends Controller
         }
 
         // On passe l'$article récupéré au formulaire
-        $form = $this->createForm(new EmployeType(), $employe);
+        $form = $this->createForm(EmployeType::class, $employe);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($employe);
@@ -122,8 +123,10 @@ class EmployeController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Employe $employe the employee to delete
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Employe $employe, Request $request)
@@ -138,18 +141,19 @@ class EmployeController extends Controller
 
                 //remove employes
                 $em->remove($employe);
-                $em->flush();
-                $session->getFlashBag()->add('success', 'Employé supprimé');
-            return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir',array('id'=>$employe->getProspect()->getId())));
+            $em->flush();
+            $session->getFlashBag()->add('success', 'Employé supprimé');
 
+            return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir', array('id' => $employe->getProspect()->getId())));
         }
+
         return $this->redirect($this->generateUrl('MgatePersonne_prospect_homepage'));
     }
 
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm()
             ;
     }

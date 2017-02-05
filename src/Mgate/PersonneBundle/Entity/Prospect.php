@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\CommentBundle\Entity\Thread;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -42,7 +41,6 @@ class Prospect extends Adressable
     private $employes;
 
     /**
-     *
      * @ORM\OneToOne(targetEntity="\Mgate\CommentBundle\Entity\Thread", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -76,8 +74,9 @@ class Prospect extends Adressable
     /**
      * @ORM\PostPersist
      */
-    public function createThread(LifecycleEventArgs $args){
-        if($this->getThread() === null) {
+    public function createThread(LifecycleEventArgs $args)
+    {
+        if ($this->getThread() === null) {
             $em = $args->getEntityManager();
             $t = new Thread();
             $t->setId('prospect_'.$this->getId());
@@ -234,5 +233,4 @@ class Prospect extends Adressable
 
         return $tab[$this->entite];
     }
-
 }

@@ -11,12 +11,18 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
 use Mgate\PersonneBundle\Form\Type\ProspectType;
 use Mgate\SuiviBundle\Entity\Etude;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EtudeType extends AbstractType
 {
@@ -24,40 +30,46 @@ class EtudeType extends AbstractType
     {
         $builder
 
-            ->add('knownProspect', 'checkbox', array(
+            ->add('knownProspect', CheckboxType::class, array(
                 'required' => false,
                 'label' => 'Le signataire client existe-t-il déjà dans la base de donnée ?',
                 ))
-             ->add('prospect', 'genemu_jqueryselect2_entity', array(
+             ->add('prospect', Select2EntityType::class, array(
                 'class' => 'Mgate\PersonneBundle\Entity\Prospect',
-                'property' => 'nom',
+                'choice_label' => 'nom',
                 'required' => true,
                 'label' => 'Prospect existant',
                 ))
-            ->add('newProspect', new ProspectType(), array('label' => 'Nouveau prospect:', 'required' => false))
-            ->add('nom', 'text', array('label' => 'Nom interne de l\'étude'))
-            ->add('description', 'textarea', array('label' => 'Présentation interne de l\'étude', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
-            ->add('mandat', 'integer')
-            ->add('num', 'integer', array('label' => 'Numéro de l\'étude', 'required' => false))
-            ->add('confidentiel', 'checkbox', array('label' => 'Confidentialité :', 'required' => false, 'attr' => array('title' => "Si l'étude est confidentielle, elle ne sera visible que par vous et les membres du CA.")))
-            ->add('suiveur', 'genemu_jqueryselect2_entity',
+            ->add('newProspect', ProspectType::class, array('label' => 'Nouveau prospect:', 'required' => false))
+            ->add('nom', TextType::class, array('label' => 'Nom interne de l\'étude'))
+            ->add('description', TextareaType::class, array('label' => 'Présentation interne de l\'étude', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5)))
+            ->add('mandat', IntegerType::class)
+            ->add('num', IntegerType::class, array('label' => 'Numéro de l\'étude', 'required' => false))
+            ->add('confidentiel', CheckboxType::class, array('label' => 'Confidentialité :', 'required' => false, 'attr' => array('title' => "Si l'étude est confidentielle, elle ne sera visible que par vous et les membres du CA.")))
+            ->add('suiveur', Select2EntityType::class,
                 array('label' => 'Suiveur de projet',
                        'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                       'property' => 'prenomNom',
+                       'choice_label' => 'prenomNom',
                        'query_builder' => function (PersonneRepository $pr) {
                            return $pr->getMembreOnly();
                        },
                        'required' => false, ))
-            ->add('domaineCompetence', 'genemu_jqueryselect2_entity', array(
+            ->add('domaineCompetence', Select2EntityType::class, array(
                 'class' => 'Mgate\SuiviBundle\Entity\DomaineCompetence',
-                'property' => 'nom',
+                'choice_label' => 'nom',
                 'required' => false,
                 'label' => 'Domaine de compétence',
                 ))
-            ->add('sourceDeProspection', 'choice', array('choices' => Etude::getSourceDeProspectionChoice(), 'required' => false));
+            ->add('sourceDeProspection', ChoiceType::class, array(
+                'choices' => Etude::getSourceDeProspectionChoice(),
+                'choice_label' => function ($value) {
+                    return $value;
+                },
+                'required' => false,
+            ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_etudetype';
     }

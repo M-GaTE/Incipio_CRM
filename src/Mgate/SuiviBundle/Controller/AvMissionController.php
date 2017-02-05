@@ -11,11 +11,12 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\SuiviBundle\Entity\AvMission;
 use Mgate\SuiviBundle\Form\Type\AvMissionHandler;
 use Mgate\SuiviBundle\Form\Type\AvMissionType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AvMissionController extends Controller
@@ -37,13 +38,13 @@ class AvMissionController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction($id)
+    public function addAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
         // On vérifie que l'article d'id $id existe bien, sinon, erreur 404.
         if (!$etude = $em->getRepository('Mgate\SuiviBundle\Entity\Etude')->find($id)) {
-            throw $this->createNotFoundException('Article[id=' . $id . '] inexistant');
+            throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
@@ -52,8 +53,8 @@ class AvMissionController extends Controller
 
         $avmission = new AvMission();
         $avmission->setEtude($etude);
-        $form = $this->createForm(new AvMissionType(), $avmission);
-        $formHandler = new AvMissionHandler($form, $this->get('request'), $em);
+        $form = $this->createForm(AvMissionType::class, $avmission);
+        $formHandler = new AvMissionHandler($form, $request, $em);
 
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('MgateSuivi_avmission_voir', array('id' => $avmission->getId())));
@@ -91,12 +92,12 @@ class AvMissionController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
         if (!$avmission = $em->getRepository('Mgate\SuiviBundle\Entity\AvMission')->find($id)) {
-            throw $this->createNotFoundException('AvMission[id=' . $id . '] inexistant');
+            throw $this->createNotFoundException('AvMission[id='.$id.'] inexistant');
         }
 
         $etude = $avmission->getEtude();
@@ -105,10 +106,10 @@ class AvMissionController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new AvMissionType(), $avmission);
+        $form = $this->createForm(AvMissionType::class, $avmission);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->flush();

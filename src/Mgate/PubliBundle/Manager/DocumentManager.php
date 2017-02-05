@@ -22,31 +22,35 @@
 namespace Mgate\PubliBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\File\Exception\UploadException;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Mgate\PubliBundle\Entity\Document;
 use Mgate\PubliBundle\Entity\RelatedDocument;
+use Symfony\Component\HttpFoundation\File\Exception\UploadException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 class DocumentManager extends BaseManager
 {
     protected $em;
-    protected $securityContext;
-    protected $junior;
+    protected $tokenStorage;
     protected $kernel;
+    protected $junior_authorizedStorageSize;
+    protected $junior_id;
 
     /**
      * @param \Doctrine\ORM\EntityManager $em
-     * @param array $junior
-     * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
+     * @param $junior_id
+     * @param $authorizedStorageSize
+     * @param TokenStorage $tokenStorage
      * @param Kernel $kernel
      */
-    public function __construct(EntityManager $em, $junior, SecurityContext $securityContext, Kernel $kernel)
+    public function __construct(EntityManager $em, $junior_id, $authorizedStorageSize, TokenStorage $tokenStorage, Kernel $kernel)
     {
         $this->em = $em;
-        $this->junior = $junior;
-        $this->securityContext = $securityContext;
+        $this->junior_id = $junior_id;
+        $this->junior_authorizedStorageSize = $authorizedStorageSize;
+        $this->tokenStorage = $tokenStorage;
         $this->kernel = $kernel;
     }
 
@@ -107,7 +111,7 @@ class DocumentManager extends BaseManager
         }
 
         // Author
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
         $personne = $user->getPersonne();
         $document->setAuthor($personne);
 
@@ -139,16 +143,13 @@ class DocumentManager extends BaseManager
         }
 
         // Store each Junior documents in a distinct subdirectory
-        if (!array_key_exists('id', $this->junior)) {
-            throw new \Exception('Votre version de Incipio est obsolète. Contactez dsi@N7consulting.fr (incorrect parameters junior : id)');
-        }
-        $juniorId = $this->junior['id'];
+        $juniorId = $this->junior_id;
         $document->setSubdirectory($juniorId);
         $document->setRootDir($this->kernel->getRootDir());
 
         // Authorized Storage Size Overflow
         $totalSize = $document->getSize() + $this->getRepository()->getTotalSize();
-        if ($totalSize > $this->junior['authorizedStorageSize']) {
+        if ($totalSize > $this->junior_authorizedStorageSize) {
             throw new UploadException('Vous n\'avez plus d\'espace disponible ! Vous pouvez en demander plus à dsi@N7consulting.fr.');
         }
 

@@ -11,16 +11,19 @@
 
 namespace Mgate\PubliBundle\Controller;
 
-use Mgate\PubliBundle\Entity\RelatedDocument;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\PubliBundle\Entity\Document;
+use Mgate\PubliBundle\Entity\RelatedDocument;
 use Mgate\PubliBundle\Form\Type\DocumentType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DocumentController extends Controller
 {
+
     /**
      * @Security("has_role('ROLE_CA')")
      */
@@ -42,9 +45,28 @@ class DocumentController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_CA')")
+     * @param Document $documentType (ParamConverter) The document to be downloaded.
+     * @return BinaryFileResponse
+     * @throws \Exception
+     */
+    public function voirAction(Document $documentType)
+    {
+        $documentStoragePath = $this->get('kernel')->getRootDir(). '' . Document::DOCUMENT_STORAGE_ROOT;
+        if (file_exists($documentStoragePath . '/' . $documentType->getPath())) {
+            $response = new BinaryFileResponse($documentStoragePath . '/' . $documentType->getPath());
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+
+            return $response;
+        } else {
+            throw new \Exception($documentStoragePath . '/' . $documentType->getPath() . ' n\'existe pas');
+        }
+    }
+
+    /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function uploadEtudeAction($etude_id)
+    public function uploadEtudeAction(Request $request, $etude_id)
     {
         $em = $this->getDoctrine()->getManager();
         $etude = $em->getRepository('MgateSuiviBundle:Etude')->getByNom($etude_id);
@@ -53,13 +75,13 @@ class DocumentController extends Controller
             throw $this->createNotFoundException('Le document ne peut être lié à une étude qui n\'existe pas!');
         }
 
-        if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->container->get('security.context'))) {
+        if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle !');
         }
 
         $options['etude'] = $etude;
 
-        if (!$response = $this->upload(false, $options)) {
+        if (!$response = $this->upload($request, false, $options)) {
             // Si tout est ok
             return $this->redirect($this->generateUrl('MgateSuivi_etude_voir', array('nom' => $etude->getNom())));
         } else {
@@ -70,7 +92,7 @@ class DocumentController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function uploadEtudiantAction($membre_id)
+    public function uploadEtudiantAction(Request $request, $membre_id)
     {
         $em = $this->getDoctrine()->getManager();
         $membre = $em->getRepository('MgatePersonneBundle:Membre')->find($membre_id);
@@ -81,7 +103,7 @@ class DocumentController extends Controller
 
         $options['etudiant'] = $membre;
 
-        if (!$response = $this->upload(false, $options)) {
+        if (!$response = $this->upload($request, false, $options)) {
             // Si tout est ok
             return $this->redirect($this->generateUrl('MgatePersonne_membre_voir', array('id' => $membre_id)));
         } else {
@@ -99,9 +121,9 @@ class DocumentController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function uploadDoctypeAction()
+    public function uploadDoctypeAction(Request $request)
     {
-        if (!$response = $this->upload(true)) {
+        if (!$response = $this->upload($request, true)) {
             // Si tout est ok
             return $this->redirect($this->generateUrl('Mgate_publi_documenttype_index'));
         } else {
@@ -134,7 +156,7 @@ class DocumentController extends Controller
         return $this->redirect($this->generateUrl('Mgate_publi_documenttype_index'));
     }
 
-    private function upload($deleteIfExist = false, $options = array())
+    private function upload(Request $request, $deleteIfExist = false, $options = array())
     {
         $document = new Document();
         if (count($options)) {
@@ -149,10 +171,10 @@ class DocumentController extends Controller
             }
         }
 
-        $form = $this->createForm(new DocumentType(), $document, $options);
+        $form = $this->createForm(DocumentType::class, $document, $options);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $documentManager = $this->get('Mgate.document_manager');

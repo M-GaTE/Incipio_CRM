@@ -1,0 +1,40 @@
+web:
+    build: .
+    environment:
+        SYMFONY_ENV: prod
+    links:
+        - database
+    volumes:
+        - .:/app
+    labels:
+    - "traefik.backend=web-jeyser"
+    - "traefik.frontend.rule=Host:127.0.0.1"
+
+database:
+    image: mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: changeme
+        MYSQL_DATABASE: api_platform
+        MYSQL_USER: api_platform
+        MYSQL_PASSWORD: api_platform
+    volumes:
+        # mysql
+        - "./docker/mysql:/var/lib/mysql"
+    labels:
+      - traefik.enable=false
+
+traefik:
+  image: traefik:camembert
+  command: | 
+    -c /dev/null --web --docker --docker.domain=docker.localhost --logLevel=DEBUG 
+    --defaultEntryPoints='http,https' --entryPoints='Name:http Address::80 Redirect.EntryPoint:https' 
+    --entryPoints='Name:https Address::443 TLS' --acme.entryPoint=https
+    --acme.email='dsi@n7consulting.fr' --acme.storage=/acme.json --acme.onDemand=true
+  ports:
+    - "80:80"
+    - "8080:8080"
+    - "443:443"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  labels:
+      - traefik.enable=false

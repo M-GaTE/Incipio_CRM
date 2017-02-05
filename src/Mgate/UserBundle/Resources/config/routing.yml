@@ -3,12 +3,6 @@ Mgate_user_lister:
     defaults: { _controller: MgateUserBundle:Default:lister }
     methods:  [GET, HEAD]
 
-
-Mgate_user_voir:
-    path:  /user/voir/{id}
-    defaults: { _controller: MgateUserBundle:Default:voir }
-    methods:  [GET, HEAD]
-
 Mgate_user_modifier:
     path:  /user/modifier/{id}
     defaults: { _controller: MgateUserBundle:Default:modifier }

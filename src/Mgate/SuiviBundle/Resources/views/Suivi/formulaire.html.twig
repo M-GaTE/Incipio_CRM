@@ -1,6 +1,6 @@
 {# Formulaire d'ajout d'un suivi sur une etude #}
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
 	<table class="table table-bordered table-striped standard">
 	<tr>
@@ -20,4 +20,5 @@
 
 	<input type="submit" value="{{ 'suivi.suivi_nouveau_enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
 
-</form>
+{{ form_end(form) }}
+

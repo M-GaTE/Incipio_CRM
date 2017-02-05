@@ -9,24 +9,25 @@
 {% endblock %}
 
 {% block content_bundle %}
-    <form method="post" {{ form_enctype(form) }}>
-        <table class="table table-bordered table-striped standard">
-            <tr>
-                <th>{{ form_label(form.categorie) }}</th>
-                <td>{{ form_widget(form.categorie) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(form.numero) }}</th>
-                <td>{{ form_widget(form.numero) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(form.libelle) }}</th>
-                <td>{{ form_widget(form.libelle) }}</td>
-            </tr>
-        </table>
-        <input type="submit" value="{{ 'treso.enregistrer'|trans({}, 'treso') }}" class="btn btn-default"/>
-        {{ form_rest(form) }}
-    </form>
+    {{ form_start(form) }}
+    <table class="table table-bordered table-striped standard">
+        <tr>
+            <th>{{ form_label(form.categorie) }}</th>
+            <td>{{ form_widget(form.categorie) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.numero) }}</th>
+            <td>{{ form_widget(form.numero) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.libelle) }}</th>
+            <td>{{ form_widget(form.libelle) }}</td>
+        </tr>
+    </table>
+    <input type="submit" value="{{ 'treso.enregistrer'|trans({}, 'treso') }}" class="btn btn-default"/>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
 
     {% if compte.numero is not null and is_granted('ROLE_ADMIN') %}
         <a href="{{ path('MgateTreso_Compte_supprimer', {'id': compte.id}) }}" class="btn btn-danger">

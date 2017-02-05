@@ -9,30 +9,31 @@
 {% endblock %}
 
 {% block content_bundle %}
-    <form method="post" {{ form_enctype(form) }}>
-        <table class="table table-bordered table-striped standard">
-            <tr>
-                <th>{{ form_label(form.libelle) }}</th>
-                <td>{{ form_widget(form.libelle) }}</td>
-                <th>{{ form_label(form.surBaseURSSAF) }} {{ form_widget(form.surBaseURSSAF) }}</th>
-                <td>{{ form_label(form.deductible) }} {{ form_widget(form.deductible) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(form.tauxPartJE) }}</th>
-                <td>{{ form_widget(form.tauxPartJE) }}</td>
-                <th>{{ form_label(form.tauxPartEtu) }}</th>
-                <td>{{ form_widget(form.tauxPartEtu) }}</td>
-            </tr>
-            <tr>
-                <th>{{ form_label(form.dateDebut) }}</th>
-                <td>{{ form_widget(form.dateDebut) }}</td>
-                <th>{{ form_label(form.dateFin) }}</th>
-                <td>{{ form_widget(form.dateFin) }}</td>
-            </tr>
-        </table>
-        <input type="submit" class="btn btn-success" value="{{ 'treso.enregistrer'|trans({}, 'treso') }}"/>
-        {{ form_rest(form) }}
-    </form>
+    {{ form_start(form) }}
+    <table class="table table-bordered table-striped standard">
+        <tr>
+            <th>{{ form_label(form.libelle) }}</th>
+            <td>{{ form_widget(form.libelle) }}</td>
+            <th>{{ form_label(form.surBaseURSSAF) }} {{ form_widget(form.surBaseURSSAF) }}</th>
+            <td>{{ form_label(form.deductible) }} {{ form_widget(form.deductible) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.tauxPartJE) }}</th>
+            <td>{{ form_widget(form.tauxPartJE) }}</td>
+            <th>{{ form_label(form.tauxPartEtu) }}</th>
+            <td>{{ form_widget(form.tauxPartEtu) }}</td>
+        </tr>
+        <tr>
+            <th>{{ form_label(form.dateDebut) }}</th>
+            <td>{{ form_widget(form.dateDebut) }}</td>
+            <th>{{ form_label(form.dateFin) }}</th>
+            <td>{{ form_widget(form.dateFin) }}</td>
+        </tr>
+    </table>
+    <input type="submit" class="btn btn-success" value="{{ 'treso.enregistrer'|trans({}, 'treso') }}"/>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
 
     {% if cotisation.libelle %}
         <a href="{{ path('MgateTreso_CotisationURSSAF_supprimer', {'id': cotisation.id}) }}" class="btn btn-danger">

@@ -11,10 +11,12 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\SuiviBundle\Entity\Cc;
+use Mgate\SuiviBundle\Entity\Etude;
 use Mgate\SuiviBundle\Form\Type\CcType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CcController extends Controller
@@ -35,38 +37,31 @@ class CcController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Cc $cc
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function voirAction($id)
+    public function voirAction(Cc $cc)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MgateSuiviBundle:Cc')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('La CC n\'existe pas !');
-        }
-
-        $etude = $entity->getEtude();
+        $etude = $cc->getEtude();
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
         return $this->render('MgateSuiviBundle:Cc:voir.html.twig', array(
-            'cc' => $entity,
+            'cc' => $cc,
         ));
     }
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Request $request
+     * @param Etude $etude etude which CC should belong to.
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function redigerAction($id)
+    public function redigerAction(Request $request, Etude $etude)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$etude = $em->getRepository('Mgate\SuiviBundle\Entity\Etude')->find($id)) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        }
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
@@ -77,10 +72,10 @@ class CcController extends Controller
             $etude->setCc($cc);
         }
 
-        $form = $this->createForm(new CcType(), $etude, array('prospect' => $etude->getProspect()));
+        $form = $this->createForm(CcType::class, $etude, array('prospect' => $etude->getProspect()));
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $this->get('Mgate.doctype_manager')->checkSaveNewEmploye($etude->getCc());

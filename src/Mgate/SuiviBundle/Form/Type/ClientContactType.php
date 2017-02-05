@@ -11,7 +11,11 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,17 +26,16 @@ class ClientContactType extends AbstractType
         $builder
             //->add('dateCreation',  'date')
 
-            ->add('faitPar', 'genemu_jqueryselect2_entity', array('label' => 'Fait par',
+            ->add('faitPar', Select2EntityType::class, array('label' => 'Fait par',
                        'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-                       'property' => 'prenomNom',
+                       'choice_label' => 'prenomNom',
                        'required' => true, ))
 
             //->add('thread', new ThreadType) // délicat
-           ->add('date', 'datetime', array('label' => 'Date du contact'))
-           //->add('date', 'genemu_jquerydate', array('label'=>'Date du contact', 'required'=>true, 'widget'=>'single_text'))
-           ->add('objet', 'text', array('label' => 'Objet'))
-           ->add('contenu', 'textarea', array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
-           ->add('moyenContact', new MoyenContactType(), array('label' => 'Contact effectué par'))
+           ->add('date', DateType::class, array('label' => 'Date du contact',  'required' => true, 'widget' => 'single_text'))
+           ->add('objet', TextType::class, array('label' => 'Objet'))
+           ->add('contenu', TextareaType::class, array('label' => 'Résumé du contact', 'attr' => array('cols' => '100%', 'rows' => 5)))
+           ->add('moyenContact', MoyenContactType::class, array('label' => 'Contact effectué par'))
            ;
 
             /*             ->add('prospect', 'collection', array('type'  => new \Mgate\PersonneBundle\Form\ProspectType,
@@ -40,7 +43,7 @@ class ClientContactType extends AbstractType
                                               'allow_add' => true)); */
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_clientcontacttype';
     }

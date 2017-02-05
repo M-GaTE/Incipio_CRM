@@ -19,8 +19,9 @@ services:
         class: "%Mgate.document_manager.class%"
         arguments:
             em : "@doctrine.orm.entity_manager"
-            junior : "%junior%"
-            securityContext : "@security.context"
+            junior_id : "%junior_id%"
+            authorizedStorageSize : "%junior_authorizedStorageSize%"
+            tokenStorage : "@security.token_storage"
             kernel: "@kernel"
 
     Mgate.import.siaje_etude:

@@ -12,8 +12,8 @@
 namespace Mgate\CommentBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ThreadType extends AbstractType
 {
@@ -36,7 +36,7 @@ class ThreadType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_commentbundle_threadtype';
     }

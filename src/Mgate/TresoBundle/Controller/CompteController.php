@@ -11,10 +11,11 @@
 
 namespace Mgate\TresoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgate\TresoBundle\Entity\Compte;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Form\Type\CompteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CompteController extends Controller
 {
@@ -29,7 +30,7 @@ class CompteController extends Controller
     /**
      * @Security("has_role('ROLE_TRESO')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -37,10 +38,10 @@ class CompteController extends Controller
             $compte = new Compte();
         }
 
-        $form = $this->createForm(new CompteType(), $compte);
+        $form = $this->createForm(CompteType::class, $compte);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $em->persist($compte);
                 $em->flush();

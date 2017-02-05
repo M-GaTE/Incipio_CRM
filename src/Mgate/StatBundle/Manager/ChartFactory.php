@@ -36,7 +36,8 @@ class ChartFactory
         return $ob;
     }
 
-    public function newPieChart($series){
+    public function newPieChart($series)
+    {
         $ob = new Highchart();
 
         $ob->plotOptions->pie(array('allowPointSelect' => true, 'cursor' => 'pointer', 'showInLegend' => true, 'dataLabels' => array('enabled' => false)));

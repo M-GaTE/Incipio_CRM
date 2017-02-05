@@ -9,10 +9,10 @@
 
     <h2>{{ 'suivi.proces_verbal_rediger'|trans({}, 'suivi') }} {% if type=="pvi" %}{{ 'suivi.intermediaire'|trans({}, 'suivi') }}{%elseif type=="pvr"%}{{ 'suivi.de_recette'|trans({}, 'suivi') }}{%endif%}</h2>
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 	{{ form_widget(form) }}
 	<input type="submit" value="{{ 'suivi.enregistrer'|trans({}, 'suivi') }}" class="btn btn-success"/>
-</form>
+{{ form_end(form) }}
 
 
 

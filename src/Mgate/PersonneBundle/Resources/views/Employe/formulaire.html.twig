@@ -1,4 +1,4 @@
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
     <table class="table table-bordered table-striped">
         <tr>
@@ -46,4 +46,4 @@
 	{{ form_widget(form) }}
 
 	<input type="submit" />
-</form>
+{{ form_end(form) }}

@@ -37,12 +37,13 @@ class EtudeRepository extends EntityRepository
     }
 
     /**
+     * Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure
+     *
      * @param $nom
      *
      * @return mixed
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
-     * Création d'une méthode précise au lieu d'utiliser findOneByNom pour permettre l'ajout ultérieur de jointure
      */
     public function getByNom($nom)
     {
@@ -165,9 +166,11 @@ class EtudeRepository extends EntityRepository
     /**
      * @param $search string a pattern we'd like to search in etudes' name
      * @param int $limit the number of etudes that research should return
+     *
      * @return array
      */
-    public function searchByNom($search,$limit = 10){
+    public function searchByNom($search, $limit = 10)
+    {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('e')
             ->from('MgateSuiviBundle:Etude', 'e')
@@ -175,8 +178,7 @@ class EtudeRepository extends EntityRepository
             ->setParameter('nom', '%'.$search.'%')
             ->setMaxResults($limit);
         $query = $qb->getQuery();
+
         return $query->getResult();
     }
-
-
 }

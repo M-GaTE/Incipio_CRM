@@ -11,8 +11,13 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\SuiviBundle\Entity\Etude;
 use Mgate\SuiviBundle\Entity\PhaseRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,43 +25,44 @@ class MissionType extends DocTypeType
 {
     protected $etude;
 
-    public function __construct(Etude $etude)
-    {
-        $this->etude = $etude;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if (!isset($options['etude']) || !($options['etude'] instanceof Etude)) {
+            throw new \LogicException('A MissionsType can\'t be build without associated Etude object.');
+        }
+        $this->etude = $options['etude'];
+
         $builder
-            ->add('intervenant', 'genemu_jqueryselect2_entity', array(
+            ->add('intervenant', Select2EntityType::class, array(
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Membre',
-                'property' => 'personne.prenomNom',
+                'choice_label' => 'personne.prenomNom',
                 'label' => 'Intervenant',
                 //'query_builder' => function(PersonneRepository $pr) { return $pr->getMembreOnly(); },
                 'required' => true,
             ))
-            ->add('debutOm', 'genemu_jquerydate', array('label' => 'Début du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
-            ->add('finOm', 'genemu_jquerydate', array('label' => 'Fin du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
-            ->add('pourcentageJunior', 'percent', array('label' => 'Pourcentage junior', 'required' => true, 'precision' => 2))
-            ->add('referentTechnique', 'genemu_jqueryselect2_entity', array(
+            ->add('debutOm', Datetype::class, array('label' => 'Début du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
+            ->add('finOm', DateType::class, array('label' => 'Fin du Récapitulatif de Mission', 'required' => true, 'widget' => 'single_text'))
+            ->add('pourcentageJunior', PercentType::class, array('label' => 'Pourcentage junior', 'required' => true, 'scale' => 2))
+            ->add('referentTechnique', Select2EntityType::class, array(
                 'class' => 'Mgate\\PersonneBundle\\Entity\\Membre',
-                'property' => 'personne.prenomNom',
+                'choice_label' => 'personne.prenomNom',
                 'label' => 'Référent Technique',
                 'required' => false,
             ))
-            ->add('phases', 'entity', array(
+            ->add('phases', EntityType::class, array(
                 'class' => 'Mgate\SuiviBundle\Entity\Phase',
                 'query_builder' => function (PhaseRepository $pr) {
                     return $pr->getByEtudeQuery($this->etude);
                 },
+                'required' => false,
                 'multiple' => true,
                 'by_reference' => false,
                 'attr' => array('class' => 'select2-multiple'),
 
             ))
-            ->add('repartitionsJEH', 'collection', array(
-                'type' => new RepartitionJEHType(),
-                'options' => array(
+            ->add('repartitionsJEH', CollectionType::class, array(
+                'entry_type' => RepartitionJEHType::class,
+                'entry_options' => array(
                     'data_class' => 'Mgate\SuiviBundle\Entity\RepartitionJEH',
                 ),
                 'allow_add' => true,
@@ -84,5 +90,7 @@ class MissionType extends DocTypeType
         $resolver->setDefaults(array(
             'data_class' => 'Mgate\SuiviBundle\Entity\Mission',
         ));
+        $resolver->setRequired(['etude']);
+        $resolver->addAllowedTypes('etude', 'Mgate\SuiviBundle\Entity\Etude');
     }
 }

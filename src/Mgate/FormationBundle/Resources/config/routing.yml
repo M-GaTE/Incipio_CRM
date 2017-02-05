@@ -1,5 +1,5 @@
 Mgate_formations_index_admin:
-    path:  /admin/formations
+    path:  /formations/admin
     defaults: { _controller: MgateFormationBundle:Formation:index}
     methods:  [GET, HEAD]
 
@@ -16,25 +16,25 @@ Mgate_formation_voir:
     methods:  [GET, HEAD]
 
 Mgate_formation_ajouter:
-    path:  /admin/formations/ajouter
+    path:  /formations/admin/ajouter
     defaults: { _controller: MgateFormationBundle:Formation:modifier, id : -1}
     methods:  [GET, HEAD, POST]
 
 Mgate_formation_modifier:
-    path:  /admin/formations/modifier/{id}
+    path:  /formations/admin/modifier/{id}
     defaults: { _controller: MgateFormationBundle:Formation:modifier }
     requirements:
         id: \d+
     methods:  [GET, HEAD, POST]
 
 Mgate_formation_supprimer:
-    path:  /admin/formations/supprimer/{id}
+    path:  /formations/admin/supprimer/{id}
     defaults: { _controller: MgateFormationBundle:Formation:supprimer }
     requirements:
         id: \d+
     methods:  [GET, HEAD, POST]
 
 Mgate_formation_participation:
-    path:  /admin/formations/participation
-    defaults: { _controller: MgateFormationBundle:Formation:participation }
+    path:  /formations/admin/participation/{mandat}
+    defaults: { _controller: MgateFormationBundle:Formation:participation, mandat: null }
     methods:  [GET, HEAD]

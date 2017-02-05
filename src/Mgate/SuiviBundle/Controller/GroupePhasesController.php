@@ -11,10 +11,11 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Form\Type\GroupesPhasesType;
 use Mgate\SuiviBundle\Entity\GroupePhases;
+use Mgate\SuiviBundle\Form\Type\GroupesPhasesType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class GroupePhasesController extends Controller
@@ -22,7 +23,7 @@ class GroupePhasesController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -40,13 +41,13 @@ class GroupePhasesController extends Controller
             $originalGroupes[] = $groupe;
         }
 
-        $form = $this->createForm(new GroupesPhasesType(), $etude);
+        $form = $this->createForm(GroupesPhasesType::class, $etude);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
-                if ($this->get('request')->get('add')) {
+                if ($request->get('add')) {
                     $groupeNew = new GroupePhases();
                     $groupeNew->setNumero(count($etude->getGroupes()));
                     $groupeNew->setTitre('Titre')->setDescription('Description');

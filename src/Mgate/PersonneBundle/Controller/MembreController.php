@@ -11,12 +11,14 @@
 
 namespace Mgate\PersonneBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\PersonneBundle\Entity\Membre;
 use Mgate\PersonneBundle\Entity\Mandat;
+use Mgate\PersonneBundle\Entity\Membre;
 use Mgate\PersonneBundle\Form\Type\MembreType;
 use Mgate\PubliBundle\Entity\RelatedDocument;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\Request;
 
 class MembreController extends Controller
 {
@@ -95,7 +97,7 @@ class MembreController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $documentManager = $this->get('Mgate.document_manager');
@@ -119,19 +121,18 @@ class MembreController extends Controller
             $membre->setEmailEMSE($email_etu_service->getEmailEtu($membre));
         }
 
-        $form = $this->createForm(new MembreType(), $membre);
+        $form = $this->createForm(MembreType::class, $membre);
         $deleteForm = $this->createDeleteForm($id);
 
         $mandatsToRemove = $membre->getMandats()->toArray();
 
-        $form = $this->createForm(new MembreType(), $membre);
+        $form = $this->createForm(MembreType::class, $membre);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
             $photoUpload = $form->get('photo')->getData();
 
             if ($form->isValid()) {
-
                 if ($membre->getPersonne()) {
                     // Photo de l'étudiant
                     $path = $membre->getPromotion().'/'.
@@ -175,7 +176,7 @@ class MembreController extends Controller
                 /*
                  * Traitement des postes
                  */
-                if ($this->get('request')->get('add')) {
+                if ($request->get('add')) {
                     $mandatNew = new Mandat();
                     $poste = $em->getRepository('Mgate\PersonneBundle\Entity\Poste')->findOneBy(array('intitule' => 'Membre'));
                     $dt = new \DateTime('now');
@@ -223,10 +224,9 @@ class MembreController extends Controller
                 $em->persist($membre); // persist $etude / $form->getData()
                 $em->flush();
 
-                $form = $this->createForm(new MembreType(), $membre);
+                $form = $this->createForm(MembreType::class, $membre);
             }
         }
-
 
         return $this->render('MgatePersonneBundle:Membre:modifier.html.twig', array(
                     'form' => $form->createView(),
@@ -238,11 +238,9 @@ class MembreController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -273,7 +271,7 @@ class MembreController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-                        ->add('id', 'hidden')
+                        ->add('id', HiddenType::class)
                         ->getForm()
         ;
     }

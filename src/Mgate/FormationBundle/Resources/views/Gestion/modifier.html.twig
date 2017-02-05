@@ -10,7 +10,7 @@
             {{ message['message'] }}
         </div>
     {% endfor%}
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
     <input class="btn" type="submit" value="{{ 'formation.formation_enregistrer'|trans({}, 'formation') }}"/>
     <br/><br/>
     <table class="table table-bordered table-striped standard">
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th>{{ form_label(form.categorie) }}</th>
-            <td>{{ form_widget(form.categorie) }}</td>
+            <td>{{ form_widget(form.categorie, {'attr': {'style': 'width: 100%'}}) }}</td>
         </tr>
         <tr>
             <th>{{ form_label(form.dateDebut) }}</th>
@@ -73,7 +73,7 @@
 	{{ form_widget(form) }}
 
 	<input class="btn" type="submit" value="{{ 'formation.formation_enregistrer'|trans({}, 'formation') }}"/>
-</form>
+{{ form_end(form) }}
 {% endblock %}
 
 

@@ -11,28 +11,29 @@
 
 namespace Mgate\PersonneBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\PersonneBundle\Entity\Prospect;
 use Mgate\PersonneBundle\Form\Type\ProspectType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProspectController extends Controller
 {
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction($format)
+    public function ajouterAction(Request $request, $format)
     {
         $em = $this->getDoctrine()->getManager();
         $prospect = new Prospect();
 
-        $form = $this->createForm(new ProspectType(), $prospect);
+        $form = $this->createForm(ProspectType::class, $prospect);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($prospect);
@@ -103,7 +104,7 @@ class ProspectController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -112,10 +113,10 @@ class ProspectController extends Controller
         }
 
         // On passe l'$article récupéré au formulaire
-        $form = $this->createForm(new ProspectType(), $prospect);
+        $form = $this->createForm(ProspectType::class, $prospect);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($prospect);
@@ -134,8 +135,10 @@ class ProspectController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     *
      * @param Prospect $prospect the prospect to delete
-     * @param Request $request
+     * @param Request  $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Prospect $prospect, Request $request)
@@ -150,13 +153,14 @@ class ProspectController extends Controller
 
             $related_projects = $em->getRepository('MgateSuiviBundle:Etude')->findByProspect($prospect);
 
-            if(count($related_projects) > 0){//can't delete a prospect with related projects
+            if (count($related_projects) > 0) {
+                //can't delete a prospect with related projects
                 $session->getFlashBag()->add('warning', 'Impossible de supprimer un prospect ayant une étude liée.');
+
                 return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir', array('id' => $prospect->getId())));
-            }
-            else {
+            } else {
                 //remove employes
-                foreach($prospect->getEmployes() as $employe){
+                foreach ($prospect->getEmployes() as $employe) {
                     $em->remove($employe);
                 }
                 $em->remove($prospect);
@@ -171,7 +175,7 @@ class ProspectController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm()
         ;
     }

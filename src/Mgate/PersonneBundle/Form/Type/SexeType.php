@@ -12,6 +12,7 @@
 namespace Mgate\PersonneBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SexeType extends AbstractType
@@ -28,10 +29,10 @@ class SexeType extends AbstractType
 
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'sexe';
     }

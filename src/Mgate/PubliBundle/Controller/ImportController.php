@@ -2,25 +2,24 @@
 
 namespace Mgate\PubliBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
 
 class ImportController extends Controller
 {
-
-
     const AVAILABLE_FORMATS = array('Siaje Etudes');
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response Display an upload form for a csv resources from other crm.
-     * Display an upload form for a csv resources from other crm.
+     *                                                    Display an upload form for a csv resources from other crm
      */
     public function indexAction(Request $request)
     {
@@ -28,8 +27,11 @@ class ImportController extends Controller
         $form = $this->createFormBuilder(array())->add('import_method', ChoiceType::class, array('label' => 'Type du fichier',
                 'required' => true,
                 'choices' => $this::AVAILABLE_FORMATS,
+                'choice_label' => function ($value) {
+                    return $value;
+                },
                 'expanded' => true,
-                'multiple' => false)
+                'multiple' => false, )
         )
             ->add('file', FileType::class, array('label' => 'Fichier', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)))->getForm();
         $form->handleRequest($request);
@@ -43,9 +45,10 @@ class ImportController extends Controller
 
                 $siajeImporter = $this->get('Mgate.import.siaje_etude');
 
-               $results = $siajeImporter->run($file);
+                $results = $siajeImporter->run($file);
 
                 $request->getSession()->getFlashBag()->add('success', 'Document importé. '.$results['inserted_projects'].' études créées, '.$results['inserted_prospects'].' prospects créés');
+
                 return $this->redirect($this->generateUrl('Mgate_publi_import'));
             }
         }
@@ -53,25 +56,24 @@ class ImportController extends Controller
         return $this->render('MgatePubliBundle:Import:index.html.twig', array('form' => $form->createView()));
     }
 
-
     /**
      * @Security("has_role('ROLE_ADMIN')")
+     *
      * @param $number integer id of service as stated in $this::AVAILABLE_FORMATS
      * Return an html snippet of how csv should be formatted to match import
-     * @return JsonResponse an array containing expected headers.
+     *
+     * @return JsonResponse an array containing expected headers
      */
     public function ajaxExpectedFormatAction($service_number)
     {
-        if($service_number < count($this::AVAILABLE_FORMATS)){
-            if($this::AVAILABLE_FORMATS[$service_number] == 'Siaje Etudes') {
+        if ($service_number < count($this::AVAILABLE_FORMATS)) {
+            if ($this::AVAILABLE_FORMATS[$service_number] == 'Siaje Etudes') {
                 $siajeImporter = $this->get('Mgate.import.siaje_etude');
+
                 return new JsonResponse($siajeImporter->expectedFormat());
             }
         }
 
         return new JsonResponse(null);
-
     }
-
-
 }

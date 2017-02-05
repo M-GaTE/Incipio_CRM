@@ -11,15 +11,16 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Mgate\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\SuiviBundle\Entity\Etude;
 use Mgate\SuiviBundle\Form\Type\EtudeType;
 use Mgate\SuiviBundle\Form\Type\SuiviEtudeType;
+use Mgate\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 define('STATE_ID_EN_NEGOCIATION', 1);
@@ -54,19 +55,19 @@ class EtudeController extends Controller
         $etudesTermineesParMandat = array();
         $etudesAvorteesParMandat = array();
 
-        $junior = $this->container->getParameter('junior');
         for ($i = $MANDAT_MIN; $i <= $MANDAT_MAX; ++$i) {
             array_push($etudesTermineesParMandat, array());
             array_push($etudesAvorteesParMandat, array());
         }
 
+        $anneeCreation = $this->get('app.json_key_value_store')->get('anneeCreation');
         return $this->render('MgateSuiviBundle:Etude:index.html.twig', array(
             'etudesEnNegociation' => $etudesEnNegociation,
             'etudesEnCours' => $etudesEnCours,
             'etudesEnPause' => $etudesEnPause,
             'etudesTermineesParMandat' => $etudesTermineesParMandat,
             'etudesAvorteesParMandat' => $etudesAvorteesParMandat,
-            'anneeCreation' => $junior['anneeCreation'],
+            'anneeCreation' => $anneeCreation,
             'mandatMax' => $MANDAT_MAX,
         ));
     }
@@ -74,11 +75,9 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function getEtudesAsyncAction()
+    public function getEtudesAsyncAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $request = $this->get('request');
 
         if ($request->getMethod() == 'GET') {
             $mandat = $request->query->get('mandat');
@@ -108,7 +107,7 @@ class EtudeController extends Controller
      */
     public function stateAction(Request $request)
     {
-        if ($this->get('request')->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
 
             $stateDescription = !empty($request->request->get('state')) ? $request->request->get('state') : '';
@@ -133,7 +132,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         $etude = new Etude();
 
@@ -145,12 +144,12 @@ class EtudeController extends Controller
             $etude->setSuiveur($user->getPersonne());
         }
 
-        $form = $this->createForm(new EtudeType(), $etude);
+        $form = $this->createForm(EtudeType::class, $etude);
         $em = $this->getDoctrine()->getManager();
 
         $error_messages = array();
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 if (!$etude->isKnownProspect()) {
@@ -160,7 +159,7 @@ class EtudeController extends Controller
                 $em->persist($etude);
                 $em->flush();
 
-                if ($this->get('request')->get('ap')) {
+                if ($request->get('ap')) {
                     return $this->redirect($this->generateUrl('MgateSuivi_ap_rediger', array('id' => $etude->getId())));
                 } else {
                     return $this->redirect($this->generateUrl('MgateSuivi_etude_voir', array('nom' => $etude->getNom())));
@@ -192,12 +191,12 @@ class EtudeController extends Controller
         }
 
         //get contacts clients
-        $clientContacts = $em->getRepository('MgateSuiviBundle:ClientContact')->getByEtude($etude,array('date' => 'desc'));
+        $clientContacts = $em->getRepository('MgateSuiviBundle:ClientContact')->getByEtude($etude, array('date' => 'desc'));
 
         $chartManager = $this->get('Mgate.chart_manager');
         $ob = $chartManager->getGantt($etude, 'suivi');
 
-        $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
+        $formSuivi = $this->createForm(SuiviEtudeType::class, $etude);
 
         return $this->render('MgateSuiviBundle:Etude:voir.html.twig', array(
             'etude' => $etude,
@@ -210,7 +209,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction(Etude $etude)
+    public function modifierAction(Request $request, Etude $etude)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -218,11 +217,11 @@ class EtudeController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new EtudeType(), $etude);
+        $form = $this->createForm(EtudeType::class, $etude);
 
         $deleteForm = $this->createDeleteForm($etude);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($etude);
@@ -242,8 +241,9 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @param Etude $etude
+     * @param Etude   $etude
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Etude $etude, Request $request)
@@ -262,7 +262,6 @@ class EtudeController extends Controller
             $em->remove($etude);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Etude supprimée');
-
         }
 
         return $this->redirect($this->generateUrl('MgateSuivi_etude_homepage'));
@@ -271,14 +270,14 @@ class EtudeController extends Controller
     private function createDeleteForm(Etude $etude)
     {
         return $this->createFormBuilder(array('id' => $etude->getId()))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm();
     }
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function suiviAction()
+    public function suiviAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -314,7 +313,7 @@ class EtudeController extends Controller
         $id = 0;
         foreach (array_reverse($etudesParMandat) as $etudesInMandat) {
             foreach ($etudesInMandat as $etude) {
-                $form = $form->add((string) (2 * $id), 'hidden', array('label' => 'refEtude', 'data' => $etude->getReference()))
+                $form = $form->add((string) (2 * $id), HiddenType::class, array('label' => 'refEtude', 'data' => $etude->getReference()))
                     ->add((string) (2 * $id + 1), 'textarea', array('label' => $etude->getReference(), 'required' => false, 'data' => $etude->getStateDescription()));
                 ++$id;
                 if ($etude->getStateID() == STATE_ID_EN_COURS) {
@@ -324,8 +323,8 @@ class EtudeController extends Controller
         }
         $form = $form->getForm();
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             $data = $form->getData();
 
@@ -380,7 +379,7 @@ class EtudeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function suiviUpdateAction($id)
+    public function suiviUpdateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $etude = $em->getRepository('MgateSuiviBundle:Etude')->find($id);
@@ -393,9 +392,9 @@ class EtudeController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $formSuivi = $this->createForm(new SuiviEtudeType(), $etude);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $formSuivi->handleRequest($this->get('request'));
+        $formSuivi = $this->createForm(SuiviEtudeType::class, $etude);
+        if ($request->getMethod() == 'POST') {
+            $formSuivi->handleRequest($request);
 
             if ($formSuivi->isValid()) {
                 $em->persist($etude);

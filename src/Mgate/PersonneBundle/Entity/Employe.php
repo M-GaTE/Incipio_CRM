@@ -13,8 +13,6 @@ namespace Mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
 /**
  * Mgate\PersonneBundle\Entity\Employe.
  *

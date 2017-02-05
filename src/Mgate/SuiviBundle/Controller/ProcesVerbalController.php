@@ -11,11 +11,14 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Mgate\SuiviBundle\Entity\Etude;
 use Mgate\SuiviBundle\Entity\ProcesVerbal;
-use Mgate\SuiviBundle\Form\Type\ProcesVerbalType;
 use Mgate\SuiviBundle\Form\Type\ProcesVerbalSubType;
+use Mgate\SuiviBundle\Form\Type\ProcesVerbalType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProcesVerbalController extends Controller
@@ -61,7 +64,7 @@ class ProcesVerbalController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction($id)
+    public function addAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -76,9 +79,9 @@ class ProcesVerbalController extends Controller
         $proces = new ProcesVerbal();
         $etude->addPvi($proces);
 
-        $form = $this->createForm(new ProcesVerbalSubType(), $proces, array('type' => 'pvi', 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        $form = $this->createForm(ProcesVerbalSubType::class, $proces, array('type' => 'pvi', 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($proces);
@@ -96,7 +99,7 @@ class ProcesVerbalController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id_pv)
+    public function modifierAction(Request $request, $id_pv)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -110,10 +113,10 @@ class ProcesVerbalController extends Controller
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
 
-        $form = $this->createForm(new ProcesVerbalSubType(), $procesverbal, array('type' => $procesverbal->getType(), 'prospect' => $procesverbal->getEtude()->getProspect(), 'phases' => count($procesverbal->getEtude()->getPhases()->getValues())));
+        $form = $this->createForm(ProcesVerbalSubType::class, $procesverbal, array('type' => $procesverbal->getType(), 'prospect' => $procesverbal->getEtude()->getProspect(), 'phases' => count($procesverbal->getEtude()->getPhases()->getValues())));
         $deleteForm = $this->createDeleteForm($id_pv);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($procesverbal);
@@ -134,14 +137,14 @@ class ProcesVerbalController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Request $request
+     * @param Etude $etude
+     * @param $type string PVR or PVRI
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function redigerAction($id_etude, $type)
+    public function redigerAction(Request $request, Etude $etude, $type)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (!$etude = $em->getRepository('Mgate\SuiviBundle\Entity\Etude')->find($id_etude)) {
-            throw $this->createNotFoundException('L\'étude n\'existe pas !');
-        }
 
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
@@ -156,9 +159,9 @@ class ProcesVerbalController extends Controller
             $procesverbal->setType($type);
         }
 
-        $form = $this->createForm(new ProcesVerbalType(), $etude, array('type' => $type, 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        $form = $this->createForm(ProcesVerbalType::class, $etude, array('type' => $type, 'prospect' => $etude->getProspect(), 'phases' => count($etude->getPhases()->getValues())));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($etude);
@@ -168,22 +171,18 @@ class ProcesVerbalController extends Controller
             }
         }
 
-        return $this->render('MgateSuiviBundle:ProcesVerbal:rediger.html.twig', array(
-            'form' => $form->createView(),
-            'etude' => $etude,
-            'type' => $type,
-        ));
+        return $this->render('MgateSuiviBundle:ProcesVerbal:rediger.html.twig',
+            array('form' => $form->createView(),'etude' => $etude,'type' => $type,)
+        );
     }
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function deleteAction($id_pv)
+    public function deleteAction(Request $request, $id_pv)
     {
         $form = $this->createDeleteForm($id_pv);
-        $request = $this->getRequest();
-
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -208,7 +207,7 @@ class ProcesVerbalController extends Controller
     private function createDeleteForm($id_pv)
     {
         return $this->createFormBuilder(array('id' => $id_pv))
-            ->add('id', 'hidden')
+            ->add('id', HiddenType::class)
             ->getForm();
     }
 }

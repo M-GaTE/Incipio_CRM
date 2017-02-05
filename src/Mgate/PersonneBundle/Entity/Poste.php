@@ -13,13 +13,14 @@ namespace Mgate\PersonneBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Mgate\PersonneBundle\Entity\Poste.
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @UniqueEntity("intitule")
  */
 class Poste
 {

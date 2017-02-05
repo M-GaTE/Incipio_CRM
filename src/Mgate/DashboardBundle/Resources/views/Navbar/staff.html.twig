@@ -185,14 +185,14 @@
             </li>
             <li class="divider"></li>
             <li class="dropdown-header">{{ 'dashboard.postes'|trans({}, 'dashboard') }}</li>
-            <li><a href="{{ path('MgatePersonne_poste_homepage') }}"><span class="fa fa-list"></span> {{ 'dashboard.postes_lister'|trans({}, 'dashboard') }}</a></li>
-            <li><a href="{{ path('MgatePersonne_poste_ajouter') }}"><span class="fa fa-plus"></span> {{ 'dashboard.poste_ajouter'|trans({}, 'dashboard') }}</a></li>
+            <li><a href="{{ path('MgatePersonne_poste_homepage') }}"><span class="fa fa-list"></span> {{ 'dashboard.postes_filieres'|trans({}, 'dashboard') }}</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">{{ 'dashboard.compte_utilisateur'|trans({}, 'dashboard') }}:</li>
-            <li><a href="{{ path('Mgate_user_lister') }}"><span class="fa fa-pencil"></span> {{ 'dashboard.lister_modifier'|trans({}, 'dashboard') }}</a></li>
+            <li><a href="{{ path('Mgate_user_lister') }}"><span class="fa fa-user"></span> {{ 'dashboard.lister_modifier'|trans({}, 'dashboard') }}</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">{{ 'dashboard.autres'|trans({}, 'dashboard') }}</li>
             <li><a href="{{ path('MgateSuivi_domaine_index') }}"><span class="fa fa-list"></span> {{ 'dashboard.domaine_competences'|trans({}, 'dashboard') }}</a></li>
+            <li><a href="{{ path('Mgate_dashboard_parameters_admin') }}"><span class="fa fa-cog"></span> {{ 'dashboard.parameters'|trans({}, 'dashboard') }}</a></li>
 
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <li><a href="{{ path('Mgate_dashboard_homepage') }}over">{{ 'dashboard.administration_bdd'|trans({}, 'dashboard') }}</a></li>

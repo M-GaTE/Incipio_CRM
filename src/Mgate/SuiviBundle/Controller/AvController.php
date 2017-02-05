@@ -11,12 +11,13 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
+use Mgate\SuiviBundle\Entity\Av;
 use Mgate\SuiviBundle\Entity\Phase;
 use Mgate\SuiviBundle\Entity\PhaseChange;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\SuiviBundle\Entity\Av;
 use Mgate\SuiviBundle\Form\Type\AvType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AvController extends Controller
@@ -38,9 +39,9 @@ class AvController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function addAction($id)
+    public function addAction(Request $request, $id)
     {
-        return $this->modifierAction(null, $id);
+        return $this->modifierAction($request, null, $id);
     }
 
     /**
@@ -61,7 +62,6 @@ class AvController extends Controller
         if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
             throw new AccessDeniedException('Cette étude est confidentielle');
         }
-
 
         return $this->render('MgateSuiviBundle:Av:voir.html.twig', array(
             'av' => $entity,
@@ -84,8 +84,8 @@ class AvController extends Controller
     private function mergePhaseIfNotNull($phaseReceptor, $phaseToMerge, $changes)
     {
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
-            $setMethode = 'set' . $methode;
+            $getMethode = 'get'.$methode;
+            $setMethode = 'set'.$methode;
             if ($phaseToMerge->$getMethode() !== null) {
                 $changes->$setMethode(true);
                 $phaseReceptor->$setMethode($phaseToMerge->$getMethode());
@@ -96,8 +96,8 @@ class AvController extends Controller
     private function copyPhase($source, $destination)
     {
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
-            $setMethode = 'set' . $methode;
+            $getMethode = 'get'.$methode;
+            $setMethode = 'set'.$methode;
             $destination->$setMethode($source->$getMethode());
         }
     }
@@ -106,7 +106,7 @@ class AvController extends Controller
     {
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
+            $getMethode = 'get'.$methode;
             $isNotNull = $isNotNull || ($phase->$getMethode() !== null && $methode != 'Position');
         }
 
@@ -117,8 +117,8 @@ class AvController extends Controller
     {
         $isNotNull = false;
         foreach (self::$phaseMethodes as $methode) {
-            $getMethode = 'get' . $methode;
-            $setMethode = 'set' . $methode;
+            $getMethode = 'get'.$methode;
+            $setMethode = 'set'.$methode;
             if ($phaseReceptor->$getMethode() == $phaseToCompare->$getMethode() && $methode != 'Position') {
                 $phaseReceptor->$setMethode(null);
             } else {
@@ -132,7 +132,7 @@ class AvController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction($id, $idEtude = null)
+    public function modifierAction(Request $request, $id, $idEtude = null)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -181,10 +181,10 @@ class AvController extends Controller
             $phasesChanges[] = $changes;
         }
 
-        $form = $this->createForm(new AvType(), $av, array('prospect' => $av->getEtude()->getProspect()));
+        $form = $this->createForm(AvType::class, $av, array('prospect' => $av->getEtude()->getProspect()));
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $phasesEtude = $av->getEtude()->getPhases()->getValues();

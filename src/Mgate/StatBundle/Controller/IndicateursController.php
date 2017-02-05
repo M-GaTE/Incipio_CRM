@@ -12,9 +12,10 @@
 namespace Mgate\StatBundle\Controller;
 
 use Mgate\StatBundle\Entity\Indicateur;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Ob\HighchartsBundle\Highcharts\Highchart;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 // A externaliser dans les parametres
@@ -55,10 +56,8 @@ class IndicateursController extends Controller
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function ajaxAction()
+    public function ajaxAction(Request $request)
     {
-        $request = $this->get('request');
-
         if ($request->getMethod() == 'GET') {
             $chartMethode = $request->query->get('chartMethode');
             $em = $this->getDoctrine()->getManager();
@@ -1231,7 +1230,8 @@ class IndicateursController extends Controller
      * @Security("has_role('ROLE_CA')")
      * A chart displaying how much a skill has brought in turnover
      */
-    private function getCACompetences(){
+    private function getCACompetences()
+    {
         $etude_manager = $this->get('Mgate.etude_manager');
         $MANDAT_MAX = $etude_manager->getMaxMandat();
         $MANDAT_MIN = $etude_manager->getMinMandat();
@@ -1242,42 +1242,41 @@ class IndicateursController extends Controller
         //how much each skill has make us earn.
         $series = array();
         $categories = array();
-        $used_mandats = array_fill(0,$MANDAT_MAX-$MANDAT_MIN+1,0); // an array to post-process results and remove mandats without data.
+        $used_mandats = array_fill(0, $MANDAT_MAX - $MANDAT_MIN + 1, 0); // an array to post-process results and remove mandats without data.
         //create array structure
-        foreach ($res as $c){
+        foreach ($res as $c) {
             $temp = array(
               'name' => $c->getNom(),
-              'data' => array_fill(0,$MANDAT_MAX-$MANDAT_MIN+1,0)
+              'data' => array_fill(0, $MANDAT_MAX - $MANDAT_MIN + 1, 0),
             );
 
             $sumSkill = 0;
-            foreach ($c->getEtudes() as $e){
-                $temp['data'][$e->getMandat()-$MANDAT_MIN] += $e->getMontantHT();
-                $used_mandats[$e->getMandat()-$MANDAT_MIN] += 1;
+            foreach ($c->getEtudes() as $e) {
+                $temp['data'][$e->getMandat() - $MANDAT_MIN] += $e->getMontantHT();
+                $used_mandats[$e->getMandat() - $MANDAT_MIN] += 1;
                 $sumSkill += $e->getMontantHT();
             }
-            if($sumSkill > 0) {
+            if ($sumSkill > 0) {
                 $series[] = $temp;
             }
         }
 
-        for($i = $MANDAT_MIN; $i <= $MANDAT_MAX; $i++){
+        for ($i = $MANDAT_MIN; $i <= $MANDAT_MAX; ++$i) {
             $categories[] = 'Mandat '.$i;
         }
 
         //remove mandats with no skills used
         //once array has been spliced, index will be changed. Therefore, we uses $k has read index
-        $k =0;
-        for($i = 0; $i <= $MANDAT_MAX-$MANDAT_MIN; $i++){
-            if($used_mandats[$i] == 0 && isset($categories[$k]) ){
-                array_splice($categories,$k,1);
+        $k = 0;
+        for ($i = 0; $i <= $MANDAT_MAX - $MANDAT_MIN; ++$i) {
+            if ($used_mandats[$i] == 0 && isset($categories[$k])) {
+                array_splice($categories, $k, 1);
                 $count_series = count($series);
-                for($j = 0; $j < $count_series; $j++){
-                    array_splice($series[$j]['data'],$k,1);
+                for ($j = 0; $j < $count_series; ++$j) {
+                    array_splice($series[$j]['data'], $k, 1);
                 }
-            }
-            else{
-                $k++;
+            } else {
+                ++$k;
             }
         }
 

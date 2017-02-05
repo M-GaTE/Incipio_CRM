@@ -2,7 +2,9 @@
 
 namespace Mgate\SuiviBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\PersonneBundle\Entity\PersonneRepository;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -10,16 +12,20 @@ class SubApType extends DocTypeType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('contactMgate', 'genemu_jqueryselect2_entity', array('label' => "'En cas d’absence ou de problème, il est également possible de joindre ...' ex: Vice-Président",
+        $builder->add('contactMgate', Select2EntityType::class, array('label' => "'En cas d’absence ou de problème, il est également possible de joindre ...' ex: Vice-Président",
             'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
-            'property' => 'prenomNom',
+            'choice_label' => 'prenomNom',
             'attr' => array('title' => "Dans l'AP: 'En cas d’absence ou de problème, il est également possible de joindre le ...'"),
             'query_builder' => function (PersonneRepository $pr) {
                 return $pr->getMembresByPoste('%vice-president%');
             },
             'required' => true, ));
         DocTypeType::buildForm($builder, $options);
-        $builder->add('nbrDev', 'integer', array('label' => 'Nombre d\'intervenants estimé', 'required' => false, 'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant')));
+        $builder->add('nbrDev', IntegerType::class,
+            array('label' => 'Nombre d\'intervenants estimé',
+                'required' => false,
+                'attr' => array('title' => 'Mettre 0 pour ne pas afficher la phrase indiquant le nombre d\'intervenant'), )
+        );
     }
 
     public function getName()

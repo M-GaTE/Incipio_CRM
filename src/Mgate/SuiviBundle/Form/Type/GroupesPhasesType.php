@@ -12,6 +12,7 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,8 +20,8 @@ class GroupesPhasesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('groupes', 'collection', array(
-            'type' => new GroupePhasesType(),
+        $builder->add('groupes', CollectionType::class, array(
+            'entry_type' => GroupePhasesType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
@@ -28,7 +29,7 @@ class GroupesPhasesType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_etudegroupestype';
     }

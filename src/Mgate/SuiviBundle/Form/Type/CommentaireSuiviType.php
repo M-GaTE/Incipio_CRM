@@ -12,8 +12,8 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentaireSuiviType extends AbstractType
 {
@@ -22,7 +22,7 @@ class CommentaireSuiviType extends AbstractType
         // builder add('stateDescription', 'textarea', array( 'label'=>'Objectif', 'required'=>false));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_commentairesuivitype';
     }

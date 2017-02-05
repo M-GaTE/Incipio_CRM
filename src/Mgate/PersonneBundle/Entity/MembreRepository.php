@@ -79,6 +79,8 @@ class MembreRepository extends EntityRepository
             ->from('MgatePersonneBundle:Membre', 'm')
             ->leftJoin('m.competences', 'c')
             ->addSelect('c')
+            ->leftJoin('m.filiere', 'filiere')
+            ->addSelect('filiere')
             ->where(':competence MEMBER OF m.competences')
             ->setParameter('competence', $competence)
             ->getQuery();

@@ -11,15 +11,15 @@
 
 namespace Mgate\UserBundle\Form\EventListener;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
+use Mgate\PersonneBundle\Entity\Personne;
+use Mgate\PersonneBundle\Entity\PersonneRepository;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Mgate\PersonneBundle\Entity\PersonneRepository;
-use Mgate\PersonneBundle\Entity\Personne;
 
 class AddMembreFieldSubscriber implements EventSubscriberInterface
 {
-
     public static function getSubscribedEvents()
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
@@ -39,9 +39,9 @@ class AddMembreFieldSubscriber implements EventSubscriberInterface
         // over the null condition.
         {
         $user = $data;
-        $form->add('personne', 'genemu_jqueryselect2_entity', array('label' => "Associer ce compte d'utilisateur à un Membre existant",
+        $form->add('personne', Select2EntityType::class, array('label' => "Associer ce compte d'utilisateur à un Membre existant",
                        'class' => 'Mgate\PersonneBundle\Entity\Personne',
-                       'property' => 'prenomNom',
+                       'choice_label' => 'prenomNom',
                        'required' => false,
                        'query_builder' => function (PersonneRepository $pr) use ($user) {
                            return $pr->getMembreNotUser($user);

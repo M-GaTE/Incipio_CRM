@@ -13,8 +13,6 @@ namespace Mgate\TresoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
-
 /**
  * NoteDeFraisDetail.
  *

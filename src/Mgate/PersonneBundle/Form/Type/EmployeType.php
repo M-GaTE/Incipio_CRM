@@ -20,11 +20,11 @@ class EmployeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('personne', new PersonneType(), array('label' => ' ', 'signataire' => $options['signataire'], 'mini' => $options['mini']))
+                ->add('personne', PersonneType::class, array('label' => ' ', 'signataire' => $options['signataire'], 'mini' => $options['mini']))
                 ->add('poste');
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_personnebundle_employetype';
     }

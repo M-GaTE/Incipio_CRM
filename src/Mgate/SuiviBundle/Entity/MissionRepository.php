@@ -3,19 +3,16 @@
  * Created by PhpStorm.
  * User: Antoine
  * Date: 29/08/2016
- * Time: 14:18
+ * Time: 14:18.
  */
-
 namespace Mgate\SuiviBundle\Entity;
-
 
 use Doctrine\ORM\EntityRepository;
 
 class MissionRepository extends EntityRepository
-
 {
-
-    public function getMissionsBeginBeforeDate(\DateTime $date){
+    public function getMissionsBeginBeforeDate(\DateTime $date)
+    {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('m')
             ->from('MgateSuiviBundle:Mission', 'm')
@@ -43,5 +40,4 @@ class MissionRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
 }

@@ -11,11 +11,12 @@
 
 namespace Mgate\TresoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Entity\Facture as Facture;
 use Mgate\TresoBundle\Entity\FactureDetail as FactureDetail;
 use Mgate\TresoBundle\Form\Type\FactureType as FactureType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class FactureController extends Controller
 {
@@ -46,7 +47,7 @@ class FactureController extends Controller
     /**
      * @Security("has_role('ROLE_TRESO')")
      */
-    public function modifierAction($id, $etude_id)
+    public function modifierAction(Request $request, $id, $etude_id)
     {
         $em = $this->getDoctrine()->getManager();
         $tauxTVA = 20.0;
@@ -111,10 +112,10 @@ class FactureController extends Controller
             }
         }
 
-        $form = $this->createForm(new FactureType(), $facture);
+        $form = $this->createForm(FactureType::class, $facture);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 foreach ($facture->getDetails() as $factured) {

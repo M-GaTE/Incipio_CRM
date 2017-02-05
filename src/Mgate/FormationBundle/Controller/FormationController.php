@@ -11,11 +11,12 @@
 
 namespace Mgate\FormationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Mgate\FormationBundle\Form\Type\FormationType;
-use Symfony\Component\HttpFoundation\Request;
 use Mgate\FormationBundle\Entity\Formation;
+use Mgate\FormationBundle\Form\Type\FormationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FormationController extends Controller
@@ -69,39 +70,37 @@ class FormationController extends Controller
      * @param $id mixed valid id : modify an existing training; unknown id : display a creation form
      *
      * @return Response
-     *                  Manage creation and update of a training
+     * Manage creation and update of a training
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         if (!$formation = $em->getRepository('Mgate\FormationBundle\Entity\Formation')->find($id)) {
             $formation = new Formation();
         }
 
-        $form = $this->createForm(new FormationType(), $formation);
-        $messages = array();
+        $form = $this->createForm(FormationType::class, $formation);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($formation);
                 $em->flush();
 
-                $form = $this->createForm(new FormationType(), $formation);
-                array_push($messages, array('label' => 'success', 'message' => 'Formation modifée'));
+                $form = $this->createForm(FormationType::class, $formation);
+                $this->addFlash('success', 'Formation modifiée');
             } else {
                 //constitution du tableau d'erreurs
                 $errors = $this->get('validator')->validate($formation);
                 foreach ($errors as $error) {
-                    array_push($messages, array('label' => 'warning', 'message' => $error->getPropertyPath().' : '.$error->getMessage()));
+                    $this->addFlash('warning', $error->getPropertyPath().' : '.$error->getMessage());
                 }
             }
         }
 
         return $this->render('MgateFormationBundle:Gestion:modifier.html.twig', array('form' => $form->createView(),
-            'formation' => $formation,
-            'messages' => $messages,
+            'formation' => $formation
         ));
     }
 
@@ -113,7 +112,7 @@ class FormationController extends Controller
      * @return Response
      *                  Manage particpant present to a training
      */
-    public function participationAction(Request $request)
+    public function participationAction(Request $request, $mandat = null)
     {
         $em = $this->getDoctrine()->getManager();
         $formationsParMandat = $em->getRepository('MgateFormationBundle:Formation')->findAllByMandat();
@@ -127,7 +126,7 @@ class FormationController extends Controller
         $form = $this->createFormBuilder($defaultData)
             ->add(
                 'mandat',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'Présents aux formations du mandat ',
                     'choices' => $choices,
@@ -135,10 +134,7 @@ class FormationController extends Controller
                 )
             )->getForm();
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $data = $form->getData();
-            $mandat = $data['mandat'];
+        if ($mandat !== null) {
             $formations = array_key_exists($mandat, $formationsParMandat) ? $formationsParMandat[$mandat] : array();
         } else {
             $formations = count($formationsParMandat) ? reset($formationsParMandat) : array();
@@ -161,6 +157,7 @@ class FormationController extends Controller
             'form' => $form->createView(),
             'formations' => $formations,
             'presents' => $presents,
+            'mandat' => $mandat,
         ));
     }
 

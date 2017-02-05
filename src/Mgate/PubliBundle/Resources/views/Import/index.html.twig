@@ -3,7 +3,7 @@
 {% block content_bundle %}
     <p>Via cette page vous pouvez importer des fichiers provenant d'autres CRM. Choisissez un type de fichier et suivez
         les instructions.</p>
-    <form action="{{ path('Mgate_publi_import') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_start(form, {'action': path('Mgate_publi_import')}) }}
         <div class="row">
             <div class="col-lg-2">
                 {{ form_label(form.import_method) }}
@@ -27,7 +27,7 @@
         </div>
         {{ form_rest(form) }}
         <button type="submit" class="btn btn-success">Importer</button>
-    </form>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascript %}

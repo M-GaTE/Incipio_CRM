@@ -12,6 +12,10 @@
 namespace Mgate\PersonneBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,24 +34,24 @@ class PersonneType extends AbstractType
         $builder
                 ->add('prenom')
                 ->add('nom')
-                ->add('sexe', new SexeType(), array('required' => true))
-                ->add('mobile', 'text', array('required' => false, 'attr' => $helpMobile))
-                ->add('email', 'email', array('required' => false, 'attr' => $helpEmail))
-                ->add('estAbonneNewsletter', 'checkbox', array('label' => 'Abonné Newsletter ?', 'required' => false))
-                ->add('emailEstValide', 'checkbox', array('label' => 'Email Valide ?', 'required' => false));
+                ->add('sexe', SexeType::class, array('required' => true))
+                ->add('mobile', TextType::class, array('required' => false, 'attr' => $helpMobile))
+                ->add('email', EmailType::class, array('required' => false, 'attr' => $helpEmail))
+                ->add('estAbonneNewsletter', CheckboxType::class, array('label' => 'Abonné Newsletter ?', 'required' => false))
+                ->add('emailEstValide', CheckboxType::class, array('label' => 'Email Valide ?', 'required' => false));
 
         if (!$options['mini'] && !$options['user']) {
-            $builder->add('fix', 'text', array('required' => false));
+            $builder->add('fix', TextType::class, array('required' => false));
         }
         if (!$options['mini']) {
-            $builder->add('adresse', 'textarea', array('label' => 'Adresse', 'required' => false))
-                ->add('codepostal', 'text', array('label' => 'Code Postal', 'required' => false))
-                ->add('ville', 'text', array('label' => 'Ville', 'required' => false))
-                ->add('pays', 'text', array('label' => 'pays', 'required' => false));
+            $builder->add('adresse', TextareaType::class, array('label' => 'Adresse', 'required' => false))
+                ->add('codepostal', TextType::class, array('label' => 'Code Postal', 'required' => false))
+                ->add('ville', TextType::class, array('label' => 'Ville', 'required' => false))
+                ->add('pays', TextType::class, array('label' => 'Pays', 'required' => false));
         }
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_personnebundle_personnetype';
     }

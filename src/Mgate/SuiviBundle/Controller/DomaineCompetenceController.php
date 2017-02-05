@@ -11,27 +11,28 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\SuiviBundle\Entity\DomaineCompetence;
 use Mgate\SuiviBundle\Form\Type\DomaineCompetenceType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DomaineCompetenceController extends Controller
 {
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('MgateSuiviBundle:DomaineCompetence')->findAll();
 
         $domaine = new DomaineCompetence();
 
-        $form = $this->createForm(new DomaineCompetenceType(), $domaine);
+        $form = $this->createForm(DomaineCompetenceType::class, $domaine);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($domaine);

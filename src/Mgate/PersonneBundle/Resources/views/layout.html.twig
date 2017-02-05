@@ -2,7 +2,7 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-    {{ junior['abbr'] }} - {{ parent() }}
+    {{ param('abbr') }} - {{ parent() }}
 {% endblock %}
 
 {% block content %}
@@ -14,6 +14,15 @@
                     Gestion des Clients et des Utilisateurs
                 {% endblock %}
             </h3>
+
+            {% block breadcrumb %}
+                <ul class="breadcrumb no-margin pull-right">
+                    <li>
+                        <a href="{{ path('MgatePersonne_poste_homepage') }}">{{ 'dashboard.postes_filieres'|trans({}, 'dashboard') }}</a>
+                    </li>
+                </ul>
+            {% endblock %}
+
         </div>
         <div class="box-body">
             {# On définit un nouveau block, que les vues du bundle pourront remplir #}

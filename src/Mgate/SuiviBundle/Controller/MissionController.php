@@ -11,10 +11,10 @@
 
 namespace Mgate\SuiviBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class MissionController extends Controller
 {
@@ -41,7 +41,7 @@ class MissionController extends Controller
      */
     public function avancementAction(Request $request)
     {
-        if ($this->get('request')->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
             $avancement = !empty($request->request->get('avancement')) ? intval($request->request->get('avancement')) : 0;
             $id = !empty($request->request->get('id')) ? $request->request->get('id') : 0;

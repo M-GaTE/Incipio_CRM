@@ -12,10 +12,11 @@
 namespace Mgate\TresoBundle\Controller;
 
 use JMS\Serializer\Exception\LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgate\TresoBundle\Entity\BV;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Form\Type\BVType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class BVController extends Controller
 {
@@ -44,7 +45,7 @@ class BVController extends Controller
     /**
      * @Security("has_role('ROLE_TRESO', 'ROLE_SUIVEUR')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -55,10 +56,10 @@ class BVController extends Controller
                 ->setDateDemission(new \DateTime('now'));
         }
 
-        $form = $this->createForm(new BVType(), $bv);
+        $form = $this->createForm(BVType::class, $bv);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $bv->setCotisationURSSAF();
                 $charges = $em->getRepository('MgateTresoBundle:CotisationURSSAF')->findAllByDate($bv->getDateDemission());

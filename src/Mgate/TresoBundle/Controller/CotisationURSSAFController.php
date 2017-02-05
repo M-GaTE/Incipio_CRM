@@ -11,10 +11,11 @@
 
 namespace Mgate\TresoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgate\TresoBundle\Entity\CotisationURSSAF;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\TresoBundle\Form\Type\CotisationURSSAFType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class CotisationURSSAFController extends Controller
 {
@@ -32,7 +33,7 @@ class CotisationURSSAFController extends Controller
     /**
      * @Security("has_role('ROLE_TRESO')")
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -40,10 +41,10 @@ class CotisationURSSAFController extends Controller
             $cotisation = new CotisationURSSAF();
         }
 
-        $form = $this->createForm(new CotisationURSSAFType(), $cotisation);
+        $form = $this->createForm(CotisationURSSAFType::class, $cotisation);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $em->persist($cotisation);
                 $em->flush();

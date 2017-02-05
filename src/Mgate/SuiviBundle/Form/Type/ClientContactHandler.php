@@ -9,14 +9,12 @@
  * file that was distributed with this source code.
  */
 
-// src/Sdz/BlogBundle/Form/ArticleHandler.php
-
 namespace Mgate\SuiviBundle\Form\Type;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Mgate\SuiviBundle\Entity\ClientContact;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 class ClientContactHandler
 {
@@ -34,7 +32,7 @@ class ClientContactHandler
     public function process()
     {
         if ($this->request->getMethod() == 'POST') {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($this->form->getData());

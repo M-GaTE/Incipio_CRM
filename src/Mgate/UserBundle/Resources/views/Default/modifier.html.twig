@@ -1,14 +1,14 @@
 {% extends "MgateUserBundle::layout.html.twig" %}
 
 {% block title %}
-	Modifier un utilisateur - {{ parent() }}
+    Modifier un utilisateur - {{ parent() }}
 {% endblock %}
 
 {% block content %}
 
     <h2>Modifier l'utilisateur</h2>
 
-    <form method="post" {{ form_enctype(form) }} style="max-width: 600px">
+    {{ form_start(form, {'attr': {'style': 'max-width: 600px'}}) }}
     <table class="table table-bordered">
         <tr>
             <td>{{ form_label(form.username) }}</td>
@@ -28,25 +28,31 @@
         </tr>
         <tr>
             <td>{{ form_label(form.roles) }}</td>
-            <td>{{ form_widget(form.roles) }}</td>
+            <td>{{ form_widget(form.roles, {'attr': {'class': 'select2', 'style': 'width: 100%'}}) }}</td>
         </tr>
     </table>
 
 
-	{{ form_widget(form) }}
-	{{ form_rest(form) }}
-	<input class ="btn btn-success" type="submit" value="Enregistrer l'Utilisateur"/>
-</form>
-<br>
+    {{ form_widget(form) }}
+    {{ form_rest(form) }}
+    <input class="btn btn-success" type="submit" value="Enregistrer l'Utilisateur"/>
+    {{ form_end(form) }}
+    <br>
 
-<form action="{{ path('Mgate_user_supprimer', { 'id': form.vars.value.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-    <button class="btn btn-danger bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?">Supprimer l'utilisateur</button>
-</form>
+    <form action="{{ path('Mgate_user_supprimer', { 'id': form.vars.value.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button class="btn btn-danger bootbox-confirm"
+                data-content="Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?">Supprimer
+            l'utilisateur
+        </button>
+    </form>
 
 {% endblock %}
 
 {% block javascript %}
     {{ parent() }}
     {{ form_javascript(form) }}
+    <script type="text/javascript">
+        $(".select2").select2();
+    </script>
 {% endblock %}

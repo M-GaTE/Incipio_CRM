@@ -11,7 +11,11 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,16 +24,16 @@ class CotisationURSSAFType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libelle', 'text', array('label' => 'Libelle'))
-            ->add('dateDebut', 'genemu_jquerydate', array('label' => 'Applicable du', 'required' => true, 'widget' => 'single_text'))
-            ->add('dateFin', 'genemu_jquerydate', array('label' => 'Applicable au', 'required' => true, 'widget' => 'single_text'))
-            ->add('tauxPartJE', 'percent', array('label' => 'Taux Part Junior', 'required' => false, 'precision' => 3))
-            ->add('tauxPartEtu', 'percent', array('label' => 'Taux Part Etu', 'required' => false, 'precision' => 3))
-            ->add('surBaseURSSAF', 'checkbox', array('label' => 'Est indexé sur la base URSSAF ?', 'required' => false))
-            ->add('deductible', 'checkbox', array('label' => 'Est déductible ?', 'required' => false));
+            ->add('libelle', TextType::class, array('label' => 'Libelle'))
+            ->add('dateDebut', DateType::class, array('label' => 'Applicable du', 'required' => true, 'widget' => 'single_text'))
+            ->add('dateFin', DateType::class, array('label' => 'Applicable au', 'required' => true, 'widget' => 'single_text'))
+            ->add('tauxPartJE', PercentType::class, array('label' => 'Taux Part Junior', 'required' => false, 'scale' => 3))
+            ->add('tauxPartEtu', PercentType::class, array('label' => 'Taux Part Etu', 'required' => false, 'scale' => 3))
+            ->add('surBaseURSSAF', CheckboxType::class, array('label' => 'Est indexé sur la base URSSAF ?', 'required' => false))
+            ->add('deductible', CheckboxType::class, array('label' => 'Est déductible ?', 'required' => false));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_tresobundle_cotisationurssaftype';
     }

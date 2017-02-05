@@ -13,6 +13,8 @@ monolog:
             type:         fingers_crossed
             action_level: error
             handler:      grouped
+            excluded_404s:
+                - ^/
         grouped:
             type:    group
             members: [nested, buffered]
@@ -20,8 +22,6 @@ monolog:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: error
-            excluded_404s:
-                - ^/
         buffered:
             type:    buffer
             handler: swift

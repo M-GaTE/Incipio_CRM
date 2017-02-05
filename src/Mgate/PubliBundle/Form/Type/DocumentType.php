@@ -12,6 +12,8 @@
 namespace Mgate\PubliBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,10 +21,10 @@ class DocumentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text', array('label' => 'Nom du fichier', 'required' => false))
-                ->add('file', 'file', array('label' => 'Fichier', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)));
+        $builder->add('name', TextType::class, array('label' => 'Nom du fichier', 'required' => false))
+                ->add('file', FileType::class, array('label' => 'Fichier', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)));
         if ($options['etude'] || $options['etudiant'] || $options['prospect'] || $options['formation']) {
-            $builder->add('relation', new RelatedDocumentType(), array(
+            $builder->add('relation', RelatedDocumentType::class, array(
                 'label' => '',
                 'etude' => $options['etude'],
                 'etudiant' => $options['etudiant'],
@@ -31,7 +33,7 @@ class DocumentType extends AbstractType
         }
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_documenttype';
     }

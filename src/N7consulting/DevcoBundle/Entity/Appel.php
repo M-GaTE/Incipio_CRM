@@ -3,9 +3,9 @@
 namespace N7consulting\DevcoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mgate\PersonneBundle\Entity\Prospect;
 use Mgate\PersonneBundle\Entity\Employe;
 use Mgate\PersonneBundle\Entity\Membre;
+use Mgate\PersonneBundle\Entity\Prospect;
 
 /**
  * Appel : objet représentant un appel de prospection passé ou à passer.

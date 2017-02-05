@@ -12,7 +12,6 @@
 namespace Mgate\SuiviBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -124,7 +123,7 @@ class Phase
 
     /**
      * @ORM\ManyToOne(targetEntity="Mgate\SuiviBundle\Entity\Mission", inversedBy="phases", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $mission;
 

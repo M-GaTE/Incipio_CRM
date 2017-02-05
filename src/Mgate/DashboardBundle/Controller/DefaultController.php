@@ -21,7 +21,8 @@ class DefaultController extends Controller
         return $this->render('MgateDashboardBundle:Default:index.html.twig');
     }
 
-    public function searchAction(Request $request){
+    public function searchAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
 
         //retrieve search
@@ -35,7 +36,7 @@ class DefaultController extends Controller
             'search' => $search,
             'projects' => $projects,
             'prospects' => $prospects,
-            'people' => $people
+            'people' => $people,
         ));
     }
 }

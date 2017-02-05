@@ -14,9 +14,6 @@ namespace Mgate\SuiviBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-
-
-
 /**
  * Mgate\SuiviBundle\Entity\Av.
  *
@@ -25,6 +22,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Av extends DocType
 {
+
+    const CLAUSES_CHOICES = array('Avenant de Délai' => 1,
+        'Avenant de Méthodologie' => 2,
+        'Avenant de Montant' => 3,
+        'Avenant de Mission' => 4,
+        'Avenant de Rupture' => 5 );
+
     /**
      * @var int
      *
@@ -43,7 +47,7 @@ class Av extends DocType
     /**
      * @ORM\Column(name="differentielDelai", type="integer", nullable=false,  options={"default"=0})
      *
-     * @var date
+     * @var int
      */
     private $differentielDelai;
 
@@ -74,11 +78,12 @@ class Av extends DocType
 
     public static function getClausesChoices()
     {
-        return array(1 => 'Avenant de Délai',
-            2 => 'Avenant de Méthodologie',
-            3 => 'Avenant de Montant',
-            4 => 'Avenant de Mission',
-            5 => 'Avenant de Rupture', );
+        return self::CLAUSES_CHOICES;
+    }
+
+    public static function getClausesKeys()
+    {
+        return array_flip(self::CLAUSES_CHOICES);
     }
 
     /**
@@ -94,7 +99,7 @@ class Av extends DocType
     /**
      * Set etude.
      *
-     * @param Mgate\SuiviBundle\Entity\Etude $etude
+     * @param Etude $etude
      *
      * @return Av
      */
@@ -108,7 +113,7 @@ class Av extends DocType
     /**
      * Get etude.
      *
-     * @return Mgate\SuiviBundle\Entity\Etude
+     * @return Etude
      */
     public function getEtude()
     {

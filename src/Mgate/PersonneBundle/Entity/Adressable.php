@@ -3,21 +3,17 @@
  * Created by PhpStorm.
  * User: Antoine
  * Date: 13/11/2016
- * Time: 15:53
+ * Time: 15:53.
  */
-
 namespace Mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 
 /** @ORM\MappedSuperclass
  * Class gathering adresse related informations. Factorize code in an unique class.
  */
 class Adressable
 {
-
-
     /**
      * @var string
      *
@@ -45,7 +41,6 @@ class Adressable
      * @ORM\Column(name="pays", type="string", length=63, nullable=true)
      */
     private $pays;
-
 
     /**
      * Set adresse.
@@ -142,5 +137,4 @@ class Adressable
     {
         return $this->pays;
     }
-
 }

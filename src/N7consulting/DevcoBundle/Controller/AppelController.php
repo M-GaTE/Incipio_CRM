@@ -2,10 +2,11 @@
 
 namespace N7consulting\DevcoBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use N7consulting\DevcoBundle\Entity\Appel;
 use N7consulting\DevcoBundle\Form\Type\AppelType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class AppelController extends Controller
 {
@@ -20,16 +21,16 @@ class AppelController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function ajouterAction()
+    public function ajouterAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $appel = new Appel();
 
-        $form = $this->createForm(new AppelType(), $appel);
+        $form = $this->createForm(AppelType::class, $appel);
 
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($appel);
@@ -51,7 +52,7 @@ class AppelController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function modifierAction($id)
+    public function modifierAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -59,10 +60,10 @@ class AppelController extends Controller
             throw $this->createNotFoundException('L\'appel demandé n\'existe pas !');
         }
         // On passe l'appel récupéré au formulaire
-        $form = $this->createForm(new AppelType(), $appel);
+        $form = $this->createForm(AppelType::class, $appel);
         $deleteForm = $this->createDeleteForm($id);
-        if ($this->get('request')->getMethod() == 'POST') {
-            $form->bind($this->get('request'));
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($appel);
@@ -90,12 +91,10 @@ class AppelController extends Controller
     /**
      * @Security("has_role('ROLE_CA')")
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -115,7 +114,6 @@ class AppelController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-            ;
+            ->getForm();
     }
 }

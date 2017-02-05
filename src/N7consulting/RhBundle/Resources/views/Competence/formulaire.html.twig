@@ -1,4 +1,4 @@
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
 
     <table class="table table-bordered table-striped standard">
         <tr>
@@ -22,7 +22,7 @@
 
     <input type="submit" value="Enregistrer la compétence" class="btn btn-success"/>
 
-</form>
+{{ form_end(form) }}
 
 <script type="text/javascript">
     $("#N7consulting_rhbundle_competence_membres").select2({containerCssClass : "table"});

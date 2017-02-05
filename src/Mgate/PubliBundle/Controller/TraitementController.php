@@ -12,9 +12,9 @@
 namespace Mgate\PubliBundle\Controller;
 
 use Mgate\PubliBundle\Entity\Document;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mgate\PubliBundle\Form\Type\DocTypeType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -148,7 +148,12 @@ class TraitementController extends Controller
         }
 
         if ($rootName == 'etude' && $rootObject->getReference()) {
-            $refDocx = $rootObject->getReference().'-'.$templateName.'-';
+            if (!$debug) {
+                //avoid collision with references using / or other characters.
+                $refDocx = $rootObject->getReference().'-'.$templateName.'-';
+            } else {
+                $refDocx = '';
+            }
         } elseif ($rootName == 'etudiant') {
             $refDocx = $templateName.'-'.$rootObject->getIdentifiant();
         } else {
@@ -254,7 +259,7 @@ class TraitementController extends Controller
         if (!$documenttype = $em->getRepository('Mgate\PubliBundle\Entity\Document')->findOneBy(array('name' => $doc))) {
             throw $this->createNotFoundException('Le doctype '.$doc.' n\'existe pas... C\'est bien balo');
         } else {
-            $chemin = $documenttype->getWebPath();
+            $chemin = $this->get('kernel')->getRootDir().''.$documenttype::DOCUMENT_STORAGE_ROOT.'/'.$documenttype->getPath();
         }
 
         return $chemin;
@@ -344,7 +349,7 @@ class TraitementController extends Controller
         $oldSec = 86400; // = 1 Jours
         clearstatcache();
         $glob = glob('tmp/*');
-        if($glob !== false) {
+        if ($glob !== false) {
             foreach ($glob as $filename) {
                 if (filemtime($filename) + $oldSec < time()) {
                     unlink($filename);
@@ -470,11 +475,11 @@ class TraitementController extends Controller
     public function uploadNewDoctypeAction(Request $request)
     {
         $data = array();
-        $form = $this->createForm(new DocTypeType(), $data);
+        $form = $this->createForm(DocTypeType::class, $data);
         $session = $request->getSession();
 
         if ($request->getMethod() == 'POST') {
-            $form->handleRequest($this->get('request'));
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();
@@ -558,7 +563,7 @@ class TraitementController extends Controller
                 }
                 $em->flush();
 
-                $session->getFlashBag()->add('success', 'Le document a été mis à jour : ');
+                $session->getFlashBag()->add('success', 'Le document a été mis à jour');
 
                 return $this->redirect($this->generateUrl('Mgate_publi_documenttype_upload'));
             }

@@ -12,6 +12,7 @@
 namespace Mgate\SuiviBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,11 +20,11 @@ class RepartitionJEHType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nbrJEH', 'integer', array('required' => true))
-                ->add('prixJEH', 'integer', array('required' => true, 'attr' => array('min' => 80)));
+        $builder->add('nbrJEH', IntegerType::class, array('required' => true))
+                ->add('prixJEH', IntegerType::class, array('required' => true, 'attr' => array('min' => 80)));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_suivibundle_RepartitionJEHType';
     }

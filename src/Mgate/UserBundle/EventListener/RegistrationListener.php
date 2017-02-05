@@ -11,8 +11,8 @@
 
 namespace Mgate\UserBundle\EventListener;
 
-use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

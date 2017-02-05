@@ -4,7 +4,7 @@
 
 
 <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin" role="form" style="text-align: center;">
-    <img src="{{ junior['logo'] }}" width="300"/>
+    <img src="{{ param('logo') }}" width="300"/>
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}

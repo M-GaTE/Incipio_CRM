@@ -1,0 +1,124 @@
+<?php
+
+/*
+ * This file is part of the Incipio package.
+ *
+ * (c) Florian Lefevre
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Mgate\PersonneBundle\Controller;
+
+use Mgate\PersonneBundle\Entity\Filiere;
+use Mgate\PersonneBundle\Form\Type\FiliereType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\Request;
+
+class FiliereController extends Controller
+{
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function ajouterAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $filiere = new Filiere();
+
+        $form = $this->createForm(FiliereType::class, $filiere);
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em->persist($filiere);
+                $em->flush();
+                $this->addFlash('success', 'Filière ajoutée');
+
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
+            }
+        }
+
+        return $this->render('MgatePersonneBundle:Filiere:ajouter.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @param Request $request
+     * @param Filiere $filiere
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function modifierAction(Request $request, Filiere $filiere)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // On passe l'$article récupéré au formulaire
+        $form = $this->createForm(FiliereType::class, $filiere);
+        $deleteForm = $this->createDeleteForm($filiere->getId());
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em->persist($filiere);
+                $em->flush();
+                $this->addFlash('success', 'Filière modifiée');
+
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
+            }
+        }
+
+        return $this->render('MgatePersonneBundle:Filiere:modifier.html.twig', array(
+            'form' => $form->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     *
+     * @param Request $request
+     * @param Filiere $filiere
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, Filiere $filiere)
+    {
+        $form = $this->createDeleteForm($filiere->getId());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            if ($filiere->getMandats()->count() == 0) { //collection contains no mandats
+                foreach ($filiere->getMandats() as $membre) {
+                    $membre->setPoste(null);
+                }
+                $em->remove($filiere);
+                $em->flush();
+                $this->addFlash('success', 'Filiere supprimée avec succès');
+
+                return $this->redirect($this->generateUrl('MgatePersonne_filiere_homepage'));
+            } else {
+                $this->addFlash('danger', 'Impossible de supprimer une filiere ayant des membres.');
+
+                return $this->redirect($this->generateUrl('MgatePersonne_filiere_modifier', array('id' => $filiere->getId())));
+            }
+        }
+    }
+
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', HiddenType::class)
+            ->getForm()
+            ;
+    }
+}

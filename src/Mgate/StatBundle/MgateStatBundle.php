@@ -15,10 +15,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class MgateStatBundle extends Bundle
 {
-
     public function __construct()
     {
         $this->name = 'MgateStatBundle';
     }
-
 }

@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\PersonneBundle\Entity\Membre;
 
-
 /**
  * Mgate\SuiviBundle\Entity\Mission.
  *
@@ -81,7 +80,8 @@ class Mission extends DocType
 
     /**
      * @var Phase
-     * @ORM\OneToMany(targetEntity="Mgate\SuiviBundle\Entity\Phase", mappedBy="mission", cascade={"persist", "merge", "remove"})
+     * @ORM\OneToMany(targetEntity="Mgate\SuiviBundle\Entity\Phase", mappedBy="mission", cascade={"merge"})
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $phases;
 
@@ -116,7 +116,7 @@ class Mission extends DocType
 //Ajout fonction rapide
     public function getReference()
     {
-        return $this->etude->getReference().'/'.$this->getDebutOm()->format('Y').'/RM/'.$this->getVersion();
+        return $this->etude->getReference().'/'.(!empty($this->getDebutOm()) ? $this->getDebutOm()->format('Y') : 'XX').'/RM/'.$this->getVersion();
     }
 
     public function __construct()

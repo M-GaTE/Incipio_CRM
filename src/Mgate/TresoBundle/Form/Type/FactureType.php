@@ -11,8 +11,14 @@
 
 namespace Mgate\TresoBundle\Form\Type;
 
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\DateType;
+use Genemu\Bundle\FormBundle\Form\JQuery\Type\Select2EntityType;
 use Mgate\TresoBundle\Entity\Facture;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,10 +26,14 @@ class FactureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('exercice', 'integer', array('label' => 'Exercice Comptable', 'required' => true))
-                ->add('numero', 'integer', array('label' => 'Numéro de la Facture', 'required' => true))
-                ->add('type', 'choice', array('choices' => Facture::getTypeChoices(), 'required' => true))
-                ->add('objet', 'textarea',
+        $builder->add('exercice', IntegerType::class, array('label' => 'Exercice Comptable', 'required' => true))
+                ->add('numero', IntegerType::class, array('label' => 'Numéro de la Facture', 'required' => true))
+                ->add('type', ChoiceType::class, array('choices' => Facture::getTypeChoices(),
+                    'required' => true,
+                    'choice_label' => function ($name) {
+                        return $name;
+                    }, ))
+                ->add('objet', TextareaType::class,
                     array('label' => 'Objet de la Facture',
                         'required' => true,
                         'attr' => array(
@@ -31,25 +41,25 @@ class FactureType extends AbstractType
                             'rows' => 5, ),
                         )
                     )
-                ->add('details', 'collection', array(
-                    'type' => new FactureDetailType(),
+                ->add('details', CollectionType::class, array(
+                    'entry_type' => FactureDetailType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
                     'by_reference' => false,
                 ))
-                ->add('beneficiaire', 'genemu_jqueryselect2_entity', array(
+                ->add('beneficiaire', Select2EntityType::class, array(
                     'class' => 'Mgate\PersonneBundle\Entity\Prospect',
-                    'property' => 'nom',
+                    'choice_label' => 'nom',
                     'required' => true,
                     'label' => 'Facture émise pour/par',
                 ))
-                ->add('montantADeduire', new FactureDetailType(), array('label' => 'Montant à déduire', 'required' => true))
-                ->add('dateEmission', 'genemu_jquerydate', array('label' => 'Date d\'émission', 'required' => true, 'widget' => 'single_text'))
-                ->add('dateVersement', 'genemu_jquerydate', array('label' => 'Date de versement', 'required' => false, 'widget' => 'single_text'));
+                ->add('montantADeduire', FactureDetailType::class, array('label' => 'Montant à déduire', 'required' => true))
+                ->add('dateEmission', DateType::class, array('label' => 'Date d\'émission', 'required' => true, 'widget' => 'single_text'))
+                ->add('dateVersement', DateType::class, array('label' => 'Date de versement', 'required' => false, 'widget' => 'single_text'));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'Mgate_tresobundle_facturetype';
     }
