@@ -62,6 +62,10 @@
         "db:test:create": "php bin/console doctrine:schema:create --env=test --ansi",
         "db:test:drop": "php bin/console doctrine:schema:drop --env=test --force --ansi",
         "db:test:seed": "php bin/console doctrine:fixtures:load --env=test -n --ansi",
+        "install:first": [
+            "php bin/console doctrine:schema:create -n --env=prod --ansi",
+            "php bin/console doctrine:fixtures:load -n --env=prod --ansi"
+        ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
