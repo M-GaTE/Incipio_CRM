@@ -1,0 +1,12 @@
+{# layout d'accueil pour les études  #}
+
+{% extends "MgateDashboardBundle::layout.html.twig" %}
+{% block content_bundle %}
+   Admin
+
+    {{  form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Valider</button>
+    {{ form_end(form) }}
+
+{% endblock %}
