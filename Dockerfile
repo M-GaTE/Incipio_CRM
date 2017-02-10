@@ -57,7 +57,7 @@ RUN \
     && chown -R www-data . var/cache var/logs var/sessions
 
 #Install phantomjs
-RUN apt-get install bzip2 fontconfig wget \
+RUN apt-get install -y  bzip2 fontconfig wget \
     && wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && mv phantomjs-2.1.1-linux-x86_64 /usr/local/bin \
