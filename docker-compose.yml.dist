@@ -14,9 +14,9 @@ database:
     image: mysql
     environment:
         MYSQL_ROOT_PASSWORD: changeme
-        MYSQL_DATABASE: api_platform
-        MYSQL_USER: api_platform
-        MYSQL_PASSWORD: api_platform
+        MYSQL_DATABASE: jeyser
+        MYSQL_USER: jeyser
+        MYSQL_PASSWORD: jeyser
     volumes:
         # mysql
         - "./docker/mysql:/var/lib/mysql"
