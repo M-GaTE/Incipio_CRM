@@ -13,3 +13,16 @@ docker --version
 curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 docker-compose --version
+
+# Prepare docker-compose.yml
+echo "What is the domain name that points on that server (crm.n7consulting.fr) :"
+read subdomain
+echo "\n What is your contact email adress (contact@n7consulting.fr) :"
+read email
+cp docker-compose.yml.dist docker-compose.yml
+
+sed -i "s/REPLACE_WITH_YOUR_HOST/$subdomain/g" docker-compose.yml
+sed -i "s/REPLACE_WITH_YOUR_EMAIL/$email/g" docker-compose.yml
+
+docker-compose build
+docker-compose up -d
