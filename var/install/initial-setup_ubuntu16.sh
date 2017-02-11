@@ -17,7 +17,7 @@ docker-compose --version
 # Prepare docker-compose.yml
 echo "What is the domain name that points on that server (crm.n7consulting.fr) :"
 read subdomain
-echo "\n What is your contact email adress (contact@n7consulting.fr) :"
+echo "What is your contact email adress (contact@n7consulting.fr) :"
 read email
 cp docker-compose.yml.dist docker-compose.yml
 
@@ -26,3 +26,7 @@ sed -i "s/REPLACE_WITH_YOUR_EMAIL/$email/g" docker-compose.yml
 
 docker-compose build
 docker-compose up -d
+
+#load database schema & fixtures
+docker-compose exec web composer install:first
+echo "Installation is now complete. You can now log in with credentials admin/admin. Don't forget to change that password."

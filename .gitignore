@@ -237,5 +237,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-app/sessions/*
+var/sessions/*
 uploads/*
