@@ -128,6 +128,22 @@ fos_user:
 
 #CommentBundle
 fos_comment:
+    acl_roles:
+        comment:
+            create: ROLE_SUIVEUR
+            view: ROLE_SUIVEUR
+            edit: ROLE_SUIVEUR
+            delete: ROLE_ADMIN
+        thread:
+            create: ROLE_SUIVEUR
+            view: ROLE_SUIVEUR
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
+        vote:
+            create: ROLE_ADMIN
+            view: ROLE_ADMIN
+            edit: ROLE_ADMIN
+            delete: ROLE_ADMIN
     acl: true
     service:
         acl:
