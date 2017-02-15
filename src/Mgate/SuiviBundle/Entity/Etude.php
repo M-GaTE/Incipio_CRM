@@ -299,7 +299,7 @@ class Etude
             $this->getThread()->setId('etude_'.$this->getId());
             $this->getThread()->setPermalink('fake');
             $em->persist($t);
-            $em->flush($t);
+            $em->flush();
         }
     }
 

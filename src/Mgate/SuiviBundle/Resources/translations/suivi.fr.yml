@@ -148,6 +148,7 @@ suivi:
     type_audit: Type d'audit
     todo: TODO
     document: Document
+    commentaries: Commentaires
     statut: Statut
     redige: Rédigé
     relu: Relu

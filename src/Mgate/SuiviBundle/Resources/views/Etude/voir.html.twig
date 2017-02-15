@@ -14,6 +14,7 @@
         <li><a href="#tab4" data-toggle="tab">{{ 'suivi.suivi'|trans({}, 'suivi') }}</a></li>
         {%endif%}
         <li><a href="#tab5" data-toggle="tab">{{ 'suivi.document'|trans({}, 'suivi') }}</a></li>
+        <li><a href="#tab6" data-toggle="tab">{{ 'suivi.commentaries'|trans({}, 'suivi') }}</a></li>
     </ul>
     <div class="tab-content">
     <!-- ERRORS -->
@@ -43,12 +44,16 @@
         <div class="tab-pane" id="tab5">
         {% include "MgateSuiviBundle:Etude:TabVoir/Documents.html.twig" with  {'etude':  etude} %}
         </div>
+
+        <!-- Commentaires sur les études -->
+        <div class="tab-pane" id="tab6">
+            {% if etude.thread|default('0') %}
+                {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': etude.thread.id} %}
+            {% endif %}
+        </div>
     </div>
 </div>
 
-{#% if etude.thread|default('0') %#}
-    {#% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': etude.thread.id} %#}
-{#% endif %#}
 {% endblock %}
 
 {% block javascript_quick %}
