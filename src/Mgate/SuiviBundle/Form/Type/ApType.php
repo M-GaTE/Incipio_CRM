@@ -54,7 +54,11 @@ class ApType extends AbstractType
                     'choice_label' => function ($name) {
                         return $name;
                     }, ))
-            ->add('competences'/**,'textarea', array('label' => 'Capacité des intervenants:', 'required' => false, 'attr' => array('cols' => '100%', 'rows' => 5))**/);
+            ->add('competences',Select2EntityType::class, array(
+                'class' => 'N7consulting\RhBundle\Entity\Competence',
+                'by_reference' => false,
+                'multiple' => true,
+            ));
     }
 
     public function getBlockPrefix()
