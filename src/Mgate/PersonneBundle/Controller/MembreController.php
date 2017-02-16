@@ -133,23 +133,6 @@ class MembreController extends Controller
             $photoUpload = $form->get('photo')->getData();
 
             if ($form->isValid()) {
-                if ($membre->getPersonne()) {
-                    // Photo de l'étudiant
-                    $path = $membre->getPromotion().'/'.
-                        preg_replace(
-                            '#[^a-zA-Z0-9ÁÀÂÄÉÈÊËÍÌÎÏÓÒÔÖÚÙÛÜáàâäéèêëíìîïóòôöúùûüÇç\-_]#',
-                            '_',
-                        mb_strtolower($membre->getPersonne()->getNom(), 'UTF-8')
-                    ).'_'.
-                        preg_replace(
-                            '#[^a-zA-Z0-9ÁÀÂÄÉÈÊËÍÌÎÏÓÒÔÖÚÙÛÜáàâäéèêëíìîïóòôöúùûüÇç\-_]#',
-                            '_',
-                        mb_strtolower($membre->getPersonne()->getPrenom(), 'UTF-8')
-                    );
-                } else {
-                    $path = '';
-                }
-                $promo = $membre->getPromotion();
 
                 /*
                  * Traitement de l'image de profil
@@ -163,13 +146,6 @@ class MembreController extends Controller
                     if ($photoUpload) {
                         $document = $documentManager->uploadDocumentFromFile($photoUpload, $authorizedMIMEType, $name, $photoInformation, true);
                         $membre->setPhotoURI($document->getWebPath());
-                    } elseif (!$membre->getPhotoURI() && $promo !== null && $membre->getPersonne()) { // Spécifique EMSE
-                        $ressourceURL = 'http://ismin.emse.fr/ismin/Photos/P'.urlencode($path);
-                        $headers = get_headers($ressourceURL);
-                        if (preg_match('#200#', $headers[0])) {
-                            $document = $documentManager->uploadDocumentFromUrl($ressourceURL, $authorizedMIMEType, $name, $photoInformation, true);
-                            $membre->setPhotoURI($document->getWebPath());
-                        }
                     }
                 }
 
