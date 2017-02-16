@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mgate\PubliBundle\Entity\RelatedDocument;
 use Mgate\SuiviBundle\Entity\Mission;
 use N7consulting\RhBundle\Entity\Competence;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Mgate\PersonneBundle\Entity\Membre.
@@ -40,6 +41,7 @@ class Membre
     private $missions;
 
     /**
+     * @Assert\Valid()
      * @ORM\OneToOne(targetEntity="Mgate\PersonneBundle\Entity\Personne", inversedBy="membre", fetch="EAGER", cascade={"persist", "merge", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -115,6 +117,7 @@ class Membre
     private $formatPaiement;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="Mgate\PersonneBundle\Entity\Filiere")
      */
     private $filiere;

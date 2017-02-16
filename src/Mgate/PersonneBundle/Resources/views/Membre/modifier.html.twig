@@ -27,9 +27,9 @@
             <td>{{ form_label(form.personne.sexe) }}</td>
             <td>{{ form_widget(form.personne.sexe) }}</td>
             <td>{{ form_label(form.personne.prenom) }}</td>
-            <td>{{ form_widget(form.personne.prenom) }}</td>
+            <td>{{ form_widget(form.personne.prenom) }} {{ form_errors(form.personne.prenom) }}</td>
             <td>{{ form_label(form.personne.nom) }}</td>
-            <td>{{ form_widget(form.personne.nom) }}</td>
+            <td>{{ form_widget(form.personne.nom) }} {{ form_errors(form.personne.nom) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.personne.mobile) }}</td>
@@ -103,6 +103,8 @@
                 <td>{{ form_label(mandat.finMandat) }}</td>
                 <td>{{ form_widget(mandat.finMandat) }}</td>
             </tr>
+        {% else %}
+            {{ form_row(form.mandats) }}
         {% endfor %}
         </tbody>
     </table>

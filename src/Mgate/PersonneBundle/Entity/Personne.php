@@ -13,6 +13,7 @@ namespace Mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mgate\UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Mgate\PersonneBundle\Entity\Personne.
@@ -33,14 +34,14 @@ class Personne extends Adressable
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
