@@ -114,7 +114,7 @@ class Etude
     private $confidentiel;
 
     /**
-     * @ORM\ManyToMany(targetEntity="N7consulting\RhBundle\Entity\Competence", mappedBy="etudes", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="N7consulting\RhBundle\Entity\Competence", mappedBy="etudes", cascade={"persist","merge"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $competences;
@@ -1653,25 +1653,23 @@ class Etude
     /**
      * Add competences.
      *
-     * @param Competence $competences
-     *
-     * @return Competence
+     * @param Competence $competence
      */
-    public function addCompetence(Competence $competences)
+    public function addCompetence(Competence $competence)
     {
-        $this->competences[] = $competences;
-
-        return $this;
+        $this->competences[] = $competence;
+        $competence->addEtude($this);
     }
 
     /**
      * Remove competences.
      *
-     * @param Competence $competences
+     * @param Competence $competence
      */
-    public function removeCompetence(Competence $competences)
+    public function removeCompetence(Competence $competence)
     {
-        $this->competences->removeElement($competences);
+        $this->competences->removeElement($competence);
+        $competence->removeEtude($this);
     }
 
     /**
