@@ -45,8 +45,9 @@ class EmployeController extends Controller
                 $em->persist($employe);
                 $employe->getPersonne()->setEmploye($employe);
                 $em->flush();
+                $this->addFlash('success','Employé ajouté');
 
-                return $this->redirect($this->generateUrl('MgatePersonne_employe_voir', array('id' => $employe->getId())));
+                return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir', array('id' => $employe->getProspect()->getId())));
             }
         }
 
@@ -74,43 +75,21 @@ class EmployeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function voirAction($id)
+    public function modifierAction(Request $request, Employe $employe)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('MgatePersonneBundle:Employe')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('L\'employé demandé n\'existe pas');
-        }
-
-        return $this->render('MgatePersonneBundle:Employe:voir.html.twig', array(
-            'employe' => $entity,
-            ));
-    }
-
-    /**
-     * @Security("has_role('ROLE_SUIVEUR')")
-     */
-    public function modifierAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$employe = $em->getRepository('Mgate\PersonneBundle\Entity\Employe')->find($id)) {
-            throw $this->createNotFoundException('L\'employé demandé n\'existe pas');
-        }
 
         // On passe l'$article récupéré au formulaire
         $form = $this->createForm(EmployeType::class, $employe);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($employe->getId());
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($employe);
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('MgatePersonne_employe_voir', array('id' => $employe->getId())));
+                $this->addFlash('success','Employé modifié');
+                return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir', array('id' => $employe->getProspect()->getId())));
             }
         }
 
@@ -131,18 +110,16 @@ class EmployeController extends Controller
      */
     public function deleteAction(Employe $employe, Request $request)
     {
-        $session = $request->getSession();
 
         $form = $this->createDeleteForm($employe->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-                //remove employes
-                $em->remove($employe);
+            //remove employes
+            $em->remove($employe);
             $em->flush();
-            $session->getFlashBag()->add('success', 'Employé supprimé');
+            $this->addFlash('success', 'Employé supprimé');
 
             return $this->redirect($this->generateUrl('MgatePersonne_prospect_voir', array('id' => $employe->getProspect()->getId())));
         }

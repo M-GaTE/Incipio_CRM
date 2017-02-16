@@ -68,13 +68,6 @@ MgatePersonne_employe_ajouter:
         prospect_id: \d+
     methods:  [GET, HEAD, POST]
 
-MgatePersonne_employe_voir:
-    path:   /employe/{id}
-    defaults:  { _controller: MgatePersonneBundle:Employe:voir}
-    requirements:
-        id:  \d+
-    methods:  [GET, HEAD]
-
 MgatePersonne_employe_modifier:
     path: /employe/modifier/{id}
     defaults: {_controller: MgatePersonneBundle:Employe:modifier}
