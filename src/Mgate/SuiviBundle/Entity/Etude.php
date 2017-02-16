@@ -22,6 +22,7 @@ use Mgate\PersonneBundle\Entity\Prospect;
 use Mgate\PubliBundle\Entity\RelatedDocument;
 use Mgate\TresoBundle\Entity\Facture;
 use N7consulting\RhBundle\Entity\Competence;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Mgate\SuiviBundle\Entity\Etude.
@@ -49,6 +50,7 @@ class Etude
 
     /**
      * @var int
+     * @Assert\NotBlank()
      * @ORM\Column(name="mandat", type="integer")
      */
     private $mandat;
@@ -62,7 +64,7 @@ class Etude
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="nom", type="string", length=50, nullable=false,  unique=true)
      */
     private $nom;
@@ -143,6 +145,7 @@ class Etude
     private $relatedDocuments;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="Mgate\PersonneBundle\Entity\Prospect", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
