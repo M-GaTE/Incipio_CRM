@@ -12,6 +12,8 @@
 namespace Mgate\PersonneBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Mgate\PersonneBundle\Entity\Employe.
@@ -31,12 +33,15 @@ class Employe
     protected $id;
 
     /**
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="Prospect", inversedBy="employes", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $prospect;
 
     /**
+     * @Assert\Valid()
+     * @Assert\NotNull()
      * @ORM\OneToOne(targetEntity="Personne", inversedBy="employe", fetch="EAGER", cascade={"persist", "merge", "remove"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
