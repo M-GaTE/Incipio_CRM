@@ -22,40 +22,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ApController extends Controller
 {
-    /**
-     * @Security("has_role('ROLE_SUIVEUR')")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('MgateSuiviBundle:Etude')->findAll();
-
-        return $this->render('MgateSuiviBundle:Etude:index.html.twig', array(
-            'etudes' => $entities,
-        ));
-    }
-
-    /**
-     * @Security("has_role('ROLE_SUIVEUR')")
-     * @param Etude $etude
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function voirAction(Etude $etude)
-    {
-        $ap = $etude->getAp();
-        if (!$ap) {
-            throw $this->createNotFoundException('L\'Avant-Projet demandé n\'existe pas !');
-        }
-
-        if ($this->get('Mgate.etude_manager')->confidentielRefus($etude, $this->getUser(), $this->get('security.authorization_checker'))) {
-            throw new AccessDeniedException('Cette étude est confidentielle');
-        }
-
-        return $this->render('MgateSuiviBundle:Ap:voir.html.twig', array(
-            'ap' => $ap,
-        ));
-    }
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
@@ -83,9 +49,9 @@ class ApController extends Controller
 
             if ($form->isValid()) {
                 $this->get('Mgate.doctype_manager')->checkSaveNewEmploye($etude->getAp());
-
                 $em->flush();
 
+                $this->addFlash('success','Avant-Projet modifié');
                 if ($request->get('phases')) {
                     return $this->redirect($this->generateUrl('MgateSuivi_phases_modifier', array('id' => $etude->getId())));
                 } else {
@@ -120,13 +86,14 @@ class ApController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('MgateSuivi_etude_voir', array('nom' => $etude->getNom())));
             }
         }
 
-        return $this->render('MgateSuiviBundle:Ap:modifier.html.twig', array(
+        return $this->render('MgateSuiviBundle:Ap:rediger.html.twig', array(
             'form' => $form->createView(),
             'etude' => $etude,
         ));

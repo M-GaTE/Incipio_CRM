@@ -67,13 +67,6 @@ MgateSuivi_etude_supprimer:
         numero: \d+
     methods:  [GET, HEAD, POST]
 
-MgateSuivi_ap_voir:
-    path: /ap/voir/{id}
-    defaults: {_controller: MgateSuiviBundle:Ap:voir}
-    requirements:
-        id: \d+
-    methods:  [GET, HEAD]
-
 MgateSuivi_ap_rediger:
     path: /ap/rediger/{id}
     defaults: {_controller: MgateSuiviBundle:Ap:rediger}
