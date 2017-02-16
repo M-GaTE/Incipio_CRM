@@ -104,7 +104,7 @@ class DocumentController extends Controller
         $options['etudiant'] = $membre;
 
         if (!$response = $this->upload($request, false, $options)) {
-            // Si tout est ok
+            $this->addFlash('success','Document mis en ligne');
             return $this->redirect($this->generateUrl('MgatePersonne_membre_voir', array('id' => $membre_id)));
         } else {
             return $response;
@@ -159,6 +159,7 @@ class DocumentController extends Controller
     private function upload(Request $request, $deleteIfExist = false, $options = array())
     {
         $document = new Document();
+        $document->setRootDir($this->get('kernel')->getRootDir());
         if (count($options)) {
             $relatedDocument = new RelatedDocument();
             $relatedDocument->setDocument($document);
