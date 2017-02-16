@@ -61,20 +61,6 @@ class EmployeController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function indexAction($page)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('MgatePersonneBundle:Employe')->findAll();
-
-        return $this->render('MgatePersonneBundle:Employe:index.html.twig', array(
-            'users' => $entities,
-        ));
-    }
-
-    /**
-     * @Security("has_role('ROLE_SUIVEUR')")
-     */
     public function modifierAction(Request $request, Employe $employe)
     {
         $em = $this->getDoctrine()->getManager();

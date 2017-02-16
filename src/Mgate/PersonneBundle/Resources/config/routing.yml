@@ -53,14 +53,6 @@ MgatePersonne_prospect_supprimer:
         id: \d+
     methods:  [GET, HEAD, POST]
 
-MgatePersonne_employe_homepage:
-    path:  /employe
-    defaults: { _controller: MgatePersonneBundle:Employe:index , page: 1 }
-    requirements:
-      page : \d*
-    methods:  [GET, HEAD]
-
-
 MgatePersonne_employe_ajouter:
     path: /employe/add/{prospect_id}/{format}
     defaults: {_controller: MgatePersonneBundle:Employe:ajouter, format:null}
