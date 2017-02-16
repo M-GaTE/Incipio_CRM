@@ -48,7 +48,7 @@ class Prospect extends Adressable
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="nom", type="string", length=63)
      */
     private $nom;
