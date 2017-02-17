@@ -32,10 +32,7 @@ class FormationType extends AbstractType
                 ->add('description', TextareaType::class, array('label' => 'Description de la Formation', 'required' => true, 'attr' => array('cols' => '100%', 'rows' => 5)))
                 ->add('categorie', Select2ChoiceType::class, array(
                     'multiple' => true,
-                    'choices' => Formation::getCategoriesChoice(),
-                    'choice_label' => function ($value) {
-                        return $value;
-                    },
+                    'choices' => array_flip(Formation::getCategoriesChoice()),
                     'label' => 'Catégorie',
                     'required' => false, )
                 )

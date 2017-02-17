@@ -5,11 +5,7 @@
 {% endblock %}
 
 {% block content_bundle %}
-    {% for message in messages  %}
-        <div class="alert alert-{{ message['label'] }}">
-            {{ message['message'] }}
-        </div>
-    {% endfor%}
+
 {{ form_start(form) }}
     <input class="btn" type="submit" value="{{ 'formation.formation_enregistrer'|trans({}, 'formation') }}"/>
     <br/><br/>
