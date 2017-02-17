@@ -123,10 +123,8 @@ $(window).load(function(){
             function(data){
                 $(".loading").hide();
 
-                if(data.responseCode!=100 ){
-                   alert("An unexpeded error occured.");
-                   bootbox.alert(data, function() { });
-                   $('#output').html(data.msg);
+                if(data.responseCode!=200 ){
+                   bootbox.alert(data.msg);
                 }
             });
 
