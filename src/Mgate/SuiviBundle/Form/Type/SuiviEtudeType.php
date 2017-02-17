@@ -24,11 +24,8 @@ class SuiviEtudeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('stateID', ChoiceType::class, array('choices' => Etude::getStateIDChoice(), 'label' => 'Etat de l\'Étude',
-            'required' => true,
-            'choice_label' => function ($var) {
-                return $var;
-            }, ))
+        $builder->add('stateID', ChoiceType::class, array('choices' => array_flip(Etude::getStateIDChoice()), 'label' => 'Etat de l\'Étude',
+            'required' => true, ))
                 ->add('auditDate', GenemuDateType::class, array('label' => 'Audité le', 'format' => 'd/MM/y', 'required' => false, 'widget' => 'single_text'))
                 ->add('auditType', AuditType::class, array('label' => 'Type d\'audit', 'required' => false, 'choice_label' => function ($var) {
                     return $var;
