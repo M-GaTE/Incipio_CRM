@@ -16,7 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminParamType extends AbstractType
 {
@@ -45,11 +44,11 @@ class AdminParamType extends AbstractType
         return 'Mgate_dashboardbundle_adminparam';
     }
 
-//    public function configureOptions(OptionsResolver $resolver)
-//    {
-//        $resolver->setDefaults();
-//    }
-
+    /**
+     * Returns the class associated with form type string
+     * @param $formType string the string representing the form type
+     * @return mixed
+     */
     private function chooseType($formType){
 
         if($formType === 'string'){

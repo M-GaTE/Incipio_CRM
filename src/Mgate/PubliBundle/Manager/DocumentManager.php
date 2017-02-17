@@ -28,7 +28,6 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Webmozart\KeyValueStore\Api\KeyValueStore;
 
 class DocumentManager extends BaseManager
 {
@@ -83,7 +82,7 @@ class DocumentManager extends BaseManager
         $extension = substr(strrchr($mime, '\\'), 1);
 
         // le dernier true indique de ne pas vérifier si le fichier à été téléchargé en HTTP
-        $file = new \Symfony\Component\HttpFoundation\File\UploadedFile($tempStorage, $name.'.'.$extension, $mime, filesize($tempStorage), null, true);
+        $file = new UploadedFile($tempStorage, $name.'.'.$extension, $mime, filesize($tempStorage), null, true);
 
         return $this->uploadDocumentFromFile($file, $authorizedMIMEType, $name, $relatedDocument, $deleteIfExist);
     }
@@ -125,7 +124,7 @@ class DocumentManager extends BaseManager
     /**
      * uploadDocument has to be the only one fonction used to persist Document.
      *
-     * @param \Mgate\PubliBundle\Entity\RelatedDocument $document
+     * @param \Mgate\PubliBundle\Entity\Document $document
      * @param \Mgate\PubliBundle\Entity\RelatedDocument $relatedDocument
      * @param bool                                      $deleteIfExist
      *

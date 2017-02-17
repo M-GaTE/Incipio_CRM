@@ -13,6 +13,7 @@ namespace Mgate\PubliBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -139,9 +140,9 @@ class Document
     /**
      * Set path.
      *
-     * @param string $junior ['id']
-     *
+     * @param $path
      * @return Document
+     *
      */
     public function setSubdirectory($path)
     {
@@ -305,7 +306,7 @@ class Document
      *
      * @return Document
      */
-    public function setFile($file)
+    public function setFile(UploadedFile $file)
     {
         $this->file = $file;
 

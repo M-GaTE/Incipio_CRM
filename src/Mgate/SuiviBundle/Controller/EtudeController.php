@@ -74,6 +74,8 @@ class EtudeController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Request $request
+     * @return Response
      */
     public function getEtudesAsyncAction(Request $request)
     {
@@ -131,6 +133,8 @@ class EtudeController extends Controller
 
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function addAction(Request $request)
     {
