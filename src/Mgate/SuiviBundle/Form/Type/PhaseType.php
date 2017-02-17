@@ -52,7 +52,7 @@ class PhaseType extends AbstractType
         }
 
         if ($options['isAvenant']) {
-            $builder->add('etatSurAvenant', ChoiceType::class, array('choices' => Phase::getEtatSurAvenantChoice(), 'required' => false));
+            $builder->add('etatSurAvenant', ChoiceType::class, array('choices' => array_flip(Phase::getEtatSurAvenantChoice()), 'required' => false));
         }
     }
 

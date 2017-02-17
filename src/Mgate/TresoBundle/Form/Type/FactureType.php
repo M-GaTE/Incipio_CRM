@@ -28,11 +28,9 @@ class FactureType extends AbstractType
     {
         $builder->add('exercice', IntegerType::class, array('label' => 'Exercice Comptable', 'required' => true))
                 ->add('numero', IntegerType::class, array('label' => 'Numéro de la Facture', 'required' => true))
-                ->add('type', ChoiceType::class, array('choices' => Facture::getTypeChoices(),
+                ->add('type', ChoiceType::class, array('choices' => array_flip(Facture::getTypeChoices()),
                     'required' => true,
-                    'choice_label' => function ($name) {
-                        return $name;
-                    }, ))
+                    ))
                 ->add('objet', TextareaType::class,
                     array('label' => 'Objet de la Facture',
                         'required' => true,

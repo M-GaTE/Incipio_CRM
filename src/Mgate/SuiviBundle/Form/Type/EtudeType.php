@@ -61,10 +61,7 @@ class EtudeType extends AbstractType
                 'label' => 'Domaine de compétence',
                 ))
             ->add('sourceDeProspection', ChoiceType::class, array(
-                'choices' => Etude::getSourceDeProspectionChoice(),
-                'choice_label' => function ($value) {
-                    return $value;
-                },
+                'choices' => array_flip(Etude::getSourceDeProspectionChoice()),
                 'required' => false,
             ));
     }

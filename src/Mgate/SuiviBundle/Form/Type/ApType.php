@@ -48,12 +48,10 @@ class ApType extends AbstractType
                         'cols' => '100%',
                         'rows' => 5, ), ))
             ->add('typePrestation', ChoiceType::class,
-                array('choices' => Etude::getTypePrestationChoice(),
+                array('choices' => array_flip(Etude::getTypePrestationChoice()),
                     'label' => 'Type de prestation',
                     'required' => false,
-                    'choice_label' => function ($name) {
-                        return $name;
-                    }, ))
+                    ))
             ->add('competences',Select2EntityType::class, array(
                 'class' => 'N7consulting\RhBundle\Entity\Competence',
                 'by_reference' => false,

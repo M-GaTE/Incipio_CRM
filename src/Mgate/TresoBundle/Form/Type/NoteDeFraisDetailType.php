@@ -38,7 +38,7 @@ class NoteDeFraisDetailType extends AbstractType
                 ->add('tauxTVA', NumberType::class, array('label' => 'Taux TVA (%)', 'required' => false))
                 ->add('kilometrage', IntegerType::class, array('label' => 'Nombre de Kilomètre', 'required' => false))
                 ->add('tauxKm', IntegerType::class, array('label' => 'Prix au kilomètre (en cts)', 'required' => false))
-                ->add('type', ChoiceType::class, array('choices' => NoteDeFraisDetail::getTypeChoices(), 'required' => true))
+                ->add('type', ChoiceType::class, array('choices' => array_flip(NoteDeFraisDetail::getTypeChoices()), 'required' => true))
                 ->add('compte', Select2EntityType::class, array(
                         'class' => 'Mgate\TresoBundle\Entity\Compte',
                         'choice_label' => 'libelle',
