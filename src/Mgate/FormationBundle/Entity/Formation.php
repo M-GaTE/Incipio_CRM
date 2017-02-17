@@ -81,14 +81,14 @@ class Formation
     private $membresPresents;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      * @ORM\Column(name="dateDebut", type="datetime")
      * @Assert\NotBlank
      */
     private $dateDebut;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      * @ORM\Column(name="dateFin", type="datetime")
      * @Assert\NotBlank
      */
