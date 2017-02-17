@@ -35,7 +35,7 @@ Mgate_publi_documenttype_index:
     methods:  [GET, HEAD]
 
 Mgate_publi_document_voir:
-    path: /Documents/{id}
+    path: /Documents/show/{id}
     defaults: {_controller: MgatePubliBundle:Document:voir}
     methods:  [GET, HEAD]
 
