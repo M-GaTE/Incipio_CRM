@@ -404,9 +404,9 @@ class EtudeController extends Controller
                 $em->persist($etude);
                 $em->flush();
 
-                $return = array('responseCode' => 100, 'msg' => 'ok');
+                $return = array('responseCode' => 200, 'msg' => 'ok');
             } else {
-                $return = array('responseCode' => 200, 'msg' => 'Erreur:'.$formSuivi->getErrorsAsString());
+                $return = array('responseCode' => 412, 'msg' => 'Erreur:'.$formSuivi->getErrors(true, false));
             }
         }
 
