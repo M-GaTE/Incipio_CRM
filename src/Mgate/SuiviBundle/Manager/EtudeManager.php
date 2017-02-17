@@ -87,7 +87,7 @@ class EtudeManager extends \Twig_Extension
     {
         try {
             if ($etude->getConfidentiel() && !$userToken->isGranted('ROLE_CA')) {
-                if ($etude->getSuiveur() && $user->getId() != $etude->getSuiveur()->getId()) {
+                if ($etude->getSuiveur() && $user->getPersonne()->getId() != $etude->getSuiveur()->getId()) {
                     return true;
                 }
             }
@@ -102,7 +102,7 @@ class EtudeManager extends \Twig_Extension
     {
         try {
             if ($etude->getConfidentiel() && !$isGranted) {
-                if ($etude->getSuiveur() && $user->getId() != $etude->getSuiveur()->getId()) {
+                if ($etude->getSuiveur() && $user->getPersonne()->getId() != $etude->getSuiveur()->getId()) {
                     return true;
                 }
             }
