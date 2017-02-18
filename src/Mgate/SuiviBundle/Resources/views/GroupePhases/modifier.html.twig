@@ -84,7 +84,7 @@
         var collectionHolder = $('.groupes');
 
         function updateOrder() {
-            $('input.numero').each(function (i) {
+            $('input.position').each(function (i) {
                 $(this).val(i);
             });
             $('.titregroupe').each(function (i) {
@@ -167,7 +167,7 @@
                 e.preventDefault();
 
                 //CONFIRM confirmation suppression
-                var message = "Êtes vous sûr de vouloir supprimer cette groupe ?";
+                var message = "Êtes vous sûr de vouloir supprimer ce groupe ?";
                 bootbox.confirm(message, function (result) {
                     if (result) {
                         // remove the li for the tag form
