@@ -6,9 +6,10 @@ parameters:
     database_name:     jeyser
     database_user:     jeyser
     database_password: jeyser
-    
-    mailer_transport:  mail
-    mailer_host:       localhost
+
+    #uses mailer container.
+    mailer_transport:  smtp
+    mailer_host:       mailer
     mailer_user:       ~
     mailer_password:   ~
     
@@ -22,3 +23,8 @@ parameters:
     role_voir_confidentiel: ROLE_CA
     junior_authorizedStorageSize: 104857600
     junior_id: 1
+
+    #technical parameters for sending mail
+    technical_from: '%env(TECHNICAL_FROM)%'
+    technical_to:  '%env(TECHNICAL_TO)%'
+    technical_host: '%env(TECHNICAL_HOST)%'

@@ -2,8 +2,12 @@ web:
     build: .
     environment:
         SYMFONY_ENV: prod
+        TECHNICAL_FROM: REPLACE_WITH_YOUR_EMAIL
+        TECHNICAL_TO: REPLACE_WITH_YOUR_EMAIL
+        TECHNICAL_HOST: REPLACE_WITH_YOUR_HOST
     links:
         - database
+        - mailer
     volumes:
         - .:/app
     labels:
@@ -38,3 +42,8 @@ traefik:
     - /var/run/docker.sock:/var/run/docker.sock
   labels:
       - traefik.enable=false
+
+mailer:
+    build: ./docker/mail
+    labels:
+        - traefik.enable=false

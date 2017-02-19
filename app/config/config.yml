@@ -122,8 +122,8 @@ fos_user:
       confirmation:
         enabled:    true
     from_email:
-        address:        no-reply@N7consulting.fr
-        sender_name:    Erp.N7consulting.fr
+        address:        "%technical_from%"
+        sender_name:    "%technical_host%"
 
 
 #CommentBundle
