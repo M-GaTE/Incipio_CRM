@@ -58,7 +58,7 @@ RUN \
 
 #Install phantomjs
 RUN apt-get install -y  bzip2 fontconfig wget \
-    && wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
+    && wget https://raw.github.com/n7consulting/phantomjs-build/master/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && tar xvjf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
     && mv phantomjs-2.1.1-linux-x86_64 /usr/local/bin \
     && ln -sf /usr/local/bin/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin \
