@@ -27,7 +27,7 @@ monolog:
             handler: swift
         swift:
             type:       swift_mailer
-            from_email: no-reply@N7consulting.fr
-            to_email:   dsi@N7consulting.fr
+            from_email: "%technical_from%"
+            to_email:   "%technical_to%"
             subject:    An Error Occurred!
             level:      error
