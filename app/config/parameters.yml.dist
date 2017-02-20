@@ -28,3 +28,7 @@ parameters:
     technical_from: '%env(TECHNICAL_FROM)%'
     technical_to:  '%env(TECHNICAL_TO)%'
     technical_host: '%env(TECHNICAL_HOST)%'
+    #defaults value to make jeyser work even though, env vars are unset.
+    env(TECHNICAL_FROM): no-reply@jeyser-crm.local
+    env(TECHNICAL_TO): dsi@jeyser-crm.local
+    env(TECHNICAL_HOST): jeyser-crm.localdomain.local
