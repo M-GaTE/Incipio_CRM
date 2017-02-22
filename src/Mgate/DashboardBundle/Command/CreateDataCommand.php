@@ -3,6 +3,7 @@
 namespace Mgate\DashboardBundle\Command;
 
 use Mgate\PersonneBundle\Entity\Employe;
+use Mgate\PersonneBundle\Entity\Filiere;
 use Mgate\PersonneBundle\Entity\Membre;
 use Mgate\PersonneBundle\Entity\Personne;
 use Mgate\PersonneBundle\Entity\Prospect;
@@ -162,6 +163,17 @@ class CreateDataCommand extends ContainerAwareCommand
                 ),
             ),
         );
+
+        /* Filiere management */
+        $filieres = array('Info', 'Hydro', 'Electronique', 'Telecoms', 'Automatique');
+
+        foreach ($filieres as $ff){
+            $nf = new Filiere();
+            $nf->setDescription('Demo filiere');
+            $nf->setNom($ff);
+            $em->persist($ff);
+        }
+
         $inserted_projects = 0;
         $inserted_prospects = 0;
 
@@ -305,6 +317,8 @@ class CreateDataCommand extends ContainerAwareCommand
                 $em->persist($pv);
             }
         }
+
+
         $em->flush();
 
         $output->writeln('Done.');
