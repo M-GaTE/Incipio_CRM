@@ -33,36 +33,36 @@
         </tr>
         <tr>
             <td>{{ form_label(form.personne.mobile) }}</td>
-            <td>{{ form_widget(form.personne.mobile) }}</td>
+            <td>{{ form_widget(form.personne.mobile) }} {{ form_errors(form.personne.mobile) }}</td>
             <td>{{ form_label(form.promotion) }}</td>
-            <td>{{ form_widget(form.promotion) }}</td>
+            <td>{{ form_widget(form.promotion) }} {{ form_errors(form.promotion) }}</td>
             <td>{{ form_label(form.identifiant) }}</td>
-            <td>{{ form_widget(form.identifiant) }}</td>
+            <td>{{ form_widget(form.identifiant) }} {{ form_errors(form.identifiant) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.personne.email) }}</td>
-            <td>{{ form_widget(form.personne.email) }}</td>
+            <td>{{ form_widget(form.personne.email) }} {{ form_errors(form.personne.email) }}</td>
             <td>{{ form_label(form.personne.estAbonneNewsletter) }}</td>
-            <td>{{ form_widget(form.personne.estAbonneNewsletter) }}</td>
+            <td>{{ form_widget(form.personne.estAbonneNewsletter) }} {{ form_errors(form.personne.estAbonneNewsletter) }}</td>
             <td>{{ form_label(form.personne.emailEstValide) }}</td>
-            <td>{{ form_widget(form.personne.emailEstValide) }}</td>
+            <td>{{ form_widget(form.personne.emailEstValide) }} {{ form_errors(form.personne.emailEstValide) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.dateDeNaissance) }}</td>
-            <td>{{ form_widget(form.dateDeNaissance) }}</td>
+            <td>{{ form_widget(form.dateDeNaissance) }} {{ form_errors(form.dateDeNaissance) }}</td>
             <td>{{ form_label(form.lieuDeNaissance) }}</td>
-            <td>{{ form_widget(form.lieuDeNaissance) }}</td>
+            <td>{{ form_widget(form.lieuDeNaissance) }} {{ form_errors(form.lieuDeNaissance) }}</td>
             <td>{{ form_label(form.nationalite) }}</td>
-            <td>{{ form_widget(form.nationalite) }}</td>
+            <td>{{ form_widget(form.nationalite) }} {{ form_errors(form.nationalite) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.emailEMSE) }}</td>
-            <td>{{ form_widget(form.emailEMSE) }}</td>
+            <td>{{ form_widget(form.emailEMSE) }} {{ form_errors(form.emailEMSE) }}</td>
             <td>
                 {{ form_label(form.personne.adresse) }}
             </td>
             <td>
-                {{ form_widget(form.personne.adresse) }}
+                {{ form_widget(form.personne.adresse) }} {{ form_errors(form.personne.adresse) }}
             </td>
             <td>
                 {{ form_label(form.personne.codepostal) }}<br>
@@ -73,20 +73,23 @@
                 {{ form_widget(form.personne.codepostal) }}<br>
                 {{ form_widget(form.personne.ville) }}<br>
                 {{ form_widget(form.personne.pays) }}
+                {{ form_errors(form.personne.codepostal) }}
+                {{ form_errors(form.personne.ville) }}
+                {{ form_errors(form.personne.pays) }}
             </td>
         </tr>
         <tr>
             <td>{{ form_label(form.formatPaiement) }}</td>
-            <td>{{ form_widget(form.formatPaiement) }}</td>
+            <td>{{ form_widget(form.formatPaiement) }} {{ form_errors(form.formatPaiement) }}</td>
             <td>{{ form_label(form.filiere) }}</td>
-            <td>{{ form_widget(form.filiere) }}</td>
+            <td>{{ form_widget(form.filiere) }} {{ form_errors(form.filiere) }}</td>
         </tr>
         <tr>
             <th colspan="7">Informations Intervenant</th>
         </tr>
         <tr>
             <td colspan="4">{{ form_label(form.dateConventionEleve) }}</td>
-            <td colspan="3">{{ form_widget(form.dateConventionEleve) }}</td>
+            <td colspan="3">{{ form_widget(form.dateConventionEleve) }} {{ form_errors(form.dateConventionEleve) }}</td>
         </tr>
         <tr>
             <td colspan="6">
@@ -97,11 +100,11 @@
         {% for mandat in form.mandats %}
             <tr class="mandats">
                 <td>{{ form_label(mandat.poste) }}</td>
-                <td colspan="2">{{ form_widget(mandat.poste) }}</td>
+                <td colspan="2">{{ form_widget(mandat.poste) }} {{ form_errors(mandat.poste) }}</td>
                 <td>{{ form_label(mandat.debutMandat) }}</td>
-                <td>{{ form_widget(mandat.debutMandat) }}</td>
+                <td>{{ form_widget(mandat.debutMandat) }} {{ form_errors(mandat.debutMandat) }}</td>
                 <td>{{ form_label(mandat.finMandat) }}</td>
-                <td>{{ form_widget(mandat.finMandat) }}</td>
+                <td>{{ form_widget(mandat.finMandat) }} {{ form_errors(mandat.finMandat) }}</td>
             </tr>
         {% else %}
             {{ form_row(form.mandats) }}

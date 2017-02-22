@@ -145,7 +145,7 @@ class MembreController extends Controller
 
                     if ($photoUpload) {
                         $document = $documentManager->uploadDocumentFromFile($photoUpload, $authorizedMIMEType, $name, $photoInformation, true);
-                        $membre->setPhotoURI($document->getWebPath());
+                        $membre->setPhotoURI($this->get('router')->generate('Mgate_publi_document_voir', array('id' => $document->getId())));
                     }
                 }
 
