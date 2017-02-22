@@ -17,6 +17,7 @@ main() {
 
     chown -R "$owner:$group" /var/{lock,log,run}/apache*
     chown -R "$owner:$group" var
+    chown -R "$owner:$group" web/tmp
     exec /usr/sbin/apache2ctl "$@"
 }
 
