@@ -306,7 +306,7 @@ class Document
      *
      * @return Document
      */
-    public function setFile(UploadedFile $file)
+    public function setFile($file)
     {
         $this->file = $file;
 
