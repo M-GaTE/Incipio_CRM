@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr>
-            <td rowspan="7" style="text-align: center;"><img class="img-thumbnail" style="height: 200px"
+            <td rowspan="6" style="text-align: center;"><img class="img-thumbnail" style="height: 200px"
                                                              src="{{ asset(photoURI) }}"/><br><br>{{ form_widget(form.photo) }}
             </td>
         </tr>
@@ -88,11 +88,13 @@
             <th colspan="7">Informations Intervenant</th>
         </tr>
         <tr>
-            <td colspan="4">{{ form_label(form.dateConventionEleve) }}</td>
-            <td colspan="3">{{ form_widget(form.dateConventionEleve) }} {{ form_errors(form.dateConventionEleve) }}</td>
+            <td colspan="1">{{ form_label(form.dateConventionEleve) }}</td>
+            <td colspan="2">{{ form_widget(form.dateConventionEleve) }} {{ form_errors(form.dateConventionEleve) }}</td>
+            <td colspan="1">{{ form_label(form.securiteSociale) }}</td>
+            <td colspan="3">{{ form_widget(form.securiteSociale, {'attr': {'style': 'width: 100%' }}) }} {{ form_errors(form.securiteSociale) }}</td>
         </tr>
         <tr>
-            <td colspan="6">
+            <td colspan="7">
                 <button class="btn" type="submit" value="Ajouter mandat" name="add"><i
                             class="fa fa-plus"></i></button>
                 <h4 style="display: inline;">Postes occupés</h4></td>

@@ -57,7 +57,8 @@ class MembreType extends AbstractType
                 ->add('filiere', EntityType::class,
                     array('label' => 'Filiere',
                         'class' => 'Mgate\\PersonneBundle\\Entity\\Filiere',
-                        'required' => true, ));
+                        'required' => true, ))
+                ->add('securiteSociale', TextType::class, array('required' => false, 'label' => 'Numéro de sécurité sociale'));
     }
 
     public function getBlockPrefix()

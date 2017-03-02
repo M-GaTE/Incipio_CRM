@@ -123,6 +123,11 @@ class Membre
     private $filiere;
 
     /**
+     * @ORM\Column(name="securiteSociale", type="string", length=25, nullable=true)
+     */
+    private $securiteSociale;
+
+    /**
      * @ORM\ManyToMany(targetEntity="N7consulting\RhBundle\Entity\Competence", mappedBy="membres", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -577,4 +582,22 @@ class Membre
     {
         return $this->competences;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSecuriteSociale()
+    {
+        return $this->securiteSociale;
+    }
+
+    /**
+     * @param mixed $securiteSociale
+     */
+    public function setSecuriteSociale($securiteSociale)
+    {
+        $this->securiteSociale = $securiteSociale;
+    }
+
+
 }
