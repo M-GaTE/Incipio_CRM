@@ -44,8 +44,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if ($user->getId() == 1) {
-            throw new AccessDeniedException('Impossible de modifier le Super Administrateur. Contactez dsi@n7consulting.fr pour toute modification.');
+        if (in_array('ROLE_SUPER_ADMIN',$user->getRoles())) {
+            throw new AccessDeniedException('Impossible de modifier un Super Administrateur. Contactez dsi@n7consulting.fr si cette action est vraiment nécessaire.');
         }
 
         $form = $this->createForm(UserAdminType::class, $user, array(
@@ -90,8 +90,8 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if ($user->getId() == 1) {
-                throw new AccessDeniedException('Impossible de supprimer le Super Administrateur. Contactez support@incipio.fr pour toute modification.');
+            if (in_array('ROLE_SUPER_ADMIN',$user->getRoles())) {
+                throw new AccessDeniedException('Impossible de supprimer un Super Administrateur. Contactez dsi@n7consulting.fr si cette action est vraiment nécessaire.');
             }
 
             if ($user->getPersonne()) {
