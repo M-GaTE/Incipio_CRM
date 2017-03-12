@@ -171,7 +171,7 @@ class CreateDataCommand extends ContainerAwareCommand
             $nf = new Filiere();
             $nf->setDescription('Demo filiere');
             $nf->setNom($ff);
-            $em->persist($ff);
+            $em->persist($nf);
         }
 
         $inserted_projects = 0;
