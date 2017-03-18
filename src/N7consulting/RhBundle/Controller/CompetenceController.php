@@ -77,17 +77,13 @@ class CompetenceController extends Controller
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
-    public function modifierAction(Request $request, $id)
+    public function modifierAction(Request $request, Competence $competence)
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (!$competence = $em->getRepository('N7consulting\RhBundle\Entity\Competence')->find($id)) {
-            throw $this->createNotFoundException('La compétence demandée n\'existe pas !');
-        }
-
         // On passe l'$article récupéré au formulaire
         $form = $this->createForm(CompetenceType::class, $competence);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($competence->getId());
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
 
@@ -124,27 +120,18 @@ class CompetenceController extends Controller
      * @Security("has_role('ROLE_CA')")
      *
      * @param Request $request
-     * @param $id
-     *
+     * @param Competence $competence param converter on id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Competence $competence)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($competence->getId());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            if (!$entity = $em->getRepository('N7consulting\RhBundle\Entity\Competence')->find($id)) {
-                throw $this->createNotFoundException('La compétence demandée n\'existe pas !');
-            }
-
-            foreach ($entity->getMembres() as $membre) {
-                $membre->setPoste(null);
-            }
-
-            $em->remove($entity);
+            $em->remove($competence);
             $em->flush();
         }
 
