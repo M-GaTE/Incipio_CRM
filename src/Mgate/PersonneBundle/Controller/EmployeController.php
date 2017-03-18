@@ -79,10 +79,14 @@ class EmployeController extends Controller
             }
         }
 
+        //to avoid asynchronous request at display time
+        $prospect = $em->getRepository('MgatePersonneBundle:Prospect')->findOneById($employe->getProspect()->getId());
+
         return $this->render('MgatePersonneBundle:Employe:modifier.html.twig', array(
             'form' => $form->createView(),
             'delete_form' => $deleteForm->createView(),
             'employe' => $employe,
+            'prospect' => $prospect,
         ));
     }
 

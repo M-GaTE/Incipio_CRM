@@ -2,17 +2,30 @@
 
 {% block title %}Modifier un employé - {{ parent() }}{% endblock %}
 
+{% block content_title %}
+    Modifier un employé
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb no-margin pull-right">
+        <li>
+            <a href="{{ path('MgatePersonne_prospect_homepage') }}">Liste des prospects</a>
+        </li>
+        <li>
+            <a href="{{  path('MgatePersonne_prospect_voir', {'id': prospect.id}) }}">{{ prospect.nom }}</a>
+        </li>
+        <li>
+            Modifier {{ form.vars.value.personne.prenomNom }}
+        </li>
+    </ul>
+{% endblock %}
+
+
 {% block content_bundle %}
 
-    <h2>Modifier un employé</h2>
     {% include "MgatePersonneBundle:Employe:formulaire.html.twig" %}
 
     <div class="row">
-        <div class="col-md-2 col-xs-6">
-            <p>
-                <a href="{{ path('MgatePersonne_prospect_voir', {'id': employe.prospect.id}) }}">Retour au prospect</a>
-            </p>
-        </div>
         <div class="col-md-2 col-xs-6">
             {% if is_granted('ROLE_SUIVEUR') %}
             <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement cet employé ?"

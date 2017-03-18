@@ -15,6 +15,15 @@
     Affichage d'un prospect
 {% endblock %}
 
+{% block breadcrumb %}
+    <ul class="breadcrumb no-margin pull-right">
+        <li>
+            <a href="{{ path('MgatePersonne_prospect_homepage') }}">Liste des prospects</a>
+        </li>
+        <li>{{ prospect.nom }}</li>
+    </ul>
+{% endblock %}
+
 {% block content_bundle %}
 
     <h2>{{ prospect.nom }}</h2>

@@ -11,14 +11,14 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 {% block content_title %}
-                    Gestion des Clients et des Utilisateurs
+                    {{ 'dashboard.gestion_utilisateurs_clients'|trans({}, 'dashboard') }}
                 {% endblock %}
             </h3>
 
             {% block breadcrumb %}
                 <ul class="breadcrumb no-margin pull-right">
                     <li>
-                        <a href="{{ path('MgatePersonne_poste_homepage') }}">{{ 'dashboard.postes_filieres'|trans({}, 'dashboard') }}</a>
+                        {{ 'dashboard.membres_clients'|trans({}, 'dashboard') }}
                     </li>
                 </ul>
             {% endblock %}

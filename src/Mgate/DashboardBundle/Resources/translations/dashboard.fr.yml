@@ -65,3 +65,5 @@ dashboard:
   domaine_competences: Domaines de compétence
   parameters: Paramètres
   administration_bdd: Administration BDD
+  gestion_utilisateurs_clients: Gestion des Clients et des Utilisateurs
+  membres_clients: Membres & clients

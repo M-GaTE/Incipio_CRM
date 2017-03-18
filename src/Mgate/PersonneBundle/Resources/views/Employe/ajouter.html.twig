@@ -11,14 +11,30 @@
 
 {% endif %}
     #}
+{% block title %}
+    Ajouter un employé à {{ prospect.nom }} - {{ parent() }}
+{% endblock %}
 
+{% block content_title %}
+    Ajouter un employé à {{ prospect.nom }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb no-margin pull-right">
+        <li>
+            <a href="{{ path('MgatePersonne_prospect_homepage') }}">Liste des prospects</a>
+        </li>
+        <li>
+            <a href="{{ path('MgatePersonne_prospect_voir', {'id': prospect.id}) }}">{{ prospect.nom }}</a>
+        </li>
+        <li>
+            Ajouter un employé
+        </li>
+    </ul>
+{% endblock %}
 
 {% block content_bundle %}
 
-  <h2>Ajouter un Employé à "{{ prospect.nom }}"</h2>
-
-  {% include "MgatePersonneBundle:Employe:formulaire.html.twig" %}
-
-
+    {% include "MgatePersonneBundle:Employe:formulaire.html.twig" %}
 
 {% endblock %}

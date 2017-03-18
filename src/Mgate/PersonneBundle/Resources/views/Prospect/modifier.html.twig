@@ -6,24 +6,33 @@
     Modifier un prospect
 {% endblock %}
 
+{% block breadcrumb %}
+    <ul class="breadcrumb no-margin pull-right">
+        <li>
+            <a href="{{ path('MgatePersonne_prospect_homepage') }}">Liste des prospects</a>
+        </li>
+        <li>
+            <a href="{{ path('MgatePersonne_prospect_voir', {'id': prospect.id}) }}">{{ prospect.nom }}</a>
+        </li>
+        <li>
+            Modifier le prospect
+        </li>
+    </ul>
+{% endblock %}
 {% block content_bundle %}
 
     {% include "MgatePersonneBundle:Prospect:formulaire.html.twig" %}
 
     <div class="row">
         <div class="col-md-2 col-xs-6">
-            <a href="{{ path('MgatePersonne_prospect_voir', {'id': prospect.id}) }}">
-                Retour au prospect
-            </a>
-        </div>
-
-        <div class="col-md-2 col-xs-6">
             {% if is_granted('ROLE_SUIVEUR') %}
-            <form class="bootbox-confirm" data-content="Êtes-vous sûr de vouloir supprimer définitivement ce prospect ?"
-                  action="{{ path('MgatePersonne_prospect_supprimer', { 'id': form.vars.value.id }) }}" method="post">
-                {{ form_widget(delete_form) }}
-                <button class=" btn btn-danger">Supprimer le prospect</button>
-            </form>
+                <form class="bootbox-confirm"
+                      data-content="Êtes-vous sûr de vouloir supprimer définitivement ce prospect ?"
+                      action="{{ path('MgatePersonne_prospect_supprimer', { 'id': form.vars.value.id }) }}"
+                      method="post">
+                    {{ form_widget(delete_form) }}
+                    <button class=" btn btn-danger">Supprimer le prospect</button>
+                </form>
             {% endif %}
         </div>
     </div>

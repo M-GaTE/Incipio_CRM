@@ -1,14 +1,4 @@
-<nav class="navbar" role="navigation">
-    <div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-suivi">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<span class="navbar-brand">Document relatif à l'étudiant {{ membre.personne.prenomNom }}</span>
-		</div>
-		<div class="collapse navbar-collapse navbar-suivi">
+			<h4>Document relatif à l'étudiant {{ membre.personne.prenomNom }}</h4>
             <ul class="nav  navbar-nav">
                 <li>
                     <a href="{{ path('Mgate_publi_document_uploadEtudiant', {'membre_id': membre.id}) }}">
@@ -27,8 +17,7 @@
                         <span class="fa fa-lock"></span> Générer un Accord de Confidentialité
                 </a></li>
             </ul>
-    </div>
-</nav>
+
 
 <table class="table table-bordered table-striped">
     <tr>
