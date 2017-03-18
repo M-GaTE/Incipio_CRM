@@ -208,30 +208,6 @@ class Membre
     }
 
     /**
-     * Set poste.
-     *
-     * @param \Mgate\PersonneBundle\Entity\Poste $poste
-     *
-     * @return Membre
-     */
-    public function setPoste(Poste $poste = null)
-    {
-        $this->poste = $poste;
-
-        return $this;
-    }
-
-    /**
-     * Get poste.
-     *
-     * @return \Mgate\PersonneBundle\Entity\Membre
-     */
-    public function getPoste()
-    {
-        return $this->poste;
-    }
-
-    /**
      * Add mandats.
      *
      * @param Mandat $mandats
