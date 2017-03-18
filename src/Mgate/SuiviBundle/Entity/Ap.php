@@ -32,7 +32,7 @@ class Ap extends DocType
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Etude", inversedBy="ap")
+     * @ORM\OneToOne(targetEntity="Etude", mappedBy="ap")
      * @ORM\JoinColumn(nullable=false, onDelete="cascade")
      */
     protected $etude;
@@ -170,6 +170,6 @@ class Ap extends DocType
 
     public function __toString()
     {
-        return $this->etude->getReference().'/PM/';
+        return 'PM '.$this->id;
     }
 }

@@ -31,7 +31,7 @@ class Cc extends DocType
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Etude", inversedBy="cc")
+     * @ORM\OneToOne(targetEntity="Etude", mappedBy="cc")
      * @ORM\JoinColumn(nullable=false, onDelete="cascade")
      */
     protected $etude;
