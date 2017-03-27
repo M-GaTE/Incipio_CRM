@@ -25,8 +25,8 @@ class Version20170320153305 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DC1F8620904F155E ON Etude (ap_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DC1F8620A823BE4F ON Etude (cc_id)');
 
-        $this->addSql('UPDATE Etude SET ap_id = (SELECT id  FROM ap WHERE etude_id = etude.id)');
-        $this->addSql('UPDATE Etude SET cc_id = (SELECT id  FROM cc WHERE etude_id = etude.id) ');
+        $this->addSql('UPDATE Etude SET ap_id = (SELECT id  FROM Ap WHERE etude_id = Etude.id)');
+        $this->addSql('UPDATE Etude SET cc_id = (SELECT id  FROM Cc WHERE etude_id = Etude.id) ');
     }
 
     /**
