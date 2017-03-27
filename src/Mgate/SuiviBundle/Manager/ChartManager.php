@@ -106,7 +106,7 @@ class ChartManager /*extends \Twig_Extension*/
                 }
 
                 $data[] = array('x' => count($cats), 'y' => $date->getTimestamp() * 1000,
-                    'name' => 'Procès Verbal de Recette', 'detail' => 'signé le '.$date->format('d/m/Y'), );
+                    'titre' => 'Procès Verbal de Recette', 'detail' => 'signé le '.$date->format('d/m/Y'), );
                 $series[] = array('type' => 'scatter', 'data' => $data, 'marker' => array('symbol' => 'circle'));
             }
             $cats[] = 'Documents';
