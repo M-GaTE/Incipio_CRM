@@ -54,6 +54,14 @@ class EtudeType extends AbstractType
                            return $pr->getMembreOnly();
                        },
                        'required' => false, ))
+            ->add('suiveurQualite', Select2EntityType::class,
+                array('label' => 'Suiveur qualité',
+                       'class' => 'Mgate\\PersonneBundle\\Entity\\Personne',
+                       'choice_label' => 'prenomNom',
+                       'query_builder' => function (PersonneRepository $pr) {
+                           return $pr->getMembreOnly();
+                       },
+                       'required' => false, ))
             ->add('domaineCompetence', Select2EntityType::class, array(
                 'class' => 'Mgate\SuiviBundle\Entity\DomaineCompetence',
                 'choice_label' => 'nom',

@@ -127,6 +127,8 @@ class EtudeRepository extends EntityRepository
 //            ->addSelect('factures')
             ->leftJoin('e.suiveur', 'suiveur')
             ->addSelect('suiveur')
+            ->leftJoin('e.suiveurQualite', 'suiveurQualite')
+            ->addSelect('suiveurQualite')
             ->leftJoin('e.missions', 'missions')
             ->addSelect('missions')
             ->leftJoin('missions.repartitionsJEH', 'repartitionsJEH')

@@ -158,6 +158,12 @@ class Etude
     protected $suiveur;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Mgate\PersonneBundle\Entity\Personne")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $suiveurQualite;
+
+    /**
      * @ORM\OneToOne(targetEntity="\Mgate\CommentBundle\Entity\Thread", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -930,6 +936,23 @@ class Etude
     {
         return $this->suiveur;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSuiveurQualite()
+    {
+        return $this->suiveurQualite;
+    }
+
+    /**
+     * @param mixed $suiveurQualite
+     */
+    public function setSuiveurQualite($suiveurQualite)
+    {
+        $this->suiveurQualite = $suiveurQualite;
+    }
+
 
     /**
      * Add clientContacts.
