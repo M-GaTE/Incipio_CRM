@@ -4,6 +4,6 @@ parameters:
 services:
     Mgate_user.password_resetting:
         class: Mgate\UserBundle\EventListener\RegistrationListener
-        arguments: [ "@mailer", "@templating" ]
+        arguments: [ "@mailer", "@templating", "%technical_from%", "%technical_to%" ]
         tags:
             - { name: kernel.event_subscriber }

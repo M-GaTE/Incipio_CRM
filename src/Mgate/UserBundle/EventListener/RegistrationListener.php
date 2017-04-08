@@ -16,17 +16,21 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Listener responsible to change the redirection at the end of the password resetting.
+ * Listener responsible to send a mail to admin at each user registration.
  */
 class RegistrationListener implements EventSubscriberInterface
 {
     private $mailer;
     private $templating;
+    private $mail_from;
+    private $mail_to;
 
-    public function __construct(\Swift_Mailer $mailer, $templating)
+    public function __construct(\Swift_Mailer $mailer, $templating, $mail_from, $mail_to)
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->mail_from = $mail_from;
+        $this->mail_to = $mail_to;
     }
 
     /**
@@ -42,12 +46,10 @@ class RegistrationListener implements EventSubscriberInterface
     // Prévenir lorsque quelqu'un valide compte
     public function onRegistrationConfirmed(FilterUserResponseEvent $event)
     {
-        // $junior = $this->container->getParameter('junior');  //ligne faisant bugger la validation, skippé pour un remplacement. TODO : Regler ce problème.
         $message = \Swift_Message::newInstance()
-            ->setSubject('Incipio : Nouvel utilisateur '.$event->getUser()->getUsername())
-            ->setFrom('no-reply@erp.N7consulting.fr')
-           // ->setTo($junior['email']) // cf remarque ci-dessus, remplacement en dur de la variable car bug
-            ->setTo('contact@N7consulting.fr')
+            ->setSubject('Jeyser CRM : Nouvel utilisateur '.$event->getUser()->getUsername())
+            ->setFrom($this->mail_from)
+            ->setTo($this->mail_to)
             ->setBody($this->templating->render('MgateUserBundle:Default:alert-email.html.twig',
                                         array('username' => $event->getUser()->getUsername(), 'email' => $event->getUser()->getEmail())), 'text/html');
         $this->mailer->send($message);
