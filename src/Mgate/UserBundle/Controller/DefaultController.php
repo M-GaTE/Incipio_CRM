@@ -44,12 +44,12 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (in_array('ROLE_SUPER_ADMIN',$user->getRoles())) {
+        if (in_array('ROLE_SUPER_ADMIN', $user->getRoles())) {
             throw new AccessDeniedException('Impossible de modifier un Super Administrateur. Contactez dsi@n7consulting.fr si cette action est vraiment nécessaire.');
         }
 
         $form = $this->createForm(UserAdminType::class, $user, array(
-            'user_class' => 'Mgate\UserBundle\Entity\User','roles' => $this->getParameter('security.role_hierarchy.roles')
+            'user_class' => 'Mgate\UserBundle\Entity\User', 'roles' => $this->getParameter('security.role_hierarchy.roles')
         ));
         $deleteForm = $this->createDeleteForm($user->getId());
         if ($request->getMethod() == 'POST') {
@@ -90,7 +90,7 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if (in_array('ROLE_SUPER_ADMIN',$user->getRoles())) {
+            if (in_array('ROLE_SUPER_ADMIN', $user->getRoles())) {
                 throw new AccessDeniedException('Impossible de supprimer un Super Administrateur. Contactez dsi@n7consulting.fr si cette action est vraiment nécessaire.');
             }
 
@@ -119,38 +119,47 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
-    public function addUserFromPersonneAction(Personne $personne)
+    public function addUserFromPersonneAction(Request $request, Personne $personne)
     {
+        $create_user_form = $this->createFormBuilder(array('id' => $personne->getId()))
+            ->add('id', HiddenType::class)
+            ->getForm();
 
-        if ($personne->getUser()) {
-            throw new \Exception('Un utilisateur est déjà liée à cette personne !');
+        if ($request->getMethod() == 'POST') {
+            $create_user_form->handleRequest($request);
+
+            if ($create_user_form->isValid()) {
+
+                if ($personne->getUser()) {
+                    throw new \Exception('Un utilisateur est déjà liée à cette personne !');
+                }
+                if (!$personne->getEmail()) {
+                    throw new \Exception("l'utilisateur n'a pas d'email valide !");
+                }
+
+                $temporaryPassword = md5(mt_rand());
+                $token = sha1(uniqid(mt_rand(), true));
+
+                /* Génération de l'user */
+                $userManager = $this->get('fos_user.user_manager');
+
+                $user = $userManager->createUser();
+                $user->setPersonne($personne);
+                $user->setEmail($personne->getEmail());
+                $user->setPlainPassword($temporaryPassword);
+                // Utilisateur à confirmer
+                $user->setEnabled(false);
+                $user->setConfirmationToken($token);
+                $user->setUsername($this->enMinusculeSansAccent($personne->getPrenom() . '.' . $personne->getNom()));
+
+                $userManager->updateUser($user); // Pas besoin de faire un flush (ça le fait tout seul)
+
+                /* Envoie d'un email de confirmation */
+                $mailer = $this->container->get('fos_user.mailer');
+                $mailer->sendConfirmationEmailMessage($user);
+                $this->addFlash('success','Compte utilisateur créé');
+            }
         }
-        if (!$personne->getEmail()) {
-            throw new \Exception("l'utilisateur n'a pas d'email valide !");
-        }
-
-        $temporaryPassword = md5(mt_rand());
-        $token = sha1(uniqid(mt_rand(), true));
-
-        /* Génération de l'user */
-        $userManager = $this->get('fos_user.user_manager');
-
-        $user = $userManager->createUser();
-        $user->setPersonne($personne);
-        $user->setEmail($personne->getEmail());
-        $user->setPlainPassword($temporaryPassword);
-        // Utilisateur à confirmer
-        $user->setEnabled(false);
-        $user->setConfirmationToken($token);
-        $user->setUsername($this->enMinusculeSansAccent($personne->getPrenom() . '.' . $personne->getNom()));
-
-        $userManager->updateUser($user); // Pas besoin de faire un flush (ça le fait tout seul)
-
-        /* Envoie d'un email de confirmation */
-        $mailer = $this->container->get('fos_user.mailer');
-        $mailer->sendConfirmationEmailMessage($user);
-        $mailer->sendResettingEmailMessage($user);
-
         return $this->redirect($this->generateUrl('Mgate_user_lister'));
     }
 

@@ -79,14 +79,23 @@ class MembreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('MgatePersonneBundle:Membre')->getMembreCompetences($id);
+        $membre = $em->getRepository('MgatePersonneBundle:Membre')->getMembreCompetences($id);
 
-        if (!$entity) {
+        if (!$membre) {
             throw $this->createNotFoundException('Le membre demandé n\'existe pas !');
         }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') && $membre->getPersonne() && !$membre->getPersonne()->getUser()) {
+            $create_user_form = $this->createFormBuilder(array('id' => $membre->getPersonne()->getId()))
+                ->add('id', HiddenType::class)
+                ->setAction($this->generateUrl('Mgate_user_addFromPersonne', array('id' => $membre->getPersonne()->getId())))
+                ->setMethod('POST')
+                ->getForm();
+        }
+
 
         return $this->render('MgatePersonneBundle:Membre:voir.html.twig', array(
-                    'membre' => $entity,
+                    'membre' => $membre,
+                'create_user_form' => (isset($create_user_form) ? $create_user_form->createView() : null)
         ));
     }
 

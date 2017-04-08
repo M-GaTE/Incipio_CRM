@@ -18,8 +18,8 @@
 
 {% block content_bundle %}
 
-    <div class="tabs-container no-margin">
-        <ul class="nav nav-tabs no-margin" style="font-weight: bold;">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Fiche</a></li>
             <li><a href="#tab2" data-toggle="tab">Documents</a></li>
         </ul>
@@ -34,19 +34,34 @@
             </div>
         </div>
     </div>
-    <p>
-        <a class="btn btn-warning" href="{{ path('MgatePersonne_membre_modifier', {'id': membre.id}) }}">Modifier le
-            membre</a>
-        {% if is_granted('ROLE_ADMIN') and membre.personne and membre.personne.user is null and membre.personne.email is not null %}
-            <a class="btn btn-danger" href="{{ path('Mgate_user_addFromPersonne', { 'id':membre.personne.id }) }}">Ouvrir
-                un compte Utilisateur</a>
+    <div class="row">
+        <div class="col-sm-3 col-xs-6">
+            <a class="btn btn-default" href="{{ path('MgatePersonne_membre_homepage') }}">Retour à la liste des
+                membres</a>
+        </div>
+        {% if is_granted('ROLE_ADMIN') and membre.personne and membre.personne.user is null %}
+            <div class="col-sm-3 col-xs-6">
+
+                {% if membre.personne.email is not null %}
+
+                    {{ form_start(create_user_form) }}
+                    {{ form_widget(create_user_form) }}
+                    <button type="submit" class="btn btn-primary">Ouvrir
+                        un compte utilisateur
+                    </button>
+                    {{ form_end(create_user_form) }}
+                {% elseif  membre.personne.email is null %}
+                    <code>
+                        Vous devez définir un email valide pour créer un compte utilisateur à ce membre.
+                    </code>
+                {% endif %}
+            </div>
         {% endif %}
-        <a class="btn btn-info" href="{{ path('MgatePersonne_membre_homepage') }}">Retour à la liste des membres</a>
-    </p>
-    <br>
-    {% if is_granted('ROLE_ADMIN') and membre.personne.email is null %}
-        <code>
-            Vous devez définir un email valide pour créer un compte utilisateur à ce membre.
-        </code>
-    {% endif %}
+        <div class="col-sm-3 col-xs-6">
+
+            <a class="btn btn-warning" href="{{ path('MgatePersonne_membre_modifier', {'id': membre.id}) }}">
+                Modifier le membre</a>
+        </div>
+    </div>
+
 {% endblock %}

@@ -17,5 +17,5 @@ Mgate_user_supprimer:
 Mgate_user_addFromPersonne:
     path: /user/addFromPersonne/{id}
     defaults: { _controller: MgateUserBundle:Default:addUserFromPersonne }
-    methods:  [GET, HEAD, POST]
+    methods:  [POST]
 
