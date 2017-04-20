@@ -18,12 +18,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-// A externaliser dans les parametres
-define('STATE_ID_EN_COURS_X', 2);
-define('STATE_ID_TERMINEE_X', 4);
 
 class IndicateursController extends Controller
 {
+
+    const STATE_ID_EN_COURS_X =2;
+    const STATE_ID_TERMINEE_X = 4;
+
     public static $defaultStyle = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
 
     /**
@@ -101,8 +102,8 @@ class IndicateursController extends Controller
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
-            $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
-                || $etude->getStateID() == STATE_ID_TERMINEE_X;
+            $signee = $etude->getStateID() == self::STATE_ID_EN_COURS_X
+                || $etude->getStateID() == self::STATE_ID_TERMINEE_X;
 
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
@@ -164,8 +165,8 @@ class IndicateursController extends Controller
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
-            $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
-                || $etude->getStateID() == STATE_ID_TERMINEE_X;
+            $signee = $etude->getStateID() == self::STATE_ID_EN_COURS_X
+                || $etude->getStateID() == self::STATE_ID_TERMINEE_X;
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
                 $nombreEtudesParMandat[$idMandat] += 1;
@@ -352,7 +353,7 @@ class IndicateursController extends Controller
 
         $clients = array();
         foreach ($etudes as $etude) {
-            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+            if ($etude->getStateID() == self::STATE_ID_EN_COURS_X || $etude->getStateID() == self::STATE_ID_TERMINEE_X) {
                 $clientID = $etude->getProspect()->getId();
                 if (key_exists($clientID, $clients)) {
                     ++$clients[$clientID];
@@ -535,8 +536,8 @@ class IndicateursController extends Controller
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
-            $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
-                || $etude->getStateID() == STATE_ID_TERMINEE_X;
+            $signee = $etude->getStateID() == self::STATE_ID_EN_COURS_X
+                || $etude->getStateID() == self::STATE_ID_TERMINEE_X;
 
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
@@ -586,7 +587,7 @@ class IndicateursController extends Controller
         $repartitions = array();
 
         foreach ($etudes as $etude) {
-            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+            if ($etude->getStateID() == self::STATE_ID_EN_COURS_X || $etude->getStateID() == self::STATE_ID_TERMINEE_X) {
                 $type = $etude->getProspect()->getEntiteToString();
                 $CA = $etude->getMontantHT();
                 $chiffreDAffairesTotal += $CA;
@@ -626,7 +627,7 @@ class IndicateursController extends Controller
         $repartitions = array();
 
         foreach ($etudes as $etude) {
-            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+            if ($etude->getStateID() == self::STATE_ID_EN_COURS_X || $etude->getStateID() == self::STATE_ID_TERMINEE_X) {
                 ++$nombreClient;
                 $type = $etude->getProspect()->getEntiteToString();
                 array_key_exists($type, $repartitions) ? $repartitions[$type]++ : $repartitions[$type] = 1;
@@ -854,8 +855,8 @@ class IndicateursController extends Controller
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
-            $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
-                || $etude->getStateID() == STATE_ID_TERMINEE_X;
+            $signee = $etude->getStateID() == self::STATE_ID_EN_COURS_X
+                || $etude->getStateID() == self::STATE_ID_TERMINEE_X;
 
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
@@ -934,8 +935,8 @@ class IndicateursController extends Controller
         foreach ($Ccs as $cc) {
             $etude = $cc->getEtude();
             $dateSignature = $cc->getDateSignature();
-            $signee = $etude->getStateID() == STATE_ID_EN_COURS_X
-                || $etude->getStateID() == STATE_ID_TERMINEE_X;
+            $signee = $etude->getStateID() == self::STATE_ID_EN_COURS_X
+                || $etude->getStateID() == self::STATE_ID_TERMINEE_X;
 
             if ($dateSignature && $signee) {
                 $idMandat = $etudeManager->dateToMandat($dateSignature);
@@ -1147,7 +1148,7 @@ class IndicateursController extends Controller
         $repartitions = array();
 
         foreach ($etudes as $etude) {
-            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+            if ($etude->getStateID() == self::STATE_ID_EN_COURS_X || $etude->getStateID() == self::STATE_ID_TERMINEE_X) {
                 ++$nombreClient;
                 $type = $etude->getSourceDeProspectionToString();
                 array_key_exists($type, $repartitions) ? $repartitions[$type]++ : $repartitions[$type] = 1;
@@ -1192,7 +1193,7 @@ class IndicateursController extends Controller
         $repartitions = array();
 
         foreach ($etudes as $etude) {
-            if ($etude->getStateID() == STATE_ID_EN_COURS_X || $etude->getStateID() == STATE_ID_TERMINEE_X) {
+            if ($etude->getStateID() == self::STATE_ID_EN_COURS_X || $etude->getStateID() == self::STATE_ID_TERMINEE_X) {
                 $type = $etude->getSourceDeProspectionToString();
                 $CA = $etude->getMontantHT();
                 $chiffreDAffairesTotal += $CA;

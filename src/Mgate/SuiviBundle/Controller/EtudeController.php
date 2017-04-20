@@ -23,14 +23,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-define('STATE_ID_EN_NEGOCIATION', 1);
-define('STATE_ID_EN_COURS', 2);
-define('STATE_ID_EN_PAUSE', 3);
-define('STATE_ID_TERMINEE', 4);
-define('STATE_ID_AVORTEE', 5);
 
 class EtudeController extends Controller
 {
+    const STATE_ID_EN_NEGOCIATION = 1;
+    const STATE_ID_EN_COURS = 2;
+    const STATE_ID_EN_PAUSE = 3;
+    const STATE_ID_TERMINEE = 4;
+    const STATE_ID_AVORTEE = 5;
+    
     /**
      * @Security("has_role('ROLE_SUIVEUR')")
      */
@@ -42,13 +43,13 @@ class EtudeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Etudes En Négociation : stateID = 1
-        $etudesEnNegociation = $em->getRepository('MgateSuiviBundle:Etude')->getPipeline(array('stateID' => STATE_ID_EN_NEGOCIATION), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnNegociation = $em->getRepository('MgateSuiviBundle:Etude')->getPipeline(array('stateID' => self::STATE_ID_EN_NEGOCIATION), array('mandat' => 'DESC', 'num' => 'DESC'));
 
         //Etudes En Cours : stateID = 2
-        $etudesEnCours = $em->getRepository('MgateSuiviBundle:Etude')->getPipeline(array('stateID' => STATE_ID_EN_COURS), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnCours = $em->getRepository('MgateSuiviBundle:Etude')->getPipeline(array('stateID' => self::STATE_ID_EN_COURS), array('mandat' => 'DESC', 'num' => 'DESC'));
 
         //Etudes en pause : stateID = 3
-        $etudesEnPause = $em->getRepository('MgateSuiviBundle:Etude')->getPipeline(array('stateID' => STATE_ID_EN_PAUSE), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnPause = $em->getRepository('MgateSuiviBundle:Etude')->getPipeline(array('stateID' => self::STATE_ID_EN_PAUSE), array('mandat' => 'DESC', 'num' => 'DESC'));
 
         //Etudes Terminees et Avortees Chargée en Ajax dans getEtudesAsyncAction
         //On push des arrays vides pour avoir les menus déroulants
@@ -88,9 +89,9 @@ class EtudeController extends Controller
             // CHECK VAR ATTENTION INJECTION SQL ?
             $etudes = $em->getRepository('MgateSuiviBundle:Etude')->findBy(array('stateID' => $stateID, 'mandat' => $mandat), array('num' => 'DESC'));
 
-            if ($stateID == STATE_ID_TERMINEE) {
+            if ($stateID == self::STATE_ID_TERMINEE) {
                 return $this->render('MgateSuiviBundle:Etude:Tab/EtudesTerminees.html.twig', array('etudes' => $etudes));
-            } elseif ($stateID == STATE_ID_AVORTEE) {
+            } elseif ($stateID == self::STATE_ID_AVORTEE) {
                 return $this->render('MgateSuiviBundle:Etude:Tab/EtudesAvortees.html.twig', array('etudes' => $etudes));
             }
         } else {
@@ -320,7 +321,7 @@ class EtudeController extends Controller
                 $form = $form->add((string) (2 * $id), HiddenType::class, array('label' => 'refEtude', 'data' => $etude->getReference()))
                     ->add((string) (2 * $id + 1), 'textarea', array('label' => $etude->getReference(), 'required' => false, 'data' => $etude->getStateDescription()));
                 ++$id;
-                if ($etude->getStateID() == STATE_ID_EN_COURS) {
+                if ($etude->getStateID() == self::STATE_ID_EN_COURS) {
                     array_push($etudesEnCours, $etude);
                 }
             }
@@ -366,8 +367,8 @@ class EtudeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $etudesEnCours = $em->getRepository('MgateSuiviBundle:Etude')->findBy(array('stateID' => STATE_ID_EN_COURS), array('mandat' => 'DESC', 'num' => 'DESC'));
-        $etudesTerminees = $em->getRepository('MgateSuiviBundle:Etude')->findBy(array('stateID' => STATE_ID_TERMINEE), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesEnCours = $em->getRepository('MgateSuiviBundle:Etude')->findBy(array('stateID' => self::STATE_ID_EN_COURS), array('mandat' => 'DESC', 'num' => 'DESC'));
+        $etudesTerminees = $em->getRepository('MgateSuiviBundle:Etude')->findBy(array('stateID' => self::STATE_ID_TERMINEE), array('mandat' => 'DESC', 'num' => 'DESC'));
         $etudes = array_merge($etudesEnCours, $etudesTerminees);
 
         $chartManager = $this->get('Mgate.chart_manager');
@@ -423,7 +424,7 @@ class EtudeController extends Controller
         if ($id > 0) {
             $etude = $em->getRepository('MgateSuiviBundle:Etude')->find($id);
         } else {
-            $etude = $em->getRepository('MgateSuiviBundle:Etude')->findOneBy(array('stateID' => STATE_ID_EN_COURS));
+            $etude = $em->getRepository('MgateSuiviBundle:Etude')->findOneBy(array('stateID' => self::STATE_ID_EN_COURS));
         }
 
         if (!$etude) {
@@ -431,7 +432,7 @@ class EtudeController extends Controller
         }
 
         //Etudes En Négociation : stateID = 1
-        $etudesDisplayList = $em->getRepository('MgateSuiviBundle:Etude')->getTwoStates([STATE_ID_EN_NEGOCIATION, STATE_ID_EN_COURS], array('mandat' => 'ASC', 'num' => 'ASC'));
+        $etudesDisplayList = $em->getRepository('MgateSuiviBundle:Etude')->getTwoStates([self::STATE_ID_EN_NEGOCIATION, self::STATE_ID_EN_COURS], array('mandat' => 'ASC', 'num' => 'ASC'));
 
         if (!in_array($etude, $etudesDisplayList)) {
             throw $this->createNotFoundException('Etude incorrecte');
