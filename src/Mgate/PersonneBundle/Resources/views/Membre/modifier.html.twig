@@ -94,6 +94,10 @@
             <td colspan="3">{{ form_widget(form.securiteSociale, {'attr': {'style': 'width: 100%' }}) }} {{ form_errors(form.securiteSociale) }}</td>
         </tr>
         <tr>
+            <td>{{ form_label(form.commentaire) }}</td>
+            <td colspan="6">{{ form_widget(form.commentaire, {'attr': {'rows':5, 'cols': 50}}) }}</td>
+        </tr>
+        <tr>
             <td colspan="7">
                 <button class="btn" type="submit" value="Ajouter mandat" name="add"><i
                             class="fa fa-plus"></i></button>
