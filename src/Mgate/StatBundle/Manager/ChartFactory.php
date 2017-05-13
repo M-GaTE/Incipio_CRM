@@ -17,7 +17,7 @@ class ChartFactory
         $ob->chart->type('column');
         $ob->yAxis->min(0);
         $ob->yAxis->max(100);
-        $style = IndicateursController::$defaultStyle;
+        $style = IndicateursController::DEFAULT_STYLE;
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
         $ob->xAxis->labels(array('style' => $style));
         $ob->yAxis->labels(array('style' => $style));
