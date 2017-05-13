@@ -1,25 +1,57 @@
 <?php
 
+use Mgate\DashboardBundle\Command\CreateDataCommand;
+use Mgate\UserBundle\DataFixtures\ORM\LoadAdminData;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\AfterStepScope;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends MinkContext implements Context
 {
+    use KernelDictionary;
 
+    const DEFAULT_USERS = array(
+        'admin' => array('username' => 'Load', 'password' => 'admin', 'roles'=> array('ROLE_ADMIN')),
+    );
 
     /**
-     * You might have to manually create those accounts.
+     * @var array
      */
-    public $username_password = array('admin' => 'admin', 'moderateur' => 'moderateur', 'user'=>'user');
+    private $classes;
+
+    /**
+     * @var ManagerRegistry
+     */
+    private $doctrine;
+
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectManager
+     */
+    private $manager;
+
+    /**
+     * @var SchemaTool
+     */
+    private $schemaTool;
+
+    /**
+     * @var KernelInterface
+     */
+    private $kernel;
+
+    public $username_password = array('admin' => 'admin', 'moderateur' => 'moderateur', 'user' => 'user');
 
     /**
      * Initializes context.
@@ -27,9 +59,55 @@ class FeatureContext extends MinkContext implements Context
      * Every scenario gets its own context instance.
      * You can also pass arbitrary arguments to the
      * context constructor through behat.yml.
+     * @param ManagerRegistry $doctrine
+     * @param KernelInterface $kernel
      */
-    public function __construct()
+    public function __construct(ManagerRegistry $doctrine, KernelInterface $kernel)
     {
+        $this->doctrine = $doctrine;
+        $this->manager = $doctrine->getManager();
+        $this->schemaTool = new SchemaTool($this->manager);
+        $this->classes = $this->manager->getMetadataFactory()->getAllMetadata();
+
+        $this->kernel = $kernel;
+    }
+
+    /**
+     * @BeforeScenario @createSchema
+     */
+    public function createDatabase()
+    {
+        $this->schemaTool->createSchema($this->classes);
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
+
+
+        $input = new ArrayInput(array(
+            'command' => 'doctrine:fixtures:load',
+            '-n' => true,
+            '-e' => 'test',
+        ));
+        $output = new BufferedOutput();
+        $application->run($input, $output);
+
+    }
+
+    /**
+     * @AfterScenario @dropSchema
+     * Beware : the annotation in cucumber should also match the case (dropschema is invalid)
+     */
+    public function dropDatabase()
+    {
+        $this->schemaTool->dropSchema($this->classes);
+    }
+
+
+    /** @AfterStep */
+    public function afterStep(AfterStepScope $event)
+    {
+        if (!$event->getTestResult()->isPassed()) {
+            //$this->printLastResponse();
+        }
     }
 
     /**
@@ -38,34 +116,9 @@ class FeatureContext extends MinkContext implements Context
     public function iAmLoggedInAs($username)
     {
         $this->visit("/login");
-        $this->fillField("Nom d'utilisateur", $username);
-        $this->fillField("Mot de passe", $this->username_password[$username]);
+        $this->fillField("_username", $username);
+        $this->fillField("_password", self::DEFAULT_USERS[$username]['password']);
         $this->pressButton("Connexion");
-    }
-
-    /**
-     * @BeforeSuite
-     */
-    public static function prepare(BeforeSuiteScope $scope)
-    {
-        exec('php bin/console doctrine:fixtures:load -n -e test');
-    }
-
-    /**
-     * @AfterScenario @database
-     */
-    public static function cleanUp(AfterScenarioScope $scope)
-    {
-        exec('php bin/console doctrine:fixtures:load -n -e test');
-    }
-
-
-    /** @AfterStep */
-    public function afterStep(AfterStepScope $event)
-    {
-        if (!$event->getTestResult()->isPassed()) {
-            $this->showLastResponse();
-        }
     }
 
     /**
@@ -100,4 +153,7 @@ class FeatureContext extends MinkContext implements Context
         $doctrine->getManager()->flush();
     }
 
+
 }
+
+

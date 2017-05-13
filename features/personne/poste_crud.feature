@@ -1,6 +1,8 @@
 Feature: Poste
-  As an admin I need to be able to CRUD a Poste.
+  As an admin I am able to CRUD a Poste.
 
+  # the "@createSchema" annotation provided by Behat creates a temporary SQLite database for testing the API
+  @createSchema
   Scenario: I can see Poste Homepage & Add Poste button
     Given I am logged in as "admin"
     When I go to "/personne/poste"
@@ -30,6 +32,8 @@ Feature: Poste
     And I should see "Poste modifié"
     And I should see "Responsable Tests"
 
+  # The "@dropSchema" annotation must be added on the last scenario of the feature file to drop the temporary SQLite database
+  @dropSchema
   Scenario: I can delete a Poste
     Given I am logged in as "admin"
     When I go to "/personne/poste/modifier/1"

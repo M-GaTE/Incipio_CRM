@@ -6,8 +6,7 @@ services:
 script:
     - cp docker-compose.yml.dist docker-compose.yml
     - docker-compose build
-    - docker-compose run --rm web composer install -o -n
-    - docker-compose up -d
-    - docker-compose exec web sleep 60 && php bin/console doctrine:schema:create
-    - docker-compose exec web php bin/console doctrine:fixtures:load -n
+#    - docker-compose run --rm web composer install -o -n
+    - docker-compose run --rm web php bin/console cache:clear -e=test
+    - docker-compose run --rm web vendor/bin/behat ./features/ -f pretty
     - docker-compose stop

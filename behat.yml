@@ -4,14 +4,17 @@ default:
   suites:
     default:
       contexts:
-        - FeatureContext
+        - FeatureContext: { doctrine: "@doctrine", kernel: "@kernel" }
+        - Behatch\Context\DebugContext: ~
+
   extensions:
     Behat\Symfony2Extension:
       kernel:
         env: "test"
-        debug: "true"
+        debug: "false"
     Behat\MinkExtension:
       base_url: "http://localhost/"
       sessions:
         default:
           symfony2: ~
+    Behatch\Extension: ~
