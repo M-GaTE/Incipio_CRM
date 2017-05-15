@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,7 +59,8 @@ class MembreType extends AbstractType
                     array('label' => 'Filiere',
                         'class' => 'Mgate\\PersonneBundle\\Entity\\Filiere',
                         'required' => true, ))
-                ->add('securiteSociale', TextType::class, array('required' => false, 'label' => 'Numéro de sécurité sociale'));
+                ->add('securiteSociale', TextType::class, array('required' => false, 'label' => 'Numéro de sécurité sociale'))
+                ->add('commentaire', TextareaType::class, array('required' => false, 'label' => 'Commentaire libre'));
     }
 
     public function getBlockPrefix()

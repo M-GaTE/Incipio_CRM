@@ -128,6 +128,12 @@ class Membre
     private $securiteSociale;
 
     /**
+     * @var string
+     * @ORM\Column(name="commentaire", type="string", nullable=true, length=500)
+     */
+    private $commentaire;
+
+    /**
      * @ORM\ManyToMany(targetEntity="N7consulting\RhBundle\Entity\Competence", mappedBy="membres", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -575,5 +581,20 @@ class Membre
         $this->securiteSociale = $securiteSociale;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    /**
+     * @param mixed $commentaire
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+    }
 
 }

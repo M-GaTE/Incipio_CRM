@@ -25,7 +25,7 @@ class IndicateursController extends Controller
     const STATE_ID_EN_COURS_X =2;
     const STATE_ID_TERMINEE_X = 4;
 
-    public static $defaultStyle = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
+    const DEFAULT_STYLE = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
 
     /**
      * @Security("has_role('ROLE_CA')")
@@ -131,9 +131,9 @@ class IndicateursController extends Controller
         //customize display
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Retard par Mandat');
-        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => self::DEFAULT_STYLE));
         $ob->yAxis->max(null);
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('Les études ont duré en moyenne {point.y:.2f} % de plus que prévu<br/>avec {point.nombreEtudesAvecAv} jours de retard sur {point.nombreEtudes} jours travaillés');
 
@@ -191,8 +191,8 @@ class IndicateursController extends Controller
         $ob->title->text('Nombre d\'études par mandat');
         $ob->yAxis->max(null);
         $ob->yAxis->allowDecimals(false);
-        $ob->yAxis->title(array('text' => 'Nombre', 'style' => $this::$defaultStyle));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Nombre', 'style' => self::DEFAULT_STYLE));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} études');
 
@@ -332,9 +332,9 @@ class IndicateursController extends Controller
 
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Montant HT des dépenses');
-        $ob->yAxis->title(array('text' => 'Montant (€)', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Montant (€)', 'style' => self::DEFAULT_STYLE));
         $ob->yAxis->max(null);
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} € HT');
 
@@ -445,8 +445,8 @@ class IndicateursController extends Controller
         $ob->yAxis->allowDecimals(false);
         $style = array('color' => '#000000', 'fontWeight' => 'bold', 'fontSize' => '16px');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $this::$defaultStyle));
-        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->xAxis->labels(array('style' => self::DEFAULT_STYLE));
+        $ob->yAxis->labels(array('style' => self::DEFAULT_STYLE));
         $ob->credits->enabled(false);
         $ob->legend->enabled(false);
 
@@ -454,8 +454,8 @@ class IndicateursController extends Controller
          * TEXTS AND LABELS
          */
         $ob->title->text('Nombre de présents aux formations');
-        $ob->yAxis->title(array('text' => 'Nombre de présents', 'style' => $this::$defaultStyle));
-        $ob->xAxis->title(array('text' => 'Date', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Nombre de présents', 'style' => self::DEFAULT_STYLE));
+        $ob->xAxis->title(array('text' => 'Date', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} présent le {point.date}<br />{point.name}');
         $ob->legend->layout('vertical');
@@ -497,9 +497,9 @@ class IndicateursController extends Controller
 
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Nombre de formations théorique par mandat');
-        $ob->yAxis->title(array('text' => 'Nombre de formations', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Nombre de formations', 'style' => self::DEFAULT_STYLE));
         $ob->yAxis->max(null);
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y}');
 
@@ -564,8 +564,8 @@ class IndicateursController extends Controller
 
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Taux d\'avenant par Mandat');
-        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => $this::$defaultStyle));
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Taux (%)', 'style' => self::DEFAULT_STYLE));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y:.2f} %<br/>avec {point.nombreEtudesAvecAv} sur {point.nombreEtudes} études');
 
@@ -725,13 +725,13 @@ class IndicateursController extends Controller
         $ob->yAxis->min(0);
         $ob->yAxis->allowDecimals(false);
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->labels(array('style' => $this::$defaultStyle, 'rotation' => -45));
-        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->xAxis->labels(array('style' => self::DEFAULT_STYLE, 'rotation' => -45));
+        $ob->yAxis->labels(array('style' => self::DEFAULT_STYLE));
         $ob->credits->enabled(false);
 
         $ob->title->text('Nombre de membre');
-        $ob->yAxis->title(array('text' => 'Nombre de membre', 'style' => $this::$defaultStyle));
-        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Nombre de membre', 'style' => self::DEFAULT_STYLE));
+        $ob->xAxis->title(array('text' => 'Promotion', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->shared(true);
         $ob->tooltip->valueSuffix(' cotisants');
 
@@ -772,9 +772,9 @@ class IndicateursController extends Controller
 
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Nombre de membres par Promotion');
-        $ob->yAxis->title(array('text' => 'Nombre de membres', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'Nombre de membres', 'style' => self::DEFAULT_STYLE));
         $ob->yAxis->max(null);
-        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Promotion', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y}');
 
@@ -813,9 +813,9 @@ class IndicateursController extends Controller
 
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Nombre d\'intervenants par Promotion');
-        $ob->yAxis->title(array('text' => "Nombre d'intervenants", 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => "Nombre d'intervenants", 'style' => self::DEFAULT_STYLE));
         $ob->yAxis->max(null);
-        $ob->xAxis->title(array('text' => 'Promotion', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Promotion', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y}');
 
@@ -901,9 +901,9 @@ class IndicateursController extends Controller
 
         $ob->chart->renderTo(__FUNCTION__);
         $ob->title->text('Évolution du chiffre d\'affaires signé cumulé par mandat');
-        $ob->yAxis->title(array('text' => 'CA (€)', 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => 'CA (€)', 'style' => self::DEFAULT_STYLE));
         $ob->yAxis->max(null);
-        $ob->xAxis->title(array('text' => 'Mandat', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Mandat', 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} €<br/>en {point.JEH} JEH<br/>soit {point.moyJEH:.2f} €/JEH');
 
@@ -968,15 +968,15 @@ class IndicateursController extends Controller
         $ob->global->useUTC(false);
 
         $ob->chart->renderTo(__FUNCTION__);  // The #id of the div where to render the chart
-        $ob->xAxis->labels(array('style' => $this::$defaultStyle));
-        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->xAxis->labels(array('style' => self::DEFAULT_STYLE));
+        $ob->yAxis->labels(array('style' => self::DEFAULT_STYLE));
         $ob->title->text('Évolution par mandat du chiffre d\'affaire signé cumulé');
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->title(array('text' => 'Date', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Date', 'style' => self::DEFAULT_STYLE));
         $ob->xAxis->type('datetime');
         $ob->xAxis->dateTimeLabelFormats(array('month' => '%b'));
         $ob->yAxis->min(0);
-        $ob->yAxis->title(array('text' => "Chiffre d'Affaire signé cumulé", 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => "Chiffre d'Affaire signé cumulé", 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->tooltip->pointFormat('{point.y} le {point.date}<br />{point.name} à {point.prix} €');
         $ob->credits->enabled(false);
@@ -1108,15 +1108,15 @@ class IndicateursController extends Controller
         $ob->chart->renderTo('getRh');  // The #id of the div where to render the chart
         ///
         $ob->chart->type('spline');
-        $ob->xAxis->labels(array('style' => $this::$defaultStyle));
-        $ob->yAxis->labels(array('style' => $this::$defaultStyle));
+        $ob->xAxis->labels(array('style' => self::DEFAULT_STYLE));
+        $ob->yAxis->labels(array('style' => self::DEFAULT_STYLE));
         $ob->title->text("Évolution par mandat du nombre d'intervenant");
         $ob->title->style(array('fontWeight' => 'bold', 'fontSize' => '20px'));
-        $ob->xAxis->title(array('text' => 'Date', 'style' => $this::$defaultStyle));
+        $ob->xAxis->title(array('text' => 'Date', 'style' => self::DEFAULT_STYLE));
         $ob->xAxis->type('datetime');
         $ob->xAxis->dateTimeLabelFormats(array('month' => '%b'));
         $ob->yAxis->min(0);
-        $ob->yAxis->title(array('text' => "Nombre d'intervenant", 'style' => $this::$defaultStyle));
+        $ob->yAxis->title(array('text' => "Nombre d'intervenant", 'style' => self::DEFAULT_STYLE));
         $ob->tooltip->headerFormat('<b>{series.name}</b><br />');
         $ob->credits->enabled(false);
         $ob->legend->floating(true);

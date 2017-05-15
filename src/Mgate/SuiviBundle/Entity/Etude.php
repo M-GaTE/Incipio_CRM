@@ -323,7 +323,7 @@ class Etude
     public function getFa()
     {
         foreach ($this->factures as $facture) {
-            if ($facture->getType() == Facture::$TYPE_VENTE_ACCOMPTE) {
+            if ($facture->getType() == Facture::TYPE_VENTE_ACCOMPTE) {
                 return $facture;
             }
         }
@@ -334,7 +334,7 @@ class Etude
     public function getFs()
     {
         foreach ($this->factures as $facture) {
-            if ($facture->getType() == Facture::$TYPE_VENTE_SOLDE) {
+            if ($facture->getType() == Facture::TYPE_VENTE_SOLDE) {
                 return $facture;
             }
         }

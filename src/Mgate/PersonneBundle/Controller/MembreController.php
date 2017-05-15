@@ -130,7 +130,6 @@ class MembreController extends Controller
             $membre->setEmailEMSE($email_etu_service->getEmailEtu($membre));
         }
 
-        $form = $this->createForm(MembreType::class, $membre);
         $deleteForm = $this->createDeleteForm($id);
 
         $mandatsToRemove = $membre->getMandats()->toArray();
@@ -189,6 +188,7 @@ class MembreController extends Controller
                 if (isset($now)) { // Si c'est un nouveau membre et qu'on ajoute un poste
                     $em->persist($membre);
                     $em->flush();
+                    $this->addFlash('success','Membre enregistré');
 
                     return $this->redirect($this->generateUrl('MgatePersonne_membre_modifier', array('id' => $membre->getId())));
                 }
@@ -208,7 +208,7 @@ class MembreController extends Controller
 
                 $em->persist($membre); // persist $etude / $form->getData()
                 $em->flush();
-
+                $this->addFlash('success','Membre enregistré');
                 $form = $this->createForm(MembreType::class, $membre);
             }
         }

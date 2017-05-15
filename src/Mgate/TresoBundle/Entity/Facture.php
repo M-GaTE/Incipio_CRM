@@ -25,11 +25,11 @@ use Mgate\SuiviBundle\Entity\Etude;
  */
 class Facture
 {
-    public static $TYPE_ACHAT = 1;
-    public static $TYPE_VENTE = 2;
-    public static $TYPE_VENTE_ACCOMPTE = 3;
-    public static $TYPE_VENTE_INTERMEDIAIRE = 4;
-    public static $TYPE_VENTE_SOLDE = 5;
+    const TYPE_ACHAT = 1;
+    const TYPE_VENTE = 2;
+    const TYPE_VENTE_ACCOMPTE = 3;
+    const TYPE_VENTE_INTERMEDIAIRE = 4;
+    const TYPE_VENTE_SOLDE = 5;
 
     /**
      * @var int
@@ -117,7 +117,7 @@ class Facture
      */
     public function getDate()
     {
-        return $this->type == self::$TYPE_ACHAT ? $this->dateEmission : $this->dateVersement;
+        return $this->type == self::TYPE_ACHAT ? $this->dateEmission : $this->dateVersement;
     }
 
     public function getReference()
@@ -184,11 +184,11 @@ class Facture
     public static function getTypeChoices()
     {
         return array(
-            self::$TYPE_ACHAT => 'FA - Facture d\'achat',
-            self::$TYPE_VENTE => 'FV - Facture de vente',
-            self::$TYPE_VENTE_ACCOMPTE => 'FV - Facture d\'acompte',
-            self::$TYPE_VENTE_INTERMEDIAIRE => 'FV - Facture intermédiaire',
-            self::$TYPE_VENTE_SOLDE => 'FV - Facture de solde',
+            self::TYPE_ACHAT => 'FA - Facture d\'achat',
+            self::TYPE_VENTE => 'FV - Facture de vente',
+            self::TYPE_VENTE_ACCOMPTE => 'FV - Facture d\'acompte',
+            self::TYPE_VENTE_INTERMEDIAIRE => 'FV - Facture intermédiaire',
+            self::TYPE_VENTE_SOLDE => 'FV - Facture de solde',
             );
     }
 

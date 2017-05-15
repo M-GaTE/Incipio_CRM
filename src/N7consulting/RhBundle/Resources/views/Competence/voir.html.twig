@@ -44,7 +44,7 @@
                 <tbody>
                 {% for dev in devs %}
                     <tr>
-                        <td>{{ dev.personne.Prenom }} {{ dev.personne.Nom }}</td>
+                        <td><a href="{{ path('MgatePersonne_membre_voir', {'id': dev.id}) }}">{{ dev.personne.Prenom }} {{ dev.personne.Nom }}</a></td>
                         <td>{{ dev.personne.email }}</td>
                         <td>{{ dev.personne.mobile }}</td>
                         <td> {{ dev.filiere.nom }}</td>
