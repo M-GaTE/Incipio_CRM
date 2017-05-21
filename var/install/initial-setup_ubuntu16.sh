@@ -23,6 +23,7 @@ cp docker-compose.yml.dist docker-compose.yml
 
 sed -i "s/REPLACE_WITH_YOUR_HOST/$subdomain/g" docker-compose.yml
 sed -i "s/REPLACE_WITH_YOUR_EMAIL/$email/g" docker-compose.yml
+sed -i "s/SYMFONY_ENV: dev/SYMFONY_ENV: prod/g" docker-compose.yml
 
 docker-compose build
 docker-compose up -d
