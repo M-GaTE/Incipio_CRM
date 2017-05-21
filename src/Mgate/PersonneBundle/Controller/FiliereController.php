@@ -97,21 +97,20 @@ class FiliereController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            if ($filiere->getMandats()->count() == 0) { //collection contains no mandats
-                foreach ($filiere->getMandats() as $membre) {
-                    $membre->setPoste(null);
-                }
+            if (count($em->getRepository('MgatePersonneBundle:Membre')->findByFiliere($filiere)) == 0) { //no members uses that filiere
                 $em->remove($filiere);
                 $em->flush();
                 $this->addFlash('success', 'Filiere supprimée avec succès');
 
-                return $this->redirect($this->generateUrl('MgatePersonne_filiere_homepage'));
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             } else {
                 $this->addFlash('danger', 'Impossible de supprimer une filiere ayant des membres.');
 
-                return $this->redirect($this->generateUrl('MgatePersonne_filiere_modifier', array('id' => $filiere->getId())));
+                return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
             }
         }
+        $this->addFlash('danger', 'formulaire invalide');
+        return $this->redirect($this->generateUrl('MgatePersonne_poste_homepage'));
     }
 
     private function createDeleteForm($id)
