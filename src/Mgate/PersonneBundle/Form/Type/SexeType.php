@@ -21,8 +21,8 @@ class SexeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                'M.' => 'Monsieur',
-                'Mme' => 'Madame',
+                'M.' => 'M.',
+                'Mme' => 'Mme',
             ),
         ));
     }
