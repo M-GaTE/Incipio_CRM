@@ -23,6 +23,9 @@ class LoadBaseURSSAFData implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $base = array(
+            2017 => 39.04,
+            2016 => 38.68,
+            2015 => 38.44,
             2014 => 38.12,
             2013 => 37.72,
             2012 => 36.88,
@@ -32,7 +35,7 @@ class LoadBaseURSSAFData implements FixtureInterface
             2008 => 33.76,
             2007 => 33.08,
         );
-        for ($y = 2009; $y < 2015; ++$y) {
+        for ($y = 2009; $y < 2018; ++$y) {
             $baseURSSAF = new BaseURSSAF();
             if (key_exists($y, $base)) {
                 $baseURSSAF->setBaseURSSAF($base[$y])->setDateDebut(new \DateTime("$y-01-01"))->setDateFin(new \DateTime("$y-12-31"));
