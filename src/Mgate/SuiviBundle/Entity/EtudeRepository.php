@@ -24,6 +24,7 @@ class EtudeRepository extends EntityRepository
 {
     public function findByNumero($numero)
     {
+        /*
         $mandat = (int) ($numero / 100);
         $num = $numero % 100;
 
@@ -32,6 +33,11 @@ class EtudeRepository extends EntityRepository
             ->from('MgateSuiviBundle:Etude', 'e')
             ->where("e.mandat = $mandat")
             ->andWhere("e.num = $num");
+        */
+        $qb = $this->_em->createQueryBuilder();
+        $query = $qb->select('e')
+            ->from('MgateSuiviBundle:Etude', 'e')
+            ->where("e.num = $numero");
 
         return $query->getQuery()->getOneOrNullResult();
     }
