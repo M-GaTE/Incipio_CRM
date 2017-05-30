@@ -44,7 +44,7 @@ class DocTypeType extends AbstractType
                 'Accord de confidentialité' => TraitementController::DOCTYPE_ACCORD_CONFIDENTIALITE,
                 'Déclaration étudiant étranger' => TraitementController::DOCTYPE_DECLARATION_ETUDIANT_ETR,
                 'Note de Frais' => TraitementController::DOCTYPE_NOTE_DE_FRAIS,
-                'Bulletin de Versement' => TraitementController::ROOTNAME_BULLETIN_DE_VERSEMENT,
+                'Bulletin de Versement' => TraitementController::DOCTYPE_BULLETIN_DE_VERSEMENT,
             ),
         ))
             ->add('etudiant', Select2EntityType::class, array(

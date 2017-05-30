@@ -38,6 +38,7 @@ class TraitementController extends Controller
     const DOCTYPE_ACCORD_CONFIDENTIALITE = 'AC';
     const DOCTYPE_DECLARATION_ETUDIANT_ETR = 'DEE';
     const DOCTYPE_NOTE_DE_FRAIS = 'NF';
+    const DOCTYPE_BULLETIN_DE_VERSEMENT = 'BV';
 
     const ROOTNAME_ETUDE = 'etude';
     const ROOTNAME_PROCES_VERBAL = 'pvr';
